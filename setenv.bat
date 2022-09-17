@@ -335,8 +335,13 @@ set "__VERSIONS_LINE2=  "
 set __WHERE_ARGS=
 where /q "%JAVA_HOME%\bin:java.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,*" %%i in ('"%JAVA_HOME%\bin\java.exe" -version 2^<^&1 ^| findstr version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% java %%~k,"
+    for /f "tokens=1,2,3,*" %%i in ('"%JAVA_HOME%\bin\java.exe" -version 2^>^&1 ^| findstr version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% java %%~k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:java.exe"
+)
+where /q "%JAVA_HOME%\bin:javac.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,*" %%i in ('"%JAVA_HOME%\bin\javac.exe" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% javac %%~j,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%JAVA_HOME%\bin:javac.exe"
 )
 where /q "%SCALA_HOME%\bin:scalac.bat"
 if %ERRORLEVEL%==0 (
@@ -345,7 +350,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%FLIX_HOME%:flix.jar"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-4,*" %%i in ('call "%JAVA_HOME%\bin\java.exe" -jar "%FLIX_HOME%\flix.jar" --version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% flix %%m,"
+    for /f "tokens=1-4,*" %%i in ('call "%JAVA_HOME%\bin\java.exe" -jar "%FLIX_HOME%\flix.jar" --version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% flix %%m"
 )
 where /q git.exe
 if %ERRORLEVEL%==0 (
@@ -370,7 +375,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo Path associations: 1>&2
-    for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
+    for /f "delims=" %%i in ('subst') do echo %%i
 )
 goto :eof
 

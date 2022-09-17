@@ -27,7 +27,7 @@
             <Keywords name="Keywords1">alias as case def discard else enum false foreach if import instance lawful let match namespace override pub ref static true type with without</Keywords>
             <Keywords name="Keywords2">Bool Float32 Float64 Impure Int16 Int32 IO List String Unit</Keywords>
             <Keywords name="Keywords3">abs println</Keywords>
-            <Keywords name="Keywords4">@Experimental @Space @Time</Keywords>
+            <Keywords name="Keywords4">@Experimental @Internal @Space @Time</Keywords>
             <Keywords name="Keywords5"></Keywords>
             <Keywords name="Keywords6"></Keywords>
             <Keywords name="Keywords7"></Keywords>
