@@ -1,7 +1,7 @@
 /// 
 /// We can inspect the purity of a function argument.
 /// 
-def inspect(f: a -> b & ef): Unit & Impure = 
+def inspect(f: a -> b & ef): Unit \ IO = 
     reifyEff(f) {
         case Pure(g) => println("f is pure")
         case _       => println("f is not pure")
@@ -18,5 +18,5 @@ def map(f: a -> b & ef, l: LazyList[a]): LazyList[b] & ef =
         case _       => mapE(f, l)
     }
 
-def main(): Unit & Impure = 
+def main(): Unit \ IO = 
     println

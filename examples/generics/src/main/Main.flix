@@ -4,6 +4,15 @@ enum Tree[a] {
     case Node(Tree[a], Tree[a])
 }
 
+/// see file flix-0.31.0\main\src\library\Down.flix
+instance Eq[Tree[a]] with Eq[a] {
+    pub def eq(x: Tree[a], y: Tree[a]): Bool = match (x, y) {
+        case (Leaf(x1), Leaf(x2)) => Eq.eq(x1, x2)
+        case (Node(t1), Node(t2)) => Eq.eq(t1, t2)
+        case _ => false
+    }
+}
+
 /// A ToString instance for Tree.
 instance ToString[Tree[a]] with ToString[a] {
     pub def toString(t: Tree[a]): String = match t {

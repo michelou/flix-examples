@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 8px 0 0;;min-width:120px;">
+  <td style="border:0;padding:0 8px 0 0;;min-width:160px;">
     <a href="https://flix.dev/"><img src="../docs/images/flix-logo.png" width="160" alt="Flix project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
@@ -102,9 +102,44 @@ Running 2 tests...
 Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 </pre>
 
-### <span id="fibonacci">Example `fibonacci`</span>
+### <span id="channels">Example `channels`</span>[**&#x25B4;**](#top)
 
-Command [**`build`**](./mutability/build.bat)` -verbose run`generates the target file `target\fibonacci\fibonacci.jar` from the Flix source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and runs the target file :
+Command [**`build`**](./channels/build.bat)` -verbose run` generates the target file `target\channels\channels.jar` from the Flix source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
+Copy 1 Flix source file to directory "target\channels\src\"
+Compile 1 Flix source file
+Create archive file "F:\examples\channels\target\channels\channels.jar"
+Extract Flix runtime from archive file "C:\opt\flix-0.31.0\flix.jar"
+Add Flix runtime to archive file "target\channels\channels.jar"
+Execute Flix program "target\channels\channels.jar"
+1 :: 2 :: 3 :: Nil
+</pre>
+
+> **Note**: The Flix command <code>build-jar</code> does not add the Flix runtime to the generated archive file <code>target\channels\channels.jar</code>, so we need to update it with class files extracted from <code>flix.jar</code> and belonging to package <code>ca.uwaterloo.flix.runtime</code>.<br/>Without that additional step we would get the following runtime error :
+> <pre style="font-size:80%;">
+> <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
+> Copy 1 Flix source file to directory "target\channels\src\"
+> Compile 1 Flix source file
+> Create archive file "F:\examples\channels\target\channels\channels.jar"
+> Execute Flix program "target\channels\channels.jar"
+> Exception in thread "main" java.lang.NoClassDefFoundError: ca/uwaterloo/flix/runtime/interpreter/Channel
+>         at Def%main%.invoke(Unknown Source)
+>         at Cont%Obj.unwind(Cont%Obj)
+>         at Ns.m_main%(Unknown Source)
+>         at Main.main(Main)
+> Caused by: java.lang.ClassNotFoundException: ca.uwaterloo.flix.runtime.interpreter.Channel
+>         at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+>         at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+>         at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:522)
+>         ... 4 more
+> Error: Failed to execute Flix program "target\channels\channels.jar"
+> </pre>
+
+### <span id="fibonacci">Example `fibonacci`</span>[**&#x25B4;**](#top)
+
+Command [**`build`**](./fibonacci/build.bat)` -verbose run` generates the target file `target\fibonacci\fibonacci.jar` from the Flix source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./fibonacci/build.bat">build</a> -verbose run</b>
@@ -131,9 +166,9 @@ Running 1 tests...
 Passed: 1, Failed: 0. Skipped: 0. Elapsed: 5,8ms.
 </pre>
 
-### <span id="mutability">Example `mutability`</span>
+### <span id="mutability">Example `mutability`</span>[**&#x25B4;**](#top)
 
-Command [`build`](./mutability/build.bat)` -debug run`generates the target file `target\mutability\mutability.jar` from the Flix source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
+Command [`build`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the Flix source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./mutability/build.bat">build</a> -debug run</b>
@@ -156,7 +191,7 @@ Command [`build`](./mutability/build.bat)` -debug run`generates the target file 
 
 ### <span id="primes">Example `primes`</span>
 
-Command [`build`](./primes/build.bat)` run`generates the target file `target\primes\primes.jar` from the Flix source file [`src\Main.flix`](./primes/src/Main.flix) and runs the target file :
+Command [`build`](./primes/build.bat)` run`generates the target file `target\primes\primes.jar` from the Flix source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./primes/build.bat">build</a> run</b>
@@ -164,6 +199,18 @@ Using 'primes'
 2 :: 3 :: 5 :: 7 :: 11 :: 13 :: 17 :: 19 :: 23 :: 29 :: Nil
 Using 'primes2'
 2 :: 3 :: 5 :: 7 :: 11 :: 13 :: 17 :: 19 :: 23 :: 29 :: Nil
+</pre>
+
+Command [**`build`**](./primes/build.bat)` -verbose test` generates the target file `target\primes\primes.jar` from the Flix source files [`src\main\Main.flix`](./primes/src/main/Main.flix) and [`src\test\TestMain.flix`](./primes/src/test/TestMain.flix) and runs the tests:
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./primes/build.bat">build</a> test</b>
+Running 2 tests...
+&nbsp;
+   PASS  test01 892,4us
+   PASS  test02 278,4us
+
+Passed: 2, Failed: 0. Skipped: 0. Elapsed: 5,7ms.
 </pre>
 
 <!--=======================================================================-->
