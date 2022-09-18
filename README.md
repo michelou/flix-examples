@@ -15,8 +15,9 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Flix 0.30][flix_downloads] ([*release notes*][flix_relnotes])
+- [Flix 0.31][flix_downloads] ([*release notes*][flix_relnotes])
 - [Git 2.37][git_downloads] ([*release notes*][git_relnotes])
+- [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 
 Optionally one may also install the following software:
 
@@ -25,8 +26,9 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*September 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\flix-0.31.0\  <i>( 35 MB)</i>
-C:\opt\Git-2.37.3\   <i>(289 MB)</i>
+C:\opt\flix-0.31.0\             <i>( 35 MB)</i>
+C:\opt\Git-2.37.3\              <i>(289 MB)</i>
+C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
 </pre>
 
 
@@ -194,5 +196,8 @@ Other than syntax, the two languages are very different:
 [scala3_examples]: https://github.com/michelou/dotty-examples
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
+[temurin_opendjk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-16-bugfixes.html
+[temurin_opendjk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-July/016017.html
+[temurin_opendjk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [wix_examples]: https://github.com/michelou/wix-examples
