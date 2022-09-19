@@ -39,7 +39,9 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 docs\
 examples\{<a href="./examples/README.md">README.md</a>, ..}
-<a href="README.md">README.md</a>
+<a href="BUILD.md">BUILD.md</a>
+<a href="DEPS.md">DEPS.md</a>
+README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
 <a href="setenv.bat">setenv.bat</a>
 </pre>
@@ -48,6 +50,8 @@ where
 
 - directory [**`docs\`**](docs/) contains [Flix] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Flix] code examples.
+- file [**`BUILD.md`**](BUILD.md)
+- file [**`DEPS.md`**](DEPS.md) lists library dependencies of published [Flix] distributions.
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Flix] related documents.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.

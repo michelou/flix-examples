@@ -1,0 +1,3 @@
+[submodule "flix"]
+	path = flix
+	url = https://github.com/flix/flix.git
