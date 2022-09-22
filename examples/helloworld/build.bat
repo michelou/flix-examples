@@ -184,6 +184,7 @@ goto args_loop
 :args_done
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
 set "_MAIN_JAR_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar"
+set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
@@ -392,10 +393,12 @@ goto :eof
 :test_compile
 if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
 
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
+if not exist "%_MAIN_JAR_TEST_FILE%" goto test_next
+
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
 if %_ACTION_REQUIRED%==1 goto test_next
 
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_TEST_DIR%\*.flix"
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_TEST_DIR%\*.flix"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 :test_next
@@ -469,6 +472,7 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 popd
+echo >"%_MAIN_JAR_TEST_FILE%"
 goto :eof
 
 :test

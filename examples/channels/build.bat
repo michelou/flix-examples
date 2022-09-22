@@ -39,6 +39,7 @@ goto end
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
+set _TIMER=0
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -151,7 +152,6 @@ goto :eof
 set _COMMANDS=
 set _HELP=0
 set _NIGHTLY=0
-set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -192,6 +192,7 @@ goto args_loop
 :args_done
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
 set "_MAIN_JAR_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar"
+set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
@@ -204,7 +205,8 @@ if %_NIGHTLY%==1 (
     if defined __NIGHTLY_JAR ( set "_FLIX_JAR=%FLIX_HOME%\!__NIGHTLY_JAR!"
     ) else (
         set _NIGHTLY=0
-        echo Nightly Flix library not found 1>&2
+        echo %_WARNING_LABEL% Nightly build of Flix not found ^(use release version instead^) 1>&2
+        echo          It can be downloaded from https://flix.dev/nightly/. 1>&2
     )
 )
 if %_DEBUG%==1 (
@@ -271,10 +273,8 @@ if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
 call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
 if %_ACTION_REQUIRED%==0 goto :eof
 
-set __SOURCE_FILES=
 set __N=0
 for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.flix" 2^>NUL') do (
-    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
 if %__N%==0 (
@@ -287,7 +287,7 @@ pushd "%_BUILD_DIR%"
 if not exist "%_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
     )
-    call "%_JAVA_CMD%" -jar "%FLIX_HOME%\flix.jar" init
+    call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )
 @rem xcopy must be called AFTER flix init
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
@@ -332,7 +332,7 @@ call :flix_runtime
 goto :eof
 
 :flix_runtime
-set __UNZIP_OPTS=-q
+set __UNZIP_OPTS=-o -q
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" %__UNZIP_OPTS% "%_FLIX_JAR%" "ca/uwaterloo/flix/runtime/**" -d "%_TARGET_DIR%\flix"
 ) else if %_VERBOSE%==1 ( echo Extract Flix runtime from archive file "%_FLIX_JAR%" 1>&2
@@ -429,10 +429,12 @@ goto :eof
 :test_compile
 if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
 
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
+if not exist "%_MAIN_JAR_TEST_FILE%" goto test_next
+
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
 if %_ACTION_REQUIRED%==1 goto test_next
 
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_TEST_DIR%\*.flix"
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_TEST_DIR%\*.flix"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 :test_next
@@ -460,7 +462,7 @@ pushd "%_BUILD_DIR%"
 if not exist "%_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
     )
-    call "%_JAVA_CMD%" -jar "%FLIX_HOME%\flix.jar" init
+    call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )
 @rem xcopy must be called AFTER flix init
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
@@ -507,6 +509,7 @@ if not %ERRORLEVEL%==0 (
 )
 popd
 call :flix_runtime
+if %_EXITCODE%==0 echo >"%_MAIN_JAR_TEST_FILE%"
 goto :eof
 
 :test

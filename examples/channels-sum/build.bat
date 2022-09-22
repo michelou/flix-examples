@@ -39,6 +39,7 @@ goto end
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
+set _TIMER=0
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -151,7 +152,6 @@ goto :eof
 set _COMMANDS=
 set _HELP=0
 set _NIGHTLY=0
-set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -204,7 +204,8 @@ if %_NIGHTLY%==1 (
     if defined __NIGHTLY_JAR ( set "_FLIX_JAR=%FLIX_HOME%\!__NIGHTLY_JAR!"
     ) else (
         set _NIGHTLY=0
-        echo Nightly Flix library not found 1>&2
+        echo %_WARNING_LABEL% Nightly build of Flix not found ^(use release version instead^) 1>&2
+        echo          It can be downloaded from https://flix.dev/nightly/. 1>&2
     )
 )
 if %_DEBUG%==1 (
@@ -287,7 +288,7 @@ pushd "%_BUILD_DIR%"
 if not exist "%_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
     )
-    call "%_JAVA_CMD%" -jar "%FLIX_HOME%\flix.jar" init
+    call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )
 @rem xcopy must be called AFTER flix init
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
@@ -332,7 +333,7 @@ call :flix_runtime
 goto :eof
 
 :flix_runtime
-set __UNZIP_OPTS=-q
+set __UNZIP_OPTS=-o -q
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_UNZIP_CMD%" %__UNZIP_OPTS% "%_FLIX_JAR%" "ca/uwaterloo/flix/runtime/**" -d "%_TARGET_DIR%\flix"
 ) else if %_VERBOSE%==1 ( echo Extract Flix runtime from archive file "%_FLIX_JAR%" 1>&2
@@ -460,7 +461,7 @@ pushd "%_BUILD_DIR%"
 if not exist "%_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
     )
-    call "%_JAVA_CMD%" -jar "%FLIX_HOME%\flix.jar" init
+    call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )
 @rem xcopy must be called AFTER flix init
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
