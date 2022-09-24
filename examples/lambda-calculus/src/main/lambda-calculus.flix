@@ -18,6 +18,16 @@ enum Expression {
     case App(Expression, Expression)
 }
 
+/// see file flix-0.31.0\main\src\library\Down.flix
+instance Eq[Expression] {
+    pub def eq(x: Expression, y: Expression): Bool = match (x, y) {
+        case (Var(x1), Var(x2)) => Eq.eq(x1, x2)
+        case (Abs(v1, e1), Abs(v2, e2)) => Eq.eq(v1, v2) and Eq.eq(e1, e2)
+        case (App(a1, e1), App(a2, e2)) => Eq.eq(a1, a2) and Eq.eq(e1, e2)
+        case _ => false
+    }
+}
+
 /// A ToString instance for Expression.
 instance ToString[Expression] {
     pub def toString(e0: Expression): String = match e0 {
@@ -145,7 +155,7 @@ def alpha(e0: Expression, m: Map[Int32, Int32]): Expression = match e0 {
 ///
 def eval(e0: Expression): Expression =
     let e = step(e0);
-        if (isValue(e)) e else eval(e)
+    if (isValue(e)) e else eval(e)
 
 
 //
@@ -171,4 +181,6 @@ def _testOmega(): Expression = eval(
 /// Returns a fresh variable name.
 /// (Relies on an unsafe and impure built-in Flix function!).
 ///
-def freshVar(): Int32 = ??? // TODO
+def freshVar(): Int32 = // ??? // TODO
+    import static Counter.getNext(): Int32 \ {};
+    getNext()

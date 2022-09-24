@@ -21,7 +21,8 @@ This project depends on the following external software for the **Microsoft Wind
 
 Optionally one may also install the following software:
 
-- [Flix nightly](https://flix.dev/nightly/)
+- [Flix nightly build](https://flix.dev/nightly/)
+- [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 
 For instance our development environment looks as follows (*September 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
@@ -29,6 +30,7 @@ For instance our development environment looks as follows (*September 2022*) <su
 C:\opt\flix-0.31.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.37.3\              <i>(289 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
+C:\opt\scala-2.13.9\            <i>( 24 MB)</i>
 </pre>
 
 
@@ -40,6 +42,7 @@ This project is organized as follows:
 docs\
 examples\{<a href="./examples/README.md">README.md</a>, ..}
 <a href="BUILD.md">BUILD.md</a>
+<a href="CHEATSHEET.md">CHEATSHEET.md</a>
 <a href="DEPS.md">DEPS.md</a>
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
@@ -50,7 +53,8 @@ where
 
 - directory [**`docs\`**](docs/) contains [Flix] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Flix] code examples.
-- file [**`BUILD.md`**](BUILD.md)
+- file [**`BUILD.md`**](BUILD.md) presents the [Flix] build. 
+- file [**`CHEATSHEET.md`**](CHEATSHEET.md) gathers [Flix] language features.
 - file [**`DEPS.md`**](DEPS.md) lists library dependencies of published [Flix] distributions.
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Flix] related documents.
@@ -83,7 +87,7 @@ We distinguish different sets of batch commands:
     &nbsp;
     Options:
       -debug      show commands executed by this script
-      -nightly    use nightly Flix if locally available
+      -nightly    use Flix nightly build if locally available
       -timer      display total elapsed time
       -verbose    display progress messages
     &nbsp;
@@ -103,7 +107,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 11.0.16, javac 11.0.16, scalac 2.13.8, flix v0.31.0
+   java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
    git 2.37.3.windows.1, diff 3.8
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git</b>
@@ -116,12 +120,12 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
-   java 11.0.16, javac 11.0.16, scalac 2.13.8, flix v0.31.0
+   java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
    git 2.37.3.windows.1, diff 3.8
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
-   C:\opt\scala-2.13.8\bin\scalac.bat
+   C:\opt\scala-2.13.9\bin\scalac.bat
    C:\opt\Git-2.37.3\bin\git.exe
    C:\opt\Git-2.37.3\mingw64\bin\git.exe
    C:\opt\Git-2.37.3\usr\bin\diff.exe
@@ -129,7 +133,7 @@ Environment variables:
    "FLIX_HOME=C:\opt\flix-0.31.0"
    "GIT_HOME=C:\opt\Git-2.37.3"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
-   "SCALA_HOME=C:\opt\scala-2.13.8"
+   "SCALA_HOME=C:\opt\scala-2.13.9"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
 </pre>
@@ -146,28 +150,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                          <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-09-17.jar</a>               <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-09-23.jar</a>               <i>( 35 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.37.3-64-bit.7z.exe</a>  <i>( 41 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.9.zip</a>                  <i>( 22 MB)</i>
 </pre>
-</dd></dl>
-
-<span id="footnote_02">[2]</span> ***Flix versus Scala*** [↩](#anchor_02)
-
-<dl><dd>
-Extract from the Flix FAQ :
-<blockquote>
-<p>
-<a href="https://flix.dev/">Flix</a> looks quite similar to <a href="https://www.scala-lang.org/">Scala</a>. How are the two languages related?</p>
-<p>
-Flix borrows a lot of syntax from Scala, hence the two languages have a similar feel. We think Scala made many good design choices with respect to syntax, including:<br/>&ensp;<b>(a)</b> the use of short keywords,<br/>&ensp;<b>(b)</b> the <code>x : T</code> syntax for type annotations,<br/>&ensp;<b>(c)</b> the <code>List[Int32]</code> syntax for type parameters, and<br/>&ensp;<b>(d)</b> <code>if</code>, <code>match</code>, etc. as expressions.
-</p>
-Other than syntax, the two languages are very different:
-<ul>
-<li>Scala is object-oriented, Flix is not.</li>
-<li>Scala has sub-typing, Flix does not.</li>
-<li>The Scala type system is unsound and has imperfect type inference, whereas the Flix type system is both sound and supports type inference.</li>
-</ul>
-</blockquote>
 </dd></dl>
 
 ***
@@ -197,6 +183,8 @@ Other than syntax, the two languages are very different:
 [llvm_examples]: https://github.com/michelou/llvm-examples
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [rust_examples]: https://github.com/michelou/rust-examples
+[scala_download]: https://www.scala-lang.org/download/2.13.9.html
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.9
 [scala3_examples]: https://github.com/michelou/dotty-examples
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples

@@ -8,6 +8,10 @@
   </tr>
 </table>
 
+> **:mag_right:** Useful online resources for the [Flix] developer include :
+> - [Flix API][flix_api]
+> - [Flix Compiler Tests][flix_compiler_tests]
+
 <!--
 ## <span id="articles">Articles</span>
 -->
@@ -34,5 +38,8 @@
 
 [anchor_flix]: https://anchor.fm/happypathprogramming/episodes/54-Flix-Designing-a-principled-programming-language-with-Magnus-Madsen-e1dueb2
 [blog_huehnken]: https://www.reactivesystems.eu/2022/06/24/flix-for-java-programmers.html
+[flix]: https://flix.dev/
+[flix_api]: https://api.flix.dev/
+[flix_compiler_tests]: https://github.com/flix/flix/blob/master/main/test/flix/README.md
 [infoq_flix]: https://www.infoq.com/news/2022/02/flix-programming-language/
 [vscode-flix]: https://github.com/flix/vscode-flix

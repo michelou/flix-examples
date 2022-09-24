@@ -297,7 +297,10 @@ if exist "%_BUILD_DIR%\test\*.flix" (
 )
 set __JAVA_OPTS=
 set __BUILD_OPTS=
-if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=--doc
+if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
+) else if %_VERBOSE%==1 ( set __BUILD_OPTS=--explain
+)
+if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% 1>&2

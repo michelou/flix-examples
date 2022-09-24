@@ -1,7 +1,7 @@
 /// Datalog constraints enriched with lattice semantics is one
 /// of the more advanced features of Flix and requires some
 /// background knowledge of lattice theory and fixpoints.
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     let p = #{
         /// Parts and the components they depend on.
         PartDepends("Car",       "Chassis").
