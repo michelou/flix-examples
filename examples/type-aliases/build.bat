@@ -39,6 +39,7 @@ goto end
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
+set _TIMER=0
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -46,9 +47,9 @@ set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 
 set "_SOURCE_DIR=%_ROOT_DIR%src"
-set "_TEST_DIR=%_ROOT_DIR%test"
+set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main"
+set "_SOURCE_TEST_DIR=%_SOURCE_DIR%\test"
 set "_TARGET_DIR=%_ROOT_DIR%target"
-set "_CLASSES_DIR=%_TARGET_DIR%\classes"
 
 if not exist "%JAVA_HOME%\bin\java.exe" (
     echo %_ERROR_LABEL% Java SDK installation not found 1>&2
@@ -143,7 +144,6 @@ goto :eof
 set _COMMANDS=
 set _HELP=0
 set _NIGHTLY=0
-set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -168,9 +168,10 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
     ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
+    ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! doc
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
-    ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! compile test
+    ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! test_compile test
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
@@ -183,6 +184,7 @@ goto args_loop
 :args_done
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
 set "_MAIN_JAR_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar"
+set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
@@ -195,7 +197,8 @@ if %_NIGHTLY%==1 (
     if defined __NIGHTLY_JAR ( set "_FLIX_JAR=%FLIX_HOME%\!__NIGHTLY_JAR!"
     ) else (
         set _NIGHTLY=0
-        echo Nightly Flix library not found 1>&2
+        echo %_WARNING_LABEL% Nightly build of Flix not found ^(use release version instead^) 1>&2
+        echo          It can be downloaded from https://flix.dev/nightly/. 1>&2
     )
 )
 if %_DEBUG%==1 (
@@ -232,6 +235,7 @@ echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate class files
+echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        display this help message
 echo     %__BEG_O%run%__END%         execute the generated program
 echo     %__BEG_O%test%__END%        execute unit tests
@@ -258,13 +262,11 @@ goto :eof
 :compile
 if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
 
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_DIR%\*.flix"
+call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
 if %_ACTION_REQUIRED%==0 goto :eof
 
-set __SOURCE_FILES=
 set __N=0
-for /f "delims=" %%f in ('dir /s /b "%_SOURCE_DIR%\*.flix" 2^>NUL') do (
-    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.flix" 2^>NUL') do (
     set /a __N+=1
 )
 if %__N%==0 (
@@ -277,25 +279,33 @@ pushd "%_BUILD_DIR%"
 if not exist "%_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
     )
-    call "%_JAVA_CMD%" -jar "%FLIX_HOME%\flix.jar" init
+    call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )
 @rem xcopy must be called AFTER flix init
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
 )
-xcopy /s /y "%_SOURCE_DIR%" "%_BUILD_DIR%\src\" 1>NUL
+xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1>NUL
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to copy %__N_FILES% 1>&2
     set _EXITCODE=1
     goto :eof
 )
+if exist "%_BUILD_DIR%\test\*.flix" (
+    del /q "%_BUILD_DIR%\test\*.flix"
+)
 set __JAVA_OPTS=
+set __BUILD_OPTS=
+if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
+) else if %_VERBOSE%==1 ( set __BUILD_OPTS=--explain
+)
+if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% 1>&2
 )
-call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build
+call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS%
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% 1>&2
@@ -368,19 +378,6 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
-@rem output parameter: _LIBS_CPATH
-:libs_cpath
-for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
-if not exist "%__BATCH_FILE%" (
-    echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
-call "%__BATCH_FILE%" %_DEBUG%
-set "_LIBS_CPATH=%_CPATH%"
-goto :eof
-
 :run
 set __JAVA_OPTS=
 
@@ -397,78 +394,106 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-:compile_test
-if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
+:test_compile
+if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
 
-set "__TIMESTAMP_FILE=%_TEST_CLASSES_DIR%\.latest-build"
+if not exist "%_MAIN_JAR_TEST_FILE%" goto test_next
 
-call :action_required "%__TIMESTAMP_FILE%" "%_SOURCE_DIR%\test\*.flix"
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
+if %_ACTION_REQUIRED%==1 goto test_next
+
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_TEST_DIR%\*.flix"
 if %_ACTION_REQUIRED%==0 goto :eof
 
-call :libs_cpath
-if not %_EXITCODE%==0 goto :eof
-
-set "__OPTS_FILE=%_TARGET_DIR%\flix_test_opts.txt"
-set "__CPATH=%_CPATH%%_CLASSES_DIR%"
-echo -cp "%__CPATH:\=\\%" -d "%_TEST_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
-
-set "__SOURCES_FILE=%_TARGET_DIR%\flix_test_sources.txt"
-if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+:test_next
 set __N=0
-for /f %%i in ('dir /s /b "%_SOURCE_DIR%\test\*.flix" 2^>NUL') do (
-    echo %%i >> "%__SOURCES_FILE%"
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.flix" 2^>NUL') do (
     set /a __N+=1
 )
 if %__N%==0 (
-    echo %_WARNING_LABEL% No Flix test source files found 1>&2
+    echo %_WARNING_LABEL% No Flix source file found 1>&2
     goto :eof
-) else if %__N%==1 ( set __N_FILES=%__N% Flix test source file
-) else ( set __N_FILES=%__N% Flix test source files
+) else if %__N%==1 ( set __N_FILES=%__N% Flix source file
+) else ( set __N_FILES=%__N% Flix source files
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%\=!" 1>&2
+set __N_TEST=0
+for /f "delims=" %%f in ('dir /s /b "%_SOURCE_TEST_DIR%\*.flix" 2^>NUL') do (
+    set /a __N_TEST+=1
 )
-call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+if %__N_TEST%==0 (
+    echo %_WARNING_LABEL% No Flix source file found 1>&2
+    goto :eof
+) else if %__N_TEST%==1 ( set __N_TEST_FILES=%__N_TEST% Flix test source file
+) else ( set __N_TEST_FILES=%__N_TEST% Flix test source files
+)
+pushd "%_BUILD_DIR%"
+if not exist "%_BUILD_DIR%\build" (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
+    )
+    call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
+)
+@rem xcopy must be called AFTER flix init
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
+) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
+)
+xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1>NUL
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%\=!" 1>&2
+    popd
+    echo %_ERROR_LABEL% Failed to copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-echo. > "%__TIMESTAMP_FILE%"
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_TEST_DIR%" "%_BUILD_DIR%\test\" 1^>NUL 1>&2
+) else if %_VERBOSE%==1 ( echo Copy %__N_TEST_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\test\" 1>&2
+)
+xcopy /s /y "%_SOURCE_TEST_DIR%" "%_BUILD_DIR%\test\" 1>NUL
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to copy %__N_TEST_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\test\" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set __JAVA_OPTS=
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% and %__N_TEST_FILES% 1>&2
+)
+call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% and %__N_TEST_FILES% 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar 1>&2
+) else if %_VERBOSE%==1 ( echo Create archive file "%_MAIN_JAR_FILE%" 1>&2
+)
+call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to create archive file "%_MAIN_JAR_FILE%" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+popd
+echo >"%_MAIN_JAR_TEST_FILE%"
 goto :eof
 
 :test
-call :compile_test
-if not %_EXITCODE%==0 goto :eof
+set __JAVA_OPTS=
 
-call :libs_cpath
-if not %_EXITCODE%==0 goto :eof
-
-set __TEST_KOTLIN_OPTS=-classpath "%_CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
-
-@rem see https://github.com/junit-team/junit4/wiki/Getting-started
-for /f "usebackq" %%f in (`dir /s /b "%_TEST_CLASSES_DIR%\*JUnitTest.class" 2^>NUL`) do (
-    call :test_main_class "%%f"
-    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_KOTLIN_CMD%" %__TEST_KOTLIN_OPTS% org.junit.runner.JUnitCore !_TEST_MAIN_CLASS! 1>&2
-    ) else if %_VERBOSE%==1 ( echo Execute test !_TEST_MAIN_CLASS! 1>&2
-    )
-    call "%_KOTLIN_CMD%" %__TEST_KOTLIN_OPTS% org.junit.runner.JUnitCore !_TEST_MAIN_CLASS!
-    if not !ERRORLEVEL!==0 (
-        set _EXITCODE=1
-        goto :eof
-    )
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test 1>&2
+) else if %_VERBOSE%==1 ( echo Execute tests for Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
-goto :eof
-
-@rem input parameter: %1=class file path
-@rem output parameter: _TEST_MAIN_CLASS
-:test_main_class
-for %%i in (%~dp1) do set __PKG_NAME=%%i
-for %%i in (%~n1) do set __CLS_NAME=%%i
-set __PKG_NAME=!__PKG_NAME:%_TEST_CLASSES_DIR%\=!
-if defined __PKG_NAME ( set "_TEST_MAIN_CLASS=!__PKG_NAME:\=.!%__CLS_NAME%"
-) else ( set "_TEST_MAIN_CLASS=%__CLS_NAME%"
+pushd "%_BUILD_DIR%"
+call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to execute tests for Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
+popd
 goto :eof
 
 @rem output parameter: _DURATION

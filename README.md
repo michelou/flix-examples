@@ -21,7 +21,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 Optionally one may also install the following software:
 
-- [Flix nightly build](https://flix.dev/nightly/)
+- [Flix nightly builds](https://flix.dev/nightly/)
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 
 For instance our development environment looks as follows (*September 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
@@ -40,10 +40,10 @@ This project is organized as follows:
 
 <pre style="font-size:80%;">
 docs\
-examples\{<a href="./examples/README.md">README.md</a>, ..}
+examples\{<a href="./examples/README.md">README.md</a>, <a href="./examples/areas/">areas</a>, <a href="./examples/channels/">channels</a>, ..}
 <a href="BUILD.md">BUILD.md</a>
-<a href="CHEATSHEET.md">CHEATSHEET.md</a>
 <a href="DEPS.md">DEPS.md</a>
+<a href="QUICKREF.md">QUICKREF.md</a>
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
 <a href="setenv.bat">setenv.bat</a>

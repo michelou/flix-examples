@@ -116,7 +116,7 @@ The Flix 0.3 software distributions depend on the following external libraries.
 
 ## <span id="flix02_releases">Dependencies in Flix 0.2 Releases</span>
 
-The Flix 0.2 software distribution depends on the following external libraries.
+The Flix 0.2 software distributions depend on the following external libraries.
 
 <table style="font-size:80%;">
 <tr>
@@ -188,6 +188,26 @@ The Flix 0.2 software distribution depends on the following external libraries.
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a></td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library"><code>scala-library</code></a></td>
+  <td style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.9.html"><b>2.13.9</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a></td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect"><code>scala-reflect</code></a></td>
+  <td style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.9.html"><b>2.13.9</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml"><code>scala.xml</code></a></td>

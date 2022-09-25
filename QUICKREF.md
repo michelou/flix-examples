@@ -1,4 +1,4 @@
-# <span id="top">Flix Cheatsheet</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Flix Quick Reference</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -11,23 +11,27 @@
   </tr>
 </table>
 
+[Flix] language features can be split into two categories :
+- *features shared with other languages* : [ADTs] and pattern matching, extensible records, type classes, HKTs, type inference, channel and process-based concurrency (like Go).
+- *unique features* : polymorphic effect system, region-based local mutation, purity reflection and first-class Datalog constraints.
+
 ## <span id="keywords">Keywords</span>
 
-See: [`src\ca\uwaterloo\flix\language\phase\Weeder.scala`](https://github.com/flix/flix/blob/8adacde4dc23ab355850aeeb94f24c17eb30dd0a/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L42).
+GitHub: [`src\ca\uwaterloo\flix\language\phase\Weeder.scala`](https://github.com/flix/flix/blob/8adacde4dc23ab355850aeeb94f24c17eb30dd0a/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L42).
 
-The hyperlink associated with each keyword points to a usage example from the [Flix] library :
+Each keyword below points to a usage example from the [Flix] library :
 
 [`alias`](https://github.com/flix/flix/blob/master/main/src/library/File.flix#L145)
 [`and`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L81)
 `as
 case`
 [`catch`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L101)
-`chan
-choose
-class
-def
-deref
-discard
+[`chan`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel/Ticker.flix#L100)
+[`choose`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L33)
+`class
+def`
+[`deref`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L59)
+`discard
 do
 eff
 else
@@ -42,13 +46,13 @@ from
 get
 if`
 [`import`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L57)
-`inject
-inline
-instance
-into
-lat
-law
-lawful`
+[`inject`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22)
+`inline
+instance`
+[`into`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22)
+[`lat`]()
+[`law`]()
+[`lawful`(https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L22)
 [`lazy`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L430)
 `let
 match
@@ -89,10 +93,10 @@ yield`
 
 ## <span id="predefined">Predefined Types</span>
 
-See: [`src/library/Prelude.flix`](https://github.com/flix/flix/blob/master/main/src/library/Prelude.flix).
+GitHub: [`src/library/Prelude.flix`](https://github.com/flix/flix/blob/master/main/src/library/Prelude.flix).
 
-`Absent
-Bool
+[`Absent`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L21)
+`Bool
 Eff
 Impure
 Nil
@@ -116,7 +120,7 @@ Write`
 
 ## <span id="grammar">Flix Grammar</span> <sup id="anchor_01">[1](#footnote_01)</sup>
 
-See: [`src\ca\uwaterloo\flix\language\phase\Parser.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Parser.scala#L128)
+GitHub: [`src\ca\uwaterloo\flix\language\phase\Parser.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Parser.scala#L128)
 <pre style="font-size:80%;">
 Program       = UsesOrImports { Declaration }
 
@@ -186,7 +190,7 @@ TypeParam   = <i>NVariable</i> [ ':' Kind ].
 
 ## <span id="options">Compiler Options</span>
 
-See: [`test\ca\uwaterloo\flix\TestMain.scala`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/TestMain.scala)
+GitHub: [`test\ca\uwaterloo\flix\TestMain.scala`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/TestMain.scala)
 
 <!--============================================================-->
 
@@ -218,4 +222,5 @@ Other than syntax, the two languages are very different:
 
 <!-- link refs -->
 
+[adts]: https://wiki.haskell.org/Algebraic_data_type
 [flix]: https://flix.dev/
