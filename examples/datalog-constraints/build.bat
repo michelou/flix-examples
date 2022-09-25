@@ -139,7 +139,7 @@ if exist "%__PROPS_FILE%" (
 goto :eof
 
 @rem input parameter: %*
-@rem output parameters: _COMMANDS, _HELP, _TIMER, _VERBOSE
+@rem output parameters: _COMMANDS, _HELP, _NIGHTLY, _TIMER, _VERBOSE
 :args
 set _COMMANDS=
 set _HELP=0
@@ -296,7 +296,10 @@ if exist "%_BUILD_DIR%\test\*.flix" (
 )
 set __JAVA_OPTS=
 set __BUILD_OPTS=
-if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=--doc
+if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
+) else if %_VERBOSE%==1 ( set __BUILD_OPTS=--explain
+)
+if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% 1>&2
@@ -376,7 +379,6 @@ goto :eof
 
 :run
 set __JAVA_OPTS="-Xbootclasspath/a:%SCALA_HOME%\lib\scala-library.jar"
-
 set __MAIN_ARGS=
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_MAIN_JAR_FILE%" %__MAIN_ARGS% 1>&2

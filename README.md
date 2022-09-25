@@ -53,13 +53,12 @@ where
 
 - directory [**`docs\`**](docs/) contains [Flix] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Flix] code examples.
-- file [**`BUILD.md`**](BUILD.md) presents the [Flix] build. 
-- file [**`CHEATSHEET.md`**](CHEATSHEET.md) gathers [Flix] language features.
+- file [**`BUILD.md`**](BUILD.md) presents the [Flix] build.
 - file [**`DEPS.md`**](DEPS.md) lists library dependencies of published [Flix] distributions.
+- file [**`QUICKREF.md`**](QUICKREF.md) gathers [Flix] language features.
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Flix] related documents.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
-
 
 ## <span id="commands">Batch commands</span>
 

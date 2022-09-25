@@ -52,7 +52,7 @@ instance`
 [`into`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22)
 [`lat`]()
 [`law`]()
-[`lawful`(https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L22)
+[`lawful`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L22)
 [`lazy`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L430)
 `let
 match

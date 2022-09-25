@@ -11,10 +11,8 @@
   </tr>
 </table>
 
-> <ins>**Note**</ins> : We can just run the batch file [**`examples\clean.bat`**](./clean.bat) to clean up all project directories (i.e. before updating our Github repository [`flix-examples`](https://github.com/michelou/flix-examples) with local changes).
-
-All Flix projects presented below share the same directory layout as project `areas`, namely :
-1. The clean project directory `areas\` looks as follows :
+Flix projects presented below share the same directory layout as project `areas`, namely :
+1. The project directory `areas\` initially looks as follows :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
@@ -26,7 +24,7 @@ All Flix projects presented below share the same directory layout as project `ar
                 <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
    </pre>
 
-3. Before compilation we create a Flix-managed <sup id="anchor_01">[1](#footnote_01)</sup> subdirectory `target\areas\` using the Flix command `init` <sup id="anchor_02">[2](#footnote_02)</sup> :
+3. Before compilation we run the Flix command `init` <sup id="anchor_02">[2](#footnote_02)</sup> to create a Flix-managed <sup id="anchor_01">[1](#footnote_01)</sup> subdirectory `target\areas\` :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
@@ -45,7 +43,7 @@ All Flix projects presented below share the same directory layout as project `ar
           HISTORY.md, LICENSE.md, README.md
    </pre>
 
-2. During compilation we generate the class files in subdirectory `target\areas\build\` and the target file `target\areas\areas.jar` :
+2. During compilation we run the two [Flix] commands `build` and `build-jar` to generate the class files in subdirectory `target\areas\build\` and the target file `target\areas\areas.jar` :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
@@ -71,9 +69,11 @@ All Flix projects presented below share the same directory layout as project `ar
           HISTORY.md, LICENSE.md, README.md
    </pre>
 
+> <ins>**Note**</ins> : We can just run the batch file [**`examples\clean.bat`**](./clean.bat) to clean up all project directories (i.e. before updating our Github repository [`flix-examples`](https://github.com/michelou/flix-examples) with local changes).
+
 ### <span id="areas">Example `areas`</span>
 
-Command [**`build`**](./areas/build.bat)` -verbose run` generates the target file `target\areas\areas.jar` from the Flix source file [`src\main\Main.flix`](./areas/src/main/Main.flix) and runs the target file :
+Command [**`build -verbose run`**](./areas/build.bat) generates the target file `target\areas\areas.jar` from the Flix source file [`src\main\Main.flix`](./areas/src/main/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose run</b>
@@ -85,7 +85,7 @@ Execute Flix program "target\areas\areas.jar"
 2 :: 6 :: Nil
 </pre>
 
-Command [**`build`**](./areas/build.bat)` -verbose test` generates the target file `target\areas\areas.jar` from the Flix source files [`src\main\Main.flix`](./areas/src/main/Main.flix) and [`src\test\TestMain.flix`](./areas/src/test/TestMain.flix) and runs the tests:
+Command [**`build -verbose test`**](./areas/build.bat) generates the target file `target\areas\areas.jar` from the Flix source files [`src\main\Main.flix`](./areas/src/main/Main.flix) and [`src\test\TestMain.flix`](./areas/src/test/TestMain.flix) and runs the tests:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose test</b>
@@ -137,9 +137,52 @@ Execute Flix program "target\channels\channels.jar"
 > Error: Failed to execute Flix program "target\channels\channels.jar"
 > </pre>
 
+### <span id="datalog_constraints">Examples `datalog-constraints`</span>[**&#x25B4;**](#top)
+
+Command [**`build`**](./datalog-constraints/build.bat)` -verbose run` generates the target file `target\datalog-constraints\datalog-constraints.jar` from the [Flix] source file [`src\main\Main.flix`](./datalog-constraints/src/main/Main.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./datalog-constraints/build.bat">build</a> -verbose run</b>
+Copy 1 Flix source file to directory "target\datalog-constraints\src\"
+Compile 1 Flix source file
+Create archive file "F:\examples\datalog-constraints\target\datalog-constraints\datalog-constraints.jar"
+Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
+(C++, x86) :: (MiniScala, C++) :: (MiniScala, x86) :: (Scala, C++) :: (Scala, MiniScala) :: (Scala, x86) :: Nil
+</pre>
+
+> **Note**: At execution time we need to specify the JVM options `-Xbootclasspath/a:%SCALA_HOME%\lib\scala-library.jar` in order to avoid the following runtime error :
+> <pre style="font-size:80%;">
+> <b>&gt; build -verbose run</b>
+> Copy 1 Flix source file to directory "target\datalog-constraints\src\"
+> Compile 1 Flix source file
+> Create archive file "F:\examples\datalog-constraints\target\datalog-constraints\datalog-constraints.jar"
+> Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
+> Exception in thread "main" java.lang.NoClassDefFoundError: scala/math/package$
+>         at RedBlackTree.Def%useParallelEvaluation%179199.invoke(Unknown Source)
+>         at Cont%Bool.unwind(Cont%Bool)
+>         at Fixpoint.Clo%compile%193441.invoke(Unknown Source)
+>         at Cont%Obj.unwind(Cont%Obj)
+>         at RedBlackTree.Def%foreach%178505.invoke(Unknown Source)
+>         at Cont%Obj.unwind(Cont%Obj)
+>         at Fixpoint.Clo%solveWithStratification%193157.invoke(Unknown Source)
+>         at Cont%Obj.unwind(Cont%Obj)
+>         at Fixpoint.Clo%solve%193129.invoke(Unknown Source)
+>         at Cont%Obj.unwind(Cont%Obj)
+>         at Def%main%.invoke(Unknown Source)
+>         at Cont%Obj.unwind(Cont%Obj)
+>         at Ns.m_main%(Unknown Source)
+>         at Main.main(Main)
+> Caused by: java.lang.ClassNotFoundException: scala.math.package$
+>         at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+>         at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+>         at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:522)
+>         ... 14 more
+> Error: Failed to execute Flix program "target\datalog-constraints\datalog-constraints.jar"
+> </pre>
+
 ### <span id="fibonacci">Example `fibonacci`</span>[**&#x25B4;**](#top)
 
-Command [**`build`**](./fibonacci/build.bat)` -verbose run` generates the target file `target\fibonacci\fibonacci.jar` from the Flix source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and runs the target file :
+Command [**`build -verbose run`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./fibonacci/build.bat">build</a> -verbose run</b>
@@ -171,7 +214,7 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 5,8ms.
 Command [`build`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the Flix source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./mutability/build.bat">build</a> -debug run</b>
+<b>&gt; <a href="./mutability/build.bat">build -debug run</a></b>
 [build] Properties : _PROJECT_NAME=mutability _PROJECT_VERSION=1.0-SNAPSHOT
 [build] Options    : _NIGHTLY=0 _TIMER=0 _VERBOSE=0
 [build] Subcommands: _COMMANDS= compile run
@@ -191,7 +234,7 @@ Command [`build`](./mutability/build.bat)` -debug run` generates the target file
 
 ### <span id="primes">Example `primes`</span>
 
-Command [`build`](./primes/build.bat)` run`generates the target file `target\primes\primes.jar` from the Flix source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and runs the target file :
+Command [`build run`](./primes/build.bat) generates the target file `target\primes\primes.jar` from the Flix source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./primes/build.bat">build</a> run</b>
@@ -295,3 +338,5 @@ The following options are experimental:
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
+
+[flix]: https://flix.dev/
