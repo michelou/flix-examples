@@ -32,7 +32,7 @@ goto end
 @rem ## Subroutine
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _FLIX_JAR
+@rem                    _JAVA_CMD, _FLIX_JAR
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
@@ -54,7 +54,6 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
     goto :eof
 )
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
-set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 
 if not exist "%FLIX_HOME%\flix.jar" (
     echo %_ERROR_LABEL% Flix library not found 1>&2
@@ -154,6 +153,8 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
 set "_MAIN_JAR_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar"
 set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
@@ -351,7 +352,11 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 goto :eof
 
 :run
-set __JAVA_OPTS=
+set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
+for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
+    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+)
+set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
 
 set __MAIN_ARGS=
 
@@ -393,7 +398,7 @@ for /f "delims=" %%f in ('dir /s /b "%_SOURCE_TEST_DIR%\*.flix" 2^>NUL') do (
     set /a __N_TEST+=1
 )
 if %__N_TEST%==0 (
-    echo %_WARNING_LABEL% No Flix source file found 1>&2
+    echo %_WARNING_LABEL% No Flix test source file found 1>&2
     goto :eof
 ) else if %__N_TEST%==1 ( set __N_TEST_FILES=%__N_TEST% Flix test source file
 ) else ( set __N_TEST_FILES=%__N_TEST% Flix test source files
@@ -452,7 +457,11 @@ echo >"%_MAIN_JAR_TEST_FILE%"
 goto :eof
 
 :test
-set __JAVA_OPTS=
+set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
+for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
+    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+)
+set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute tests for Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2

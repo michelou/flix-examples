@@ -12,9 +12,6 @@ set _EXITCODE=0
 call :env
 if not %_EXITCODE%==0 goto end
 
-call :props
-if not %_EXITCODE%==0 goto end
-
 call :args %*
 if not %_EXITCODE%==0 goto end
 
@@ -35,7 +32,7 @@ goto end
 @rem ## Subroutine
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _FLIX_JAR
+@rem                    _UNZIP_CMD, _JAR_CMD, _JAVA_CMD, _FLIX_JAR
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
@@ -63,9 +60,8 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
     set _EXITCODE=1
     goto :eof
 )
-set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
-set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
+set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 
 if not exist "%FLIX_HOME%\flix.jar" (
     echo %_ERROR_LABEL% Flix library not found 1>&2
@@ -121,31 +117,6 @@ set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
 goto :eof
 
-@rem _PROJECT_NAME, _PROJECT_URL, _PROJECT_VERSION
-:props
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
-set _PROJECT_URL=github.com/%USERNAME%/flix-examples
-set _PROJECT_VERSION=1.0-SNAPSHOT
-
-set "__PROPS_FILE=%_ROOT_DIR%build.properties"
-if exist "%__PROPS_FILE%" (
-    for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
-        set __NAME=
-        set __VALUE=
-        for /f "delims= " %%n in ("%%i") do set __NAME=%%n
-        @rem line comments start with "#"
-        if defined __NAME if not "!__NAME:~0,1!"=="#" (
-            @rem trim value
-            for /f "tokens=*" %%v in ("%%~j") do set __VALUE=%%v
-            set "_!__NAME:.=_!=!__VALUE!"
-        )
-    )
-    if defined _project_name set _PROJECT_NAME=!_project_name!
-    if defined _project_url set _PROJECT_URL=!_project_url!
-    if defined _project_version set _PROJECT_VERSION=!_project_version!
-)
-goto :eof
-
 @rem input parameter: %*
 @rem output parameters: _COMMANDS, _HELP, _TIMER, _VERBOSE
 :args
@@ -190,8 +161,11 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
 set "_MAIN_JAR_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar"
+set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
@@ -272,10 +246,8 @@ if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
 call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
 if %_ACTION_REQUIRED%==0 goto :eof
 
-set __SOURCE_FILES=
 set __N=0
 for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.flix" 2^>NUL') do (
-    set __SOURCE_FILES=!__SOURCE_FILES! "%%f"
     set /a __N+=1
 )
 if %__N%==0 (
@@ -415,7 +387,11 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 goto :eof
 
 :run
-set __JAVA_OPTS=
+set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
+for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar"') do (
+    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+)
+set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
 
 set __MAIN_ARGS=
 
@@ -433,10 +409,12 @@ goto :eof
 :test_compile
 if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
 
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
+if not exist "%_MAIN_JAR_TEST_FILE%" goto test_next
+
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
 if %_ACTION_REQUIRED%==1 goto test_next
 
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_TEST_DIR%\*.flix"
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_TEST_DIR%\*.flix"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 :test_next
@@ -511,10 +489,15 @@ if not %ERRORLEVEL%==0 (
 )
 popd
 call :flix_runtime
+if %_EXITCODE%==0 echo >"%_MAIN_JAR_TEST_FILE%"
 goto :eof
 
 :test
-set __JAVA_OPTS=
+set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
+for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar"') do (
+    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+)
+set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute tests for Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2

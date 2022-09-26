@@ -12,9 +12,6 @@ set _EXITCODE=0
 call :env
 if not %_EXITCODE%==0 goto end
 
-call :props
-if not %_EXITCODE%==0 goto end
-
 call :args %*
 if not %_EXITCODE%==0 goto end
 
@@ -35,10 +32,11 @@ goto end
 @rem ## Subroutine
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _FLIX_JAR
+@rem                    _JAVA_CMD, _FLIX_JAR
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
+set _TIMER=0
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -56,7 +54,6 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
     goto :eof
 )
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
-set "_JAVAC_CMD=%JAVA_HOME%\bin\javac.exe"
 
 if not exist "%FLIX_HOME%\flix.jar" (
     echo %_ERROR_LABEL% Flix library not found 1>&2
@@ -112,38 +109,12 @@ set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
 goto :eof
 
-@rem _PROJECT_NAME, _PROJECT_URL, _PROJECT_VERSION
-:props
-for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
-set _PROJECT_URL=github.com/%USERNAME%/flix-examples
-set _PROJECT_VERSION=1.0-SNAPSHOT
-
-set "__PROPS_FILE=%_ROOT_DIR%build.properties"
-if exist "%__PROPS_FILE%" (
-    for /f "tokens=1,* delims==" %%i in (%__PROPS_FILE%) do (
-        set __NAME=
-        set __VALUE=
-        for /f "delims= " %%n in ("%%i") do set __NAME=%%n
-        @rem line comments start with "#"
-        if defined __NAME if not "!__NAME:~0,1!"=="#" (
-            @rem trim value
-            for /f "tokens=*" %%v in ("%%~j") do set __VALUE=%%v
-            set "_!__NAME:.=_!=!__VALUE!"
-        )
-    )
-    if defined _project_name set _PROJECT_NAME=!_project_name!
-    if defined _project_url set _PROJECT_URL=!_project_url!
-    if defined _project_version set _PROJECT_VERSION=!_project_version!
-)
-goto :eof
-
 @rem input parameter: %*
 @rem output parameters: _COMMANDS, _HELP, _TIMER, _VERBOSE
 :args
 set _COMMANDS=
 set _HELP=0
 set _NIGHTLY=0
-set _TIMER=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -182,8 +153,11 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
+for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
+
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
 set "_MAIN_JAR_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar"
+set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
@@ -196,7 +170,8 @@ if %_NIGHTLY%==1 (
     if defined __NIGHTLY_JAR ( set "_FLIX_JAR=%FLIX_HOME%\!__NIGHTLY_JAR!"
     ) else (
         set _NIGHTLY=0
-        echo Nightly Flix library not found 1>&2
+        echo %_WARNING_LABEL% Nightly build of Flix not found ^(use release version instead^) 1>&2
+        echo          It can be downloaded from https://flix.dev/nightly/. 1>&2
     )
 )
 if %_DEBUG%==1 (
@@ -295,7 +270,10 @@ if exist "%_BUILD_DIR%\test\*.flix" (
 )
 set __JAVA_OPTS=
 set __BUILD_OPTS=
-if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=--doc
+if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
+) else if %_VERBOSE%==1 ( set __BUILD_OPTS=--explain
+)
+if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% 1>&2
@@ -374,7 +352,11 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 goto :eof
 
 :run
-set __JAVA_OPTS=
+set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
+for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
+    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+)
+set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
 
 set __MAIN_ARGS=
 
@@ -392,10 +374,12 @@ goto :eof
 :test_compile
 if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
 
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
+if not exist "%_MAIN_JAR_TEST_FILE%" goto test_next
+
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
 if %_ACTION_REQUIRED%==1 goto test_next
 
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_TEST_DIR%\*.flix"
+call :action_required "%_MAIN_JAR_TEST_FILE%" "%_SOURCE_TEST_DIR%\*.flix"
 if %_ACTION_REQUIRED%==0 goto :eof
 
 :test_next
@@ -414,7 +398,7 @@ for /f "delims=" %%f in ('dir /s /b "%_SOURCE_TEST_DIR%\*.flix" 2^>NUL') do (
     set /a __N_TEST+=1
 )
 if %__N_TEST%==0 (
-    echo %_WARNING_LABEL% No Flix source file found 1>&2
+    echo %_WARNING_LABEL% No Flix test source file found 1>&2
     goto :eof
 ) else if %__N_TEST%==1 ( set __N_TEST_FILES=%__N_TEST% Flix test source file
 ) else ( set __N_TEST_FILES=%__N_TEST% Flix test source files
@@ -423,7 +407,7 @@ pushd "%_BUILD_DIR%"
 if not exist "%_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
     )
-    call "%_JAVA_CMD%" -jar "%FLIX_HOME%\flix.jar" init
+    call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )
 @rem xcopy must be called AFTER flix init
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
@@ -469,10 +453,15 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 popd
+echo >"%_MAIN_JAR_TEST_FILE%"
 goto :eof
 
 :test
-set __JAVA_OPTS=
+set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
+for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
+    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+)
+set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute tests for Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2

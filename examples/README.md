@@ -24,7 +24,7 @@ Flix projects presented below share the same directory layout as project `areas`
                 <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
    </pre>
 
-3. Before compilation we run the Flix command `init` <sup id="anchor_02">[2](#footnote_02)</sup> to create a Flix-managed <sup id="anchor_01">[1](#footnote_01)</sup> subdirectory `target\areas\` :
+3. Before compilation we run the Flix command `init` <sup id="anchor_01">[1](#footnote_01)</sup> to create a Flix-managed <sup id="anchor_02">[2](#footnote_02)</sup> subdirectory `target\areas\` and we copy the [Flix] source files from the `src\main\` and `src\test\` directories :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
@@ -40,10 +40,10 @@ Flix projects presented below share the same directory layout as project `areas`
            +---lib
            +---src\Main.flix       <i>(copied from src\main\)</i>
            \---test\TestMain.flix  <i>(copied from src\test\)</i>
-          HISTORY.md, LICENSE.md, README.md
+          HISTORY.md, LICENSE.md, README.md  <i>(generated placeholders)</i>
    </pre>
 
-2. During compilation we run the two [Flix] commands `build` and `build-jar` to generate the class files in subdirectory `target\areas\build\` and the target file `target\areas\areas.jar` :
+2. During compilation we run the two [Flix] commands `build` <sup id="anchor_01">[1](#footnote_01)</sup> and `build-jar` to generate the class files in subdirectory `target\areas\build\` and the target file `target\areas\areas.jar` :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
@@ -104,7 +104,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 
 ### <span id="channels">Example `channels`</span>[**&#x25B4;**](#top)
 
-Command [**`build`**](./channels/build.bat)` -verbose run` generates the target file `target\channels\channels.jar` from the Flix source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and runs the target file :
+Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the Flix source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
@@ -150,7 +150,7 @@ Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 (C++, x86) :: (MiniScala, C++) :: (MiniScala, x86) :: (Scala, C++) :: (Scala, MiniScala) :: (Scala, x86) :: Nil
 </pre>
 
-> **Note**: At execution time we need to specify the JVM options `-Xbootclasspath/a:%SCALA_HOME%\lib\scala-library.jar` in order to avoid the following runtime error :
+> **Note**: We need to specify the JVM option [`-Xbootclasspath/a:%SCALA_HOME%\lib\scala-library.jar`](https://docs.oracle.com/cd/E15289_01/JRCLR/optionx.htm#i1021218) at execution time in order to avoid the following runtime error :
 > <pre style="font-size:80%;">
 > <b>&gt; build -verbose run</b>
 > Copy 1 Flix source file to directory "target\datalog-constraints\src\"
@@ -178,6 +178,11 @@ Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 >         at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:522)
 >         ... 14 more
 > Error: Failed to execute Flix program "target\datalog-constraints\datalog-constraints.jar"
+> </pre>
+> The command line looks as follows (or run command `build run` with option ` -debug` to get it printed out in the console) :
+> <pre style="font-size:80%;">
+> "%JAVA_HOME%\bin\java.exe" "-Xbootclasspath/a:%SCALA_HOME%\lib\scala-library.jar" -jar "F:\examples\datalog-constraints\target\datalog-constraints\datalog-constraints.jar"
+> (C++, x86) :: (MiniScala, C++) :: (MiniScala, x86) :: (Scala, C++) :: (Scala, MiniScala) :: (Scala, x86) :: Nil
 > </pre>
 
 ### <span id="fibonacci">Example `fibonacci`</span>[**&#x25B4;**](#top)
@@ -260,13 +265,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 5,7ms.
 
 ## <span id="footnotes">Footnotes</span>[**&#x25B4;**](#top)
 
-<span id="footnote_01">[1]</span> ***Flix-managed project directory*** [↩](#anchor_01)
-
-<dl><dd>
-Flix project directories must have a special layout enforced by the Flix command <code>init</code>. In particular the documentation files <code>HISTORY.md</code>, <code>LICENSED.md</code> and <code>README.md</code> must exist inside the project directory in order to run the Flix commands <code>build</code>, <code>build-jar</code>, etc.
-</dd></dl>
-
-<span id="footnote_02">[3]</span> ***Flix commands*** [↩](#anchor_02)
+<span id="footnote_01">[1]</span> ***Flix commands*** [↩](#anchor_01)
 
 <dl><dd>
 We give option <code><b>--help</b></code> to display the Flix commands :
@@ -328,8 +327,14 @@ The following options are experimental:
   --Xno-set-effects        [exp.] disable set effects
   --Xno-bool-effects       [exp.] disable bool effects
 &nbsp;
-  &lt;file...                 input Flix source code files, Flix packages, and Java archives.
+  &lt;file&gt;...                input Flix source code files, Flix packages, and Java archives.
 </pre>
+</dd></dl>
+
+<span id="footnote_02">[2]</span> ***Flix-managed project directory*** [↩](#anchor_02)
+
+<dl><dd>
+Flix project directories must have a special layout enforced by the Flix command <code>init</code>. In particular the documentation files <code>HISTORY.md</code>, <code>LICENSED.md</code> and <code>README.md</code> must exist inside the project directory in order to run the Flix commands <code>build</code>, <code>build-jar</code>, etc.
 </dd></dl>
 
 ***
