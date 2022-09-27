@@ -36,7 +36,6 @@ goto end
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
-set _TIMER=0
 
 call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
@@ -110,7 +109,7 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
-@rem output parameters: _COMMANDS, _HELP, _TIMER, _VERBOSE
+@rem output parameters: _COMMANDS, _HELP, _NIGHTLY, _VERBOSE
 :args
 set _COMMANDS=
 set _HELP=0
@@ -128,7 +127,6 @@ if "%__ARG:~0,1%"=="-" (
     if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-nightly" ( set _NIGHTLY=1
-    ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -175,14 +173,13 @@ if %_NIGHTLY%==1 (
     )
 )
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% _PROJECT_VERSION=%_PROJECT_VERSION% 1>&2
-    echo %_DEBUG_LABEL% Options    : _NIGHTLY=%_NIGHTLY% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
+    echo %_DEBUG_LABEL% Options    : _NIGHTLY=%_NIGHTLY% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _COMMANDS=%_COMMANDS% 1>&2
     echo %_DEBUG_LABEL% Variables  : "FLIX_HOME=%FLIX_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
 )
-if %_TIMER%==1 for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set _TIMER_START=%%i
 goto :eof
 
 :help
@@ -202,7 +199,6 @@ echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      show commands executed by this script
 echo     %__BEG_O%-nightly%__END%    use nightly Flix if locally available
-echo     %__BEG_O%-timer%__END%      display total elapsed time
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -286,12 +282,12 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar 1>&2
-) else if %_VERBOSE%==1 ( echo Create archive file "%_MAIN_JAR_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to create archive file "%_MAIN_JAR_FILE%" 1>&2
+    echo %_ERROR_LABEL% Failed to create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -431,11 +427,14 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 set __JAVA_OPTS=
-
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build 1>&2
+set __BUILD_OPTS=
+if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
+) else if %_VERBOSE%==1 ( set __BUILD_OPTS=--explain
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% and %__N_TEST_FILES% 1>&2
 )
-call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build
+call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS%
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% and %__N_TEST_FILES% 1>&2
@@ -443,12 +442,12 @@ if not %ERRORLEVEL%==0 (
     goto :eof
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar 1>&2
-) else if %_VERBOSE%==1 ( echo Create archive file "%_MAIN_JAR_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to create archive file "%_MAIN_JAR_FILE%" 1>&2
+    echo %_ERROR_LABEL% Failed to create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -477,23 +476,10 @@ if not %ERRORLEVEL%==0 (
 popd
 goto :eof
 
-@rem output parameter: _DURATION
-:duration
-set __START=%~1
-set __END=%~2
-
-for /f "delims=" %%i in ('powershell -c "$interval = New-TimeSpan -Start '%__START%' -End '%__END%'; Write-Host $interval"') do set _DURATION=%%i
-goto :eof
-
 @rem #########################################################################
 @rem ## Cleanups
 
 :end
-if %_TIMER%==1 (
-    for /f "delims=" %%i in ('powershell -c "(Get-Date)"') do set __TIMER_END=%%i
-    call :duration "%_TIMER_START%" "!__TIMER_END!"
-    echo Total execution time: !_DURATION! 1>&2
-)
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
 endlocal

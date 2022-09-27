@@ -6,7 +6,7 @@
     <a href="https://flix.dev/"><img src="../docs/images/flix-logo.png" width="160" alt="Flix project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    Directory <strong><code>examples\</code></strong> contains <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites - mostly from the <a href="https://flix.dev/" rel="external">Flix project</a>.
+    Directory <strong><code>examples\</code></strong> contains <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites - mostly from the <a href="https://flix.dev/" rel="external">Flix</a> project.
   </td>
   </tr>
 </table>
@@ -43,7 +43,7 @@ Flix projects presented below share the same directory layout as project `areas`
           HISTORY.md, LICENSE.md, README.md  <i>(generated placeholders)</i>
    </pre>
 
-2. During compilation we run the two [Flix] commands `build` <sup id="anchor_01">[1](#footnote_01)</sup> and `build-jar` to generate the class files in subdirectory `target\areas\build\` and the target file `target\areas\areas.jar` :
+2. During compilation we run the two [Flix] commands `build` <sup id="anchor_01">[1](#footnote_01)</sup> and `build-jar` to successively generate class files in subdirectory `target\areas\build\` and the target file `target\areas\areas.jar` :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
@@ -79,7 +79,7 @@ Command [**`build -verbose run`**](./areas/build.bat) generates the target file 
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose run</b>
 Copy 1 Flix source file to directory "target\areas\src\"
 Compile 1 Flix source file
-Create archive file "F:\examples\areas\target\areas\areas.jar"
+Create archive file "target\areas\areas.jar"
 Execute Flix program "target\areas\areas.jar"
 2 :: 6 :: Nil
 2 :: 6 :: Nil
@@ -92,7 +92,7 @@ Command [**`build -verbose test`**](./areas/build.bat) generates the target file
 Copy 1 Flix source file to directory "target\areas\src\"
 Copy 1 Flix test source file to directory "target\areas\test\"
 Compile 1 Flix source file and 1 Flix test source file
-Create archive file "F:\examples\areas\target\areas\areas.jar"
+Create archive file "target\areas\areas.jar"
 Execute tests for Flix program "target\areas\areas.jar"
 Running 2 tests...
 &nbsp;
@@ -110,7 +110,7 @@ Command [**`build -verbose run`**](./channels/build.bat) generates the target fi
 <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
 Copy 1 Flix source file to directory "target\channels\src\"
 Compile 1 Flix source file
-Create archive file "F:\examples\channels\target\channels\channels.jar"
+Create archive file "target\channels\channels.jar"
 Extract Flix runtime from archive file "C:\opt\flix-0.31.0\flix.jar"
 Add Flix runtime to archive file "target\channels\channels.jar"
 Execute Flix program "target\channels\channels.jar"
@@ -122,7 +122,7 @@ Execute Flix program "target\channels\channels.jar"
 > <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
 > Copy 1 Flix source file to directory "target\channels\src\"
 > Compile 1 Flix source file
-> Create archive file "F:\examples\channels\target\channels\channels.jar"
+> Create archive file "target\channels\channels.jar"
 > Execute Flix program "target\channels\channels.jar"
 > Exception in thread "main" java.lang.NoClassDefFoundError: ca/uwaterloo/flix/runtime/interpreter/Channel
 >         at Def%main%.invoke(Unknown Source)
@@ -145,7 +145,7 @@ Command [**`build`**](./datalog-constraints/build.bat)` -verbose run` generates 
 <b>&gt; <a href="./datalog-constraints/build.bat">build</a> -verbose run</b>
 Copy 1 Flix source file to directory "target\datalog-constraints\src\"
 Compile 1 Flix source file
-Create archive file "F:\examples\datalog-constraints\target\datalog-constraints\datalog-constraints.jar"
+Create archive file "target\datalog-constraints\datalog-constraints.jar"
 Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 (C++, x86) :: (MiniScala, C++) :: (MiniScala, x86) :: (Scala, C++) :: (Scala, MiniScala) :: (Scala, x86) :: Nil
 </pre>
@@ -155,7 +155,7 @@ Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 > <b>&gt; build -verbose run</b>
 > Copy 1 Flix source file to directory "target\datalog-constraints\src\"
 > Compile 1 Flix source file
-> Create archive file "F:\examples\datalog-constraints\target\datalog-constraints\datalog-constraints.jar"
+> Create archive file "target\datalog-constraints\datalog-constraints.jar"
 > Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 > Exception in thread "main" java.lang.NoClassDefFoundError: scala/math/package$
 >         at RedBlackTree.Def%useParallelEvaluation%179199.invoke(Unknown Source)
@@ -193,19 +193,19 @@ Command [**`build -verbose run`**](./fibonacci/build.bat) generates the target f
 <b>&gt; <a href="./fibonacci/build.bat">build</a> -verbose run</b>
 Copy 1 Flix source file to directory "target\fibonacci\src\"
 Compile 1 Flix source file
-Create archive file "F:\examples\fibonacci\target\fibonacci\fibonacci.jar"
+Create archive file "target\fibonacci\fibonacci.jar"
 Execute Flix program "target\fibonacci\fibonacci.jar"
 0 :: 1 :: 1 :: 2 :: 3 :: 5 :: 8 :: 13 :: 21 :: 34 :: Nil
 </pre>
 
-Command [**`build`**](./fibonacci/build.bat)` -verbose test` generates the target file `target\fibonacci\fibonacci.jar` from the Flix source files [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and [`src\test\TestMain.flix`](./fibonacci/src/test/TestMain.flix) and runs the tests:
+Command [**`build -verbose test`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the Flix source files [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and [`src\test\TestMain.flix`](./fibonacci/src/test/TestMain.flix) and runs the tests:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./fibonacci/build.bat">build</a> -verbose test</b>
 Copy 1 Flix source file to directory "target\fibonacci\src\"
 Copy 1 Flix test source file to directory "target\fibonacci\test\"
 Compile 1 Flix source file and 1 Flix test source file
-Create archive file "F:\examples\fibonacci\target\fibonacci\fibonacci.jar"
+Create archive file "target\fibonacci\fibonacci.jar"
 Execute tests for Flix program "target\fibonacci\fibonacci.jar"
 Running 1 tests...
 
@@ -214,17 +214,64 @@ Running 1 tests...
 Passed: 1, Failed: 0. Skipped: 0. Elapsed: 5,8ms.
 </pre>
 
+### <span id="lambda">Example `lambda-calculus`</span>
+
+This code example is slightly more complex than the other examples presented on this page because it contains a Scala source file.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+F:\EXAMPLES\LAMBDA-CALCULUS
+|   <a href="./lambda-calculus/build.bat">build.bat</a>
+|
+\---src
+    +---main
+    |       <a href="./lambda-calculus/src/main/Counter.scala">Counter.scala</a>
+    |       <a href="./lambda-calculus/src/main/lambda-calculus.flix">lambda-calculus.flix</a>
+    |       <a href="./lambda-calculus/src/main/Main.flix">Main.flix</a>
+    |
+    \---test
+            <a href="./lambda-calculus/src/test/TestMain.flix<">TestMain.flix</a>
+</pre>
+
+Concretely we perform two additional steps before calling the [Flix] commands **`build`** and **`build-jar`**:
+- we compile **`Counter.scala`** into directory  **`target\lambda-calculus\lib\`** with the Scala command **`scalac`**. 
+- we create **`target\lambda-calculus\lib\lib-lambda-calculus.jar`** with the Java command **`jar`**.
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./lambda-calculus/build.bat">build</a> -debug clean run</b>
+[build] Properties : _PROJECT_NAME=lambda-calculus
+[build] Options    : _NIGHTLY=0 _VERBOSE=0
+[build] Subcommands: _COMMANDS= clean compile run
+[build] Variables  : "FLIX_HOME=C:\opt\flix-0.31.0"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
+[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.9"
+[build] rmdir /s /q "F:\examples\lambda-calculus\target"
+[build] 00000000000000 Target : 'F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar'
+[build] 20220924220123 Sources: 'F:\examples\lambda-calculus\src\main\*.flix'
+[build] _ACTION_REQUIRED=1
+[build] "C:\opt\jdk-temurin-11.0.16_8\bin\java.exe" -jar "C:\opt\flix-0.31.0\flix.jar" init
+[build] xcopy /s /y "F:\examples\lambda-calculus\src\main" "F:\examples\lambda-calculus\target\lambda-calculus\src\" 1>NUL
+[build] "C:\opt\scala-2.13.9\bin\scalac.bat" -cp "C:\opt\flix-0.31.0\flix.jar" -d "F:\examples\lambda-calculus\target\lambda-calculus\lib"  "F:\examples\lambda-calculus\target\lambda-calculus\src\Counter.scala"
+[build] "C:\opt\jdk-temurin-11.0.16_8\bin\jar.exe" cf "F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -C "F:\examples\lambda-calculus\target\lambda-calculus\lib" .
+[build] "C:\opt\jdk-temurin-11.0.16_8\bin\java.exe" -cp "F:\examples\lambda-calculus\target\lambda-calculus\build" -jar "C:\opt\flix-0.31.0\flix.jar" build --explain
+[build] "C:\opt\jdk-temurin-11.0.16_8\bin\java.exe" -jar "C:\opt\flix-0.31.0\flix.jar" build-jar
+[build] "C:\opt\jdk-temurin-11.0.16_8\bin\java.exe" "-Xbootclasspath/a:C:\opt\scala-2.13.9\lib\scala-library.jar;F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -jar "F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar"
+Abs(1, Abs(0, Var(0)))
+[build] _EXITCODE=0
+</pre>
+
 ### <span id="mutability">Example `mutability`</span>[**&#x25B4;**](#top)
 
 Command [`build`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the Flix source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./mutability/build.bat">build -debug run</a></b>
-[build] Properties : _PROJECT_NAME=mutability _PROJECT_VERSION=1.0-SNAPSHOT
-[build] Options    : _NIGHTLY=0 _TIMER=0 _VERBOSE=0
+[build] Properties : _PROJECT_NAME=mutability
+[build] Options    : _NIGHTLY=0 _VERBOSE=0
 [build] Subcommands: _COMMANDS= compile run
 [build] Variables  : "FLIX_HOME=C:\opt\flix-0.31.0"
 [build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
+[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.9"
 [build] 00000000000000 Target : 'F:\examples\mutability\target\mutability\mutability.jar'
 [build] 20220908185859 Sources: 'F:\examples\mutability\src\*.flix'
 [build] _ACTION_REQUIRED=1
@@ -249,10 +296,10 @@ Using 'primes2'
 2 :: 3 :: 5 :: 7 :: 11 :: 13 :: 17 :: 19 :: 23 :: 29 :: Nil
 </pre>
 
-Command [**`build`**](./primes/build.bat)` -verbose test` generates the target file `target\primes\primes.jar` from the Flix source files [`src\main\Main.flix`](./primes/src/main/Main.flix) and [`src\test\TestMain.flix`](./primes/src/test/TestMain.flix) and runs the tests:
+Command [**`build -verbose test`**](./primes/build.bat) generates the target file `target\primes\primes.jar` from the Flix source files [`src\main\Main.flix`](./primes/src/main/Main.flix) and [`src\test\TestMain.flix`](./primes/src/test/TestMain.flix) and runs the tests:
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="./primes/build.bat">build</a> test</b>
+<b>&gt; <a href="./primes/build.bat">build</a> -verbose test</b>
 Running 2 tests...
 &nbsp;
    PASS  test01 892,4us

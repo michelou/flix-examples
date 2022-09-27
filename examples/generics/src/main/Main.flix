@@ -32,5 +32,5 @@ def map(f: a -> b, t: Tree[a]): Tree[b] = match t {
 def tree(): Tree[Int32] = Node(Leaf(1), Leaf(2))
 
 /// Squares all elements in the simple tree.
-def main(): Unit & Impure =
+def main(): Unit \ IO =
     map(x -> x * x, tree()) |> println
