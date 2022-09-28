@@ -14,7 +14,7 @@
 Flix projects presented below share the same directory layout as project `areas`, namely :
 1. The project directory `areas\` initially looks as follows :
    <pre style="font-size:80%;">
-   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
    \---<b>src</b>
@@ -26,7 +26,7 @@ Flix projects presented below share the same directory layout as project `areas`
 
 3. Before compilation we run the Flix command `init` <sup id="anchor_01">[1](#footnote_01)</sup> to create a Flix-managed <sup id="anchor_02">[2](#footnote_02)</sup> subdirectory `target\areas\` and we copy the [Flix] source files from the `src\main\` and `src\test\` directories :
    <pre style="font-size:80%;">
-   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
    +---<b>src</b>
@@ -198,7 +198,7 @@ Execute Flix program "target\fibonacci\fibonacci.jar"
 0 :: 1 :: 1 :: 2 :: 3 :: 5 :: 8 :: 13 :: 21 :: 34 :: Nil
 </pre>
 
-Command [**`build -verbose test`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the Flix source files [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and [`src\test\TestMain.flix`](./fibonacci/src/test/TestMain.flix) and runs the tests:
+Command [**`build -verbose test`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source files [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and [`src\test\TestMain.flix`](./fibonacci/src/test/TestMain.flix) and runs the tests:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./fibonacci/build.bat">build</a> -verbose test</b>
@@ -216,7 +216,7 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 5,8ms.
 
 ### <span id="lambda">Example `lambda-calculus`</span>
 
-This code example is slightly more complex than the other examples presented on this page because it contains a Scala source file.
+This code example is slightly more complex than the other examples presented on this page because it contains a [Scala] source file.
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
@@ -262,7 +262,7 @@ Abs(1, Abs(0, Var(0)))
 
 ### <span id="mutability">Example `mutability`</span>[**&#x25B4;**](#top)
 
-Command [`build`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the Flix source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
+Command [`build`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the [Flix] source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./mutability/build.bat">build -debug run</a></b>
@@ -317,7 +317,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 5,7ms.
 <dl><dd>
 We give option <code><b>--help</b></code> to display the Flix commands :
 <pre style="font-size:80%;">
-<b>&gt; "%JAVA_HOME%\bin\java.exe"  -jar "%FLIX_HOME%\flix.jar" --help</b>
+<b>&gt; "%JAVA_HOME%\bin\java.exe" -jar "%FLIX_HOME%\flix.jar" --help</b>
 The Flix Programming Language v0.31.0
 Usage: flix [init|check|build|build-jar|build-pkg|run <b>↲</b><br/>&emsp;|benchmark|test|repl|install|lsp] [options] &lt;args&gt;...
 &nbsp;
@@ -392,3 +392,4 @@ Flix project directories must have a special layout enforced by the Flix command
 <!-- href links -->
 
 [flix]: https://flix.dev/
+[scala]: https://www.scala-lang.org/

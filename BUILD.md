@@ -8,7 +8,7 @@
   </tr>
 </table>
 
-The [Gradle build][gradle_userguide] of the Flix library is fast and simple :
+The [Gradle build][gradle_userguide] of the [Flix] library is fast and simple :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> jar</b>
@@ -20,7 +20,7 @@ BUILD SUCCESSFUL in 3m 7s
 F:\flix\build\libs\flix.jar
 </pre>
 
-> **Note** : The Flix library generated **locally** on September 19, 2022, is effectively the same as the corresponding [Flix nightly build][flix_nightly] :
+> **Note** : The [Flix] library generated **locally** on September 19, 2022, is indeed the same as the corresponding [Flix nightly build][flix_nightly] :
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /t "%FLIX_HOME%:*.jar" build\libs:*.jar</b>
 >   36614213   19.09.2022      20:26:29  c:\opt\flix-0.31.0\flix-2022-09-19.jar
@@ -46,5 +46,6 @@ F:\flix\build\libs\flix.jar
 
 <!-- href links -->
 
+[flix]: https://flix.dev/
 [flix_nightly]: https://flix.dev/nightly/
 [gradle_userguide]: https://docs.gradle.org/current/userguide/userguide.html

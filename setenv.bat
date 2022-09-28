@@ -24,6 +24,7 @@ if %_HELP%==1 (
 )
 
 set _GIT_PATH=
+set _GRADLE_PATH=
 
 call :java11
 if not %_EXITCODE%==0 goto end
@@ -35,7 +36,16 @@ if not %_EXITCODE%==0 goto end
 call :flix
 if not %_EXITCODE%==0 goto end
 
+call :flix_nightly
+if not %_EXITCODE%==0 (
+    @rem echo %_WARNING_LABEL% Flix nightly build not found 1>&2
+    set _EXITCODE=0
+    @rem goto end
+)
 call :git
+if not %_EXITCODE%==0 goto end
+
+call :gradle
 if not %_EXITCODE%==0 goto end
 
 goto end
@@ -135,9 +145,12 @@ goto args_loop
 call :subst %_DRIVE_NAME% "%_ROOT_DIR%"
 if not %_EXITCODE%==0 goto :eof
 
+set _STDERR_REDIRECT=2^>NUL
+if %_DEBUG%==1 set _STDERR_REDIRECT=
+
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Options    : _VERBOSE=%_VERBOSE% 1>&2
-    echo %_DEBUG_LABEL% Subcommands: _HELP=%_HELP% 1&2
+    echo %_DEBUG_LABEL% Subcommands: _HELP=%_HELP% 1>&2
     echo %_DEBUG_LABEL% Variables  : _DRIVE_NAME=%_DRIVE_NAME% 1>&2
 )
 goto :eof
@@ -295,6 +308,27 @@ if not exist "%_FLIX_HOME%\flix.jar" (
 )
 goto :eof
 
+:flix_nightly
+if not exist "%_FLIX_HOME%" goto :eof
+
+for /f %%i in ('powershell -C "(Get-Date).addDays(-1).ToString('yyyy-MM-dd')"') do (
+    set "__JAR_NAME=flix-%%i.jar"
+)
+set "__JAR_URL=https://flix.dev/nightly/%__JAR_NAME%"
+set "__JAR_FILE=%_FLIX_HOME%\%__JAR_NAME%"
+if exist "%__JAR_FILE%" goto :eof
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" 1>&2
+) else if %_VERBOSE%==1 ( echo Download file "%__JAR_NAME%" to directory "%FLIX_HOME%" 1>&2
+)
+powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" %_STDERR_REDIRECT%
+if not %ERRORLEVEL%==0 (
+    echo %_WARNING_LABEL% Failed to download file "%__JAR_URL%" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem output parameters: _GIT_HOME, _GIT_PATH
 :git
 set _GIT_HOME=
@@ -328,6 +362,43 @@ if not exist "%_GIT_HOME%\bin\git.exe" (
 set "_GIT_PATH=;%_GIT_HOME%\bin;%_GIT_HOME%\mingw64\bin;%_GIT_HOME%\usr\bin"
 goto :eof
 
+@rem output parameters: _GRADLE_HOME, _GRADLE_PATH
+:gradle
+set _GRADLE_HOME=
+set _GRADLE_PATH=
+
+set __GRADLE_CMD=
+for /f %%f in ('where gradle.bat 2^>NUL') do set "__GRADLE_CMD=%%f"
+if defined __GRADLE_CMD (
+    for %%i in ("%__GRADLE_CMD%") do set "__GRADLE_BIN_DIR=%%~dpi"
+    for %%f in ("!__GRADLE_BIN_DIR!\.") do set "_GRADLE_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Gradle executable found in PATH 1>&2
+    goto :eof
+) else if defined GRADLE_HOME (
+    set "_GRADLE_HOME=%GRADLE_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable GRADLE_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\gradle\" ( set "_GRADLE_HOME=!__PATH!\gradle"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
+        if not defined _GRADLE_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _GRADLE_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Gradle installation directory !_GRADLE_HOME! 1>&2
+    )
+)
+if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
+    echo %_ERROR_LABEL% Gradle executable not found ^(%_GRADLE_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_GRADLE_PATH=;%_GRADLE_HOME%\bin"
+goto :eof
+
 :print_env
 set __VERBOSE=%1
 set "__VERSIONS_LINE1=  "
@@ -359,8 +430,13 @@ if %ERRORLEVEL%==0 (
 )
 where /q diff.exe
 if %ERRORLEVEL%==0 (
-   for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr /B diff') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% diff %%l"
+   for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr /B diff') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% diff %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% diff.exe
+)
+where /q "%GRADLE_HOME%\bin:gradle.bat"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,*" %%i in ('"%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%GRADLE_HOME%\bin:gradle.bat"
 )
 echo Tool versions:
 echo %__VERSIONS_LINE1%
@@ -372,6 +448,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     echo Environment variables: 1>&2
     if defined FLIX_HOME echo    "FLIX_HOME=%FLIX_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
+    if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo Path associations: 1>&2
@@ -386,9 +463,10 @@ goto :eof
 endlocal & (
     if not defined FLIX_HOME set "FLIX_HOME=%_FLIX_HOME%"
     if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
+    if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
     if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
     if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
-    set "PATH=%PATH%%_GIT_PATH%;%~dp0bin"
+    set "PATH=%PATH%%_GRADLE_PATH%%_GIT_PATH%;%~dp0bin"
     call :print_env %_VERBOSE%
     if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2

@@ -22,6 +22,7 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 
 - [Flix nightly builds](https://flix.dev/nightly/)
+- [Gradle 7.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 
 For instance our development environment looks as follows (*September 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
@@ -29,10 +30,10 @@ For instance our development environment looks as follows (*September 2022*) <su
 <pre style="font-size:80%;">
 C:\opt\flix-0.31.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.37.3\              <i>(289 MB)</i>
+C:\opt\gralde-7.5.1\            <i>(127 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
 C:\opt\scala-2.13.9\            <i>( 24 MB)</i>
 </pre>
-
 
 ## <span id="structure">Directory structure</span>
 
@@ -64,7 +65,7 @@ where
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`git.exe`**][git_userguide] directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`git.exe`**][git_userguide] and [**`gradle.bat`**][gradle_cli] directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
    <pre style="font-size:80%;">
    <b>&gt; <a href="./setenv.bat">setenv</a> help</b>
@@ -87,7 +88,6 @@ We distinguish different sets of batch commands:
     Options:
       -debug      show commands executed by this script
       -nightly    use Flix nightly build if locally available
-      -timer      display total elapsed time
       -verbose    display progress messages
     &nbsp;
     Subcommands:
@@ -107,11 +107,13 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
-   git 2.37.3.windows.1, diff 3.8
+   git 2.37.3.windows.1, diff 3.8, gradle 7.5.1
 
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle</b>
 C:\opt\Git-2.37.3\bin\git.exe
 C:\opt\Git-2.37.3\mingw64\bin\git.exe
+C:\opt\gradle-7.5.1\bin\gradle
+C:\opt\gradle-7.5.1\bin\gradle.bat
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -120,7 +122,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
-   git 2.37.3.windows.1, diff 3.8
+   git 2.37.3.windows.1, diff 3.8, gradle 7.5.1
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
@@ -128,9 +130,11 @@ Tool paths:
    C:\opt\Git-2.37.3\bin\git.exe
    C:\opt\Git-2.37.3\mingw64\bin\git.exe
    C:\opt\Git-2.37.3\usr\bin\diff.exe
+   C:\opt\gradle-7.5.1\bin\gradle.bat
 Environment variables:
    "FLIX_HOME=C:\opt\flix-0.31.0"
    "GIT_HOME=C:\opt\Git-2.37.3"
+   "GRADLE_HOME=C:\opt\gradle-7.5.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
    "SCALA_HOME=C:\opt\scala-2.13.9"
 Path associations:
@@ -150,6 +154,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                          <i>( 35 MB)</i>
 <a href="https://flix.dev/nightly/" rel="external">flix-2022-09-23.jar</a>               <i>( 35 MB)</i>
+<a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>              <i>(103 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.37.3-64-bit.7z.exe</a>  <i>( 41 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.9.zip</a>                  <i>( 22 MB)</i>
 </pre>
@@ -177,6 +182,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [flix_downloads]: https://github.com/flix/flix/releases/
 [flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.31.0
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
+[gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
+[gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
+[gradle_install]: https://gradle.org/install/
+[gradle_relnotes]: https://docs.gradle.org/7.5.1/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples
