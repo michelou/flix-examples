@@ -6,14 +6,30 @@
     <a href="https://flix.dev/" rel="external"><img style="border:0;width:80px;" src="./docs/images/flix-logo.png" alt="Flix project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This document presents changes in library dependencies for the <a href="https://flix.dev/" rel="external">Flix</a> software distributions.<br/>&nbsp;
+    This document gathers a few reference informations about the <a href="https://flix.dev/" rel="external">Flix</a> programming language.<br/>&nbsp;
   </td>
   </tr>
 </table>
 
+> **Hint**: Read the document <a href="https://github.com/flix/flix/blob/master/docs/DIDYOUKNOW.md">"Did You Know?"</a> from the <a href="https://flix.dev/" rel="external">Flix</a> documentation to know more about the <a href="https://flix.dev/" rel="external">Flix</a> ecosystem.
+
 [Flix] language features can be split into two categories :
 - *features shared with other languages* : [ADTs] and pattern matching, extensible records, type classes, HKTs, type inference, channel and process-based concurrency (like Go).
 - *unique features* : polymorphic effect system, region-based local mutation, purity reflection and first-class Datalog constraints.
+
+## <span id="annots">Annotations</span>
+
+`@Experimental`
+`@Internal`
+`@Lazy`
+`@LazyWhenPure`
+`@Parallel`
+`@ParallelWhenPure`
+`@Space(n)`
+`@Time(n)`
+`@Unsafe`
+`@benchmark`
+`@test`
 
 ## <span id="keywords">Keywords</span>
 
@@ -23,16 +39,16 @@ Each keyword below points to a usage example from the [Flix] library :
 
 [`alias`](https://github.com/flix/flix/blob/master/main/src/library/File.flix#L145)
 [`and`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L81)
-`as
-case`
+[`as`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L34)
+[`case`](https://)
 [`catch`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L101)
 [`chan`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel/Ticker.flix#L100)
 [`choose`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L33)
-`class
-def`
+[`class`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L20)
+[`def`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L24)
 [`deref`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L59)
-`discard
-do
+[`discard`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L53)
+`do
 eff
 else
 enum
@@ -91,25 +107,42 @@ with
 without
 yield`
 
-## <span id="predefined">Predefined Types</span>
+## <span id="buildin_types">Built-in Types</span>
 
-GitHub: [`src/library/Prelude.flix`](https://github.com/flix/flix/blob/master/main/src/library/Prelude.flix).
+GitHub: [`src/ca/uwaterloo/flix/api/lsp/provider/CompletionProvider.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/lsp/provider/CompletionProvider.scala#L50).
+
+`Array`
+`BigInt`
+`Bool`
+`Channel`
+`Char`
+`Float32`
+`Float64`
+`Int8`
+`Int16`
+`Int32`
+`Int64`
+`Lazy`
+`Ref`
+`String`
+`Unit`
+
+## <span id="standard_types">Standard Types</span>
 
 [`Absent`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L21)
-`Bool
-Eff
-Impure
-Nil
-Predicate
-Present
-Pure
-Read
-RecordNow
-Region
-SchemaNow
-Static
-Type
-Write`
+`Eff`
+`Impure`
+`Nil`
+`Predicate`
+`Present`
+`Pure`
+`Read`
+`RecordNow`
+`Region`
+`SchemaNow`
+`Static`
+`Type`
+`Write`
 
 ## <span id="operators">Predefined Operators</span>
 
@@ -118,7 +151,7 @@ Write`
 @
 :`
 
-## <span id="grammar">Flix Grammar</span> <sup id="anchor_01">[1](#footnote_01)</sup>
+## <span id="grammar">Flix Grammar (WIP)</span> <sup id="anchor_01">[1](#footnote_01)</sup>
 
 GitHub: [`src\ca\uwaterloo\flix\language\phase\Parser.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Parser.scala#L128)
 <pre style="font-size:80%;">

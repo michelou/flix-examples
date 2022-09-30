@@ -319,11 +319,11 @@ set "__JAR_FILE=%_FLIX_HOME%\%__JAR_NAME%"
 if exist "%__JAR_FILE%" goto :eof
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" 1>&2
-) else if %_VERBOSE%==1 ( echo Download file "%__JAR_NAME%" to directory "%FLIX_HOME%" 1>&2
+) else if %_VERBOSE%==1 ( echo Download file "%__JAR_NAME%" to directory "%_FLIX_HOME%" 1>&2
 )
 powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
-    echo %_WARNING_LABEL% Failed to download file "%__JAR_URL%" 1>&2
+    echo %_WARNING_LABEL% Failed to download file "%__JAR_URL%" to directory "%_FLIX_HOME%" 1>&2
     set _EXITCODE=1
     goto :eof
 )

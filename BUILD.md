@@ -11,6 +11,20 @@
 The [Gradle build][gradle_userguide] of the [Flix] library is fast and simple :
 
 <pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> clean compileTestScala --console=plain</b>
+> Task :clean
+> Task :compileJava NO-SOURCE
+> Task :compileScala
+> Task :processResources NO-SOURCE
+> Task :classes
+> Task :compileTestJava NO-SOURCE
+> Task :compileTestScala
+
+BUILD SUCCESSFUL in 6m 44s
+3 actionable tasks: 3 executed
+</pre>
+
+<pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> jar</b>
 
 BUILD SUCCESSFUL in 3m 7s

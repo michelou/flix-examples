@@ -109,7 +109,7 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
-@rem output parameters: _COMMANDS, _HELP, _VERBOSE
+@rem output parameters: _COMMANDS, _HELP, _NIGHTLY, _VERBOSE
 :args
 set _COMMANDS=
 set _HELP=0
