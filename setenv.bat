@@ -26,19 +26,19 @@ if %_HELP%==1 (
 set _GIT_PATH=
 set _GRADLE_PATH=
 
+@rem Flix requires Java 11 or newer
 call :java11
 if not %_EXITCODE%==0 goto end
 
 call :scala2
 if not %_EXITCODE%==0 goto end
 
-@rem Flix requires Java 11 or newer
 call :flix
 if not %_EXITCODE%==0 goto end
 
 call :flix_nightly
 if not %_EXITCODE%==0 (
-    @rem echo %_WARNING_LABEL% Flix nightly build not found 1>&2
+    @rem Local nighlty build is optional
     set _EXITCODE=0
     @rem goto end
 )
@@ -255,7 +255,7 @@ if not exist "%_JAVA_HOME%\bin\javac.exe" (
 )
 goto :eof
 
-@rem output parameter: SCALA_HOME
+@rem output parameter: _SCALA_HOME
 :scala2
 set _SCALA_HOME=
 
@@ -298,7 +298,7 @@ if defined FLIX_HOME (
     set _PATH=C:\opt
     for /f %%f in ('dir /ad /b "!_PATH!\flix-*" 2^>NUL') do set "_FLIX_HOME=!_PATH!\%%f"
     if defined _FLIX_HOME (
-        if %_DEBUG%==1 echo [%_BASENAME%] Using default Flix installation directory "!_FLIX_HOME!"
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Flix installation directory "!_FLIX_HOME!"
     )
 )
 if not exist "%_FLIX_HOME%\flix.jar" (
@@ -314,9 +314,10 @@ if not exist "%_FLIX_HOME%" goto :eof
 for /f %%i in ('powershell -C "(Get-Date).addDays(-1).ToString('yyyy-MM-dd')"') do (
     set "__JAR_NAME=flix-%%i.jar"
 )
-set "__JAR_URL=https://flix.dev/nightly/%__JAR_NAME%"
 set "__JAR_FILE=%_FLIX_HOME%\%__JAR_NAME%"
 if exist "%__JAR_FILE%" goto :eof
+
+set "__JAR_URL=https://flix.dev/nightly/%__JAR_NAME%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" 1>&2
 ) else if %_VERBOSE%==1 ( echo Download file "%__JAR_NAME%" to directory "%_FLIX_HOME%" 1>&2
