@@ -102,7 +102,7 @@ Running 2 tests...
 Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 </pre>
 
-> **Note**: We achieve the same result with command [**`make.exe`**][make_cli] which reads its configuration from the two configuration files [**`Makefile`**](./areas/Makefile) and [**`Makefile.inc`**](./Makefile.inc) (we can use option **`--silent`** to hide commands):
+> **Note**: We achieve the same result with command [**`make.exe`**][make_cli] which reads its configuration from the two configuration files [**`Makefile`**](./areas/Makefile) and [**`Makefile.inc`**](./Makefile.inc) (we can use option **`--silent`** to hide the executed commands):
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
 > [ -d "target/areas" ] || "C:/opt/Git-2.37.3/usr/bin/mkdir.exe" -p "target/areas"
@@ -111,7 +111,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 >         C:/opt/Git-2.37.3/usr/bin/cp.exe -r "F:/examples/areas/src/main/." "F:/examples/areas/target/areas/src"; \
 >         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" build; \
 >         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" build-jar
-> "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -Xbootclasspath/a:"C:/Users/michelou/.m2/repository/org/scala-lang/scala-library/2.13.8/scala-library-2.13.8.jar" -jar "target/areas/areas.jar"
+> "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -Xbootclasspath/a:"%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.8/scala-library-2.13.8.jar" -jar "target/areas/areas.jar"
 > 2 :: 6 :: Nil
 > 2 :: 6 :: Nil
 > &nbsp;
