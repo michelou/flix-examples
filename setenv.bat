@@ -25,6 +25,7 @@ if %_HELP%==1 (
 
 set _GIT_PATH=
 set _GRADLE_PATH=
+set _MAKE_PATH=
 
 @rem Flix requires Java 11 or newer
 call :java11
@@ -48,6 +49,8 @@ if not %_EXITCODE%==0 goto end
 call :gradle
 if not %_EXITCODE%==0 goto end
 
+call :make
+if not %_EXITCODE%==0 goto end
 goto end
 
 @rem #########################################################################
@@ -400,6 +403,35 @@ if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
 set "_GRADLE_PATH=;%_GRADLE_HOME%\bin"
 goto :eof
 
+@rem output parameters: _MAKE_HOME, _MAKE_PATH
+:make
+set _MAKE_HOME=
+set _MAKE_PATH=
+
+set __MAKE_CMD=
+for /f %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
+if defined __MAKE_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Make executable found in PATH 1>&2
+    rem keep _MAKE_PATH undefined since executable already in path
+    goto :eof
+) else if defined MAKE_HOME (
+    set "_MAKE_HOME=%MAKE_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAKE_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\make-3*" 2^>NUL') do set "_MAKE_HOME=!_PATH!\%%f"
+    if defined _MAKE_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Make installation directory !_MAKE_HOME! 1>&2
+    )
+)
+if not exist "%_MAKE_HOME%\bin\make.exe" (
+    echo %_ERROR_LABEL% Make executable not found ^(%_MAKE_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MAKE_PATH=;%_MAKE_HOME%\bin"
+goto :eof
+
 :print_env
 set __VERBOSE=%1
 set "__VERSIONS_LINE1=  "
@@ -439,6 +471,11 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('"%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GRADLE_HOME%\bin:gradle.bat"
 )
+where /q "%MAKE_HOME%\bin:make.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,*" %%i in ('"%MAKE_HOME%\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% make %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MAKE_HOME%\bin:make.exe"
+)
 echo Tool versions:
 echo %__VERSIONS_LINE1%
 echo %__VERSIONS_LINE2%
@@ -451,6 +488,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
+    if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo Path associations: 1>&2
     for /f "delims=" %%i in ('subst') do echo %%i
@@ -466,8 +504,9 @@ endlocal & (
     if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
     if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
     if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
+    if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
     if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
-    set "PATH=%PATH%%_GRADLE_PATH%%_GIT_PATH%;%~dp0bin"
+    set "PATH=%PATH%%_GRADLE_PATH%%_MAKE_PATH%%_GIT_PATH%;%~dp0bin"
     call :print_env %_VERBOSE%
     if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2

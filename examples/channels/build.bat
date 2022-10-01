@@ -32,7 +32,7 @@ goto end
 @rem ## Subroutine
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _UNZIP_CMD, _JAVA_CMD, _JAR_CMD, _FLIX_JAR
+@rem                    _UNZIP_CMD, _JAR_CMD, _JAVA_CMD, _FLIX_JAR
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
@@ -117,7 +117,7 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
-@rem output parameters: _COMMANDS, _HELP, _VERBOSE
+@rem output parameters: _COMMANDS, _HELP, _NIGHTLY, _VERBOSE
 :args
 set _COMMANDS=
 set _HELP=0
@@ -255,6 +255,7 @@ if %__N%==0 (
 pushd "%_BUILD_DIR%"
 if not exist "%_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
+    ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
     call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )
@@ -280,12 +281,12 @@ if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
 if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% into directory "!_BUILD_DIR=%_ROOT_DIR%=!\build\" 1>&2
 )
 call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS%
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to compile %__N_FILES% 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% into directory "!_BUILD_DIR=%_ROOT_DIR%=!\build\" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -429,7 +430,7 @@ for /f "delims=" %%f in ('dir /s /b "%_SOURCE_TEST_DIR%\*.flix" 2^>NUL') do (
     set /a __N_TEST+=1
 )
 if %__N_TEST%==0 (
-    echo %_WARNING_LABEL% No Flix source file found 1>&2
+    echo %_WARNING_LABEL% No Flix test source file found 1>&2
     goto :eof
 ) else if %__N_TEST%==1 ( set __N_TEST_FILES=%__N_TEST% Flix test source file
 ) else ( set __N_TEST_FILES=%__N_TEST% Flix test source files
@@ -437,6 +438,7 @@ if %__N_TEST%==0 (
 pushd "%_BUILD_DIR%"
 if not exist "%_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
+    ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
     call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )

@@ -24,16 +24,18 @@ This project depends on the following external software for the **Microsoft Wind
 Optionally one may also install the following software:
 
 - [Flix nightly builds](https://flix.dev/nightly/)
+- [GNU Make 3.81][make_install]
 - [Gradle 7.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 
-For instance our development environment looks as follows (*September 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
+For instance our development environment looks as follows (*October 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\flix-0.31.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.37.3\              <i>(289 MB)</i>
 C:\opt\gralde-7.5.1\            <i>(127 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
+C:\opt\make-3.81\               <i>(  2 MB)</i>
 C:\opt\scala-2.13.9\            <i>( 24 MB)</i>
 </pre>
 
@@ -103,19 +105,20 @@ We distinguish different sets of batch commands:
 
 ### `setenv.bat`
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`git.exe`**][git_userguide] directly available from the command prompt:
+Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`git.exe`**][git_userguide], [**`gradle.bat`**][gradle_cli] and [**`make.exe`**][make_cli] directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
-   git 2.37.3.windows.1, diff 3.8, gradle 7.5.1
+   git 2.37.3.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make</b>
 C:\opt\Git-2.37.3\bin\git.exe
 C:\opt\Git-2.37.3\mingw64\bin\git.exe
 C:\opt\gradle-7.5.1\bin\gradle
 C:\opt\gradle-7.5.1\bin\gradle.bat
+C:\opt\make-3.81\bin\make.exe
 </pre>
 
 Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
@@ -124,7 +127,7 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
-   git 2.37.3.windows.1, diff 3.8, gradle 7.5.1
+   git 2.37.3.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
@@ -133,11 +136,13 @@ Tool paths:
    C:\opt\Git-2.37.3\mingw64\bin\git.exe
    C:\opt\Git-2.37.3\usr\bin\diff.exe
    C:\opt\gradle-7.5.1\bin\gradle.bat
+   C:\opt\make-3.81\bin\make.exe
 Environment variables:
    "FLIX_HOME=C:\opt\flix-0.31.0"
    "GIT_HOME=C:\opt\Git-2.37.3"
    "GRADLE_HOME=C:\opt\gradle-7.5.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
+   "MAKE_HOME=C:\opt\make-3.8.1"
    "SCALA_HOME=C:\opt\scala-2.13.9"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
@@ -157,6 +162,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                          <i>( 35 MB)</i>
 <a href="https://flix.dev/nightly/" rel="external">flix-2022-09-23.jar</a>               <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>              <i>(103 MB)</i>
+<a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                 <i>( 10 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.37.3-64-bit.7z.exe</a>  <i>( 41 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.9.zip</a>                  <i>( 22 MB)</i>
 </pre>
@@ -164,7 +170,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -191,6 +197,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples
+[make_cli]: https://www.gnu.org/software/make/manual/make.html
+[make_install]: https://sourceforge.net/projects/gnuwin32/files/make/3.81/
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [rust_examples]: https://github.com/michelou/rust-examples
 [scala_download]: https://www.scala-lang.org/download/2.13.9.html

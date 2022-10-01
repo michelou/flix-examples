@@ -59,7 +59,8 @@ $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
     @$(TOUCH) "$(TEST_TARGET)"
 
 test: $(TEST_TARGET)
-	"$(JAVA)" -Xbootclasspath/a:"$(SCALA_LIB_JAR)" -jar "$(TARGET)"
+	cd "$(BUILD_DIR)"; \
+	"$(JAVA)" -Xbootclasspath/a:"$(SCALA_LIB_JAR)" -jar "$(FLIX_LIB_JAR)" test
 
 ##############################################################################
 ## phony

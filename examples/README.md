@@ -102,9 +102,31 @@ Running 2 tests...
 Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 </pre>
 
+> **Note**: We achieve the same result with command [**`make.exe`**][make_cli] which reads its configuration from the two configuration files [**`Makefile`**](./areas/Makefile) and [**`Makefile.inc`**](./Makefile.inc) (we can use option **`--silent`** to hide commands):
+> <pre style="font-size:80%;">
+> <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
+> [ -d "target/areas" ] || "C:/opt/Git-2.37.3/usr/bin/mkdir.exe" -p "target/areas"
+> cd "target/areas"; \
+>         [ -d "target/areas/build" ] || "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" init; \
+>         C:/opt/Git-2.37.3/usr/bin/cp.exe -r "F:/examples/areas/src/main/." "F:/examples/areas/target/areas/src"; \
+>         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" build; \
+>         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" build-jar
+> "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -Xbootclasspath/a:"C:/Users/michelou/.m2/repository/org/scala-lang/scala-library/2.13.8/scala-library-2.13.8.jar" -jar "target/areas/areas.jar"
+> 2 :: 6 :: Nil
+> 2 :: 6 :: Nil
+> &nbsp;
+> <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> --silent test</b>
+> Running 2 tests...
+> &nbsp;
+>    PASS  test01 806,3us
+>    PASS  test02 115,4us
+> &nbsp;
+> Passed: 2, Failed: 0. Skipped: 0. Elapsed: 6,3ms.
+> <pre>
+
 ### <span id="channels">Example `channels`</span>[**&#x25B4;**](#top)
 
-Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the Flix source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and runs the target file :
+Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
@@ -117,7 +139,7 @@ Execute Flix program "target\channels\channels.jar"
 1 :: 2 :: 3 :: Nil
 </pre>
 
-> **Note**: The Flix command <code>build-jar</code> does not add the Flix runtime to the generated archive file <code>target\channels\channels.jar</code>, so we need to update it with class files extracted from <code>flix.jar</code> and belonging to package <code>ca.uwaterloo.flix.runtime</code>.<br/>Without that additional step we would get the following runtime error :
+> **Note**: The [Flix] command <code>build-jar</code> does not add the [Flix] runtime to the generated archive file <code>target\channels\channels.jar</code>, so we need to update it with class files extracted from <code>flix.jar</code> and belonging to package <code>ca.uwaterloo.flix.runtime</code>.<br/>Without that additional step we would get the following runtime error :
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
 > Copy 1 Flix source file to directory "target\channels\src\"
@@ -286,7 +308,7 @@ Command [`build`](./mutability/build.bat)` -debug run` generates the target file
 
 ### <span id="primes">Example `primes`</span>
 
-Command [`build run`](./primes/build.bat) generates the target file `target\primes\primes.jar` from the Flix source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and runs the target file :
+Command [`build run`](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./primes/build.bat">build</a> run</b>
@@ -296,7 +318,7 @@ Using 'primes2'
 2 :: 3 :: 5 :: 7 :: 11 :: 13 :: 17 :: 19 :: 23 :: 29 :: Nil
 </pre>
 
-Command [**`build -verbose test`**](./primes/build.bat) generates the target file `target\primes\primes.jar` from the Flix source files [`src\main\Main.flix`](./primes/src/main/Main.flix) and [`src\test\TestMain.flix`](./primes/src/test/TestMain.flix) and runs the tests:
+Command [**`build -verbose test`**](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source files [`src\main\Main.flix`](./primes/src/main/Main.flix) and [`src\test\TestMain.flix`](./primes/src/test/TestMain.flix) and runs the tests:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./primes/build.bat">build</a> -verbose test</b>
@@ -321,21 +343,21 @@ We give option <code><b>--help</b></code> to display the Flix commands :
 The Flix Programming Language v0.31.0
 Usage: flix [init|check|build|build-jar|build-pkg|run <b>↲</b><br/>&emsp;|benchmark|test|repl|install|lsp] [options] &lt;args&gt;...
 &nbsp;
-Command: <b>init</b>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L76"><b>init</b></a>
   creates a new project in the current directory.
-Command: <b>check</b>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L155"><b>check</b></a>
   checks the current project for errors.
-Command: <b>build</b>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L174"><b>build</b></a>
   builds (i.e. compiles) the current project.
-Command: <b>build-jar</b>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L237"><b>build-jar</b></a>
   builds a jar-file from the current project.
-Command: <b>build-pkg</b>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L275"><b>build-pkg</b></a>
   builds a fpkg-file from the current project.
-Command: <b>run</b>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L316"><b>run</b></a>
   runs main for the current project.
-Command: <b>benchmark</b>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L330"><b>benchmark</b></a>
   runs the benchmarks for the current project.
-Command: <b>test</b>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L340"><b>test</b></a>
   runs the tests for the current project.
 Command: <b>repl</b>
   starts a repl for the current project, or provided Flix source files.
@@ -386,10 +408,11 @@ Flix project directories must have a special layout enforced by the Flix command
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
 
 [flix]: https://flix.dev/
+[make_cli]: https://www.gnu.org/software/make/manual/make.html
 [scala]: https://www.scala-lang.org/
