@@ -32,7 +32,7 @@ For instance our development environment looks as follows (*October 2022*) <sup 
 
 <pre style="font-size:80%;">
 C:\opt\flix-0.31.0\             <i>( 35 MB)</i>
-C:\opt\Git-2.37.3\              <i>(289 MB)</i>
+C:\opt\Git-2.38.0\              <i>(317 MB)</i>
 C:\opt\gradle-7.5.1\            <i>(127 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
@@ -111,11 +111,11 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
-   git 2.37.3.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
+   git 2.38.0.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make</b>
-C:\opt\Git-2.37.3\bin\git.exe
-C:\opt\Git-2.37.3\mingw64\bin\git.exe
+C:\opt\Git-2.38.0\bin\git.exe
+C:\opt\Git-2.38.0\mingw64\bin\git.exe
 C:\opt\gradle-7.5.1\bin\gradle
 C:\opt\gradle-7.5.1\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
@@ -127,19 +127,19 @@ Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and def
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
-   git 2.37.3.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
+   git 2.38.0.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
    C:\opt\scala-2.13.9\bin\scalac.bat
-   C:\opt\Git-2.37.3\bin\git.exe
-   C:\opt\Git-2.37.3\mingw64\bin\git.exe
-   C:\opt\Git-2.37.3\usr\bin\diff.exe
+   C:\opt\Git-2.38.0\bin\git.exe
+   C:\opt\Git-2.38.0\mingw64\bin\git.exe
+   C:\opt\Git-2.38.0\usr\bin\diff.exe
    C:\opt\gradle-7.5.1\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
 Environment variables:
    "FLIX_HOME=C:\opt\flix-0.31.0"
-   "GIT_HOME=C:\opt\Git-2.37.3"
+   "GIT_HOME=C:\opt\Git-2.38.0"
    "GRADLE_HOME=C:\opt\gradle-7.5.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
    "MAKE_HOME=C:\opt\make-3.8.1"
@@ -160,10 +160,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                          <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-02.jar</a>               <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-03.jar</a>               <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>              <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                 <i>( 10 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.37.3-64-bit.7z.exe</a>  <i>( 41 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.0-64-bit.7z.exe</a>  <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.9.zip</a>                  <i>( 22 MB)</i>
 </pre>
 </dd></dl>
@@ -183,7 +183,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.37.3.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
