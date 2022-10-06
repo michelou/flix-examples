@@ -18,7 +18,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Flix 0.31][flix_downloads] ([*release notes*][flix_relnotes])
-- [Git 2.37][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 
 Optionally one may also install the following software:
@@ -46,6 +46,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 docs\
 examples\{<a href="./examples/README.md">README.md</a>, <a href="./examples/areas/">areas</a>, <a href="./examples/channels/">channels</a>, ..}
+lutz-examples\{<a href="./lutz-examples/README.md">README.md</a>, <a href="./lutz-examples/channels/">channels</a>, <a href="./lutz-examples/datalog/">datalog</a>, etc.}
 <a href="BUILD.md">BUILD.md</a>
 <a href="DEPS.md">DEPS.md</a>
 <a href="QUICKREF.md">QUICKREF.md</a>
@@ -58,6 +59,7 @@ where
 
 - directory [**`docs\`**](docs/) contains [Flix] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Flix] code examples.
+- directory [**`lutz-examples\`**](lutz-examples/) contains [Flix] code examples from Lutz Hühnken's article (see [**`README.md`**](./lutz-examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) presents the [Flix] build.
 - file [**`DEPS.md`**](DEPS.md) lists library dependencies of published [Flix] distributions.
 - file [**`QUICKREF.md`**](QUICKREF.md) gathers [Flix] language features.
@@ -160,7 +162,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                          <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-03.jar</a>               <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-04.jar</a>               <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>              <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                 <i>( 10 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.0-64-bit.7z.exe</a>  <i>( 46 MB)</i>

@@ -331,6 +331,8 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+@rem delete Flix nightly builds older than 5 days
+forfiles /d -5 /p "%_FLIX_HOME%" /m flix-*.jar /c "cmd /c del @path" 2>NUL
 goto :eof
 
 @rem output parameters: _GIT_HOME, _GIT_PATH
