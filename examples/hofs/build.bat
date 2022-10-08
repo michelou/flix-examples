@@ -261,7 +261,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_D
 xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>NUL
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to copy %__N_FILES% 1>&2
+    echo %_ERROR_LABEL% Failed to copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
     set _EXITCODE=1
     goto :eof
 )

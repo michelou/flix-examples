@@ -26,7 +26,7 @@ def getRules(): #{ Father, Mother, ParentOf, Child, AncestorOf } = #{
 
 // 4. Now we can query the knowledge base, e.g.
 // who are the children of Zeus?
-def main(): Int32 & Impure =
+def main(): Int32 \ IO =
     let a = query getFacts(), getRules() select (x) from Child("Zeus", x);
     let b = query getFacts(), getRules() select (y) from AncestorOf("Apollo", y);
     println("Children of Zeus = ${a}");

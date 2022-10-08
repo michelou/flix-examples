@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 8px 0 0;min-width:25%;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="160" alt="Flix project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites and books.<br/>
-  It also includes several <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a> for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
+  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, Makefiles) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -23,12 +23,12 @@ This project depends on the following external software for the **Microsoft Wind
 
 Optionally one may also install the following software:
 
-- [Flix nightly builds](https://flix.dev/nightly/)
+- [Flix nightly builds](https://flix.dev/nightly/) <sup id="anchor_01">[1](#footnote_01)</sup>
 - [GNU Make 3.81][make_install]
 - [Gradle 7.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 
-For instance our development environment looks as follows (*October 2022*) <sup id="anchor_01">[1](#footnote_01)</sup>:
+For instance our development environment looks as follows (*October 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\flix-0.31.0\             <i>( 35 MB)</i>
@@ -124,7 +124,7 @@ C:\opt\make-3.81\bin\make.exe
 </pre>
 
 Command [**`setenv`**](setenv.bat) with option **`-verbose`** displays additional information:
-- the [Flix] nightly build downloaded to directory **`%FLIX_HOME%`**,
+- the download of the [Flix] nightly build to directory **`%FLIX_HOME%`** (if not yet done),
 - the tool paths (which may not contain the version suffix, i.e. **`C:\opt\Git\bin\git.exe`** in some installations),
 - the environment variables *defined locally* within this session,
 - and the path associations (i.e. **`F:\`** in this case, but other drive names may be displayed as path associations are *globally defined*).
@@ -157,22 +157,27 @@ Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
 </pre>
 
-> **Note:** For instance our installation directory **`%FLIX_HOME%`** looks as follows on October 8th 2022 : 
-> <pre style="font-size:80%;">
-> <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.31.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
-> C:\OPT\FLIX-0.31.0
->     flix-2022-10-05.jar
->     flix-2022-10-06.jar
->     flix-2022-10-07.jar
->     flix.jar
-> </pre>
-> Command [**`build.bat`**](./examples/areas/build.bat) in our [Flix] projects features the **`-nightly`** option to use the latest [Flix] nightly build archive file instead of the release version (archive file **`flix.jar`** above).
-
 <!--=======================================================================-->
 
 ## <span id="footnotes">Footnotes</span>[**&#x25B4;**](#top)
 
-<span id="footnote_01">[1]</span> ***Downloads*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
+
+<dl><dd>
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on October 9th 2022 : 
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.31.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+C:\OPT\FLIX-0.31.0
+    flix-2022-10-05.jar
+    flix-2022-10-06.jar
+    flix-2022-10-07.jar
+    flix-2022-10-08.jar
+    flix.jar
+</pre>
+Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available  instead of the release version (archive file <code><b>flix.jar</b></code> above).
+</dd></dl>
+
+<span id="footnote_02">[2]</span> ***Downloads*** [↩](#anchor_02)
 
 <dl><dd>
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
@@ -180,7 +185,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                          <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-07.jar</a>               <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-08.jar</a>               <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>              <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                 <i>( 10 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.0-64-bit.7z.exe</a>  <i>( 46 MB)</i>

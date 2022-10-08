@@ -19,17 +19,19 @@
 
 ## <span id="annots">Annotations</span>
 
-`@Experimental`
-`@Internal`
-`@Lazy`
-`@LazyWhenPure`
-`@Parallel`
-`@ParallelWhenPure`
-`@Space(n)`
-`@Time(n)`
-`@Unsafe`
-`@benchmark`
-`@test`
+| Annotation      | Description |
+|:----------------|:------------|
+| `@Experimental` | [`ca\uwaterloo\flix\language\ast\Ast.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L114) |
+| `@Internal`     | |
+| `@Lazy`         | |
+| `@LazyWhenPure` | |
+| `@Parallel`     | |
+| `@ParallelWhenPure` | |
+| `@Space(n)`     | |
+| `@Time(n)`      | |
+| `@Unsafe`       | |
+| `@benchmark`    | |
+| `@test`         | |
 
 ## <span id="keywords">Keywords</span>
 

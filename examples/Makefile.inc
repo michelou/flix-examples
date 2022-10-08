@@ -12,7 +12,7 @@ $(error Variable FLIX_HOME is not set)
 endif
 
 ifeq ($(OS),Windows_NT)
-JAR        = $(subst \,/,$(GRAALVM_HOME))/bin/jar.exe
+JAR        = $(subst \,/,$(JAVA_HOME))/bin/jar.exe
 JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
 SCALAC     = $(subst \,/,$(SCALA_HOME))/bin/scalac.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
@@ -24,6 +24,7 @@ FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find.exe
 MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir.exe
 RM         = $(subst \,/,$(GIT_HOME))/usr/bin/rm.exe
 TOUCH      = $(subst \,/,$(GIT_HOME))/usr/bin/touch.exe
+UNZIP      = $(subst \,/,$(GIT_HOME))/usr/bin/unzip.exe
 else
 JAR        = $(JAVA_HOME)/bin/jar
 JAVA       = $(JAVA_HOME)/bin/java
@@ -36,9 +37,10 @@ FIND       = find
 MKDIR      = mkdir
 RM         = rm
 TOUCH      = touch
+UNZIP      = unzip
 endif
 
-SCALA_LIB_JAR  = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.8.jar)
+SCALA_LIB_JAR  = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.9.jar)
 FLIX_LIB_JAR   = $(shell $(FIND) "$(FLIX_HOME)/" -name flix.jar)
 
 ifeq (,$(wildcard $(SCALA_LIB_JAR)))

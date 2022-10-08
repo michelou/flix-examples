@@ -28,6 +28,7 @@
 ## <span id="tools">Tools</span>
 
 - [Flix for Visual Studio Code][vscode-flix].
+- [Flix Gradle Plugin](https://github.com/KengoTODA/flix-gradle-plugin) by Kengo Toda.
 
 ***
 

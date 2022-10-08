@@ -15,6 +15,10 @@ TARGET  = $(BUILD_DIR)/areas.jar
 all: build
 
 build: $(TARGET)
+	[ -d "$(TARGET_DIR)/flix" ] || "$(MKDIR)" -p "$(TARGET_DIR)/flix"
+	cd "$(TARGET_DIR)/flix"; \
+	"$(UNZIP)" -o -q "$(FLIX_LIB_JAR)" "ca/uwaterloo/flix/runtime/**"; \
+	"$(JAR)" -uf "$(realpath $(TARGET))" -C . *
 
 $(TARGET): $(SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
