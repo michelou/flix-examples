@@ -38,7 +38,7 @@ BUILD SUCCESSFUL in 6m 44s
 4 actionable tasks: 2 executed, 2 up-to-date
 </pre>
 
-We subsequently run the command **`gradle jar`** to generate the [Flix] Java archive :
+We subsequently run the command [**`gradle jar`**][gradle_cli] to generate the [Flix] Java archive :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> jar</b>
 
@@ -63,9 +63,9 @@ This section presents some of our unpublished works to improve the [Flix] softwa
 
 1. **Supported Scala 2 version**
    
-   [Flix] is currently built upon Scala 2.13.5 (see [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle)). Moving to current [Scala 2.13.9][scala_2_13_9] requires to rename all occurences of **`enum`** to **`enum0`** (i.e. parameter names) or **`enumSym`** (i.e. case classes). The reason is reasonable: the latest Scala 2 distributions now defines **`enum`** as a reserved keyword in order to ease the migration to [Scala 3][scala_3].
+   [Flix] is currently built upon Scala 2.13.5 (see [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle)). Moving to current [Scala 2.13.9][scala_2_13_9] requires to rename all occurences of **`enum`** to **`enum0`** (i.e. parameter names) or **`enumSym`** (i.e. case classes). The reason is simple: the latest Scala 2 distributions now defines **`enum`** as a reserved keyword in order to ease the migration to [Scala 3][scala_3].
    
-   Concretely we need to update the following Scala source files from directory **`main/src/ca/uwaterloo/flix\`**:
+   Concretely we have updated the following Scala source files in directory **`main\src\ca\uwaterloo\flix\`**:
 
    <pre style="font-size:80%;">
    api/lsp/LocationLink.scala
@@ -84,9 +84,9 @@ This section presents some of our unpublished works to improve the [Flix] softwa
    language/phase/util/PredefinedClasses.scala
    </pre>
 
-2. **Build dependencies** (see [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle))
+2. **Build dependencies**
 
-   All build dependencies are currently outdated.
+   All build dependencies are currently outdated (see [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle)).
    
    A quick modification shows that only two external libraries require the [Flix] code to be updated, namely [**`json4s`**][json4s] and [**`scalatest/scalactic`**][scalatest].
 
@@ -287,6 +287,7 @@ BUILD SUCCESSFUL in 6m 44s
 [flix]: https://flix.dev/
 [flix_github]: https://github.com/flix/flix
 [flix_nightly]: https://flix.dev/nightly/
+[gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_userguide]: https://docs.gradle.org/current/userguide/userguide.html
 [json4s]: https://mvnrepository.com/artifact/org.json4s
 [scala_2_13_9]: https://www.scala-lang.org/download/2.13.9.html

@@ -123,10 +123,17 @@ C:\opt\gradle-7.5.1\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
 </pre>
 
-Command [**`setenv -verbose`**](setenv.bat) also displays the tool paths and defined variables:
+Command [**`setenv`**](setenv.bat) with option **`-verbose`** displays additional information:
+- the [Flix] nightly build downloaded to directory **`%FLIX_HOME%`**,
+- the tool paths (which may not contain the version suffix, i.e. **`C:\opt\Git\bin\git.exe`** in some installations),
+- the environment variables *defined locally* within this session,
+- and the path associations (i.e. **`F:\`** in this case, but other drive names may be displayed as path associations are *globally defined*).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
+Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
+Download file "flix-2022-10-07.jar" to directory "C:\opt\flix-0.31.0"
+
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
    git 2.38.0.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
@@ -150,6 +157,17 @@ Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
 </pre>
 
+> **Note:** For instance our installation directory **`%FLIX_HOME%`** looks as follows on October 8th 2022 : 
+> <pre style="font-size:80%;">
+> <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.31.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+> C:\OPT\FLIX-0.31.0
+>     flix-2022-10-05.jar
+>     flix-2022-10-06.jar
+>     flix-2022-10-07.jar
+>     flix.jar
+> </pre>
+> Command [**`build.bat`**](./examples/areas/build.bat) in our [Flix] projects features the **`-nightly`** option to use the latest [Flix] nightly build archive file instead of the release version (archive file **`flix.jar`** above).
+
 <!--=======================================================================-->
 
 ## <span id="footnotes">Footnotes</span>[**&#x25B4;**](#top)
@@ -162,7 +180,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                          <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-04.jar</a>               <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-07.jar</a>               <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>              <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                 <i>( 10 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.0-64-bit.7z.exe</a>  <i>( 46 MB)</i>
