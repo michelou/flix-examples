@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-PROJECT_NAME = areas
+PROJECT_NAME = files
 
 SOURCE_DIR  = src
 TARGET_DIR  = target
@@ -54,10 +54,10 @@ TEST_TARGET      = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
 $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
 	cd "$(BUILD_DIR)"; \
-	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init; \
+	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init && \
 	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \
-	$(CP) -r "$(realpath $(SOURCE_DIR)/main)/." src && \
-	$(CP) -r "$(realpath $(SOURCE_DIR)/test)/." test && \
+	"$(CP)" -r "$(realpath $(SOURCE_DIR)/main)/." src && \
+	"$(CP)" -r "$(realpath $(SOURCE_DIR)/test)/." test && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build-jar
     @$(TOUCH) "$(TEST_TARGET)"

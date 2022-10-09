@@ -1,12 +1,10 @@
 include ../Makefile.inc
 
-PROJECT_NAME = areas
+PROJECT_NAME = trees
 
 SOURCE_DIR  = src
 TARGET_DIR  = target
 BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
-
-SCALAC_FLAGS = -deprecation -feature
 
 ##############################################################################
 ## main rules
@@ -42,7 +40,7 @@ help:
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   display this help message"
-	@$(ECHO) "    run    execute main program $(PROJECT_NAME)"
+	@$(ECHO) "    run    execute main program $(MAIN_CLASS)"
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
@@ -54,8 +52,8 @@ TEST_TARGET      = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
 $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
 	cd "$(BUILD_DIR)"; \
-	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init; \
-	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \
+	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init && \
+	"$(RM)" -f "src/Main.flix" "$test/TestMain.flix" && \
 	$(CP) -r "$(realpath $(SOURCE_DIR)/main)/." src && \
 	$(CP) -r "$(realpath $(SOURCE_DIR)/test)/." test && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \

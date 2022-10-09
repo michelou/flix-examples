@@ -1,8 +1,10 @@
 include ../Makefile.inc
 
+PROJECT_NAME = fibonacci
+
 SOURCE_DIR  = src
 TARGET_DIR  = target
-BUILD_DIR=$(TARGET_DIR)/areas
+BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
 
 SCALAC_FLAGS = -deprecation -feature
 
@@ -10,7 +12,7 @@ SCALAC_FLAGS = -deprecation -feature
 ## main rules
 
 SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name *.flix)
-TARGET  = $(BUILD_DIR)/areas.jar
+TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar
 
 all: build
 
@@ -19,10 +21,10 @@ build: $(TARGET)
 $(TARGET): $(SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
 	cd "$(BUILD_DIR)"; \
-	[ -d "$(BUILD_DIR)/build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init; \
-	[ -f "$(BUILD_DIR)/src/*.flix" ] && "$(RM)" "$(BUILD_DIR)/src/*.flix"; \
-	"$(CP)" -r "$(realpath $(SOURCE_DIR)/main)/." "$(realpath $(BUILD_DIR)/src)"; \
-	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build; \
+	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init && \
+	"$(RM)" -f "src/Main.flix" && \
+	"$(CP)" -r "$(realpath $(SOURCE_DIR)/main)/." src && \
+	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build-jar
 
 clean:
@@ -40,24 +42,23 @@ help:
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   display this help message"
-	@$(ECHO) "    run    execute main program $(MAIN_CLASS)"
+	@$(ECHO) "    run    execute main program $(PROJECT_NAME)"
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
 ## test rules
 
 TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name *.flix 2>/dev/null)
-TEST_TARGET      = $(BUILD_DIR)/areas.jar.txt
+TEST_TARGET      = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
 
 $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
 	cd "$(BUILD_DIR)"; \
-	[ -d "$(BUILD_DIR)/build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init; \
-	[ -f "$(BUILD_DIR)/src/*.flix" ] && "$(RM)" "$(BUILD_DIR)/src/*.flix"; \
-	[ -f "$(BUILD_DIR)/test/*.flix" ] && "$(RM)" "$(BUILD_DIR)/test/*.flix"; \
-	$(CP) -r "$(realpath $(SOURCE_DIR)/main)/." "$(realpath $(BUILD_DIR)/src)"; \
-	$(CP) -r "$(realpath $(SOURCE_DIR)/test)/." "$(realpath $(BUILD_DIR)/test)"; \
-	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build; \
+	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init && \
+	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \
+	$(CP) -r "$(realpath $(SOURCE_DIR)/main)/." src && \
+	$(CP) -r "$(realpath $(SOURCE_DIR)/test)/." test && \
+	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build-jar
     @$(TOUCH) "$(TEST_TARGET)"
 

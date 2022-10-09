@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-PROJECT_NAME = areas
+PROJECT_NAME = curried-funcs
 
 SOURCE_DIR  = src
 TARGET_DIR  = target

@@ -10,7 +10,7 @@
 
 Generating the [Flix] library using [Gradle][gradle_userguide] is fast and simple !
 
-We simply start the following command to execute the test suite after we have made the desired changes to our local copy of the [Flix Github repository][flix_github]:
+We start the following command to run the test suite after we have made the desired changes to our local copy of the [Flix Github repository][flix_github]:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> test --console=plain</b>
@@ -49,7 +49,7 @@ BUILD SUCCESSFUL in 3m 7s
 F:\flix\build\libs\flix.jar
 </pre>
 
-> **Note** : The [Flix] library generated **locally** on September 19, 2022, is indeed the same as the corresponding [Flix nightly build][flix_nightly] :
+> **Note** : The [Flix] library generated **locally** on September 19th 2022, is indeed the same as the corresponding [Flix nightly build][flix_nightly] :
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /t "%FLIX_HOME%:*.jar" build\libs:*.jar</b>
 >   36614213   19.09.2022      20:26:29  c:\opt\flix-0.31.0\flix-2022-09-19.jar
@@ -61,11 +61,13 @@ F:\flix\build\libs\flix.jar
 
 This section presents some of our unpublished works to improve the [Flix] software.
 
-1. **Supported Scala 2 version**
+1. <del>**Supported Scala 2 version**</del> *(obsolete since October 7th 2022)*
    
+   > **Note:** [Commit 61d7e00](https://github.com/flix/flix/commit/61d7e00) from Magnus makes this local change obsolete.
+
    [Flix] is currently built upon Scala 2.13.5 (see [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle)). Moving to current [Scala 2.13.9][scala_2_13_9] requires to rename all occurences of **`enum`** to **`enum0`** (i.e. parameter names) or **`enumSym`** (i.e. case classes). The reason is simple: the latest Scala 2 distributions now defines **`enum`** as a reserved keyword in order to ease the migration to [Scala 3][scala_3].
    
-   Concretely we have updated the following Scala source files in directory **`main\src\ca\uwaterloo\flix\`**:
+   Concretely we have updated the following [Scala] source files in directory **`main\src\ca\uwaterloo\flix\`**:
 
    <pre style="font-size:80%;">
    api/lsp/LocationLink.scala
@@ -290,6 +292,7 @@ BUILD SUCCESSFUL in 6m 44s
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_userguide]: https://docs.gradle.org/current/userguide/userguide.html
 [json4s]: https://mvnrepository.com/artifact/org.json4s
+[scala]: https://www.scala-lang.org
 [scala_2_13_9]: https://www.scala-lang.org/download/2.13.9.html
 [scala_3]: https://docs.scala-lang.org/scala3/new-in-scala3.html
 [scalatest]: https://mvnrepository.com/artifact/org.scalatest/scalatest

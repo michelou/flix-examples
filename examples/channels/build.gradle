@@ -1,0 +1,23 @@
+plugins {
+    id "java"
+}
+
+group "$appGroup"
+version "$appVersion"
+
+description """Gradle example project to build/run Flix applications"""
+
+apply from: "../common.gradle"
+
+task addRuntime(type: Copy) {
+    dependsOn compileFlix
+
+    from zipTree(flixJar).matching {
+        include "ca/uwaterloo/flix/runtime/**"
+    }
+    into "${buildAppDir}/build"
+}
+
+build {
+    dependsOn addRuntime
+}

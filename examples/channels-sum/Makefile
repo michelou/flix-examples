@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-PROJECT_NAME = areas
+PROJECT_NAME = channels-sum
 
 SOURCE_DIR  = src
 TARGET_DIR  = target
@@ -17,6 +17,10 @@ TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar
 all: build
 
 build: $(TARGET)
+	[ -d "$(TARGET_DIR)/flix" ] || "$(MKDIR)" -p "$(TARGET_DIR)/flix"
+	cd "$(TARGET_DIR)/flix"; \
+	"$(UNZIP)" -o -q "$(FLIX_LIB_JAR)" "ca/uwaterloo/flix/runtime/**"; \
+	"$(JAR)" -uf "$(realpath $(TARGET))" -C . *
 
 $(TARGET): $(SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
@@ -54,7 +58,7 @@ TEST_TARGET      = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
 $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
 	cd "$(BUILD_DIR)"; \
-	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init; \
+	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init && \
 	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \
 	$(CP) -r "$(realpath $(SOURCE_DIR)/main)/." src && \
 	$(CP) -r "$(realpath $(SOURCE_DIR)/test)/." test && \
