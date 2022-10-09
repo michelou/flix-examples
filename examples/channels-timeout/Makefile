@@ -1,8 +1,6 @@
-ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
-
 include ../Makefile.inc
 
-PROJECT_NAME = $(shell basename $(ROOT_DIR))
+PROJECT_NAME = channels-timeout
 
 SOURCE_DIR  = src
 TARGET_DIR  = target
@@ -17,6 +15,10 @@ TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar
 all: build
 
 build: $(TARGET)
+	[ -d "$(TARGET_DIR)/flix" ] || "$(MKDIR)" -p "$(TARGET_DIR)/flix"
+	cd "$(TARGET_DIR)/flix"; \
+	"$(UNZIP)" -o -q "$(FLIX_LIB_JAR)" "ca/uwaterloo/flix/runtime/**"; \
+	"$(JAR)" -uf "$(realpath $(TARGET))" -C . *
 
 $(TARGET): $(SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
@@ -42,20 +44,20 @@ help:
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   display this help message"
-	@$(ECHO) "    run    execute main program $(MAIN_CLASS)"
+	@$(ECHO) "    run    execute main program $(PROJECT_NAME)"
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name *.flix 2>/dev/null)
-TEST_TARGET      = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
+TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name *.flix 2>/dev/null)
+TEST_TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
 
 $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
 	cd "$(BUILD_DIR)"; \
 	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init && \
-	"$(RM)" -f "src/Main.flix" "$test/TestMain.flix" && \
+	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \
 	$(CP) -r "$(realpath $(SOURCE_DIR)/main)/." src && \
 	$(CP) -r "$(realpath $(SOURCE_DIR)/test)/." test && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \

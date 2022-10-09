@@ -46,8 +46,8 @@ help:
 ##############################################################################
 ## test rules
 
-TEST_SOURCES     = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name *.flix 2>/dev/null)
-TEST_TARGET      = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
+TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name *.flix 2>/dev/null)
+TEST_TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
 
 $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"

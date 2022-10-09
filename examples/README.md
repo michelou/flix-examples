@@ -107,9 +107,10 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 > <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
 > [ -d "target/areas" ] || "C:/opt/Git-2.37.3/usr/bin/mkdir.exe" -p "target/areas"
 > cd "target/areas"; \
->         [ -d "target/areas/build" ] || "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" init; \
->         C:/opt/Git-2.37.3/usr/bin/cp.exe -r "F:/examples/areas/src/main/." "F:/examples/areas/target/areas/src"; \
->         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" build; \
+>         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" init && \
+>         "C:/opt/Git-2.37.3/usr/bin/rm.exe" -f "src/Main.flix" && \
+>         "C:/opt/Git-2.37.3/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+>         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" build && \
 >         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" build-jar
 > "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -Xbootclasspath/a:"%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.8/scala-library-2.13.8.jar" -jar "target/areas/areas.jar"
 > 2 :: 6 :: Nil
@@ -139,7 +140,7 @@ Execute Flix program "target\channels\channels.jar"
 1 :: 2 :: 3 :: Nil
 </pre>
 
-> **Note**: The [Flix] command <code>build-jar</code> does not add the [Flix] runtime to the generated archive file <code>target\channels\channels.jar</code>, so we need to update it with class files extracted from <code>flix.jar</code> and belonging to package <code>ca.uwaterloo.flix.runtime</code>.<br/>Without that additional step we would get the following runtime error :
+> **Note**: The [Flix] command <code>build-jar</code> does not add the [Flix] runtime to the generated archive file <code>target\channels\channels.jar</code>, so we need to update it with class files extracted from <code>flix.jar</code> and belonging to package <a href="https://github.com/flix/flix/tree/master/main/src/ca/uwaterloo/flix/runtime"><code>ca.uwaterloo.flix.runtime</code></a>.<br/>Without that additional step we would get the following runtime error :
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
 > Copy 1 Flix source file to directory "target\channels\src\"

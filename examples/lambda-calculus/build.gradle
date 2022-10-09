@@ -1,0 +1,10 @@
+plugins {
+    id "java"
+}
+
+group "$appGroup"
+version "$appVersion"
+
+description """Gradle example project to build/run Flix applications"""
+
+apply from: "../common.gradle"
