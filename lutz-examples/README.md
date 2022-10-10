@@ -11,12 +11,136 @@
   </tr>
 </table>
 
-*WIP*
+> **:mag_right:** Visit the Codeberg repository [`2022-06-24-flix-for-java-programmers`][lutz_codeberg] to get the original [Flix] code examples.
 
-<!--
-Article: https://www.reactivesystems.eu/2022/06/24/flix-for-java-programmers.html
-Repository: https://codeberg.org/reactivesystems.eu/2022-06-24-flix-for-java-programmers
--->
+In this project we made the following changes to the original [Flix] code examples :
+- We have updated several source files to successfully compile with the latest version of the [Flix] compiler <sup id="anchor_01">[1](#footnote_01)</sup>.
+- We use the same project organisation as for the [Flix] code examples presented in the document [`examples\README.md`](../examples/README.md).
+- We provide several build scripts such as batch files, Makefile scripts and Gradle scripts to build our code examples.
+
+## <span id="channels">Example `channels`</span>
+
+Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the Flix source file [`src\main\channels.flix`](./channels/src/main/channels.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
+Initialize Flix project directory "target\channels"
+Copy 1 Flix source file to directory "target\channels\src\"
+Compile 1 Flix source file into directory "target\channels\build\"
+Create archive file "target\channels\channels.jar"
+Extract Flix runtime from archive file "%FLIX_HOME%\flix.jar"
+Add Flix runtime to archive file "target\channels\channels.jar"
+Execute Flix program "target\channels\channels.jar"
+29
+39
+[...]
+72
+35
+done
+</pre>
+
+## <span id="datalog">Example `datalog`</span> [**&#x25B4;**](#top)
+
+Command [**`make run`**][make_cli] ([`Makefile`](./datalog/Makefile)) generates the target file `target\datalog\datalog.jar` from the [Flix] source file [`src\main\datalog.flix`](./datalog/src/main/datalog.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> run</b>
+[ -d "target/datalog" ] || "%GIT_HOME%/usr/bin/mkdir.exe" -p "target/datalog"
+cd "target/datalog"; \
+        [ -d "build" ] || "%JAVA_HOME%/bin/java.exe" -jar "%FLIX_HOME%/flix.jar" init && \
+        "%GIT_HOME%/usr/bin/rm.exe" -f "src/Main.flix" && \
+        "%GIT_HOME%/usr/bin/cp.exe" -r "F:/lutz-examples/datalog/src/main/." src && \
+        "%JAVA_HOME%/bin/java.exe" -jar "%FLIX_HOME%/flix.jar" build && \
+        "%JAVA_HOME%/bin/java.exe" -jar "%FLIX_HOME%/flix.jar" build-jar
+"%JAVA_HOME%/bin/java.exe" -Xbootclasspath/a:"%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.9/scala-library-2.13.9.jar" -jar "target/datalog/datalog.jar"
+Children of Zeus = Apollo :: Ares :: Nil
+Ancestors of Apollo = Kronos :: Leto :: Rhea :: Zeus :: Nil
+0
+</pre>
+
+## <span id="effects">Example `effects`</span>
+
+Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./effects/build.gradle)) generates the target file `target\effects\effects.jar` from the [Flix] source file [`src\main\effects.flix`](./effects/src/main/effects.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -q run</b>
+2
+
+1
+2
+3
+4
+
+2
+4
+6
+8
+0
+</pre>
+
+## <span id="interop">Example `interop`</span> [**&#x25B4;**](#top)
+
+Command [**`build run`**](./interop/build.bat) generates the target file `target\interop\interop.jar` from the [Flix] source file [`src\main\interop.flix`](./interop/src/main/interop.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./interop/build.bat">build</a> run</b>
+false
+0
+</pre>
+
+## <span id="mutualrecursion">Example `mutualrecursion`</span>
+
+Command [**`make -s run`**][make_cli] ([`Makefile`](./mutualrecursion/Makefile)) generates the target file `target\mutualrecursion\mutualrecursion.jar` from the [Flix] source file [`src\main\mutualrecursion.flix`](./mutualrecursion/src/main/mutualrecursion.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+</pre>
+
+## <span id="random">Example `random`</span> [**&#x25B4;**](#top)
+
+Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./random/build.gradle)) generates the target file `target\random\random.jar` from the [Flix] source file [`src\main\random.flix`](./random/src/main/random.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -q run</b>
+109
+169
+[...]
+192
+124
+0
+</pre>
+
+## <span id="tailcalls">Example `tailcalls`</span> 
+
+Command [**`build run`**](./tailcalls/build.bat) generates the target file `target\tailcalls\tailcalls.jar` from the [Flix] source file [`src\main\tailcalls.flix`](./tailcalls/src/main/tailcalls.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./tailcalls/build.bat">build</a> run</b>
+312512500
+0
+</pre>
+
+The same example written in Java ([`src\main\tailcalls.java`](./tailcalls/src/main/tailcalls.java)) fails with a runtime error :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./tailcalls/build.bat">build</a> -java run</b>
+Exception in thread "main" java.lang.StackOverflowError
+        at Tailcalls.tailsum(tailcalls.java:12)
+        at Tailcalls.tailsum(tailcalls.java:12)
+        [...]
+        at Tailcalls.tailsum(tailcalls.java:12)
+        at Tailcalls.tailsum(tailcalls.java:12)
+Error: Failed to execute Java program "Tailcalls"
+</pre>
+
+<!--=======================================================================-->
+
+## <span id="footnotes">Footnotes</span>[**&#x25B4;**](#top)
+
+<span id="footnote_01">[1]</span> ***Source code changes*** [↩](#anchor_01)
+
+<dl><dd>
+<i>WIP</i>
+</dd></dl>
 
 ***
 
@@ -26,3 +150,7 @@ Repository: https://codeberg.org/reactivesystems.eu/2022-06-24-flix-for-java-pro
 <!-- href links -->
 
 [flix]: https://flix.dev/
+[gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
+[lutz_article]: https://www.reactivesystems.eu/2022/06/24/flix-for-java-programmers.html
+[lutz_codeberg]: https://codeberg.org/reactivesystems.eu/2022-06-24-flix-for-java-programmers
+[make_cli]: https://www.gnu.org/software/make/manual/make.html

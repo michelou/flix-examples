@@ -13,12 +13,12 @@ def doSomething(c: Channel[Int32], x: Int32, gen: Random.Random): Unit \ NonDet 
 def printResults(c: Channel[Int32]): Unit \ IO = {
     select {
         case x <- c => println(x); printResults(c)
-        case _ <- Concurrent/Channel/Timer.seconds(5i64) => println("done")
+        case _ <- seconds(5i64) => println("done")
     };
     ()
 }
 
-def abs(i: Int64): Int64 & Pure = if (i < 0i64) Neg.neg(i) else i
+def abs(i: Int64): Int64 \ {} = if (i < 0i64) Neg.neg(i) else i
 
 /// Spawn a process for send and wait, and print the result.
 def main(): Unit \ NonDet = {

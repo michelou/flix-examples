@@ -8,8 +8,6 @@ SOURCE_DIR  = src
 TARGET_DIR  = target
 BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
 
-SCALAC_FLAGS = -deprecation -feature
-
 ##############################################################################
 ## main rules
 

@@ -11,7 +11,19 @@
   </tr>
 </table>
 
-Flix projects presented below share the same directory layout as project `areas`, namely :
+We provide several ways to build/run our [Flix] code examples:
+
+| Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
+|---------------------|------------------------|----------------|----------------|
+| [**`build.bat`**](areas/build.bat) | &nbsp;                 | &nbsp; | MS Windows |
+| **`gradle.exe`**    | [**`build.gradle`**](areas/build.gradle) | [**`common.gradle`**](common.gradle) | Any |
+| **`mvn.cmd`**       | [**`pom.xml`**](areas/pom.xml) | [**`pom.xml`**](pom.xml)  | Any |
+| [**`make.exe`**][make_cli] | [**`Makefile`**](areas/Makefile) | [**`Makefile.inc`**](./Makefile.inc)  | Any |
+<div style="margin:0 15% 0 8px;font-size:90%;">
+<sup><b>a)</b></sup></b> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
+</div>
+
+The [Flix] projects presented below share the same directory layout as project `areas`, namely :
 1. The project directory `areas\` initially looks as follows :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
@@ -125,7 +137,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 > Passed: 2, Failed: 0. Skipped: 0. Elapsed: 6,3ms.
 > <pre>
 
-### <span id="channels">Example `channels`</span>[**&#x25B4;**](#top)
+### <span id="channels">Example `channels`</span> [**&#x25B4;**](#top)
 
 Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and runs the target file :
 

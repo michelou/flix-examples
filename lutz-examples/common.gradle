@@ -1,0 +1,123 @@
+// overrides default "build"
+buildDir file("target")
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+project.ext {
+
+    configurations {
+       bootClasspath
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        bootClasspath "org.scala-lang:scala-library:2.13.9"
+    }
+
+    flixHome = System.getenv("FLIX_HOME")
+    logger.info("flixHome = $flixHome")
+
+    flixJar = file(flixHome + "/flix.jar")
+    logger.info("flixJar = ${flixJar}")
+
+    bootClasspath = configurations.getByName("bootClasspath").resolve().join(File.pathSeparator)
+
+    mainSourceTree = fileTree(dir: "src/main", include: "**/*.flix")
+    //testSourceTree = fileTree(dir: "src/test", include: "**/*.flix")
+
+    buildAppDir = file("${buildDir}/${appName}")
+}
+
+clean.doLast {
+    buildDir.deleteDir()
+}
+
+tasks.withType(JavaCompile) {
+    // https://docs.gradle.org/current/dsl/org.gradle.api.tasks.compile.CompileOptions.html
+    options.deprecation true
+    options.encoding "UTF8"
+}
+
+task initFlix(type: JavaExec) {
+    jvmArgs "-Dfile.encoding=UTF-8"
+
+    mainClass = "-jar"
+    args = [ flixJar, "init" ]
+
+    workingDir buildAppDir
+}
+
+initFlix.doFirst {
+    buildAppDir.mkdirs()
+}
+
+initFlix.onlyIf {
+    ! buildAppDir.exists()
+}
+
+task deleteFiles(type: Delete) {
+    dependsOn initFlix
+
+    delete fileTree("${buildAppDir}/src") { include "**/*.flix" }
+    delete fileTree("${buildAppDir}/test") { include "**/*.flix" }
+}
+
+task copyFiles(type: Copy) {
+    dependsOn initFlix, deleteFiles
+
+    from("src/main") { include "**/*.flix" }
+    into "${buildAppDir}/src"
+}
+
+task compileFlix(type: JavaExec) {
+    dependsOn copyFiles, compileJava
+
+    description "Compile Flix source files"
+
+    jvmArgs "-Dfile.encoding=UTF-8"
+
+    mainClass = "-jar"
+    args = [ flixJar, "build" ]
+
+    workingDir buildAppDir
+}
+
+compileFlix.onlyIf {
+    ! mainSourceTree.isEmpty()
+}
+
+task jarFlix(type: JavaExec) {
+    dependsOn compileFlix
+
+    description "Create Flix program \"${appName}/${appName}.jar\""
+
+    jvmArgs "-Dfile.encoding=UTF-8"
+
+    mainClass = "-jar"
+    args = [ flixJar, "build-jar" ]
+
+    workingDir buildAppDir
+}
+
+build {
+    dependsOn jarFlix
+}
+
+task run(type: JavaExec) {
+    dependsOn build
+
+    description "Execute Flix program \"${appName}/${appName}.jar\""
+
+    jvmArgs "-Dfile.encoding=UTF-8"
+
+    mainClass = "-Xbootclasspath/a:${bootClasspath}"
+    args = [ "-jar", "${buildDir}/${appName}/${appName}.jar" ]
+
+    workingDir buildAppDir
+}
