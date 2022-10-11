@@ -266,6 +266,9 @@ This code example is slightly more complex than the other examples presented on 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 F:\EXAMPLES\LAMBDA-CALCULUS
 |   <a href="./lambda-calculus/build.bat">build.bat</a>
+|   <a href="./lambda-calculus/build.gradle">build.gradle</a>
+|   <a href="./lambda-calculus/gradle.properties">gradle.properties</a>
+|   <a href="./lambda-calculus/Makefile">Makefile</a>
 |
 \---src
     +---main
