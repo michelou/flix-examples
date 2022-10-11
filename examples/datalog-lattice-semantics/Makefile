@@ -1,6 +1,8 @@
+ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+
 include ../Makefile.inc
 
-PROJECT_NAME = datalog-lattice-semantics
+PROJECT_NAME = $(shell basename $(ROOT_DIR))
 
 SOURCE_DIR  = src
 TARGET_DIR  = target

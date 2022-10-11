@@ -16,8 +16,7 @@ We provide several ways to build/run our [Flix] code examples:
 | Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
 |---------------------|------------------------|----------------|----------------|
 | [**`build.bat`**](areas/build.bat) | &nbsp;                 | &nbsp; | MS Windows |
-| **`gradle.exe`**    | [**`build.gradle`**](areas/build.gradle) | [**`common.gradle`**](common.gradle) | Any |
-| **`mvn.cmd`**       | [**`pom.xml`**](areas/pom.xml) | [**`pom.xml`**](pom.xml)  | Any |
+| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](areas/build.gradle) | [**`common.gradle`**](common.gradle) | Any |
 | [**`make.exe`**][make_cli] | [**`Makefile`**](areas/Makefile) | [**`Makefile.inc`**](./Makefile.inc)  | Any |
 <div style="margin:0 15% 0 8px;font-size:90%;">
 <sup><b>a)</b></sup></b> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
@@ -29,9 +28,9 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
-   |   <a href="./areas/build.gradle">build.gradle</a>
+   |   <a href="./areas/build.gradle">build.gradle</a>  <i>(<a href="./common.gradle">common.gradle</a>)</i>
    |   <a href="./areas/gradle.properties">gradle.properties</a>
-   |   <a href="./areas/Makefile">Makefile</a>
+   |   <a href="./areas/Makefile">Makefile</a>      <i>(<a href="./Makefile.inc">Makefile.inc</a>)</i>
    \---<b>src</b>
         +---main
         |       <a href="./areas/src/main/Main.flix">Main.flix</a>
@@ -44,9 +43,9 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
-   |   <a href="./areas/build.gradle">build.gradle</a>
+   |   <a href="./areas/build.gradle">build.gradle</a>   <i>(<a href="./common.gradle">common.gradle</a>)</i>
    |   <a href="./areas/gradle.properties">gradle.properties</a>
-   |   <a href="./areas/Makefile">Makefile</a>
+   |   <a href="./areas/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">Makefile.inc</a>)</i>
    +---<b>src</b>
    |   +---main
    |   |       <a href="./areas/src/main/Main.flix">Main.flix</a>
@@ -66,9 +65,9 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
-   |   <a href="./areas/build.gradle">build.gradle</a>
+   |   <a href="./areas/build.gradle">build.gradle</a>   <i>(<a href="./common.gradle">common.gradle</a>)</i>
    |   <a href="./areas/gradle.properties">gradle.properties</a>
-   |   <a href="./areas/Makefile">Makefile</a>
+   |   <a href="./areas/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">Makefile.inc</a>)</i>
    +---<b>src</b>
    |   +---main
    |   |       <a href="./areas/src/main/Main.flix">Main.flix</a>
@@ -94,7 +93,7 @@ The [Flix] projects presented below share the same directory layout as project `
 
 ### <span id="areas">Example `areas`</span>
 
-Command [**`build -verbose run`**](./areas/build.bat) generates the target file `target\areas\areas.jar` from the Flix source file [`src\main\Main.flix`](./areas/src/main/Main.flix) and runs the target file :
+Command [**`build -verbose run`**](./areas/build.bat) generates the target file `target\areas\areas.jar` from the Flix source file [`src\main\Main.flix`](./areas/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose run</b>
@@ -148,7 +147,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 
 ### <span id="channels">Example `channels`</span> [**&#x25B4;**](#top)
 
-Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and runs the target file :
+Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
@@ -231,7 +230,7 @@ Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 
 ### <span id="fibonacci">Example `fibonacci`</span>[**&#x25B4;**](#top)
 
-Command [**`build -verbose run`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and runs the target file :
+Command [**`build -verbose run`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./fibonacci/build.bat">build</a> -verbose run</b>
@@ -260,15 +259,15 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 5,8ms.
 
 ### <span id="lambda">Example `lambda-calculus`</span>
 
-This code example is slightly more complex than the other examples presented on this page because it contains a [Scala] source file.
+This example is slightly more complex than the other examples because it contains several source files, including the [Scala] source file [`Counter.scala`](./lambda-calculus/src/main/Counter.scala).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 F:\EXAMPLES\LAMBDA-CALCULUS
 |   <a href="./lambda-calculus/build.bat">build.bat</a>
-|   <a href="./lambda-calculus/build.gradle">build.gradle</a>
+|   <a href="./lambda-calculus/build.gradle">build.gradle</a>   <i>(<a href="./common.gradle">common.gradle</a>)</i>
 |   <a href="./lambda-calculus/gradle.properties">gradle.properties</a>
-|   <a href="./lambda-calculus/Makefile">Makefile</a>
+|   <a href="./lambda-calculus/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">Makefile.inc</a>)</i>
 |
 \---src
     +---main
@@ -279,6 +278,13 @@ F:\EXAMPLES\LAMBDA-CALCULUS
     \---test
             <a href="./lambda-calculus/src/test/TestMain.flix<">TestMain.flix</a>
 </pre>
+
+> **:mag_right:** [`Counter.scala`](./lambda-calculus/src/main/Counter.scala) implements the stateful object `Counter` with one single method `getNext()`. In file[`lambda-calculus.flix`](./lambda-calculus/src/main/lambda-calculus.flix) we call `getNext()` instead of [`???`](https://stackoverflow.com/questions/47717583/what-is-in-scala) (the "unimplemented" function) inside function `freshVar()` in order to obtain a runnable example :
+> <pre style="font-size:80%;">
+> <b>def</b> freshVar(): Int32 = // <a href="https://stackoverflow.com/questions/47717583/what-is-in-scala">???</a>
+>     <b>import static</b> Counter.getNext(): Int32 \ {};
+>     getNext()
+> </pre>
 
 Concretely we perform two additional steps before calling the [Flix] commands **`build`** and **`build-jar`**:
 - we compile **`Counter.scala`** into directory  **`target\lambda-calculus\lib\`** with the Scala command **`scalac`**. 
@@ -439,5 +445,6 @@ Flix project directories must have a special layout enforced by the Flix command
 <!-- href links -->
 
 [flix]: https://flix.dev/
+[gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [make_cli]: https://www.gnu.org/software/make/manual/make.html
 [scala]: https://www.scala-lang.org/

@@ -3,6 +3,8 @@
 .gradle/
 .idea/
 .metals/
+.mvn/
+.settings/
 .vscode/
 *_LOCAL/
 target/

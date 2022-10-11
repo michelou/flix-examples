@@ -40,7 +40,7 @@ TOUCH      = touch
 UNZIP      = unzip
 endif
 
-SCALA_LIB_JAR  = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.9.jar)
+SCALA_LIB_JAR  = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.10.jar)
 FLIX_LIB_JAR   = $(shell $(FIND) "$(FLIX_HOME)/" -name flix.jar)
 
 ifeq (,$(wildcard $(SCALA_LIB_JAR)))

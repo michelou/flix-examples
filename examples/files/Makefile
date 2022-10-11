@@ -1,3 +1,5 @@
+ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+
 include ../Makefile.inc
 
 PROJECT_NAME = files
