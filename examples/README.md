@@ -29,6 +29,9 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
+   |   <a href="./areas/build.gradle">build.gradle</a>
+   |   <a href="./areas/gradle.properties">gradle.properties</a>
+   |   <a href="./areas/Makefile">Makefile</a>
    \---<b>src</b>
         +---main
         |       <a href="./areas/src/main/Main.flix">Main.flix</a>
@@ -41,6 +44,9 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
+   |   <a href="./areas/build.gradle">build.gradle</a>
+   |   <a href="./areas/gradle.properties">gradle.properties</a>
+   |   <a href="./areas/Makefile">Makefile</a>
    +---<b>src</b>
    |   +---main
    |   |       <a href="./areas/src/main/Main.flix">Main.flix</a>
@@ -60,6 +66,9 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
+   |   <a href="./areas/build.gradle">build.gradle</a>
+   |   <a href="./areas/gradle.properties">gradle.properties</a>
+   |   <a href="./areas/Makefile">Makefile</a>
    +---<b>src</b>
    |   +---main
    |   |       <a href="./areas/src/main/Main.flix">Main.flix</a>
@@ -117,11 +126,11 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 > **Note**: We achieve the same result with command [**`make.exe`**][make_cli] which reads its configuration from the two configuration files [**`Makefile`**](./areas/Makefile) and [**`Makefile.inc`**](./Makefile.inc) (we can use option **`--silent`** to hide the executed commands):
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
-> [ -d "target/areas" ] || "C:/opt/Git-2.37.3/usr/bin/mkdir.exe" -p "target/areas"
+> [ -d "target/areas" ] || "C:/opt/Git-2.38.0/usr/bin/mkdir.exe" -p "target/areas"
 > cd "target/areas"; \
 >         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" init && \
->         "C:/opt/Git-2.37.3/usr/bin/rm.exe" -f "src/Main.flix" && \
->         "C:/opt/Git-2.37.3/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+>         "C:/opt/Git-2.38.0/usr/bin/rm.exe" -f "src/Main.flix" && \
+>         "C:/opt/Git-2.38.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
 >         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" build && \
 >         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix.jar" build-jar
 > "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -Xbootclasspath/a:"%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.8/scala-library-2.13.8.jar" -jar "target/areas/areas.jar"
