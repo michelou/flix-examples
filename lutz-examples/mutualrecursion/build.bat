@@ -206,6 +206,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-java%__END%       select Java example instead of Flix one
 echo     %__BEG_O%-nightly%__END%    use nightly Flix if locally available
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.

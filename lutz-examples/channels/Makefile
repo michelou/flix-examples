@@ -8,8 +8,6 @@ SOURCE_DIR  = src
 TARGET_DIR  = target
 BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
 
-SCALAC_FLAGS = -deprecation -feature
-
 ##############################################################################
 ## main rules
 
@@ -66,7 +64,7 @@ $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	"$(CP)" -r "$(realpath $(SOURCE_DIR)/test)/." test && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build-jar
-    @$(TOUCH) "$(TEST_TARGET)"
+	@$(TOUCH) "$(TEST_TARGET)"
 
 test: $(TEST_TARGET)
 	cd "$(BUILD_DIR)"; \

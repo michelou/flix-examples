@@ -16,10 +16,10 @@ We provide several ways to build/run our [Flix] code examples:
 | Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
 |---------------------|------------------------|----------------|----------------|
 | [**`build.bat`**](areas/build.bat) | &nbsp;                 | &nbsp; | MS Windows |
-| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](areas/build.gradle) | [**`common.gradle`**](common.gradle) | Any |
+| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](areas/build.gradle) | [**`common.gradle`**](common.gradle) | Any<sup><b>a)</b></sup>  |
 | [**`make.exe`**][make_cli] | [**`Makefile`**](areas/Makefile) | [**`Makefile.inc`**](./Makefile.inc)  | Any |
 <div style="margin:0 15% 0 8px;font-size:90%;">
-<sup><b>a)</b></sup></b> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
+<sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
 </div>
 
 The [Flix] projects presented below share the same directory layout as project `areas`, namely :

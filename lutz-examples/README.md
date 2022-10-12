@@ -13,14 +13,15 @@
 
 > **:mag_right:** Visit the Codeberg repository [`2022-06-24-flix-for-java-programmers`][lutz_codeberg] to get the original [Flix] code examples.
 
-In this project we made the following changes to the original [Flix] code examples :
-- We have updated several source files to successfully compile with the latest version of the [Flix] compiler <sup id="anchor_01">[1](#footnote_01)</sup>.
-- We use the same project organisation as for the [Flix] code examples presented in the document [`examples\README.md`](../examples/README.md).
-- We provide several build scripts such as batch files, Makefile scripts and Gradle scripts to build our code examples.
+We made the following changes resp. additions to the original [Flix] code examples :
+- The source files have been updated <sup id="anchor_01">[1](#footnote_01)</sup> to successfully compile with the latest version of the [Flix] compiler.
+- Each example has the same directory layout as the [Flix] code examples presented in document [`examples\README.md`](../examples/README.md).
+- Build scripts such as batch files, Makefile scripts and Gradle scripts are provided to build, run and test the examples.
+- Each example includes a minimal test suite (directory `src\test\`).
 
 ## <span id="channels">Example `channels`</span>
 
-Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the Flix source file [`src\main\channels.flix`](./channels/src/main/channels.flix) and runs the target file :
+Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the Flix source file [`src\main\channels.flix`](./channels/src/main/channels.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
@@ -39,9 +40,27 @@ Execute Flix program "target\channels\channels.jar"
 done
 </pre>
 
+Command [**`build -verbose test`**](./channels/build.bat) generates the target file `target\channels\channels.jar` and runs the test suite :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./channels/build.bat">build</a> -verbose test</b>
+Copy 1 Flix source file to directory "target\channels\src\"
+Copy 1 Flix test source file to directory "target\channels\test\"
+Compile 1 Flix source file and 1 Flix test source file
+Create archive file "target\channels\channels.jar"
+Extract Flix runtime from archive file "C:\opt\flix-0.31.0\flix.jar"
+Add Flix runtime to archive file "target\channels\channels.jar"
+Execute tests for Flix program "target\channels\channels.jar"
+Running 1 tests...
+
+   PASS  test01 384,1us
+
+Passed: 1, Failed: 0. Skipped: 0. Elapsed: 6,9ms.
+</pre>
+
 ## <span id="datalog">Example `datalog`</span> [**&#x25B4;**](#top)
 
-Command [**`make run`**][make_cli] ([`Makefile`](./datalog/Makefile)) generates the target file `target\datalog\datalog.jar` from the [Flix] source file [`src\main\datalog.flix`](./datalog/src/main/datalog.flix) and runs the target file :
+Command [**`make run`**][make_cli] ([`Makefile`](./datalog/Makefile)) generates the target file `target\datalog\datalog.jar` from the [Flix] source file [`src\main\datalog.flix`](./datalog/src/main/datalog.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> run</b>
@@ -60,7 +79,7 @@ Ancestors of Apollo = Kronos :: Leto :: Rhea :: Zeus :: Nil
 
 ## <span id="effects">Example `effects`</span>
 
-Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./effects/build.gradle)) generates the target file `target\effects\effects.jar` from the [Flix] source file [`src\main\effects.flix`](./effects/src/main/effects.flix) and runs the target file :
+Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./effects/build.gradle)/ [`common.gradle`](./common.gradle)) generates the target file `target\effects\effects.jar` from the [Flix] source file [`src\main\effects.flix`](./effects/src/main/effects.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -q run</b>
@@ -90,14 +109,25 @@ false
 
 ## <span id="mutualrecursion">Example `mutualrecursion`</span>
 
-Command [**`make -s run`**][make_cli] ([`Makefile`](./mutualrecursion/Makefile)) generates the target file `target\mutualrecursion\mutualrecursion.jar` from the [Flix] source file [`src\main\mutualrecursion.flix`](./mutualrecursion/src/main/mutualrecursion.flix) and runs the target file :
+Command [**`make -s run`**][make_cli] ([`Makefile`](./mutualrecursion/Makefile)/[`Makefile.inc`](./Makefile.inc)) generates the target file `target\mutualrecursion\mutualrecursion.jar` from the [Flix] source file [`src\main\mutualrecursion.flix`](./mutualrecursion/src/main/mutualrecursion.flix) and runs the target file :
 
 <pre style="font-size:80%;">
+<b>&gt; make -s run</b>
+true
+0
 </pre>
+
+> **Note**: Command `build` features option `-java` to compile/run the Java version of this code example.
+> <pre style="font-size:80%;">
+> <b>&gt; build -java -verbose run</b>
+> Compile Java source files to directory "target\classes"
+> Execute Java program "MutualRecursion"
+> true
+> </pre>
 
 ## <span id="random">Example `random`</span> [**&#x25B4;**](#top)
 
-Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./random/build.gradle)) generates the target file `target\random\random.jar` from the [Flix] source file [`src\main\random.flix`](./random/src/main/random.flix) and runs the target file :
+Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./random/build.gradle)/[`common.gradle`](./common.gradle)) generates the target file `target\random\random.jar` from the [Flix] source file [`src\main\random.flix`](./random/src/main/random.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -q run</b>
@@ -136,10 +166,20 @@ Error: Failed to execute Java program "Tailcalls"
 
 ## <span id="footnotes">Footnotes</span>[**&#x25B4;**](#top)
 
-<span id="footnote_01">[1]</span> ***Source code changes*** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Updated source files*** [↩](#anchor_01)
 
 <dl><dd>
-<i>WIP</i>
+Here are the updates we made to the original <a href="https://flix.dev/">Flix</a>  code examples from Lutz Hühnken's article "<a href="https://www.reactivesystems.eu/2022/06/24/flix-for-java-programmers.html">Flix for Java programmers</a>" (June 2022). :
+<table>
+<tr>
+  <td><b>Source file(s)</b></td>
+  <td><b>Source code change</a></td>
+</tr>
+<tr>
+  <td><a href="./channels/src/main/channels.flix"><code>channels.flix</code></a><br/><a href="./random/src/main/random.flix"><code>random.flix</code></a></td>
+  <td>Changed return type <code>Unit & Impure</code> to <code>Unit \ NonDet</code> for functions <code>doSomething</code> and <code>main</code> (see definition of <a href="https://github.com/flix/flix/blob/master/main/src/library/Random.flix#L66-L69"><code>Random.nextInt64</code></a>).</td>
+</tr>
+</table>
 </dd></dl>
 
 ***

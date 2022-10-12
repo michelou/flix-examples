@@ -64,7 +64,7 @@ $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	"$(CP)" -r "$(realpath $(SOURCE_DIR)/test)/." test && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build-jar
-    @$(TOUCH) "$(TEST_TARGET)"
+	@$(TOUCH) "$(TEST_TARGET)"
 
 test: $(TEST_TARGET)
 	cd "$(BUILD_DIR)"; \
