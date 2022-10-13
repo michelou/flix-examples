@@ -6,6 +6,19 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+ext.getNightly = { flixHome ->
+    def jars = fileTree(flixHome).filter { it.name.matches("flix-.*\\.jar") }.files
+    if (jars.size() > 0) {
+        def jarName = jars.last().name
+        logger.warn("Nightly build '$jarName' was selected")
+        return jarName
+    }
+    else {
+        logger.warn("> WARNING: No nightly build of Flix was found; use release version instead.")
+        return "flix.jar"
+    }
+}
+
 project.ext {
 
     configurations {
@@ -17,16 +30,18 @@ project.ext {
     }
 
     dependencies {
-        bootClasspath "org.scala-lang:scala-library:2.13.9"
+        bootClasspath "org.scala-lang:scala-library:2.13.10"
     }
 
     flixHome = System.getenv("FLIX_HOME")
     logger.info("flixHome = $flixHome")
 
-    flixJar = file(flixHome + "/flix.jar")
-    logger.info("flixJar = ${flixJar}")
+    jarName = System.getProperty("nightly") != null
+        ? getNightly(flixHome)
+        : "flix.jar"
+    flixJar = file(flixHome + "/" + jarName)
 
-    bootClasspath = configurations.getByName("bootClasspath").resolve().join(";")
+    bootClasspath = configurations.getByName("bootClasspath").resolve().join(File.pathSeparator)
 
     mainSourceTree = fileTree(dir: "src/main", include: "**/*.flix")
     //testSourceTree = fileTree(dir: "src/test", include: "**/*.flix")
@@ -61,8 +76,15 @@ initFlix.onlyIf {
     ! buildAppDir.exists()
 }
 
-task copyFiles(type: Copy) {
+task deleteFiles(type: Delete) {
     dependsOn initFlix
+
+    delete fileTree("${buildAppDir}/src") { include "**/*.flix" }
+    delete fileTree("${buildAppDir}/test") { include "**/*.flix" }
+}
+
+task copyFiles(type: Copy) {
+    dependsOn initFlix, deleteFiles
 
     from("src/main") { include "**/*.flix" }
     into "${buildAppDir}/src"

@@ -165,7 +165,11 @@ if %_NIGHTLY%==1 (
     for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar"') do (
         set "__NIGHTLY_JAR=%%i"
     )
-    if defined __NIGHTLY_JAR ( set "_FLIX_JAR=%FLIX_HOME%\!__NIGHTLY_JAR!"
+    if defined __NIGHTLY_JAR (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly build "!__NIGHTLY_JAR!" was selected 1>&2
+        ) else if %_VERBOSE%==1 ( echo Nightly build "!__NIGHTLY_JAR!" was selected 1>&2
+        )
+        set "_FLIX_JAR=%FLIX_HOME%\!__NIGHTLY_JAR!"
     ) else (
         set _NIGHTLY=0
         echo %_WARNING_LABEL% Nightly build of Flix not found ^(use release version instead^) 1>&2
@@ -258,10 +262,10 @@ if exist "%_BUILD_DIR%\test\*.flix" del /q "%_BUILD_DIR%\test\*.flix"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
 )
-xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>NUL
+xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1>NUL
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to copy %__N_FILES% 1>&2
+    echo %_ERROR_LABEL% Failed to copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
     set _EXITCODE=1
     goto :eof
 )

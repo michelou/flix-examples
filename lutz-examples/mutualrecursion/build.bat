@@ -173,7 +173,11 @@ if %_JAVA%==1 (
     for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar"') do (
         set "__NIGHTLY_JAR=%%i"
     )
-    if defined __NIGHTLY_JAR ( set "_FLIX_JAR=%FLIX_HOME%\!__NIGHTLY_JAR!"
+    if defined __NIGHTLY_JAR (
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Nightly build "!__NIGHTLY_JAR!" was selected 1>&2
+        ) else if %_VERBOSE%==1 ( echo Nightly build "!__NIGHTLY_JAR!" was selected 1>&2
+        )
+        set "_FLIX_JAR=%FLIX_HOME%\!__NIGHTLY_JAR!"
     ) else (
         set _NIGHTLY=0
         echo %_WARNING_LABEL% Nightly build of Flix not found ^(use release version instead^) 1>&2
