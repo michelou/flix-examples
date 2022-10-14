@@ -22,7 +22,7 @@
 | Annotation      | Description |
 |:----------------|:------------|
 | `@Experimental` | [`ca\uwaterloo\flix\language\ast\Ast.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L114) |
-| `@Internal`     | |
+| `@Internal`     | [`ca\uwaterloo\flix\language\ast\Ast.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L123) |
 | `@Lazy`         | |
 | `@LazyWhenPure` | |
 | `@Parallel`     | |
@@ -39,119 +39,127 @@ GitHub: [`src\ca\uwaterloo\flix\language\phase\Weeder.scala`](https://github.com
 
 Each keyword below points to a usage example from the [Flix] library :
 
-[`alias`](https://github.com/flix/flix/blob/master/main/src/library/File.flix#L145)
-[`and`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L81)
-[`as`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L34)
-[`case`](https://)
-[`catch`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L101)
-[`chan`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel/Ticker.flix#L100)
-[`choose`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L33)
-[`class`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L20)
-[`def`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L24)
-[`deref`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L59)
-[`discard`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L53)
-`do
-eff
-else
-enum
-false
-fix
-for
-forall
-force
-foreach
-from
-get
-if`
-[`import`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L57)
-[`inject`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22)
-`inline
-instance`
-[`into`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22)
-[`lat`]()
-[`law`]()
-[`lawful`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L22)
-[`lazy`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L430)
-`let
-match
-namespace
-new
-not
-null
-opaque
-or
-override
-par
-project
-pub
-query
-ref
-region
-reify
-reifyBool
-reifyEff
-reifyType
-rel
-resume
-sealed
-select
-set
-solve`
-[`spawn`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L469)
-[`static`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix#L41)
-`true
-try
-type
-upcast
-use
-where
-with
-without
-yield`
+| Keyword | Description |
+|:--------|:------------|
+| [`alias`](https://github.com/flix/flix/blob/master/main/src/library/File.flix#L145)
+| [`and`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L81)
+| [`as`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L34)
+| [`case`](https://)
+| [`catch`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L101)
+| [`chan`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel/Ticker.flix#L100)
+| [`choose`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L33)
+| [`class`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L20)
+| [`def`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L24)
+| [`deref`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L59)
+| [`discard`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L53)
+| [`do`]() | |
+| [`eff`]() | |
+| [`else`]() | |
+| [`enum`]() | |
+| [`false`]() | |
+| [`fix`]() | |
+| [`for`]() | |
+| [`forall`]() | |
+| [`force`]() | |
+| [`foreach`]() | |
+| [`from`]() | |
+| [`get`]() | |
+| [`if`]() | |
+| [`import`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L57) | |
+| [`inject`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22) | |
+| [`inline`]() | |
+| [`instance`]() | |
+| [`into`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22) | |
+| [`lat`]() | |
+| [`law`]() | |
+| [`lawful`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L22) | |
+| [`lazy`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L430) | |
+| [`let`]() | |
+| [`match`]() | |
+| [`namespace`]() | |
+| [`new`]() | |
+| [`not`]() | |
+| [`null`]() | |
+| [`opaque`]() | |
+| [`or`]() | |
+| [`override`]() | |
+| [`par`]() | |
+| [`project`]() | |
+| [`pub`]() | |
+| [`query`]() | |
+| [`ref`]() | |
+| [`region`]() | |
+| [`reify`]() | |
+| [`reifyBool`]() | |
+| [`reifyEff`]() | |
+| [`reifyType`]() | |
+| [`rel`]() | |
+| [`resume`]() | |
+| [`sealed`]() | |
+| [`select`]() | |
+| [`set`]() | |
+| [`solve`]() | |
+| [`spawn`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L469) | |
+| [`static`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix#L41) | |
+| [`true`]() | |
+| [`try`]() | |
+| [`type`]() | |
+| [`upcast`](https://github.com/flix/flix/blob/master/main/src/library/Prelude.flix#L298) | |
+| [`use`]() | |
+| [`where`]() | |
+| [`with`]() | |
+| [`without`]() | |
+| [`yield`]() | |
 
 ## <span id="buildin_types">Built-in Types</span>
 
 GitHub: [`src/ca/uwaterloo/flix/api/lsp/provider/CompletionProvider.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/lsp/provider/CompletionProvider.scala#L50).
 
-`Array`
-`BigInt`
-`Bool`
-`Channel`
-`Char`
-`Float32`
-`Float64`
-`Int8`
-`Int16`
-`Int32`
-`Int64`
-`Lazy`
-`Ref`
-`String`
-`Unit`
+| Type | Description |
+|:-----|:------------|
+| [`Array`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix) | |
+| [`BigInt`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix) | |
+| [`Bool`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix) | |
+| [`Channel`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel.flix) | |
+| [`Char`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix) | |
+| [`Float32`](https://github.com/flix/flix/blob/master/main/src/library/Float32.flix) | |
+| [`Float64`](https://github.com/flix/flix/blob/master/main/src/library/Float64.flix) | 64-bit float |
+| [`Int8`](https://github.com/flix/flix/blob/master/main/src/library/Int8.flix) |  8-bit integer |
+| [`Int16`](https://github.com/flix/flix/blob/master/main/src/library/Int16.flix) | |
+| [`Int32`](https://github.com/flix/flix/blob/master/main/src/library/Int32.flix) | |
+| [`Int64`](https://github.com/flix/flix/blob/master/main/src/library/Int64.flix) | |
+| [`Lazy`]() | |
+| [`Ref`]() | |
+| [`String`]() | |
+| [`Unit`]() | |
 
 ## <span id="standard_types">Standard Types</span>
 
-[`Absent`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L21)
-`Eff`
-`Impure`
-`Nil`
-`Predicate`
-`Present`
-`Pure`
-`Read`
-`RecordNow`
-`Region`
-`SchemaNow`
-`Static`
-`Type`
-`Write`
+| Type | Description |
+|:-----|:------------|
+| [`Absent`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L21) | |
+| [`Eff`]() | |
+| [`Impure`]() | |
+| [`Nil`]() | |
+| [`Predicate`]() | |
+| [`Present`]() | |
+| [`Pure`]() | |
+| [`Read`]() | |
+| [`RecordNow`]() | |
+| [`Region`]() | |
+| [`SchemaNow`]() | |
+| [`Static`]() | |
+| [`Type`]() | |
+| [`Write`]() | |
 
 ## <span id="operators">Predefined Operators</span>
 
-`<-
-=>
-@
-:`
+| Operator | Description |
+|:---------|:------------|
+| [`<-`]() | |
+| [`=>`]() | |
+| [`@`]() | |
+| [`:`]() | |
 
 ## <span id="grammar">Flix Grammar (WIP)</span> <sup id="anchor_01">[1](#footnote_01)</sup>
 
@@ -237,13 +245,13 @@ GitHub: [`test\ca\uwaterloo\flix\TestMain.scala`](https://github.com/flix/flix/b
 Extract from the Flix FAQ :
 <blockquote>
 <p>
-<a href="https://flix.dev/">Flix</a> looks quite similar to <a href="https://www.scala-lang.org/">Scala</a>. How are the two languages related?</p>
+<a href="https://flix.dev/" rel="external">Flix</a> looks quite similar to <a href="https://www.scala-lang.org/" rel="external">Scala</a>. How are the two languages related?</p>
 <p>
 Flix borrows a lot of syntax from Scala, hence the two languages have a similar feel. We think Scala made many good design choices with respect to syntax, including:<br/>&ensp;<b>(a)</b> the use of short keywords,<br/>&ensp;<b>(b)</b> the <code>x : T</code> syntax for type annotations,<br/>&ensp;<b>(c)</b> the <code>List[Int32]</code> syntax for type parameters, and<br/>&ensp;<b>(d)</b> <code>if</code>, <code>match</code>, etc. as expressions.
 </p>
 Other than syntax, the two languages are very different:
 <ul>
-<li>Scala is object-oriented, Flix is not.</li>
+<li><a href="https://www.scala-lang.org/" rel="external">Scala</a> is object-oriented, <a href="https://flix.dev/" rel="external">Flix</a> is not.</li>
 <li>Scala has sub-typing, Flix does not.</li>
 <li>The Scala type system is unsound and has imperfect type inference, whereas the Flix type system is both sound and supports type inference.</li>
 </ul>

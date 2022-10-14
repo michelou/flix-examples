@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-We provide several ways to build/run our [Flix] code examples:
+We currently provide three ways to build/run/test our [Flix] code examples:
 
 | Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
 |---------------------|------------------------|----------------|----------------|
@@ -28,9 +28,9 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
-   |   <a href="./areas/build.gradle">build.gradle</a>  <i>(<a href="./common.gradle">common.gradle</a>)</i>
+   |   <a href="./areas/build.gradle">build.gradle</a>  <i>(<a href="./common.gradle">..\common.gradle</a>)</i>
    |   <a href="./areas/gradle.properties">gradle.properties</a>
-   |   <a href="./areas/Makefile">Makefile</a>      <i>(<a href="./Makefile.inc">Makefile.inc</a>)</i>
+   |   <a href="./areas/Makefile">Makefile</a>      <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
    \---<b>src</b>
         +---main
         |       <a href="./areas/src/main/Main.flix">Main.flix</a>
@@ -38,7 +38,7 @@ The [Flix] projects presented below share the same directory layout as project `
                 <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
    </pre>
 
-3. Before compilation we run the Flix command `init` <sup id="anchor_01">[1](#footnote_01)</sup> to create a Flix-managed <sup id="anchor_02">[2](#footnote_02)</sup> subdirectory `target\areas\` and we copy the [Flix] source files from the `src\main\` and `src\test\` directories :
+3. Before compilation we run the [Flix] command `init` <sup id="anchor_01">[1](#footnote_01)</sup> to create a Flix-managed <sup id="anchor_02">[2](#footnote_02)</sup> subdirectory `target\areas\` and we copy the [Flix] source files from the `src\main\` and `src\test\` directories :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
@@ -60,7 +60,7 @@ The [Flix] projects presented below share the same directory layout as project `
           HISTORY.md, LICENSE.md, README.md  <i>(generated placeholders)</i>
    </pre>
 
-2. During compilation we run the two [Flix] commands `build` <sup id="anchor_01">[1](#footnote_01)</sup> and `build-jar` to successively generate class files in subdirectory `target\areas\build\` and the target file `target\areas\areas.jar` :
+2. During compilation we run the two [Flix] commands `build` <sup id="anchor_01">[1](#footnote_01)</sup> and `build-jar` to successively generate the Java class files in subdirectory `target\areas\build\` and the target file `target\areas\areas.jar` :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
@@ -83,8 +83,8 @@ The [Flix] projects presented below share the same directory layout as project `
            |   +---List\*.class
            |   \---StringBuilder\*.class
            +---lib
-           +---src\Main.flix
-           \---test\TestMain.flix
+           +---src\Main.flix       <i>(copied from src\main\)</i>
+           \---test\TestMain.flix  <i>(copied from src\main\)</i>
           areas.jar
           HISTORY.md, LICENSE.md, README.md
    </pre>
@@ -200,15 +200,15 @@ Command [**`build`**](./datalog-constraints/build.bat)` -verbose run` generates 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./datalog-constraints/build.bat">build</a> -verbose run</b>
 Copy 1 Flix source file to directory "target\datalog-constraints\src\"
-Compile 1 Flix source file
+Compile 1 Flix source file into directory "target\datalog-constraints\build\"
 Create archive file "target\datalog-constraints\datalog-constraints.jar"
 Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 (C++, x86) :: (MiniScala, C++) :: (MiniScala, x86) :: (Scala, C++) :: (Scala, MiniScala) :: (Scala, x86) :: Nil
 </pre>
 
-> **Note**: We need to specify the JVM option [`-Xbootclasspath/a:%SCALA_HOME%\lib\scala-library.jar`](https://docs.oracle.com/cd/E15289_01/JRCLR/optionx.htm#i1021218) at execution time in order to avoid the following runtime error :
+> **Note**: We need to specify the JVM option [`-Xbootclasspath/a:%SCALA_HOME%\lib\scala-library.jar`](https://docs.oracle.com/cd/E15289_01/JRCLR/optionx.htm#i1021218) at execution time in order to avoid the runtime error `java.lang.NoClassDefFoundError: scala/math/package$` :
 > <pre style="font-size:80%;">
-> <b>&gt; build -verbose run</b>
+> <b>&gt; <a href="./datalog-constraints/build.bat">build</a> -verbose run</b>
 > Copy 1 Flix source file to directory "target\datalog-constraints\src\"
 > Compile 1 Flix source file
 > Create archive file "target\datalog-constraints\datalog-constraints.jar"
@@ -326,7 +326,7 @@ Abs(1, Abs(0, Var(0)))
 [build] _EXITCODE=0
 </pre>
 
-### <span id="mutability">Example `mutability`</span>[**&#x25B4;**](#top)
+### <span id="mutability">Example `mutability` </span>[**&#x25B4;**](#top)
 
 Command [`build`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the [Flix] source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
 
@@ -350,7 +350,24 @@ Command [`build`](./mutability/build.bat)` -debug run` generates the target file
 [build] _EXITCODE=0
 </pre>
 
-### <span id="named_arguments">Example `named-arguments`</span>
+### <span id="named_arguments">Example `named-arguments`</span> </span>[**&#x25B4;**](#top)
+
+Command [`gradle run`][gradle_cli] ([`build.gradle`](./named-arguments/build.gradle) generates the target file `target\named-arguments\named-arguments.jar` from the [Flix] source file [`src\main\named-arguments.flix`](./named-arguments/src/main/named-arguments.flix) and runs the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="">gradle</a> -Dnightly clean run</b>
+&nbsp;
+&gt; Configure project :
+Nightly build 'flix-2022-99-99.jar' was selected
+&nbsp;
+&gt; Task :compileFlix
+&nbsp;
+&gt; Task :run
+Player(1, 0)
+&nbsp;
+BUILD SUCCESSFUL in 18s
+8 actionable tasks: 8 executed
+</pre>
 
 ### <span id="primes">Example `primes`</span>
 
@@ -455,7 +472,7 @@ Flix project directories must have a special layout enforced by the Flix command
 <span id="footnote_03">[3]</span> ***Flix nightly builds*** [↩](#anchor_03)
 
 <dl><dd>
-We can select either the release version or the latest nightly build of the <a href="https://flix.dev/" rel="external">Flix</a> library to generate the target JAR file for each of the above examples :
+We can select the latest nightly build of the <a href="https://flix.dev/" rel="external">Flix</a> library instead of the release version to generate the target JAR file for each of the above examples :
 <ul>
 <li><code><b>build.bat</b></code> supports the <code>-nightly</code> option.</li>
 <li><code><b>make.exe</b></code> supports the <code>NIGHTLY=1</code> property.</li>
@@ -473,8 +490,10 @@ Create archive file "target\areas\areas.jar"
 Execute Flix program "target\areas\areas.jar"
 2 :: 6 :: Nil
 2 :: 6 :: Nil
-&nbsp;
-<b>&gt; make NIGHTLY=1 run</b>
+</pre>
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> NIGHTLY=1 run</b>
 [ -d "target/areas" ] || "C:/opt/Git-2.38.0/usr/bin/mkdir.exe" -p "target/areas"
 cd "target/areas"; \
         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.31.0/flix-2022-10-12.jar" init && \
@@ -487,7 +506,7 @@ cd "target/areas"; \
 2 :: 6 :: Nil
 </pre>
 <pre style="font-size:80%;">
-<b>&gt; gradle -Dnightly run</b>
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -Dnightly run</b>
 &nbsp;
 &gt; Configure project :
 Nightly build 'flix-2022-10-12.jar' was selected

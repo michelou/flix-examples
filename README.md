@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 8px 0 0;min-width:25%;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="160" alt="Flix project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites and books.<br/>
-  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Makefile build scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle build scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
+  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Makefile scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -36,7 +36,7 @@ C:\opt\Git-2.38.0\              <i>(317 MB)</i>
 C:\opt\gradle-7.5.1\            <i>(127 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
-C:\opt\scala-2.13.9\            <i>( 24 MB)</i>
+C:\opt\scala-2.13.10\           <i>( 24 MB)</i>
 </pre>
 
 ## <span id="structure">Directory structure</span>
@@ -46,6 +46,7 @@ This project is organized as follows:
 <pre style="font-size:80%;">
 docs\
 examples\{<a href="./examples/README.md">README.md</a>, <a href="./examples/areas/">areas</a>, <a href="./examples/channels/">channels</a>, ..}
+<a href="https://github.com/michelou/flix">flix</a>\     <i>(Git submodule)</i>
 lutz-examples\{<a href="./lutz-examples/README.md">README.md</a>, <a href="./lutz-examples/channels/">channels</a>, <a href="./lutz-examples/datalog/">datalog</a>, etc.}
 <a href="BUILD.md">BUILD.md</a>
 <a href="DEPS.md">DEPS.md</a>
@@ -58,7 +59,8 @@ README.md
 where
 
 - directory [**`docs\`**](docs/) contains [Flix] related papers/articles.
-- directory [**`examples\`**](examples/) contains [Flix] code examples.
+- directory [**`examples\`**](examples/) contains [Flix] code examples (see [**`README.md`**](./examples/README.md)).
+- directory **`flix\`** contains our fork of the [flix/flix][github_flix_flix] repository as a [Github submodule](.gitmodules).
 - directory [**`lutz-examples\`**](lutz-examples/) contains [Flix] code examples from Lutz Hühnken's article (see [**`README.md`**](./lutz-examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) presents the [Flix] build.
 - file [**`DEPS.md`**](DEPS.md) lists library dependencies of published [Flix] distributions.
@@ -71,7 +73,7 @@ where
 
 We distinguish different sets of batch commands:
 
-1. [**`setenv.bat`**](setenv.bat) - This batch command makes external tools such as [**`git.exe`**][git_userguide] and [**`gradle.bat`**][gradle_cli] directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
+1. [**`setenv.bat`**](setenv.bat) &ndash; This batch command makes external tools such as [**`git.exe`**][git_userguide] and [**`gradle.bat`**][gradle_cli] directly available from the command prompt (see section [**Project dependencies**](#proj_deps)).
 
    <pre style="font-size:80%;">
    <b>&gt; <a href="./setenv.bat">setenv</a> help</b>
@@ -85,7 +87,7 @@ We distinguish different sets of batch commands:
        help        display this help message
    </pre>
 
-2. [**`examples\*\build.bat`**](examples/areas/build.bat) - Each example can be built/run using the [**`build`**](examples/areas/build.bat) command.<br/>
+2. [**`examples\*\build.bat`**](examples/areas/build.bat) &ndash; Each example can be built/run using the [**`build`**](examples/areas/build.bat) command.<br/>
 
     <pre style="font-size:80%;">
     <b>&gt; <a href="examples/Factorial/build.bat">build</a></b>
@@ -102,6 +104,8 @@ We distinguish different sets of batch commands:
       help        display this help message
       run         execute the generated program
     </pre>
+
+3. [**`examples\*\build.gradle`**](examples/areas/build.gradle) &ndash; Each example can be build/run using the [**`gradle`**][gradle_cli] tool.
 
 ## <span id="usage">Usage examples</span>
 
@@ -214,6 +218,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [flix]: https://flix.dev/
 [flix_downloads]: https://github.com/flix/flix/releases/
 [flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.31.0
+[github_flix_flix]: https://github.com/flix/flix
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions

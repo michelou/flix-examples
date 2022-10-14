@@ -25,7 +25,7 @@
 
 ## <span id="flix03_releases">Dependencies in Flix 0.3 Releases</span>
 
-The Flix 0.3 software distributions depend on the following external libraries.
+The [Flix] 0.3 software distributions depend on the following external libraries.
 
 <table style="font-size:80%;">
 <tr>
@@ -38,85 +38,85 @@ The Flix 0.3 software distributions depend on the following external libraries.
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket"><code>java_websocket</code></a><br/>(<a href="https://github.com/TooTallNate/Java-WebSocket/releases">relnotes</a>)</td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.3"><b>1.5.3</b></a><br/><span style="color:gray;font-size:80%;">(Apr&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a><br/><span style="color:gray;font-size:80%;">(Aug&nbsp;2018)</span></td>
-  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a></td>
+  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline"><code>jline</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0"><b>3.21.0</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2017)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core"><code>json4s-*</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/4.0.5"><b>4.0.5</b></a><br/><span style="color:gray;font-size:80%;">(Apr&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.5.5">3.5.5</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.5.5">3.5.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.5.5">3.5.5</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm"><code>objectweb.asm</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.3"><b>9.3</b></a><br/><span style="color:gray;font-size:80%;">(Apr&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.4"><b>9.4</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.2">9.2</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2021)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.2">9.2</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.2">9.2</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled"><code>parboiled</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.4.0"><b>2.4.0</b></a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.2.1">2.2.1</a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2020)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.2.1">2.2.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.2.1">2.2.1</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;font-size:80%;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections"><code>scala.collection.parallel</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/1.0.4"><b>1.0.4</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library"><code>scala-library</code></a></td>
-  <td style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.9.html"><b>2.13.9</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.10"><b>2.13.10</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2021)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect"><code>scala-reflect</code></a></td>
-  <td style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.9.html"><b>2.13.9</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.10"><b>2.13.10</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2021)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml"><code>scala.xml</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/2.1.0"><b>2.1.0</b></a><br/><span style="color:gray;font-size:80%;">(Apr&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/1.2.0">1.2.0</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/1.2.0">1.2.0</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/1.2.0">1.2.0</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic"><code>scalactic</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.2.13"><b>3.2.13</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13"><code>scalatest</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.2.13"><b>3.2.13</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt"><code>scopt</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.1.0"><b>4.1.0</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless"><code>shapeless</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.10"><b>2.3.10</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3">2.3.3</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3">2.3.3</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3">2.3.3</a><br/>&nbsp;</td>
 </tr>
 </table>
 
 ## <span id="flix02_releases">Dependencies in Flix 0.2 Releases</span>
 
-The Flix 0.2 software distributions depend on the following external libraries.
+The [Flix] 0.2 software distributions depend on the following external libraries.
 
 <table style="font-size:80%;">
 <tr>
@@ -191,7 +191,7 @@ The Flix 0.2 software distributions depend on the following external libraries.
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library"><code>scala-library</code></a></td>
-  <td style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.9.html"><b>2.13.9</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.10"><b>2.13.10</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a></td>
@@ -201,7 +201,7 @@ The Flix 0.2 software distributions depend on the following external libraries.
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect"><code>scala-reflect</code></a></td>
-  <td style="padding:4px;"><a href="https://www.scala-lang.org/download/2.13.9.html"><b>2.13.9</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.10"><b>2.13.10</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a></td>
@@ -221,7 +221,7 @@ The Flix 0.2 software distributions depend on the following external libraries.
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic"><code>scalactic</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.2.13"><b>3.2.13</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a></td>
@@ -231,7 +231,7 @@ The Flix 0.2 software distributions depend on the following external libraries.
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13"><code>scalatest</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.2.13"><b>3.2.13</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a></td>
@@ -277,4 +277,4 @@ The Flix 0.2 software distributions depend on the following external libraries.
 
 <!-- link refs -->
 
-
+[flix]: https://flix.dev/

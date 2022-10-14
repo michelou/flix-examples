@@ -10,7 +10,7 @@
 
 Generating the [Flix] library using [Gradle][gradle_userguide] is fast and simple !
 
-We start the following command to run the test suite after we have made the desired changes to our local copy of the [Flix Github repository][flix_github]:
+Command [**`gradle.bat test`**][gradle_cli] runs the test suite (e.g. after updating some source files of our local copy of the [Flix Github repository][flix_github]) :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> test --console=plain</b>
@@ -38,7 +38,7 @@ BUILD SUCCESSFUL in 6m 44s
 4 actionable tasks: 2 executed, 2 up-to-date
 </pre>
 
-We subsequently run the command [**`gradle jar`**][gradle_cli] to generate the [Flix] Java archive :
+Command [**`gradle jar`**][gradle_cli] generates the [Flix] Java archive :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> jar</b>
 
@@ -57,7 +57,7 @@ F:\flix\build\libs\flix.jar
 >   36614213   19.09.2022      23:00:34  F:\flix\build\libs\flix.jar
 > </pre>
 
-## <span id="wip">Work in Progess</span> [**&#x25B4;**](#top)
+## <span id="wip">Work in Progress</span> [**&#x25B4;**](#top)
 
 This section presents some of our unpublished works to improve the [Flix] software.
 
@@ -65,12 +65,12 @@ This section presents some of our unpublished works to improve the [Flix] softwa
    
    > **Note:** [Commit 61d7e00](https://github.com/flix/flix/commit/61d7e00) from Magnus makes this local change obsolete.
 
-   [Flix] is currently built upon Scala 2.13.5 (see [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle)). Moving to current [Scala 2.13.9][scala_2_13_9] requires to rename all occurences of **`enum`** to **`enum0`** (i.e. parameter names) or **`enumSym`** (i.e. case classes). The reason is simple: the latest Scala 2 distributions now defines **`enum`** as a reserved keyword in order to ease the migration to [Scala 3][scala_3].
+   [Flix] is currently built upon Scala 2.13.5 (see [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle)). Moving to current [Scala 2.13.9][scala_2_13_9] requires to rename all occurences of **`enum`** to **`enum0`** (i.e. parameter names), **`enumSym`** (i.e. case classes) or **`enumDecl`** (i.e. local vars). The reason is straightforward: the latest Scala 2 distributions now defines **`enum`** as a reserved keyword in order to ease the migration to [Scala 3][scala_3].
    
    Concretely we have updated the following [Scala] source files in directory **`main\src\ca\uwaterloo\flix\`**:
 
    <pre style="font-size:80%;">
-   api/lsp/LocationLink.scala
+   api/lsp/<a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/lsp/LocationLink.scala#L56">LocationLink.scala</a>
    api/lsp/provider/FindReferencesProvider.scala
    api/lsp/provider/HighlightProvider.scala
    language/ast/Symbol.scala
@@ -116,8 +116,8 @@ This section presents some of our unpublished works to improve the [Flix] softwa
    <pre style="font-size:80%;">
    <b>dependencies</b> {
      <span style="color:green;">// ...</span>
-     <b>implementation files</b>('lib/Java-WebSocket-1.5.3.jar')
-     <b>implementation files</b>('lib/jline-3.21.0.jar')
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket/1.5.3">Java-WebSocket-1.5.3.jar</a>')
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0">jline-3.21.0.jar</a>')
      <b>implementation files</b>('lib/org.json4s-ast-3.5.5.jar')    <span style="color:green;">// unchanged</span>
      <b>implementation files</b>('lib/org.json4s-core-3.5.5.jar')   <span style="color:green;">// unchanged</span>
      <b>implementation files</b>('lib/org.json4s-native-3.5.5.jar') <span style="color:green;">// unchanged</span>
@@ -126,9 +126,9 @@ This section presents some of our unpublished works to improve the [Flix] softwa
      <b>implementation files</b>('lib/org.scalactic-3.0.8.jar')     <span style="color:green;">// unchanged</span>
      <b>implementation files</b>('lib/org.scalatest-3.0.8.jar')     <span style="color:green;">// unchanged</span>
      <b>implementation files</b>('lib/scala-parallel-collections_2.13-1.0.4.jar')
-     <b>implementation files</b>('lib/scala-xml_2.13-2.1.0.jar')
-     <b>implementation files</b>('lib/scopt_2.13-4.1.0.jar')
-     <b>implementation files</b>('lib/shapeless_2.13-2.3.10.jar')
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/2.1.0">scala-xml_2.13-2.1.0.jar</a>')
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.1.0">scopt_2.13-4.1.0.jar</a>')
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.10">shapeless_2.13-2.3.10.jar</a>')
    }
    </pre>
 
@@ -138,10 +138,10 @@ This section presents some of our unpublished works to improve the [Flix] softwa
  
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
-<span id="footnote_01">[1]</span> Console output of **`gradle test`** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> Console output of command **`gradle test`** [↩](#anchor_01)
 
 <dl><dd>
-We observe the nice <a href="https://en.wikipedia.org/wiki/Code_coverage"><i>code coverage</i></a> ot the Flix test suite :
+We observe the extensive <a href="https://en.wikipedia.org/wiki/Code_coverage" rel="external"><i>code coverage</i></a> ot the <a href="https://flix.dev/" rel="external">Flix</a> test suite :
 <pre style="font-size:80%;">
 &gt; Task :compileJava NO-SOURCE
 &gt; Task :compileScala UP-TO-DATE
