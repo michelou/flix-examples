@@ -3,13 +3,13 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 8px 0 0;min-width:25%;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="160" alt="Flix project"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites and books.<br/>
+  <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites.<br/>
   It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Makefile scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
   </td>
   </tr>
 </table>
 
-> **Hint**: Read the document <a href="https://github.com/flix/flix/blob/master/docs/DIDYOUKNOW.md">"Did You Know?"</a> from the <a href="https://flix.dev/" rel="external">Flix</a> documentation to know more about the <a href="https://flix.dev/" rel="external">Flix</a> ecosystem.
+> **&#9755;** Read the document <a href="https://github.com/flix/flix/blob/master/docs/DIDYOUKNOW.md">"Did You Know?"</a> from the <a href="https://flix.dev/" rel="external">Flix</a> documentation to know more about the <a href="https://flix.dev/" rel="external">Flix</a> ecosystem.
 
 [Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX][wix_examples] are other topics we are continuously monitoring.
 
@@ -17,7 +17,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Flix 0.31][flix_downloads] ([*release notes*][flix_relnotes])
+- [Flix 0.32][flix_downloads] ([*release notes*][flix_relnotes])
 - [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 
@@ -31,7 +31,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*October 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\flix-0.31.0\             <i>( 35 MB)</i>
+C:\opt\flix-0.32.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.38.0\              <i>(317 MB)</i>
 C:\opt\gradle-7.5.1\            <i>(127 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
@@ -116,7 +116,7 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
+   java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.32.0
    git 2.38.0.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make</b>
@@ -136,27 +136,27 @@ Command [**`setenv`**](setenv.bat) with option **`-verbose`** displays additiona
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2022-10-07.jar" to directory "C:\opt\flix-0.31.0"
+Download file "flix-2022-10-07.jar" to directory "C:\opt\flix-0.32.0"
 
 Tool versions:
-   java 11.0.16, javac 11.0.16, scalac 2.13.9, flix v0.31.0
+   java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.32.0
    git 2.38.0.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
-   C:\opt\scala-2.13.9\bin\scalac.bat
+   C:\opt\scala-2.13.10\bin\scalac.bat
    C:\opt\Git-2.38.0\bin\git.exe
    C:\opt\Git-2.38.0\mingw64\bin\git.exe
    C:\opt\Git-2.38.0\usr\bin\diff.exe
    C:\opt\gradle-7.5.1\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
 Environment variables:
-   "FLIX_HOME=C:\opt\flix-0.31.0"
+   "FLIX_HOME=C:\opt\flix-0.32.0"
    "GIT_HOME=C:\opt\Git-2.38.0"
    "GRADLE_HOME=C:\opt\gradle-7.5.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
    "MAKE_HOME=C:\opt\make-3.8.1"
-   "SCALA_HOME=C:\opt\scala-2.13.9"
+   "SCALA_HOME=C:\opt\scala-2.13.10"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
 </pre>
@@ -168,14 +168,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on October 9th 2022 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on October 15th 2022 : 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.31.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
-C:\OPT\FLIX-0.31.0
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.32.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+C:\OPT\FLIX-0.32.0
     flix-2022-10-05.jar
-    flix-2022-10-06.jar
-    flix-2022-10-07.jar
-    flix-2022-10-08.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available  instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -189,11 +186,11 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                          <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-08.jar</a>               <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-15.jar</a>               <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>              <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                 <i>( 10 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.0-64-bit.7z.exe</a>  <i>( 46 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/">scala-2.13.9.zip</a>                  <i>( 22 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                 <i>( 22 MB)</i>
 </pre>
 </dd></dl>
 
@@ -217,7 +214,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
 [flix_downloads]: https://github.com/flix/flix/releases/
-[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.31.0
+[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.32.0
 [github_flix_flix]: https://github.com/flix/flix
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
@@ -231,8 +228,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [make_install]: https://sourceforge.net/projects/gnuwin32/files/make/3.81/
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [rust_examples]: https://github.com/michelou/rust-examples
-[scala_download]: https://www.scala-lang.org/download/2.13.9.html
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.9
+[scala_download]: https://www.scala-lang.org/download/2.13.10.html
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.10
 [scala3_examples]: https://github.com/michelou/dotty-examples
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples

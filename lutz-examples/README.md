@@ -19,6 +19,17 @@ We made the following changes resp. additions to the original [Flix] code exampl
 - Each example includes a basic test suite (directory `src\test\`).
 - Build scripts such as batch files, Makefile scripts and Gradle scripts are provided to build, run and test the examples.
 
+We currently provide three ways to build/run/test the [Flix] code examples :
+
+| Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
+|---------------------|------------------------|----------------|----------------|
+| [**`build.bat`**](channels/build.bat) | &nbsp;                 | &nbsp; | MS Windows |
+| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](channels/build.gradle) | [**`common.gradle`**](common.gradle) | Any <sup><b>a)</b></sup>  |
+| [**`make.exe`**][make_cli] | [**`Makefile`**](channels/Makefile) | [**`Makefile.inc`**](./Makefile.inc)  | Any |
+<div style="margin:0 15% 0 8px;font-size:90%;">
+<sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
+</div>
+
 ## <span id="channels">Example `channels`</span>
 
 Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\channels.flix`](./channels/src/main/channels.flix) and executes the target file :
@@ -48,7 +59,7 @@ Copy 1 Flix source file to directory "target\channels\src\"
 Copy 1 Flix test source file to directory "target\channels\test\"
 Compile 1 Flix source file and 1 Flix test source file
 Create archive file "target\channels\channels.jar"
-Extract Flix runtime from archive file "C:\opt\flix-0.31.0\flix.jar"
+Extract Flix runtime from archive file "C:\opt\flix-0.32.0\flix.jar"
 Add Flix runtime to archive file "target\channels\channels.jar"
 Execute tests for Flix program "target\channels\channels.jar"
 Running 1 tests...
@@ -71,7 +82,7 @@ cd "target/datalog"; \
         "%GIT_HOME%/usr/bin/cp.exe" -r "F:/lutz-examples/datalog/src/main/." src && \
         "%JAVA_HOME%/bin/java.exe" -jar "%FLIX_HOME%/flix.jar" build && \
         "%JAVA_HOME%/bin/java.exe" -jar "%FLIX_HOME%/flix.jar" build-jar
-"%JAVA_HOME%/bin/java.exe" -Xbootclasspath/a:"%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.9/scala-library-2.13.9.jar" -jar "target/datalog/datalog.jar"
+"%JAVA_HOME%/bin/java.exe" -Xbootclasspath/a:"%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar" -jar "target/datalog/datalog.jar"
 Children of Zeus = Apollo :: Ares :: Nil
 Ancestors of Apollo = Kronos :: Leto :: Rhea :: Zeus :: Nil
 0
@@ -99,7 +110,7 @@ Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./effects/build.grad
 
 ## <span id="interop">Example `interop`</span> [**&#x25B4;**](#top)
 
-Command [**`build run`**](./interop/build.bat) generates the target file `target\interop\interop.jar` from the [Flix] source file [`src\main\interop.flix`](./interop/src/main/interop.flix) and runs the target file :
+Command [**`build run`**](./interop/build.bat) generates the target file `target\interop\interop.jar` from the [Flix] source file [`src\main\interop.flix`](./interop/src/main/interop.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./interop/build.bat">build</a> run</b>
@@ -169,7 +180,7 @@ Error: Failed to execute Java program "Tailcalls"
 <span id="footnote_01">[1]</span> ***Updated source files*** [↩](#anchor_01)
 
 <dl><dd>
-Here are our modifications of the original <a href="https://flix.dev/">Flix</a>  code examples from Lutz Hühnken's article "<a href="https://www.reactivesystems.eu/2022/06/24/flix-for-java-programmers.html">Flix for Java programmers</a>" (June 2022). :
+Here are our modifications of the original <a href="https://flix.dev/">Flix</a>  code examples from Lutz Hühnken's article "<a href="https://www.reactivesystems.eu/2022/06/24/flix-for-java-programmers.html">Flix for Java programmers</a>" (June 2022) :
 <table>
 <tr>
   <td><b>Source file(s)</b></td>
