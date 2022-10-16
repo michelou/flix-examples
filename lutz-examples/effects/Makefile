@@ -35,7 +35,9 @@ clean:
 	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
-	"$(JAVA)" -Xbootclasspath/a:"$(SCALA_LIB_JAR)" -jar "$(TARGET)"
+	$(eval JARS := $(shell $(FIND) "$(BUILD_DIR)/lib" -type f -name "*.jar"))
+	$(eval JAVA_OPTS := $(if $(JARS),-Xbootclasspath/a:"$(JARS)",))
+	"$(JAVA)" $(JAVA_OPTS) -jar "$(TARGET)"
 
 help:
 	@$(ECHO) "Usage: make all|build|clean|doc|help|run|test"
@@ -67,8 +69,10 @@ $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	@$(TOUCH) "$(TEST_TARGET)"
 
 test: $(TEST_TARGET)
+	$(eval JARS := $(shell $(FIND) "$(BUILD_DIR)/lib" -type f -name "*.jar"))
+	$(eval JAVA_OPTS := $(if $(JARS),-Xbootclasspath/a:"$(JARS)",))
 	cd "$(BUILD_DIR)"; \
-	"$(JAVA)" -Xbootclasspath/a:"$(SCALA_LIB_JAR)" -jar "$(FLIX_LIB_JAR)" test
+	"$(JAVA)" $(JAVA_OPTS) -jar "$(FLIX_LIB_JAR)" test
 
 ##############################################################################
 ## phony

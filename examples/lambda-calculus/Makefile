@@ -25,7 +25,7 @@ $(TARGET): $(SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
 	cd "$(BUILD_DIR)"; \
 	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init && \
-	"$(RM)" -f "src/Main.flix" && \
+	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \
 	"$(CP)" -r "$(realpath $(SOURCE_DIR)/main)/." src && \
 	"$(SCALAC)" -cp "$(FLIX_LIB_JAR)" -d lib $(realpath $(SCALA_SOURCES)) && \
 	"$(JAR)" cf "$(realpath $(SCALA_TARGET))" -C lib . && \
@@ -65,13 +65,17 @@ $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \
 	"$(CP)" -r "$(realpath $(SOURCE_DIR)/main)/." src && \
 	"$(CP)" -r "$(realpath $(SOURCE_DIR)/test)/." test && \
+	"$(SCALAC)" -cp "$(FLIX_LIB_JAR)" -d lib $(realpath $(SCALA_SOURCES)) && \
+	"$(JAR)" cf "$(realpath $(SCALA_TARGET))" -C lib . && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build-jar
-    @$(TOUCH) "$(TEST_TARGET)"
+	@$(TOUCH) "$(TEST_TARGET)"
 
 test: $(TEST_TARGET)
+	$(eval JARS := $(shell $(FIND) "$(BUILD_DIR)/lib" -type f -name "*.jar"))
+	$(eval JAVA_OPTS := $(if $(JARS),-Xbootclasspath/a:"$(JARS)",))
 	cd "$(BUILD_DIR)"; \
-	"$(JAVA)" -Xbootclasspath/a:"$(SCALA_LIB_JAR)" -jar "$(FLIX_LIB_JAR)" test
+	"$(JAVA)" $(JAVA_OPTS) -jar "$(FLIX_LIB_JAR)" test
 
 ##############################################################################
 ## phony

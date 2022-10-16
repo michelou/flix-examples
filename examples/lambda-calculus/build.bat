@@ -313,7 +313,7 @@ goto :eof
 :compile_lib
 set __SOURCE_FILES=
 set __N=0
-for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\src\*.scala"') do (
+for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\src\*.scala" 2^>NUL') do (
     set __SOURCE_FILES=%__SOURCE_FILES% "%%f"
     set /a __N+=1
 )
@@ -336,16 +336,17 @@ if not %ERRORLEVEL%==0 (
 set "__LIBRARY_JAR=%_BUILD_DIR%\lib\lib-%_PROJECT_NAME%.jar"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" cf "%__LIBRARY_JAR%" -C "%_BUILD_DIR%\lib" .
-) else %_VERBOSE%==1 ( echo Create Java archive file "!__LIBRARY_JAR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Create Java archive file "!__LIBRARY_JAR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAR_CMD%" cf "%__LIBRARY_JAR%" -C "%_BUILD_DIR%\lib" .
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to create Java archive file "!__LIBRARY_JAR:%_ROOT_DIR%=! 1>&2
+    echo %_ERROR_LABEL% Failed to create Java archive file "!__LIBRARY_JAR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
 goto :eof
+
 @rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
 @rem output parameter: _ACTION_REQUIRED
 :action_required
@@ -480,6 +481,9 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+call :compile_lib
+if not %_EXITCODE%==0 popd& goto :eof
+
 set __JAVA_OPTS=
 set __BUILD_OPTS=
 if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
@@ -510,11 +514,12 @@ echo >"%_MAIN_JAR_TEST_FILE%"
 goto :eof
 
 :test
-set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
+set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
     set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
 )
-set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
+set __JAVA_OPTS=
+if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute tests for Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2

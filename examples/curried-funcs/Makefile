@@ -62,11 +62,13 @@ $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	$(CP) -r "$(realpath $(SOURCE_DIR)/test)/." test && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build-jar
-    @$(TOUCH) "$(TEST_TARGET)"
+ 	@$(TOUCH) "$(TEST_TARGET)"
 
 test: $(TEST_TARGET)
+	$(eval JARS := $(shell $(FIND) "$(BUILD_DIR)/lib" -type f -name "*.jar"))
+	$(eval JAVA_OPTS := $(if $(JARS),-Xbootclasspath/a:"$(JARS)",))
 	cd "$(BUILD_DIR)"; \
-	"$(JAVA)" -Xbootclasspath/a:"$(SCALA_LIB_JAR)" -jar "$(FLIX_LIB_JAR)" test
+	"$(JAVA)" $(JAVA_OPTS) -jar "$(FLIX_LIB_JAR)" test
 
 ##############################################################################
 ## phony

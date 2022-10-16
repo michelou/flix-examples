@@ -465,11 +465,12 @@ echo >"%_MAIN_JAR_TEST_FILE%"
 goto :eof
 
 :test
-set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
+set __BOOT_CPATH
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
     set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
 )
-set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
+set __JAVA_OPTS=
+if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute tests for Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
