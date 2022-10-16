@@ -112,6 +112,7 @@ goto :eof
 @rem output parameters: _COMMANDS, _HELP, _NIGHTLY, _VERBOSE
 :args
 set _COMMANDS=
+set _DOC=0
 set _HELP=0
 set _NIGHTLY=0
 set _VERBOSE=0
@@ -125,6 +126,7 @@ if not defined __ARG (
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-doc" ( set _DOC=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-nightly" ( set _NIGHTLY=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -137,7 +139,6 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
     ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
-    ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! doc
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
     ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! test_compile test
@@ -178,7 +179,7 @@ if %_NIGHTLY%==1 (
 )
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
-    echo %_DEBUG_LABEL% Options    : _NIGHTLY=%_NIGHTLY% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _DOC=%_DOC% _NIGHTLY=%_NIGHTLY% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _COMMANDS=%_COMMANDS% 1>&2
     echo %_DEBUG_LABEL% Variables  : "FLIX_HOME=%FLIX_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
@@ -202,13 +203,13 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-doc%__END%        generate API documentation
 echo     %__BEG_O%-nightly%__END%    use nightly Flix if locally available
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate class files
-echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        display this help message
 echo     %__BEG_O%run%__END%         execute the generated program
 echo     %__BEG_O%test%__END%        execute unit tests
@@ -274,6 +275,8 @@ set __BUILD_OPTS=
 if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
 ) else if %_VERBOSE%==1 ( set __BUILD_OPTS=--explain
 )
+if %_DOC%==1 set __BUILD_OPTS=--doc %__BUILD_OPTS%
+
 if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2

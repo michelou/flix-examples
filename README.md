@@ -26,6 +26,7 @@ Optionally one may also install the following software:
 - [Flix nightly builds](https://flix.dev/nightly/) <sup id="anchor_01">[1](#footnote_01)</sup>
 - [GNU Make 3.81][make_install]
 - [Gradle 7.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [mdBook 0.4][mdbook_download] ([*changelog*][mdbook_changelog])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 
 For instance our development environment looks as follows (*October 2022*) <sup id="anchor_02">[2](#footnote_02)</sup>:
@@ -36,6 +37,7 @@ C:\opt\Git-2.38.0\              <i>(317 MB)</i>
 C:\opt\gradle-7.5.1\            <i>(127 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
+C:\opt\mdBook-0.4.21\           <i>(  9 MB)</i>
 C:\opt\scala-2.13.10\           <i>( 24 MB)</i>
 </pre>
 
@@ -185,12 +187,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                          <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-15.jar</a>               <i>( 35 MB)</i>
-<a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>              <i>(103 MB)</i>
-<a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                 <i>( 10 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.0-64-bit.7z.exe</a>  <i>( 46 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                 <i>( 22 MB)</i>
+<a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                   <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-15.jar</a>                        <i>( 35 MB)</i>
+<a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>                       <i>(103 MB)</i>
+<a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                          <i>( 10 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.21-x86_64-pc-windows-msvc.zip</a>  <i>(  4 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.0-64-bit.7z.exe</a>           <i>( 46 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                          <i>( 22 MB)</i>
 </pre>
 </dd></dl>
 
@@ -226,6 +229,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [llvm_examples]: https://github.com/michelou/llvm-examples
 [make_cli]: https://www.gnu.org/software/make/manual/make.html
 [make_install]: https://sourceforge.net/projects/gnuwin32/files/make/3.81/
+[mdbook_changelog]: https://github.com/rust-lang/mdBook/blob/master/CHANGELOG.md
+[mdbook_download]: https://github.com/rust-lang/mdBook/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
 [rust_examples]: https://github.com/michelou/rust-examples
 [scala_download]: https://www.scala-lang.org/download/2.13.10.html

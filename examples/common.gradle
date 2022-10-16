@@ -20,18 +20,8 @@ ext.getNightly = { flixHome ->
 }
 
 project.ext {
-
-    configurations {
-       bootClasspath
-    }
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        bootClasspath "org.scala-lang:scala-library:2.13.10"
-    }
+    // sanetize properties from gradle.properties
+    scalaLocalInstall = true //hasProperty("scalaLocalInstall") ? scalaLocalInstall.toBoolean() : false
 
     flixHome = System.getenv("FLIX_HOME")
     logger.info("flixHome = $flixHome")
@@ -41,12 +31,24 @@ project.ext {
         : "flix.jar"
     flixJar = file(flixHome + "/" + jarName)
 
-    bootClasspath = configurations.getByName("bootClasspath").resolve().join(File.pathSeparator)
-
     mainSourceTree = fileTree(dir: "src/main", include: "**/*.flix")
+    scalaSourceTree = fileTree(dir: "src/main", include: "**/*.scala")
     //testSourceTree = fileTree(dir: "src/test", include: "**/*.flix")
 
     buildAppDir = file("${buildDir}/${appName}")
+
+    if (scalaLocalInstall?.toBoolean()) {
+        scalaHome = System.getenv("SCALA_HOME")
+        logger.info("scalaHome = $scalaHome")
+
+        libraryPath = file(scalaHome + "/lib")
+        libraryFiles = files { libraryPath.listFiles() }
+        libraryFiles = libraryFiles.filter { File f -> f.name.matches("(.*)\\.jar") }
+        toolClasspath = files(libraryFiles)
+    } else {
+        toolClasspath = files()
+    }
+    scalaClasspath = files(toolClasspath, sourceSets.main.runtimeClasspath, file("${buildAppDir}/lib"))
 }
 
 clean.doLast {
@@ -83,15 +85,50 @@ task deleteFiles(type: Delete) {
     delete fileTree("${buildAppDir}/test") { include "**/*.flix" }
 }
 
-task copyFiles(type: Copy) {
+task copyScala(type: Copy) {
+    dependsOn initFlix, deleteFiles
+
+    from("src/main") { include "**/*.scala" }
+    into "${buildAppDir}/lib"
+}
+
+task copyFlix(type: Copy) {
     dependsOn initFlix, deleteFiles
 
     from("src/main") { include "**/*.flix" }
     into "${buildAppDir}/src"
 }
 
+task compileScala(type: JavaExec) {
+    dependsOn copyScala, compileJava
+
+    description "Compile Scala source files"
+
+    classpath = scalaClasspath
+
+    jvmArgs "-Dscala.usejavacp=true"
+
+    mainClass = "scala.tools.nsc.Main"
+
+    String sourceFiles = scalaSourceTree.files.join("\" \"").replaceAll("\\\\", "/")
+    args "-deprecation", "-encoding", "UTF8", "-d", "${buildAppDir}/lib", sourceFiles
+}
+
+compileScala.onlyIf {
+    ! scalaSourceTree.isEmpty()
+}
+
+task jarScala(type: Jar) {
+    dependsOn compileScala
+    
+    archiveFileName = "lib_${appName}.jar"
+    destinationDirectory = file("${buildAppDir}/lib")
+    
+    from ("${buildAppDir}/lib") { include "**/*.class" }
+}
+
 task compileFlix(type: JavaExec) {
-    dependsOn copyFiles, compileJava
+    dependsOn copyFlix, compileJava, jarScala
 
     description "Compile Flix source files"
 
@@ -130,6 +167,8 @@ task run(type: JavaExec) {
     description "Execute Flix program \"${appName}/${appName}.jar\""
 
     jvmArgs "-Dfile.encoding=UTF-8"
+
+    def bootClasspath = fileTree(dir: "${buildAppDir}/lib", include: "**/*.jar").join(File.pathSeparator)
 
     mainClass = "-Xbootclasspath/a:${bootClasspath}"
     args = [ "-jar", "${buildDir}/${appName}/${appName}.jar" ]

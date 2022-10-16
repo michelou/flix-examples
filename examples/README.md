@@ -205,7 +205,8 @@ Create archive file "target\datalog-constraints\datalog-constraints.jar"
 Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 (C++, x86) :: (MiniScala, C++) :: (MiniScala, x86) :: (Scala, C++) :: (Scala, MiniScala) :: (Scala, x86) :: Nil
 </pre>
-
+<!-- workaround is no more needed with 0.32.0 and newer -->
+<!--
 > **Note**: We need to specify the JVM option [`-Xbootclasspath/a:%SCALA_HOME%\lib\scala-library.jar`](https://docs.oracle.com/cd/E15289_01/JRCLR/optionx.htm#i1021218) at execution time in order to avoid the runtime error `java.lang.NoClassDefFoundError: scala/math/package$` :
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="./datalog-constraints/build.bat">build</a> -verbose run</b>
@@ -240,7 +241,7 @@ Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 > "%JAVA_HOME%\bin\java.exe" "-Xbootclasspath/a:%SCALA_HOME%\lib\scala-library.jar" -jar "F:\examples\datalog-constraints\target\datalog-constraints\datalog-constraints.jar"
 > (C++, x86) :: (MiniScala, C++) :: (MiniScala, x86) :: (Scala, C++) :: (Scala, MiniScala) :: (Scala, x86) :: Nil
 > </pre>
-
+-->
 ### <span id="fibonacci">Example `fibonacci`</span>[**&#x25B4;**](#top)
 
 Command [**`build -verbose run`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and executes the target file :

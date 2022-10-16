@@ -31,7 +31,9 @@ clean:
 	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
-	"$(JAVA)" -Xbootclasspath/a:"$(SCALA_LIB_JAR)" -jar "$(TARGET)"
+	$(eval JARS := $(shell $(FIND) "$(BUILD_DIR)/lib" -type f -name "*.jar"))
+	$(eval JAVA_OPTS := $(if $(JARS),-Xbootclasspath/a:"$(JARS)",))
+	"$(JAVA)" $(JAVA_OPTS) -jar "$(TARGET)"
 
 help:
 	@$(ECHO) "Usage: make all|build|clean|doc|help|run|test"
@@ -56,8 +58,8 @@ $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	cd "$(BUILD_DIR)"; \
 	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init && \
 	"$(RM)" -f "src/Main.flix" "$test/TestMain.flix" && \
-	$(CP) -r "$(realpath $(SOURCE_DIR)/main)/." src && \
-	$(CP) -r "$(realpath $(SOURCE_DIR)/test)/." test && \
+	"$(CP)" -r "$(realpath $(SOURCE_DIR)/main)/." src && \
+	"$(CP)" -r "$(realpath $(SOURCE_DIR)/test)/." test && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build && \
 	"$(JAVA)" -jar "$(FLIX_LIB_JAR)" build-jar
     @$(TOUCH) "$(TEST_TARGET)"

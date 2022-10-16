@@ -31,7 +31,9 @@ clean:
 	"$(RM)" -rf "$(TARGET_DIR)"
 
 run: build
-	"$(JAVA)" -Xbootclasspath/a:"$(SCALA_LIB_JAR)" -jar "$(TARGET)"
+	$(eval JARS := $(shell $(FIND) "$(BUILD_DIR)/lib" -type f -name "*.jar"))
+	$(eval JAVA_OPTS := $(if $(JARS),-Xbootclasspath/a:"$(JARS)",))
+	"$(JAVA)" $(JAVA_OPTS) -jar "$(TARGET)"
 
 help:
 	@$(ECHO) "Usage: make all|build|clean|doc|help|run|test"

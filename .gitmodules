@@ -1,3 +1,16 @@
 [submodule "flix"]
 	path = flix
 	url = https://github.com/michelou/flix.git
+
+[submodule "flix-book"]
+	path = flix-book
+	url = https://github.com/flix/book.git
+
+[submodule "flix-doc"]
+	path = flix-doc
+	url = https://github.com/flix/doc.git
+
+[submodule "api.flix.dev"]
+	path = api.flix.dev
+	url = https://github.com/flix/api.flix.dev.git
+
