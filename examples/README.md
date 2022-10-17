@@ -133,7 +133,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 >         "C:/opt/Git-2.38.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
 >         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix.jar" build && \
 >         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix.jar" build-jar
->    "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -Xbootclasspath/a:"%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar" -jar "target/areas/areas.jar"
+>    "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe"  -jar "target/areas/areas.jar"
 >    2 :: 6 :: Nil
 >    2 :: 6 :: Nil
 >    &nbsp;
@@ -165,7 +165,7 @@ Command [**`build -verbose run`**](./channels/build.bat) generates the target fi
 <pre style="font-size:80%;">
 <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
 Copy 1 Flix source file to directory "target\channels\src\"
-Compile 1 Flix source file
+Compile 1 Flix source file to directory "target\channels\src\"
 Create archive file "target\channels\channels.jar"
 Extract Flix runtime from archive file "C:\opt\flix-0.32.0\flix.jar"
 Add Flix runtime to archive file "target\channels\channels.jar"
@@ -195,7 +195,7 @@ Execute Flix program "target\channels\channels.jar"
 
 ### <span id="datalog_constraints">Examples `datalog-constraints`</span>[**&#x25B4;**](#top)
 
-Command [**`build`**](./datalog-constraints/build.bat)` -verbose run` generates the target file `target\datalog-constraints\datalog-constraints.jar` from the [Flix] source file [`src\main\Main.flix`](./datalog-constraints/src/main/Main.flix) and runs the target file :
+Command [**`build -verbose run`**](./datalog-constraints/build.bat) generates the target file `target\datalog-constraints\datalog-constraints.jar` from the [Flix] source file [`src\main\Main.flix`](./datalog-constraints/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./datalog-constraints/build.bat">build</a> -verbose run</b>
@@ -293,7 +293,7 @@ F:\EXAMPLES\LAMBDA-CALCULUS
             <a href="./lambda-calculus/src/test/TestMain.flix<">TestMain.flix</a>
 </pre>
 
-> **:mag_right:** [`Counter.scala`](./lambda-calculus/src/main/Counter.scala) implements the stateful object `Counter` with one single method `getNext()`. In file[`lambda-calculus.flix`](./lambda-calculus/src/main/lambda-calculus.flix) we call `getNext()` instead of [`???`](https://stackoverflow.com/questions/47717583/what-is-in-scala) (the "unimplemented" function) inside function `freshVar()` in order to obtain a runnable example :
+> **:mag_right:** [`Counter.scala`](./lambda-calculus/src/main/Counter.scala) implements the stateful object `Counter` with one single method `getNext()`. In source file [`lambda-calculus.flix`](./lambda-calculus/src/main/lambda-calculus.flix) we call `getNext()` instead of [`???`](https://stackoverflow.com/questions/47717583/what-is-in-scala) (the "unimplemented" function) inside function `freshVar()` in order to obtain a runnable example :
 > <pre style="font-size:80%;">
 > <b>def</b> freshVar(): Int32 = // <a href="https://stackoverflow.com/questions/47717583/what-is-in-scala">???</a>
 >     <b>import static</b> Counter.getNext(): Int32 \ {};
@@ -322,7 +322,7 @@ Concretely we perform two additional steps before calling the [Flix] commands **
 [build] "C:\opt\jdk-temurin-11.0.16_8\bin\jar.exe" cf "F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -C "F:\examples\lambda-calculus\target\lambda-calculus\lib" .
 [build] "C:\opt\jdk-temurin-11.0.16_8\bin\java.exe" -cp "F:\examples\lambda-calculus\target\lambda-calculus\build" -jar "C:\opt\flix-0.32.0\flix.jar" build --explain
 [build] "C:\opt\jdk-temurin-11.0.16_8\bin\java.exe" -jar "C:\opt\flix-0.32.0\flix.jar" build-jar
-[build] "C:\opt\jdk-temurin-11.0.16_8\bin\java.exe" "-Xbootclasspath/a:C:\opt\scala-2.13.10\lib\scala-library.jar;F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -jar "F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar"
+[build] "C:\opt\jdk-temurin-11.0.16_8\bin\java.exe" "-Xbootclasspath/a:F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -jar "F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar"
 Abs(1, Abs(0, Var(0)))
 [build] _EXITCODE=0
 </pre>
@@ -359,7 +359,7 @@ Command [`gradle run`][gradle_cli] ([`build.gradle`](./named-arguments/build.gra
 <b>&gt; <a href="">gradle</a> -Dnightly clean run</b>
 &nbsp;
 &gt; Configure project :
-Nightly build 'flix-2022-99-99.jar' was selected
+Nightly build 'flix-2022-10-15.jar' was selected
 &nbsp;
 &gt; Task :compileFlix
 &nbsp;
@@ -372,7 +372,7 @@ BUILD SUCCESSFUL in 18s
 
 ### <span id="primes">Example `primes`</span>
 
-Command [`build run`](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and runs the target file :
+Command [`build run`](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./primes/build.bat">build</a> run</b>
@@ -467,7 +467,7 @@ The following options are experimental:
 <span id="footnote_02">[2]</span> ***Flix-managed project directory*** [↩](#anchor_02)
 
 <dl><dd>
-Flix project directories must have a special layout enforced by the Flix command <code>init</code>. In particular the documentation files <code>HISTORY.md</code>, <code>LICENSED.md</code> and <code>README.md</code> must exist inside the project directory in order to run the Flix commands <code>build</code>, <code>build-jar</code>, etc.
+Flix project directories must have a special layout enforced by the Flix command <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L76" rel="external"><code>init</code></a>. For instance the documentation files <code>LICENSE.md</code> and <code>README.md</code> must exist inside the project directory in order to run the Flix commands <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L174" rel="external"><code>build</code></a>, <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L237" rel="external"><code>build-jar</code></a>, etc.
 </dd></dl>
 
 <span id="footnote_03">[3]</span> ***Flix nightly builds*** [↩](#anchor_03)
@@ -482,7 +482,7 @@ We can select the latest nightly build of the <a href="https://flix.dev/" rel="e
 Here is how it works with the <code>areas</code> example :
 <pre style="font-size:80%;">
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose -nightly clean run</b>
-Nightly build "flix-2022-10-12.jar" was selected
+Nightly build "flix-2022-10-15.jar" was selected
 Delete directory "target"
 Initialize Flix project directory "target\areas"
 Copy 1 Flix source file to directory "target\areas\src\"
@@ -497,12 +497,12 @@ Execute Flix program "target\areas\areas.jar"
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> NIGHTLY=1 run</b>
 [ -d "target/areas" ] || "C:/opt/Git-2.38.0/usr/bin/mkdir.exe" -p "target/areas"
 cd "target/areas"; \
-        [ -d "build" ] || "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix-2022-10-12.jar" init && \
+        [ -d "build" ] || "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix-2022-10-15.jar" init && \
         "C:/opt/Git-2.38.0/usr/bin/rm.exe" -f "src/Main.flix" && \
         "C:/opt/Git-2.38.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix-2022-10-12.jar" build && \
         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix-2022-10-12.jar" build-jar
-"C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -Xbootclasspath/a:"C:/Users/michelou/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar" -jar "target/areas/areas.jar"
+"C:/opt/jdk-temurin-11.0.16_8/bin/java.exe"  -jar "target/areas/areas.jar"
 2 :: 6 :: Nil
 2 :: 6 :: Nil
 </pre>
@@ -510,7 +510,7 @@ cd "target/areas"; \
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -Dnightly run</b>
 &nbsp;
 &gt; Configure project :
-Nightly build 'flix-2022-10-12.jar' was selected
+Nightly build 'flix-2022-10-15.jar' was selected
 &nbsp;
 &g; Task :compileFlix
 &nbsp;
