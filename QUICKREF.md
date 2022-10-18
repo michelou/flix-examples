@@ -111,38 +111,38 @@ Each keyword below points to a usage example from the [Flix] library :
 | [`without`]() | |
 | [`yield`]() | |
 
-## <span id="buildin_types">Built-in Types</span>
+## <span id="buildin_types">Built-in Types and Functions</span>
 
-GitHub: [`src/ca/uwaterloo/flix/api/lsp/provider/CompletionProvider.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/lsp/provider/CompletionProvider.scala#L50).
+The [Flix] built-in types and functions are defined in file [`Flix.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala) (value [`coreLibrary`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala#L71)) :
 
 | Type | Description |
 |:-----|:------------|
-| [`Array`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix) | |
-| [`BigInt`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix) | |
 | [`Bool`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix) | |
-| [`Channel`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel.flix) | |
-| [`Char`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix) | |
+| [`Boxable`](https://github.com/flix/flix/blob/master/main/src/library/Boxable.flix) | |
+| [`Boxed`](https://github.com/flix/flix/blob/master/main/src/library/Boxed.flix) | |
+| [`ToString`](https://github.com/flix/flix/blob/master/main/src/library/ToString.flix) | |
+
+## <span id="standard_types">Standard Types</span>
+
+The [Flix] standard types are defined in file [`Flix.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala) (value [`standardLibrary`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala#L120)) :
+
+| Type | Description |
+|:-----|:------------|
+| [`Array`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix) | Array functions are [`head`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L212), [`isEmpty`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L99), [`last`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L221), [`toList`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L119), etc. |
+| [`BigInt`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix) | BigInt functions are [`fromString`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L97), [`min`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L22), [`toString`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L91), etc. |
+| [`Char`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix) | Char functions are [`isLetter`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix#L40), [`isLowerCase`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix#L86), etc. |
+| [`Choice`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L20) | Defines the enumeration values [`Absent`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L21) and [`Present`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L22). |
+| [`Eff`]() | |
 | [`Float32`](https://github.com/flix/flix/blob/master/main/src/library/Float32.flix) | |
 | [`Float64`](https://github.com/flix/flix/blob/master/main/src/library/Float64.flix) | 64-bit float |
 | [`Int8`](https://github.com/flix/flix/blob/master/main/src/library/Int8.flix) |  8-bit integer |
 | [`Int16`](https://github.com/flix/flix/blob/master/main/src/library/Int16.flix) | |
 | [`Int32`](https://github.com/flix/flix/blob/master/main/src/library/Int32.flix) | |
 | [`Int64`](https://github.com/flix/flix/blob/master/main/src/library/Int64.flix) | |
-| [`Lazy`]() | |
-| [`Ref`]() | |
-| [`String`]() | |
-| [`Unit`]() | |
-
-## <span id="standard_types">Standard Types</span>
-
-| Type | Description |
-|:-----|:------------|
-| [`Absent`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L21) | |
-| [`Eff`]() | |
-| [`Impure`]() | |
+| [`Iterable`](https://github.com/flix/flix/blob/master/main/src/library/Iterable.flix) | [`enumerator`](https://github.com/flix/flix/blob/master/main/src/library/Iterable.flix#L30), [`iterator`](https://github.com/flix/flix/blob/master/main/src/library/Iterable.flix#L25) |
+| [`Iterator`](https://github.com/flix/flix/blob/master/main/src/library/Iterator.flix) | Iterator functions are [`next`](https://github.com/flix/flix/blob/master/main/src/library/Iterator.flix#L87), etc. |
 | [`Nil`]() | |
 | [`Predicate`]() | |
-| [`Present`]() | |
 | [`Pure`]() | |
 | [`Read`]() | |
 | [`RecordNow`]() | |
@@ -151,6 +151,9 @@ GitHub: [`src/ca/uwaterloo/flix/api/lsp/provider/CompletionProvider.scala`](http
 | [`Static`]() | |
 | [`Type`]() | |
 | [`Write`]() | |
+| [`Concurrent/Channel`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel.flix) | |
+| [`Concurrent/Condition`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Condition.flix) | Condition functions are [`await`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Condition.flix#L35), [`signal`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Condition.flix#L75), etc. |
+
 
 ## <span id="operators">Predefined Operators</span>
 

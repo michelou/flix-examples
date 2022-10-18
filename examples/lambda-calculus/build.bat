@@ -403,7 +403,7 @@ goto :eof
 :run
 set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
 )
 set __JAVA_OPTS=
 if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%
@@ -516,7 +516,7 @@ goto :eof
 :test
 set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
 )
 set __JAVA_OPTS=
 if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%

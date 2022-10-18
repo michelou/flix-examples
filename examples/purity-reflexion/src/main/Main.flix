@@ -17,12 +17,15 @@ def inc2(x: Int32): Int32 \ IO = println("Hello"); x + 1
 ///
 def map(f: a -> b & ef, l: DelayList[a]): DelayList[b] & ef =
     reifyEff(f) {
-        case Pure(g) => DelayList.mapL(g, l)
-        case _       => DelayList.mapE(f, l)
+        case Pure(g) => DelayList.map(g, l)
+        case _       => DelayList.map(f, l)
     }
 
 def main(): Unit \ IO = 
-    inspect(identity);
-    inspect(x -> x + 1);
-    inspect(inc1);
-    inspect(inc2)
+    print("identity : "); inspect(identity);
+    print("x -> x+1 : "); inspect(x -> x + 1);
+    print("inc1     : "); inspect(inc1);
+    print("inc2     : "); inspect(inc2);
+
+	print("map(inc1): "); inspect(map(inc1));
+	print("map(inc2): "); inspect(map(inc2))

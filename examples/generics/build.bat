@@ -353,11 +353,12 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 goto :eof
 
 :run
-set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
+set "__BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
 )
-set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
+set __JAVA_OPTS=
+if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%
 
 set __MAIN_ARGS=
 
@@ -464,7 +465,7 @@ goto :eof
 :test
 set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
 )
 set __JAVA_OPTS=
 if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%

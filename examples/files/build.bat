@@ -262,7 +262,7 @@ if exist "%_BUILD_DIR%\test\*.flix" del /q "%_BUILD_DIR%\test\*.flix"
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
 )
-xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>NUL
+xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1>NUL
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to copy %__N_FILES% 1>&2
@@ -355,7 +355,7 @@ goto :eof
 :run
 set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
 )
 set __JAVA_OPTS=
 if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%
@@ -465,7 +465,7 @@ goto :eof
 :test
 set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
 )
 set __JAVA_OPTS=
 if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%
