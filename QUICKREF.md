@@ -163,6 +163,7 @@ The [Flix] standard types are defined in file [`Flix.scala`](https://github.com/
 | [`=>`]() | |
 | [`@`]() | |
 | [`:`]() | |
+| [`:::`]() | The infix operator `:::` is an alias for [`List.append(xs, ys)`](https://github.com/flix/flix/blob/master/main/src/library/List.flix#L184). |
 
 ## <span id="grammar">Flix Grammar (WIP)</span> <sup id="anchor_01">[1](#footnote_01)</sup>
 

@@ -38,7 +38,7 @@ The [Flix] projects presented below share the same directory layout as project `
                 <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
    </pre>
 
-3. Before compilation we run the [Flix] command `init` <sup id="anchor_01">[1](#footnote_01)</sup> to create a Flix-managed <sup id="anchor_02">[2](#footnote_02)</sup> subdirectory `target\areas\` and we copy the [Flix] source files from the `src\main\` and `src\test\` directories :
+3. Before compilation we run the [Flix] command `init` <sup id="anchor_01">[1](#footnote_01)</sup> to create a Flix-managed <sup id="anchor_02">[2](#footnote_02)</sup> subdirectory `target\areas\` and we populate it with the [Flix] source files from the `src\main\` and `src\test\` directories :
    <pre style="font-size:80%;">
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
@@ -52,12 +52,12 @@ The [Flix] projects presented below share the same directory layout as project `
    |   \---test
    |           <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
    \---<b>target</b>
-       \---areas
+       \---<b>areas</b>
            +---build
            +---lib
            +---src\Main.flix       <i>(copied from src\main\)</i>
            \---test\TestMain.flix  <i>(copied from src\test\)</i>
-          HISTORY.md, LICENSE.md, README.md  <i>(generated placeholders)</i>
+           LICENSE.md, README.md   <i>(generated placeholders)</i>
    </pre>
 
 2. During compilation we run the two [Flix] commands `build` <sup id="anchor_01">[1](#footnote_01)</sup> and `build-jar` to successively generate the Java class files in subdirectory `target\areas\build\` and the target file `target\areas\areas.jar` :
@@ -74,7 +74,7 @@ The [Flix] projects presented below share the same directory layout as project `
    |   \---test
    |           <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
    \---<b>target</b>
-       \---areas
+       \---<b>areas</b>   <i>(Flix-managed directory)</i>
            +---build
            |   +---dev
            |   |   \---flix
@@ -85,8 +85,8 @@ The [Flix] projects presented below share the same directory layout as project `
            +---lib
            +---src\Main.flix       <i>(copied from src\main\)</i>
            \---test\TestMain.flix  <i>(copied from src\main\)</i>
-          areas.jar
-          HISTORY.md, LICENSE.md, README.md
+           areas.jar
+           LICENSE.md, README.md
    </pre>
 
 > **:mag_right:**  We run the batch file [**`examples\clean.bat`**](./clean.bat) to clean up all project directories (e.g. before updating our Github repository [`flix-examples`](https://github.com/michelou/flix-examples) with local changes).
@@ -173,7 +173,7 @@ Execute Flix program "target\channels\channels.jar"
 1 :: 2 :: 3 :: Nil
 </pre>
 
-> **Note**: The [Flix] command <code>build-jar</code> does not add the [Flix] runtime to the generated archive file <code>target\channels\channels.jar</code>, so we need to update it with class files extracted from <code>flix.jar</code> and belonging to package <a href="https://github.com/flix/flix/tree/master/main/src/ca/uwaterloo/flix/runtime"><code>ca.uwaterloo.flix.runtime</code></a>.<br/>Without that additional step we would get the following runtime error :
+> **Note**: The [Flix] command <code>build-jar</code> does not add the [Flix] runtime to the generated archive file <code>target\channels\channels.jar</code>, so we need to update it with class files extracted from <code>flix.jar</code> and belonging to package <a href="https://github.com/flix/flix/tree/master/main/src/ca/uwaterloo/flix/runtime"><code>ca.uwaterloo.flix.runtime</code></a>.<br/>Without that additional step we get the following runtime error :
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
 > Copy 1 Flix source file to directory "target\channels\src\"
@@ -279,16 +279,14 @@ This example is slightly more complex than the other examples because it contain
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 F:\EXAMPLES\LAMBDA-CALCULUS
 |   <a href="./lambda-calculus/build.bat">build.bat</a>
-|   <a href="./lambda-calculus/build.gradle">build.gradle</a>   <i>(<a href="./common.gradle">common.gradle</a>)</i>
+|   <a href="./lambda-calculus/build.gradle">build.gradle</a>   <i>(<a href="./common.gradle">..\common.gradle</a>)</i>
 |   <a href="./lambda-calculus/gradle.properties">gradle.properties</a>
-|   <a href="./lambda-calculus/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">Makefile.inc</a>)</i>
-|
-\---src
+|   <a href="./lambda-calculus/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
+\---<b>src</b>
     +---main
     |       <a href="./lambda-calculus/src/main/Counter.scala">Counter.scala</a>
     |       <a href="./lambda-calculus/src/main/lambda-calculus.flix">lambda-calculus.flix</a>
     |       <a href="./lambda-calculus/src/main/Main.flix">Main.flix</a>
-    |
     \---test
             <a href="./lambda-calculus/src/test/TestMain.flix<">TestMain.flix</a>
 </pre>
@@ -301,8 +299,8 @@ F:\EXAMPLES\LAMBDA-CALCULUS
 > </pre>
 
 Concretely we perform two additional steps before calling the [Flix] commands **`build`** and **`build-jar`**:
-- we compile **`Counter.scala`** into directory  **`target\lambda-calculus\lib\`** with the Scala command **`scalac`**. 
-- we create **`target\lambda-calculus\lib\lib-lambda-calculus.jar`** with the Java command **`jar`**.
+- we compile **`Counter.scala`** into directory  **`target\lambda-calculus\lib\`** with the Scala command [**`scalac`**][scalac_cli]. 
+- we create **`target\lambda-calculus\lib\lib-lambda-calculus.jar`** with the Java command [**`jar`**][jar_cli].
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./lambda-calculus/build.bat">build</a> -debug clean run</b>
@@ -353,7 +351,7 @@ Command [`build`](./mutability/build.bat)` -debug run` generates the target file
 
 ### <span id="named_arguments">Example `named-arguments`</span> </span>[**&#x25B4;**](#top)
 
-Command [`gradle run`][gradle_cli] ([`build.gradle`](./named-arguments/build.gradle) generates the target file `target\named-arguments\named-arguments.jar` from the [Flix] source file [`src\main\named-arguments.flix`](./named-arguments/src/main/named-arguments.flix) and runs the target file :
+Command [`gradle run`][gradle_cli] ([`build.gradle`](./named-arguments/build.gradle)/[`common.gradle`](./common.gradle)) generates the target file `target\named-arguments\named-arguments.jar` from the [Flix] source file [`src\main\named-arguments.flix`](./named-arguments/src/main/named-arguments.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">gradle</a> -Dnightly clean run</b>
@@ -468,6 +466,17 @@ The following options are experimental:
 
 <dl><dd>
 Flix project directories must have a special layout enforced by the Flix command <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L76" rel="external"><code>init</code></a>. For instance the documentation files <code>LICENSE.md</code> and <code>README.md</code> must exist inside the project directory in order to run the Flix commands <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L174" rel="external"><code>build</code></a>, <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L237" rel="external"><code>build-jar</code></a>, etc.
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://man7.org/linux/man-pages/man1/tail.1.html" rel="external">tail</a> -n +3</b>
+F:\EXAMPLES\SAMPLE
+|   LICENSE.md, README.md
++---build
++---lib
++---src
+|       Main.flix
+\---test
+        TestMain.flix
+</pre>
 </dd></dl>
 
 <span id="footnote_03">[3]</span> ***Flix nightly builds*** [↩](#anchor_03)
@@ -533,5 +542,7 @@ BUILD SUCCESSFUL in 15s
 
 [flix]: https://flix.dev/
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
+[jar_cli]: https://docs.oracle.com/en/java/javase/13/docs/specs/man/jar.html
 [make_cli]: https://www.gnu.org/software/make/manual/make.html
 [scala]: https://www.scala-lang.org/
+[scalac_cli]: https://docs.scala-lang.org/overviews/compiler-options/index.html
