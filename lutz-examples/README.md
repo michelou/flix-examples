@@ -82,7 +82,7 @@ cd "target/datalog"; \
         "%GIT_HOME%/usr/bin/cp.exe" -r "F:/lutz-examples/datalog/src/main/." src && \
         "%JAVA_HOME%/bin/java.exe" -jar "%FLIX_HOME%/flix.jar" build && \
         "%JAVA_HOME%/bin/java.exe" -jar "%FLIX_HOME%/flix.jar" build-jar
-"%JAVA_HOME%/bin/java.exe" -Xbootclasspath/a:"%USERPROFILE%/.m2/repository/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar" -jar "target/datalog/datalog.jar"
+"%JAVA_HOME%/bin/java.exe"  -jar "target/datalog/datalog.jar"
 Children of Zeus = Apollo :: Ares :: Nil
 Ancestors of Apollo = Kronos :: Leto :: Rhea :: Zeus :: Nil
 0
