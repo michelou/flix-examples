@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 8px 0 0;min-width:25%;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="160" alt="Flix project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites.<br/>
-  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Makefile scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
+  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Makefile scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">shell scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -33,7 +33,7 @@ For instance our development environment looks as follows (*October 2022*) <sup 
 
 <pre style="font-size:80%;">
 C:\opt\flix-0.32.0\             <i>( 35 MB)</i>
-C:\opt\Git-2.38.0\              <i>(317 MB)</i>
+C:\opt\Git-2.38.1\              <i>(317 MB)</i>
 C:\opt\gradle-7.5.1\            <i>(127 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
@@ -107,7 +107,7 @@ We distinguish different sets of batch commands:
       run         execute the generated program
     </pre>
 
-3. [**`examples\*\build.gradle`**](examples/areas/build.gradle) &ndash; Each example can be build/run using the [**`gradle`**][gradle_cli] tool.
+3. [**`examples\*\build.gradle`**](examples/areas/build.gradle) &ndash; Each example can be build/run using the [**`gradle`**][gradle_cli] build tool.
 
 ## <span id="usage">Usage examples</span>
 
@@ -119,11 +119,11 @@ Command [**`setenv`**](setenv.bat) is executed once to setup our development env
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.32.0
-   git 2.38.0.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
+   git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make</b>
-C:\opt\Git-2.38.0\bin\git.exe
-C:\opt\Git-2.38.0\mingw64\bin\git.exe
+C:\opt\Git-2.38.1\bin\git.exe
+C:\opt\Git-2.38.1\mingw64\bin\git.exe
 C:\opt\gradle-7.5.1\bin\gradle
 C:\opt\gradle-7.5.1\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
@@ -142,19 +142,19 @@ Download file "flix-2022-10-07.jar" to directory "C:\opt\flix-0.32.0"
 
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.32.0
-   git 2.38.0.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
+   git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
    C:\opt\scala-2.13.10\bin\scalac.bat
-   C:\opt\Git-2.38.0\bin\git.exe
-   C:\opt\Git-2.38.0\mingw64\bin\git.exe
-   C:\opt\Git-2.38.0\usr\bin\diff.exe
+   C:\opt\Git-2.38.1\bin\git.exe
+   C:\opt\Git-2.38.1\mingw64\bin\git.exe
+   C:\opt\Git-2.38.1\usr\bin\diff.exe
    C:\opt\gradle-7.5.1\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
 Environment variables:
    "FLIX_HOME=C:\opt\flix-0.32.0"
-   "GIT_HOME=C:\opt\Git-2.38.0"
+   "GIT_HOME=C:\opt\Git-2.38.1"
    "GRADLE_HOME=C:\opt\gradle-7.5.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
    "MAKE_HOME=C:\opt\make-3.8.1"
@@ -174,7 +174,9 @@ Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on O
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.32.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\OPT\FLIX-0.32.0
-    flix-2022-10-05.jar
+    flix-2022-10-13.jar
+    flix-2022-10-14.jar
+    flix-2022-10-15.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available  instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -192,7 +194,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>                       <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                          <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.21-x86_64-pc-windows-msvc.zip</a>  <i>(  4 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.0-64-bit.7z.exe</a>           <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.1-64-bit.7z.exe</a>           <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                          <i>( 22 MB)</i>
 </pre>
 </dd></dl>
@@ -212,7 +214,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/

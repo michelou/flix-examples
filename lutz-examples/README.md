@@ -24,6 +24,7 @@ We currently provide three ways to build/run/test the [Flix] code examples :
 | Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
 |---------------------|------------------------|----------------|----------------|
 | [**`build.bat`**](channels/build.bat) | &nbsp;                 | &nbsp; | MS Windows |
+| [**`build.sh`**](channels/build.sh) | &nbsp;                 | &nbsp; | Cygwin / MSYS2 / Unix |
 | [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](channels/build.gradle) | [**`common.gradle`**](common.gradle) | Any <sup><b>a)</b></sup>  |
 | [**`make.exe`**][make_cli] | [**`Makefile`**](channels/Makefile) | [**`Makefile.inc`**](./Makefile.inc)  | Any |
 <div style="margin:0 15% 0 8px;font-size:90%;">

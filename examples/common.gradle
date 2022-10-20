@@ -19,6 +19,15 @@ ext.getNightly = { flixHome ->
     }
 }
 
+ext.convertPath = { path ->
+    if (path.startsWith("/cygdrive/")) {
+        return path[10] + ":" + path.substring(11)
+    }
+    else {
+        return path
+    }
+}
+
 project.ext {
     // sanetize properties from gradle.properties
     scalaLocalInstall = true //hasProperty("scalaLocalInstall") ? scalaLocalInstall.toBoolean() : false
@@ -29,7 +38,7 @@ project.ext {
     jarName = System.getProperty("nightly") != null
         ? getNightly(flixHome)
         : "flix.jar"
-    flixJar = file(flixHome + "/" + jarName)
+    flixJar = file(convertPath(flixHome) + "/" + jarName)
 
     mainSourceTree = fileTree(dir: "src/main", include: "**/*.flix")
     scalaSourceTree = fileTree(dir: "src/main", include: "**/*.scala")

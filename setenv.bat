@@ -314,7 +314,7 @@ goto :eof
 :flix_nightly
 if not exist "%_FLIX_HOME%" goto :eof
 
-for /f %%i in ('powershell -C "(Get-Date).addDays(-1).ToString('yyyy-MM-dd')"') do (
+for /f %%i in ('powershell -C "(Get-Date).addHours(-18).ToString('yyyy-MM-dd')"') do (
     set "__JAR_NAME=flix-%%i.jar"
 )
 set "__JAR_FILE=%_FLIX_HOME%\%__JAR_NAME%"
