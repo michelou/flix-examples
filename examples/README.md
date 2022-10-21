@@ -11,7 +11,7 @@
   </tr>
 </table>
 
-We currently provide three ways to build/run/test our [Flix] code examples:
+We currently provide four ways to build/run/test our [Flix] code examples:
 
 | Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
 |---------------------|------------------------|----------------|----------------|
@@ -29,6 +29,7 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
+   |   <a href="./areas/build.sh">build.sh</a>
    |   <a href="./areas/build.gradle">build.gradle</a>  <i>(<a href="./common.gradle">..\common.gradle</a>)</i>
    |   <a href="./areas/gradle.properties">gradle.properties</a>
    |   <a href="./areas/Makefile">Makefile</a>      <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
@@ -44,6 +45,7 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
+   |   <a href="./areas/build.sh">build.sh</a>
    |   <a href="./areas/build.gradle">build.gradle</a>   <i>(<a href="./common.gradle">..\common.gradle</a>)</i>
    |   <a href="./areas/gradle.properties">gradle.properties</a>
    |   <a href="./areas/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
@@ -66,6 +68,7 @@ The [Flix] projects presented below share the same directory layout as project `
    <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
    F:\EXAMPLES\AREAS
    |   <a href="./areas/build.bat">build.bat</a>
+   |   <a href="./areas/build.sh">build.sh</a>
    |   <a href="./areas/build.gradle">build.gradle</a>   <i>(<a href="./common.gradle">..\common.gradle</a>)</i>
    |   <a href="./areas/gradle.properties">gradle.properties</a>
    |   <a href="./areas/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
@@ -127,11 +130,11 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 > 1. Command [**`make.exe`**][make_cli] reads its configuration from the two configuration files [**`Makefile`**](./areas/Makefile) and [**`Makefile.inc`**](./Makefile.inc) (we can use option **`--silent`** to hide the executed commands):
 >    <pre style="font-size:80%;">
 >     <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
->    [ -d "target/areas" ] || "C:/opt/Git-2.38.0/usr/bin/mkdir.exe" -p "target/areas"
+>    [ -d "target/areas" ] || "C:/opt/Git-2.38.1/usr/bin/mkdir.exe" -p "target/areas"
 >    cd "target/areas"; \
 >         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix.jar" init && \
->         "C:/opt/Git-2.38.0/usr/bin/rm.exe" -f "src/Main.flix" && \
->         "C:/opt/Git-2.38.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+>         "C:/opt/Git-2.38.1/usr/bin/rm.exe" -f "src/Main.flix" && \
+>         "C:/opt/Git-2.38.1/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
 >         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix.jar" build && \
 >         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix.jar" build-jar
 >    "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe"  -jar "target/areas/areas.jar"
@@ -280,6 +283,7 @@ This example is slightly more complex than the other examples because it contain
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 F:\EXAMPLES\LAMBDA-CALCULUS
 |   <a href="./lambda-calculus/build.bat">build.bat</a>
+|   <a href="./lambda-calculus/build.sh">build.sh</a>
 |   <a href="./lambda-calculus/build.gradle">build.gradle</a>   <i>(<a href="./common.gradle">..\common.gradle</a>)</i>
 |   <a href="./lambda-calculus/gradle.properties">gradle.properties</a>
 |   <a href="./lambda-calculus/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
@@ -471,11 +475,11 @@ Flix project directories must have a special layout enforced by the Flix command
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /a /f . | <a href="https://man7.org/linux/man-pages/man1/tail.1.html" rel="external">tail</a> -n +3</b>
 F:\EXAMPLES\SAMPLE
 |   LICENSE.md, README.md
-+---build
-+---lib
-+---src
++---<b>build</b>
++---<b>lib</b>
++---<b>src</b>
 |       Main.flix
-\---test
+\---<b>test</b>
         TestMain.flix
 </pre>
 </dd></dl>
@@ -505,11 +509,11 @@ Execute Flix program "target\areas\areas.jar"
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> NIGHTLY=1 run</b>
-[ -d "target/areas" ] || "C:/opt/Git-2.38.0/usr/bin/mkdir.exe" -p "target/areas"
+[ -d "target/areas" ] || "C:/opt/Git-2.38.1/usr/bin/mkdir.exe" -p "target/areas"
 cd "target/areas"; \
         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix-2022-10-15.jar" init && \
-        "C:/opt/Git-2.38.0/usr/bin/rm.exe" -f "src/Main.flix" && \
-        "C:/opt/Git-2.38.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+        "C:/opt/Git-2.38.1/usr/bin/rm.exe" -f "src/Main.flix" && \
+        "C:/opt/Git-2.38.1/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix-2022-10-12.jar" build && \
         "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe" -jar "C:\opt\flix-0.32.0/flix-2022-10-12.jar" build-jar
 "C:/opt/jdk-temurin-11.0.16_8/bin/java.exe"  -jar "target/areas/areas.jar"

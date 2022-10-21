@@ -14,6 +14,7 @@ endif
 ifeq ($(OS),Windows_NT)
 JAR        = $(subst \,/,$(JAVA_HOME))/bin/jar.exe
 JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
+JAVAC      = $(subst \,/,$(JAVA_HOME))/bin/javac.exe
 SCALAC     = $(subst \,/,$(SCALA_HOME))/bin/scalac.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
@@ -28,6 +29,7 @@ UNZIP      = $(subst \,/,$(GIT_HOME))/usr/bin/unzip.exe
 else
 JAR        = $(JAVA_HOME)/bin/jar
 JAVA       = $(JAVA_HOME)/bin/java
+JAVAC      = $(JAVA_HOME)/bin/javac
 SCALAC     = $(SCALA_HOME)/bin/scalac
 LOCAL_REPO = $(HOME)/.m2/repository
 PSEP       = :

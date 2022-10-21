@@ -13,13 +13,13 @@
 
 > **:mag_right:** Visit the Codeberg repository [`2022-06-24-flix-for-java-programmers`][lutz_codeberg] to get the original [Flix] code examples.
 
-We made the following changes resp. additions to the original [Flix] code examples :
+We made the following changes resp. additions in comparison to the original [Flix] code examples :
 - The source files have been updated <sup id="anchor_01">[1](#footnote_01)</sup> to successfully compile with the latest version of the [Flix] compiler.
 - Each example has the same directory layout as the [Flix] code examples presented in document [`examples\README.md`](../examples/README.md).
 - Each example includes a basic test suite (directory `src\test\`).
-- Build scripts such as batch files, Makefile scripts and Gradle scripts are provided to build, run and test the examples.
+- We provide several build scripts to build, run and test the [Flix] code examples.
 
-We currently provide three ways to build/run/test the [Flix] code examples :
+Currently we provide four ways to build, run and test the [Flix] code examples :
 
 | Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
 |---------------------|------------------------|----------------|----------------|
