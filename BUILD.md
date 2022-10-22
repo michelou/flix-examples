@@ -49,7 +49,7 @@ BUILD SUCCESSFUL in 3m 7s
 F:\flix\build\libs\flix.jar
 </pre>
 
-> **Note** : The [Flix] library generated **locally** on September 19th 2022, is indeed the same as the corresponding [Flix nightly build][flix_nightly] :
+> **:mag_right:**  The [Flix] library generated **locally** on September 19th 2022, is indeed the same as the corresponding [Flix nightly build][flix_nightly] :
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /t "%FLIX_HOME%:*.jar" build\libs:*.jar</b>
 >   36614213   19.09.2022      20:26:29  c:\opt\flix-0.31.0\flix-2022-09-19.jar
@@ -138,7 +138,7 @@ This section presents some of our unpublished works to improve the [Flix] softwa
  
 ## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
-<span id="footnote_01">[1]</span> Console output of command **`gradle test`** [↩](#anchor_01)
+<span id="footnote_01">[1]</span> ***Console output of command*** **`gradle test`** [↩](#anchor_01)
 
 <dl><dd>
 We observe the extensive <a href="https://en.wikipedia.org/wiki/Code_coverage" rel="external"><i>code coverage</i></a> ot the <a href="https://flix.dev/" rel="external">Flix</a> test suite :

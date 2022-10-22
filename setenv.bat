@@ -53,6 +53,13 @@ call :make
 if not %_EXITCODE%==0 goto end
 goto end
 
+call :msys
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% MSYS2 installation not found 1>&2
+    set _EXITCODE=0
+)
+
 @rem #########################################################################
 @rem ## Subroutines
 
@@ -116,7 +123,9 @@ goto :eof
 
 @rem input parameter: %*
 :args
+set _BASH=0
 set _HELP=0
+set _MSYS=0
 set _VERBOSE=0
 set __N=0
 :args_loop
@@ -125,7 +134,8 @@ if not defined __ARG goto args_done
 
 if "%__ARG:~0,1%"=="-" (
     @rem option
-    if "%__ARG%"=="-debug" ( set _DEBUG=1
+    if "%__ARG%"=="-bash" ( set _MSYS=0& set _BASH=1
+    ) else if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -434,6 +444,33 @@ if not exist "%_MAKE_HOME%\bin\make.exe" (
 set "_MAKE_PATH=;%_MAKE_HOME%\bin"
 goto :eof
 
+@rem output parameter: _MSYS_HOME
+:msys
+set _MSYS_HOME=
+
+set __MSYS2_CMD=
+for /f %%f in ('where msy2_shell.cmd 2^>NUL') do set "__MSYS2_CMD=%%f"
+if defined __MSYS2_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of msys2 command found in PATH 1>&2
+    goto :eof
+) else if defined MSYS_HOME (
+    set "_MSYS_HOME=%MSYS_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MSYS_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!_PATH!\%%f"
+    if defined _MSYS_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default MSYS2 installation directory !_MSYS_HOME! 1>&2
+    )
+)
+if not exist "%_MSYS_HOME%\msys2_shell.cmd" if %_MSYS%==1 (
+    set _MSYS=0
+    echo %_ERROR_LABEL% MSYS2 command not found ^(%_MSYS_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 :print_env
 set __VERBOSE=%1
 set "__VERSIONS_LINE1=  "
@@ -502,17 +539,29 @@ goto :eof
 
 :end
 endlocal & (
-    if not defined FLIX_HOME set "FLIX_HOME=%_FLIX_HOME%"
-    if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
-    if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
-    if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
-    if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
-    if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
-    set "PATH=%PATH%%_GRADLE_PATH%%_MAKE_PATH%%_GIT_PATH%;%~dp0bin"
-    call :print_env %_VERBOSE%
-    if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2
-        cd /d %_DRIVE_NAME%:
+    if %_EXITCODE%==0 (
+        if not defined FLIX_HOME set "FLIX_HOME=%_FLIX_HOME%"
+        if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
+        if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
+        if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
+        if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
+        if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
+        if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
+        @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_GRADLE_PATH%%_MAKE_PATH%%_GIT_PATH%;%~dp0bin"
+        call :print_env %_VERBOSE%
+        if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2
+            cd /d %_DRIVE_NAME%:
+        )
+        if %_BASH%==1 (
+            @rem see https://conemu.github.io/en/GitForWindows.html
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% %_GIT_HOME%\usr\bin\bash.exe --login 1>&2
+            cmd.exe /c "%_GIT_HOME%\usr\bin\bash.exe --login"
+        ) else if %_MSYS%==1 (
+            if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_MSYS_HOME%\msys2_shell.cmd -mingw64 -where %_DRIVE_NAME%:" 1>&2
+            cmd.exe /c "%_MSYS_HOME%\msys2_shell.cmd -mingw64 -where %_DRIVE_NAME%:"
+        )
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
     for /f "delims==" %%i in ('set ^| findstr /b "_"') do set %%i=

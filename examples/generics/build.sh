@@ -61,7 +61,6 @@ args() {
         decompile) COMPILE=true && DECOMPILE=true ;;
         help)      HELP=true ;;
         run)       COMPILE=true && RUN=true ;;
-        test)      COMPILE=true && TEST=true ;;
         *)
             error "Unknown subcommand $arg"
             EXITCODE=1 && return 0
@@ -93,20 +92,19 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Subcommands:
     clean        delete generated files
-    compile      compile Scala/Flix source files
+    compile      compile Java/Scala source files
     decompile    decompile generated code with CFR
     help         display this help message
-    run          execute Flix program $PROJECT_NAME
-    test         run the unit tests
+    run          execute main class $MAIN_CLASS
 EOS
 }
 
 clean() {
     if [ -d "$TARGET_DIR" ]; then
         if $DEBUG; then
-            debug "Delete directory \"$TARGET_DIR\""
+            debug "Delete directory $TARGET_DIR"
         elif $VERBOSE; then
-            echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
+            echo "Delete directory ${TARGET_DIR/$ROOT_DIR\//}" 1>&2
         fi
         rm -rf "$TARGET_DIR"
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -376,19 +374,7 @@ run() {
 }
 
 run_tests() {
-    pushd "$TARGET_APP_DIR" 1>/dev/null
-    if $DEBUG; then
-        debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" test"
-    elif $VERBOSE; then
-        echo "Run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
-    fi
-    eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" test
-    if [[ $? -ne 0 ]]; then
-        popd 1>/dev/null
-        error "Failed to run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
-        cleanup 1
-    fi
-    popd 1>/dev/null
+    echo "tests"
 }
 
 ##############################################################################
