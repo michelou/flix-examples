@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 8px 0 0;min-width:25%;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="160" alt="Flix project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites.<br/>
-  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Makefile scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">shell scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
+  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Makefile scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -89,7 +89,7 @@ We distinguish different sets of batch commands:
        help        display this help message
    </pre>
 
-2. [**`examples\*\build.bat`**](examples/areas/build.bat) &ndash; Each example can be built/run using the [**`build`**](examples/areas/build.bat) command.<br/>
+2. [**`examples\*\build.bat`**](examples/areas/build.bat) &ndash; Each example can be built/run/tested using the [**`build.bat`**](examples/areas/build.bat) command.<br/>
 
     <pre style="font-size:80%;">
     <b>&gt; <a href="examples/Factorial/build.bat">build</a></b>
@@ -105,9 +105,12 @@ We distinguish different sets of batch commands:
       compile     generate program executable
       help        display this help message
       run         execute the generated program
+      test        run the unit tests
     </pre>
 
-3. [**`examples\*\build.gradle`**](examples/areas/build.gradle) &ndash; Each example can be build/run using the [**`gradle`**][gradle_cli] build tool.
+3. [**`examples\*\build.gradle`**](examples/areas/build.gradle) &ndash; Each example can be built/run/tested using the [**`gradle.bat`**][gradle_cli] build tool.
+
+4. [**`examples\*\build.sh`**](examples/areas/build.sh) &ndash; Each example can be built/run/tested using the [**`bash.exe`**][bash_cli] scripting tool.
 
 ## <span id="usage">Usage examples</span>
 
@@ -138,7 +141,7 @@ Command [**`setenv`**](setenv.bat) with option **`-verbose`** displays additiona
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2022-10-07.jar" to directory "C:\opt\flix-0.32.0"
+Download file "flix-2022-10-23.jar" to directory "C:\opt\flix-0.32.0"
 
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.32.0
@@ -174,9 +177,9 @@ Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on O
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.32.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\OPT\FLIX-0.32.0
-    flix-2022-10-13.jar
-    flix-2022-10-14.jar
-    flix-2022-10-15.jar
+    flix-2022-10-21.jar
+    flix-2022-10-22.jar
+    flix-2022-10-23.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available  instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -190,7 +193,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                   <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-15.jar</a>                        <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-23.jar</a>                        <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>                       <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                          <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.21-x86_64-pc-windows-msvc.zip</a>  <i>(  4 MB)</i>
@@ -208,6 +211,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
+[bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [diff_cli]: https://www.gnu.org/software/diffutils/manual/html_node/Invoking-diff.html

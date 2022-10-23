@@ -73,13 +73,13 @@ The [Flix] projects presented below share the same directory layout as project `
    |   <a href="./areas/gradle.properties">gradle.properties</a>
    |   <a href="./areas/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
    +---<b>src</b>
-   |   +---main
+   |   +---<b>main</b>
    |   |       <a href="./areas/src/main/Main.flix">Main.flix</a>
-   |   \---test
+   |   \---<b>test</b>
    |           <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
    \---<b>target</b>
        \---<b>areas</b>   <i>(Flix-managed directory)</i>
-           +---build
+           +---<b>build</b>
            |   +---dev
            |   |   \---flix
            |   |       \---runtime\*.class
@@ -126,7 +126,7 @@ Running 2 tests...
 Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 </pre>
 
-> **:mag_right:** We achieve the same result with the two commands [**`make.exe`**][make_cli] and [**`gradle.bat`**][gradle_cli]:
+> **:mag_right:** We provide other ways to build/run/test our [Flix] code examples :
 > 1. Command [**`make.exe`**][make_cli] reads its configuration from the two configuration files [**`Makefile`**](./areas/Makefile) and [**`Makefile.inc`**](./Makefile.inc) (we can use option **`--silent`** to hide the executed commands):
 >    <pre style="font-size:80%;">
 >     <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
@@ -147,7 +147,8 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 >       PASS  test01 806,3us
 >       PASS  test02 115,4us
 >    &nbsp;
->    Passed: 2, Failed: 0. Skipped: 0. Elapsed: 6,3ms.<pre>
+>    Passed: 2, Failed: 0. Skipped: 0. Elapsed: 6,3ms.
+>    </pre>
 > 2. Command [**`gradle.bat`**][gradle_cli] reads its configuration from the two configuration files [**`build.gradle`**](./areas/build.gradle) and [**`common.gradle`**](./common.gradle) :
 >    <pre style="font-size:80%";>
 >    <b>&gt; gradle run</b>
@@ -160,6 +161,18 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 >    &nbsp;
 >    BUILD SUCCESSFUL in 15s
 >    7 actionable tasks: 7 executed
+>    </pre>
+> 3. Command[**`bash.exe`**][bash_cli]
+>    <pre style="font-size:80%;">
+>    <b>&gt; bash -c "./<a href="./areas/build.sh">build.sh</a> -verbose run"</b>
+>    Initialize directory "target/areas"
+>    Copy Flix source files to directory "target/areas/src"
+>    Copy Flix test source files to directory "target/areas/test"
+>    Compile 1 Flix source file to directory "target/areas/build"
+>    Create archive file "target/areas/areas.jar"
+>    Execute the JAR file "target/areas/areas.jar"
+>    2 :: 6 :: Nil
+>    2 :: 6 :: Nil
 >    </pre>
 
 ### <span id="channels">Example `channels`</span> [**&#x25B4;**](#top)
@@ -288,11 +301,11 @@ F:\EXAMPLES\LAMBDA-CALCULUS
 |   <a href="./lambda-calculus/gradle.properties">gradle.properties</a>
 |   <a href="./lambda-calculus/Makefile">Makefile</a>       <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
 \---<b>src</b>
-    +---main
+    +---<b>main</b>
     |       <a href="./lambda-calculus/src/main/Counter.scala">Counter.scala</a>
     |       <a href="./lambda-calculus/src/main/lambda-calculus.flix">lambda-calculus.flix</a>
     |       <a href="./lambda-calculus/src/main/Main.flix">Main.flix</a>
-    \---test
+    \---<b>test</b>
             <a href="./lambda-calculus/src/test/TestMain.flix<">TestMain.flix</a>
 </pre>
 
@@ -545,6 +558,7 @@ BUILD SUCCESSFUL in 15s
 
 <!-- href links -->
 
+[bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [flix]: https://flix.dev/
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [jar_cli]: https://docs.oracle.com/en/java/javase/13/docs/specs/man/jar.html

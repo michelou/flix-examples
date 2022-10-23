@@ -180,7 +180,7 @@ task run(type: JavaExec) {
     def bootClasspath = fileTree(dir: "${buildAppDir}/lib", include: "**/*.jar").join(File.pathSeparator)
 
     mainClass = "-Xbootclasspath/a:${bootClasspath}"
-    args = [ "-jar", "${buildDir}/${appName}/${appName}.jar" ]
+    args = [ "-jar", "${buildAppDir}/${appName}.jar" ]
 
     workingDir buildAppDir
 }

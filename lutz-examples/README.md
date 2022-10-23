@@ -73,16 +73,12 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 6,9ms.
 > **:mag_right:** Command [**`build.sh`**](./channels/build.sh) is the counterpart of the above batch file [**`build.bat`**](./channels/build.bat) for Unix-like environments; for instance :
 > &nbsp;
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> version</b>
-> GNU bash, version 4.4.20(1)-release (x86_64-pc-linux-gnu)
-> License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
-> &nbsp;
 > <b>&gt; <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> -c "./<a href="./channels/build.sh">build.sh</a> -verbose run"</b>
 > Initialize directory "target/channels"
 > Copy Flix source files to directory "target/channels/src"
 > Copy Flix test source files to directory "target/channels/test"
 > Compile 1 Flix source files to directory "target/channels/build"
-> Generate the JAR file "target/channels/channels.jar"
+> Create archive file "target/channels/channels.jar"
 > Extract class files from archive file "C:/opt/flix-0.32.0/flix.jar"
 > Update archive file "target/channels/channels.jar"
 > Execute the JAR file "target/channels/channels.jar"
@@ -90,6 +86,10 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 6,9ms.
 > ...
 > 7
 > done
+> &nbsp;
+> <b>&gt; <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> version</b>
+> GNU bash, version 4.4.20(1)-release (x86_64-pc-linux-gnu)
+> License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
 > </pre>
 
 ## <span id="datalog">Example `datalog`</span> [**&#x25B4;**](#top)
@@ -146,14 +146,14 @@ false
 Command [**`make -s run`**][make_cli] ([`Makefile`](./mutualrecursion/Makefile)/[`Makefile.inc`](./Makefile.inc)) generates the target file `target\mutualrecursion\mutualrecursion.jar` from the [Flix] source file [`src\main\mutualrecursion.flix`](./mutualrecursion/src/main/mutualrecursion.flix) and executes the target file :
 
 <pre style="font-size:80%;">
-<b>&gt; make -s run</b>
+<b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> -s run</b>
 true
 0
 </pre>
 
 > **:mag_right:** Command `build` features option `-java` to compile/run the Java version of this code example.
 > <pre style="font-size:80%;">
-> <b>&gt; build -java -verbose run</b>
+> <b>&gt; <a href="./mutualrecursion/build.bat">build</a> -java -verbose run</b>
 > Compile Java source files to directory "target\classes"
 > Execute Java program "MutualRecursion"
 > true
@@ -227,6 +227,7 @@ Here are our modifications of the original <a href="https://flix.dev/">Flix</a> 
 
 <!-- href links -->
 
+[bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [flix]: https://flix.dev/
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [lutz_article]: https://www.reactivesystems.eu/2022/06/24/flix-for-java-programmers.html

@@ -106,7 +106,7 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
     -debug       show commands executed by this script
-    -nightly     select latest Flix nightly build if locally available
+    -nightly     select last nightly build if locally available
     -verbose     display progress messages
 
   Subcommands:
@@ -170,7 +170,7 @@ compile_init() {
 
     local target_src_dir="$TARGET_APP_DIR/src"
     if $DEBUG; then
-        debug "cp -r \"$SOURCE_MAIN_DIR/\"*.flix \"$target_src_dir/\""
+        debug "cp -r \"$SOURCE_MAIN_DIR/*.flix\" \"$target_src_dir/\""
     elif $VERBOSE; then
         echo "Copy Flix source files to directory \"${target_src_dir/$ROOT_DIR\//}\"" 1>&2
     fi
@@ -178,7 +178,7 @@ compile_init() {
 
     local target_test_dir="$TARGET_APP_DIR/test"
     if $DEBUG; then
-        debug "cp -r \"$SOURCE_TEST_DIR/\"*.flix \"$target_test_dir/\""
+        debug "cp -r \"$SOURCE_TEST_DIR/*.flix\" \"$target_test_dir/\""
     elif $VERBOSE; then
         echo "Copy Flix test source files to directory \"${target_test_dir/$ROOT_DIR\//}\"" 1>&2
     fi
@@ -208,35 +208,23 @@ action_required() {
 
 compile_scala() {
     local opts_file="$TARGET_DIR/scalac_opts.txt"
-    echo -classpath "$(mixed_path $TARGET_LIB_DIR)" -d "$(mixed_path $TARGET_LIB_DIR)" > "$opts_file"
+    echo -color never -classpath "$(mixed_path $TARGET_LIB_DIR)" -d "$(mixed_path $TARGET_LIB_DIR)" > "$opts_file"
 
-    local source_files=
+    local sources_file="$TARGET_LIB_DIR/scalac_sources.txt"
+    [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
     for f in $(find "$SOURCE_MAIN_DIR/" -type f -name *.scala 2>/dev/null); do
-        source_files="$source_files $(mixed_path $f)"
+        echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
-    local n_files="$n Scala source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
     if $DEBUG; then
-        debug "$SCALAC_CMD -classpath \"$(mixed_path $TARGET_LIB_DIR)\" -d \"$(mixed_path $TARGET_LIB_DIR)\" $source_files"
+        debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
-    eval "$SCALAC_CMD" -classpath "$(mixed_path $TARGET_LIB_DIR)" -d "$(mixed_path $TARGET_LIB_DIR)" $source_files
+    eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
-        cleanup 1
-    fi
-    local library_jar="$TARGET_LIB_DIR/lib-$PROJECT_NAME.jar"
-    if $DEBUG; then
-        debug "$JAR_CMD cf \"$(mixed_path $library_jar)\" -C \"$(mixed_path $TARGET_LIB_DIR)\" ."
-    elif $VERBOSE; then
-        echo "Create Java archive file \"${library_jar/$ROOT_DIR\//}\"" 1>&2
-    fi
-    eval "$JAR_CMD" cf "$(mixed_path $library_jar)" -C "$(mixed_path $TARGET_LIB_DIR)" .
-    if [[ $? -ne 0 ]]; then
-        error "Failed to create Java archive file \"${library_jar/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
         cleanup 1
     fi
 }
@@ -246,29 +234,27 @@ compile_flix() {
     for f in $(find "$TARGET_APP_DIR/src/" -type f -name *.flix 2>/dev/null); do
         n=$((n + 1))
     done
-    local n_files="$n Flix source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
     elif $VERBOSE; then
-        echo "Compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n Flix source files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     pushd "$TARGET_APP_DIR" 1>/dev/null
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n Flix source files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
         cleanup 1
     fi
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build-jar"
     elif $VERBOSE; then
-        echo "Create archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        echo "Generate the JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build-jar
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to create archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to generate the JAR file into directory \"${TARGET_APP_DIR/$ROOT_DIR\//}\"" 1>&2
         cleanup 1
     fi
     popd 1>/dev/null
@@ -320,7 +306,7 @@ decompile() {
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -name *.java 2>/dev/null); do
+    for f in $(find $output_dir/ -name *.java 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -480,12 +466,12 @@ if $cygwin || $mingw || $msys; then
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA_HOME" ]] && SCALA_HOME="$(mixed_path $SCALA_HOME)"
 fi
-if [ ! -x "$JAVA_HOME/bin/java" ]; then
+if [ ! -x "$JAVA_HOME/bin/javac" ]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
-JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
+JAVAC_CMD="$JAVA_HOME/bin/javac"
 
 if [ ! -x "$SCALA_HOME/bin/scalac" ]; then
     error "Scala 2 installation not found"

@@ -61,12 +61,31 @@ args() {
         decompile) COMPILE=true && DECOMPILE=true ;;
         help)      HELP=true ;;
         run)       COMPILE=true && RUN=true ;;
+        test)      COMPILE=true && TEST=true ;;
         *)
             error "Unknown subcommand $arg"
             EXITCODE=1 && return 0
             ;;
         esac
     done
+    if $NIGHTLY; then
+        local nightly_jar=
+        for f in $(find "$FLIX_HOME/" -type f -name "flix-*.jar" 2>/dev/null); do
+            nightly_jar="$f"
+        done
+        if [ -f "$nightly_jar" ]; then
+            if $DEBUG; then
+                debug "Nightly build \"$nightly_jar\" was selected"
+            elif $VERBOSE; then
+                echo "Nightly build \"$nightly_jar\" was selected" 1>&2
+            fi
+            set FLIX_JAR="$nightly_jar"
+        else
+            set NIGHTLY=false
+            warning "Nightly build of Flix not found (use release version instead)"
+            warning "         It can be downloaded from https://flix.dev/nightly/."
+        fi
+    fi
     if $DECOMPILE && [ ! -x "$CFR_CMD" ]; then
         warning "cfr installation not found"
         DECOMPILE=false
@@ -92,19 +111,20 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Subcommands:
     clean        delete generated files
-    compile      compile Java/Scala source files
+    compile      compile Scala/Flix source files
     decompile    decompile generated code with CFR
     help         display this help message
-    run          execute main class $MAIN_CLASS
+    run          execute Flix program $PROJECT_NAME
+    test         run the unit tests
 EOS
 }
 
 clean() {
     if [ -d "$TARGET_DIR" ]; then
         if $DEBUG; then
-            debug "Delete directory $TARGET_DIR"
+            debug "Delete directory \"$TARGET_DIR\""
         elif $VERBOSE; then
-            echo "Delete directory ${TARGET_DIR/$ROOT_DIR\//}" 1>&2
+            echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
         [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
@@ -214,16 +234,18 @@ compile_flix() {
     for f in $(find "$TARGET_APP_DIR/src/" -type f -name *.flix 2>/dev/null); do
         n=$((n + 1))
     done
+    local n_files="$n Flix source file"
+    [[ $n -gt 1 ]] && n_files="${n_files}s"
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
     elif $VERBOSE; then
-        echo "Compile $n Flix source files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     pushd "$TARGET_APP_DIR" 1>/dev/null
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to compile $n Flix source files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
         cleanup 1
     fi
     if $DEBUG; then
@@ -374,7 +396,19 @@ run() {
 }
 
 run_tests() {
-    echo "tests"
+    pushd "$TARGET_APP_DIR" 1>/dev/null
+    if $DEBUG; then
+        debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" test"
+    elif $VERBOSE; then
+        echo "Run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+    fi
+    eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" test
+    if [[ $? -ne 0 ]]; then
+        popd 1>/dev/null
+        error "Failed to run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        cleanup 1
+    fi
+    popd 1>/dev/null
 }
 
 ##############################################################################
@@ -405,6 +439,7 @@ COMPILE=false
 DEBUG=false
 DECOMPILE=false
 HELP=false
+NIGHTLY=false
 RUN=false
 TEST=false
 VERBOSE=false
