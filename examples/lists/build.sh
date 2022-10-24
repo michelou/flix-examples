@@ -208,23 +208,35 @@ action_required() {
 
 compile_scala() {
     local opts_file="$TARGET_DIR/scalac_opts.txt"
-    echo -color never -classpath "$(mixed_path $TARGET_LIB_DIR)" -d "$(mixed_path $TARGET_LIB_DIR)" > "$opts_file"
+    echo -classpath "$(mixed_path $TARGET_LIB_DIR)" -d "$(mixed_path $TARGET_LIB_DIR)" > "$opts_file"
 
-    local sources_file="$TARGET_LIB_DIR/scalac_sources.txt"
-    [[ -f "$sources_file" ]] && rm "$sources_file"
+    local source_files=
     local n=0
     for f in $(find "$SOURCE_MAIN_DIR/" -type f -name *.scala 2>/dev/null); do
-        echo $(mixed_path $f) >> "$sources_file"
+        source_files="$source_files $(mixed_path $f)"
         n=$((n + 1))
     done
+    local n_files="$n Scala source file"
+    [[ $n -gt 1 ]] && n_files="${n_files}s"
     if $DEBUG; then
-        debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
+        debug "$SCALAC_CMD -classpath \"$(mixed_path $TARGET_LIB_DIR)\" -d \"$(mixed_path $TARGET_LIB_DIR)\" $source_files"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
-    eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
+    eval "$SCALAC_CMD" -classpath "$(mixed_path $TARGET_LIB_DIR)" -d "$(mixed_path $TARGET_LIB_DIR)" $source_files
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        cleanup 1
+    fi
+    local library_jar="$TARGET_LIB_DIR/lib-$PROJECT_NAME.jar"
+    if $DEBUG; then
+        debug "$JAR_CMD cf \"$(mixed_path $library_jar)\" -C \"$(mixed_path $TARGET_LIB_DIR)\" ."
+    elif $VERBOSE; then
+        echo "Create Java archive file \"${library_jar/$ROOT_DIR\//}\"" 1>&2
+    fi
+    eval "$JAR_CMD" cf "$(mixed_path $library_jar)" -C "$(mixed_path $TARGET_LIB_DIR)" .
+    if [[ $? -ne 0 ]]; then
+        error "Failed to create Java archive file \"${library_jar/$ROOT_DIR\//}\"" 1>&2
         cleanup 1
     fi
 }
@@ -379,10 +391,10 @@ version_string() {
 run() {
     local boot_cpath=
     for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
-        boot_cpath="$boot_cpath:$(mixed_path $f)"
+        boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
-    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:$boot_cpath" $java_opts
+    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
@@ -472,6 +484,7 @@ if [ ! -x "$JAVA_HOME/bin/java" ]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
+JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 
 if [ ! -x "$SCALA_HOME/bin/scalac" ]; then

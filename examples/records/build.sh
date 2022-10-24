@@ -106,7 +106,7 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
     -debug       show commands executed by this script
-    -nightly     select last nightly build if locally available
+    -nightly     select latest Flix nightly build if locally available
     -verbose     display progress messages
 
   Subcommands:
@@ -379,10 +379,10 @@ version_string() {
 run() {
     local boot_cpath=
     for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
-        boot_cpath="$boot_cpath:$(mixed_path $f)"
+        boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
-    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:$boot_cpath" $java_opts
+    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
