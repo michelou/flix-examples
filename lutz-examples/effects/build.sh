@@ -260,36 +260,6 @@ compile_flix() {
         cleanup 1
     fi
     popd 1>/dev/null
-
-    flix_runtime
-    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
-}
-
-flix_runtime() {
-    local unzip_opts=-q
-    if $DEBUG; then
-        debug "$UNZIP_CMD $unzip_opts \"$(mixed_path $FLIX_JAR)\" \"ca/uwaterloo/flix/runtime/**\" -d \"$(mixed_path $TARGET_DIR/flix)\""
-    elif $VERBOSE; then
-        echo "Extract class files from archive file \"$FLIX_JAR\"" 1>&2
-    fi
-    eval "$UNZIP_CMD" $unzip_opts "$(mixed_path $FLIX_JAR)" "ca/uwaterloo/flix/runtime/**" -d "$(mixed_path $TARGET_DIR/flix)"
-    if [[ $? -ne 0 ]]; then
-        error "Failed to extract class files from archive file \"$FLIX_JAR\"" 1>&2
-        cleanup 1
-    fi
-    pushd "$TARGET_DIR/flix" 1>/dev/null
-    if $DEBUG; then
-        debug "$JAR_CMD -uf \"$(mixed_path $APP_JAR)\" -C . *"
-    elif $VERBOSE; then
-        echo "Update archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
-    fi
-    eval "$JAR_CMD" -uf "$(mixed_path $APP_JAR)" -C . *
-    if [[ $? -ne 0 ]]; then
-        popd 1>/dev/null
-        error "Failed to update archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
-        cleanup 1
-    fi
-    popd 1>/dev/null
 }
 
 mixed_path() {
@@ -502,7 +472,6 @@ if [ ! -x "$JAVA_HOME/bin/java" ]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
-JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 
 if [ ! -x "$SCALA_HOME/bin/scalac" ]; then
@@ -513,12 +482,6 @@ SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
 [ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
-
-if [ ! -x "$GIT_HOME/usr/bin/unzip" ]; then
-    error "unzip command not found"
-    cleanup 1
-fi
-UNZIP_CMD="$GIT_HOME/usr/bin/unzip"
 
 if [ ! -f "$FLIX_HOME/flix.jar" ]; then
     error "Flix installation not found $FLIX_HOME"
