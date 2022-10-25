@@ -26,6 +26,7 @@ if %_HELP%==1 (
 set _GIT_PATH=
 set _GRADLE_PATH=
 set _MAKE_PATH=
+set _MDBOOK_PATH=
 
 @rem Flix requires Java 11 or newer
 call :java11
@@ -53,6 +54,12 @@ call :make
 if not %_EXITCODE%==0 goto end
 goto end
 
+call :mdbook
+if not %_EXITCODE%==0 (
+    @rem optional
+    echo %_WARNING_LABEL% mdBook installation not found 1>&2
+    set _EXITCODE=0
+)
 call :msys
 if not %_EXITCODE%==0 (
     @rem optional
@@ -444,6 +451,36 @@ if not exist "%_MAKE_HOME%\bin\make.exe" (
 set "_MAKE_PATH=;%_MAKE_HOME%\bin"
 goto :eof
 
+
+@rem output parameters: _MDBOOK_HOME, _MDBOOK_PATH
+:mdbook
+set _MDBOOK_HOME=
+set _MDBOOK_PATH=
+
+set __MAKE_CMD=
+for /f %%f in ('where mdbook.exe 2^>NUL') do set "__MDBOOK_CMD=%%f"
+if defined __MDBOOK_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of mdBook executable found in PATH 1>&2
+    @rem keep _MAKE_PATH undefined since executable already in path
+    goto :eof
+) else if defined MDBOOK_HOME (
+    set "_MDBOOK_HOME=%MDBOOK_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MDBOOK_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\mdbook-*" 2^>NUL') do set "_MDBOOK_HOME=!_PATH!\%%f"
+    if defined _MDBOOK_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default mdBook installation directory !_MDBOOK_HOME! 1>&2
+    )
+)
+if not exist "%_MDBOOK_HOME%\mdbook.exe" (
+    echo %_ERROR_LABEL% mdBook executable not found ^(%_MDBOOK_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MDBOOK_PATH=;%_MDBOOK_HOME%"
+goto :eof
+
 @rem output parameter: _MSYS_HOME
 :msys
 set _MSYS_HOME=
@@ -528,6 +565,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
     if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
+    if defined MDBOOK_HOME echo    "MDBOOK_HOME=%MDBOOK_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo Path associations: 1>&2
     for /f "delims=" %%i in ('subst') do echo %%i
@@ -545,10 +583,11 @@ endlocal & (
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
         if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
+        if not defined MDBOOK_HOME set "MDBOOK_HOME=%_MDBOOK_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_GRADLE_PATH%%_MAKE_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_GRADLE_PATH%%_MAKE_PATH%%_MDBOOK_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2

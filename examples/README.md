@@ -34,9 +34,9 @@ The [Flix] projects presented below share the same directory layout as project `
    |   <a href="./areas/gradle.properties">gradle.properties</a>
    |   <a href="./areas/Makefile">Makefile</a>      <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
    \---<b>src</b>
-        +---main
+        +---<b>main</b>
         |       <a href="./areas/src/main/Main.flix">Main.flix</a>
-        \---test
+        \---<b>test</b>
                 <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
    </pre>
 
@@ -86,7 +86,7 @@ The [Flix] projects presented below share the same directory layout as project `
            |   +---Iterator\*.class
            |   +---List\*.class
            |   \---StringBuilder\*.class
-           +---lib
+           +---<b>lib</b>
            +---src\Main.flix       <i>(copied from src\main\)</i>
            \---test\TestMain.flix  <i>(copied from src\main\)</i>
            areas.jar
@@ -162,9 +162,9 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 >    BUILD SUCCESSFUL in 15s
 >    7 actionable tasks: 7 executed
 >    </pre>
-> 3. Command[**`bash.exe`**][bash_cli]
+> 3. Command [**`bash.exe`**][bash_cli] targets a Unix-like environment in the same way as <code><b>build.bat</b></code> targets the Windows environment:
 >    <pre style="font-size:80%;">
->    <b>&gt; bash -c "./<a href="./areas/build.sh">build.sh</a> -verbose run"</b>
+>    <b>&gt; <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">bash</a> <a href="./areas/build.sh">build.sh</a> -verbose run</b>
 >    Initialize directory "target/areas"
 >    Copy Flix source files to directory "target/areas/src"
 >    Copy Flix test source files to directory "target/areas/test"
@@ -408,6 +408,27 @@ Running 2 tests...
    PASS  test02 278,4us
 
 Passed: 2, Failed: 0. Skipped: 0. Elapsed: 5,7ms.
+</pre>
+
+### <span id="records">Example `records`</span> [**&#x25B4;**](#top)
+
+Command [`build run`](./records/build.bat) generates the target file `target\records\records.jar` from the [Flix] source file [`src\main\Main.flix`](./records/src/main/Main.flix) and executes the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./records/build.bat">build</a> run</b>
+r1 = { 1, 2 }
+r2 = { 1, 2 }
+r1 == r2: true
+r3 = { 3, 2 }
+</pre>
+
+### <span id="trees">Example `trees`</span>
+
+Command [`build run`](./trees/build.bat) generates the target file `target\trees\trees.jar` from the [Flix] source file [`src\main\Main.flix`](./trees/src/main/Main.flix) and executes the target file :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="./trees/build.bat">build</a> run</b>
+10
 </pre>
 
 <!--=======================================================================-->
