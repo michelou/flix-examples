@@ -52,7 +52,6 @@ if not %_EXITCODE%==0 goto end
 
 call :make
 if not %_EXITCODE%==0 goto end
-goto end
 
 call :mdbook
 if not %_EXITCODE%==0 (
@@ -66,6 +65,7 @@ if not %_EXITCODE%==0 (
     echo %_WARNING_LABEL% MSYS2 installation not found 1>&2
     set _EXITCODE=0
 )
+goto end
 
 @rem #########################################################################
 @rem ## Subroutines
@@ -451,13 +451,12 @@ if not exist "%_MAKE_HOME%\bin\make.exe" (
 set "_MAKE_PATH=;%_MAKE_HOME%\bin"
 goto :eof
 
-
 @rem output parameters: _MDBOOK_HOME, _MDBOOK_PATH
 :mdbook
 set _MDBOOK_HOME=
 set _MDBOOK_PATH=
 
-set __MAKE_CMD=
+set __MDBOOK_CMD=
 for /f %%f in ('where mdbook.exe 2^>NUL') do set "__MDBOOK_CMD=%%f"
 if defined __MDBOOK_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of mdBook executable found in PATH 1>&2
@@ -532,10 +531,10 @@ where /q "%FLIX_HOME%:flix.jar"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1-4,*" %%i in ('call "%JAVA_HOME%\bin\java.exe" -jar "%FLIX_HOME%\flix.jar" --version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% flix %%m"
 )
-where /q git.exe
+where /q "%GIT_HOME%\bin:git.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('git.exe --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% git.exe
+    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
 )
 where /q diff.exe
 if %ERRORLEVEL%==0 (
@@ -551,6 +550,11 @@ where /q "%MAKE_HOME%\bin:make.exe"
 if %ERRORLEVEL%==0 (
     for /f "tokens=1,2,*" %%i in ('"%MAKE_HOME%\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% make %%k,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MAKE_HOME%\bin:make.exe"
+)
+where /q "%MDBOOK_HOME%:mdbook.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,*" %%i in ('"%MDBOOK_HOME%\mdbook.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mdbook %%j"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MDBOOK_HOME%:mdbook.exe"
 )
 echo Tool versions:
 echo %__VERSIONS_LINE1%

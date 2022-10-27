@@ -145,7 +145,7 @@ Download file "flix-2022-10-23.jar" to directory "C:\opt\flix-0.32.0"
 
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.32.0
-   git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
+   git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1, mdbook v0.4.21
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.16_8\bin\javac.exe
@@ -155,12 +155,14 @@ Tool paths:
    C:\opt\Git-2.38.1\usr\bin\diff.exe
    C:\opt\gradle-7.5.1\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
+   C:\opt\mdBook-0.4.21\mdbook.exe
 Environment variables:
    "FLIX_HOME=C:\opt\flix-0.32.0"
    "GIT_HOME=C:\opt\Git-2.38.1"
    "GRADLE_HOME=C:\opt\gradle-7.5.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
    "MAKE_HOME=C:\opt\make-3.8.1"
+   "MDBOOK_HOME=C:\opt\mdBook-0.4.21"
    "SCALA_HOME=C:\opt\scala-2.13.10"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
