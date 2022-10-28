@@ -39,11 +39,9 @@ call :flix
 if not %_EXITCODE%==0 goto end
 
 call :flix_nightly
-if not %_EXITCODE%==0 (
-    @rem Local nighlty build is optional
-    set _EXITCODE=0
-    @rem goto end
-)
+@rem local nighlty build is optional
+@rem if not %_EXITCODE%==0 goto end
+
 call :git
 if not %_EXITCODE%==0 goto end
 
@@ -54,17 +52,13 @@ call :make
 if not %_EXITCODE%==0 goto end
 
 call :mdbook
-if not %_EXITCODE%==0 (
-    @rem optional
-    echo %_WARNING_LABEL% mdBook installation not found 1>&2
-    set _EXITCODE=0
-)
+@rem mdBook installation is optional
+@rem if not %_EXITCODE%==0 goto end
+
 call :msys
-if not %_EXITCODE%==0 (
-    @rem optional
-    echo %_WARNING_LABEL% MSYS2 installation not found 1>&2
-    set _EXITCODE=0
-)
+@rem MSYS2 installation is optional
+@rem if not %_EXITCODE%==0 goto end
+
 goto end
 
 @rem #########################################################################
@@ -344,8 +338,9 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri '%__J
 )
 powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
+    @rem installation is optional
     echo %_WARNING_LABEL% Failed to download file "%__JAR_URL%" to directory "%_FLIX_HOME%" 1>&2
-    set _EXITCODE=1
+    @rem set _EXITCODE=1
     goto :eof
 )
 @rem delete Flix nightly builds older than 5 days
@@ -473,8 +468,9 @@ if defined __MDBOOK_CMD (
     )
 )
 if not exist "%_MDBOOK_HOME%\mdbook.exe" (
-    echo %_ERROR_LABEL% mdBook executable not found ^(%_MDBOOK_HOME%^) 1>&2
-    set _EXITCODE=1
+    @rem installation is optional
+    echo %_WARNING_LABEL% mdBook executable not found ^(%_MDBOOK_HOME%^) 1>&2
+    @rem set _EXITCODE=1
     goto :eof
 )
 set "_MDBOOK_PATH=;%_MDBOOK_HOME%"
@@ -501,8 +497,9 @@ if defined __MSYS2_CMD (
 )
 if not exist "%_MSYS_HOME%\msys2_shell.cmd" if %_MSYS%==1 (
     set _MSYS=0
-    echo %_ERROR_LABEL% MSYS2 command not found ^(%_MSYS_HOME%^) 1>&2
-    set _EXITCODE=1
+	@rem installation is optional
+    echo %_WARNING_LABEL% MSYS2 command not found ^(%_MSYS_HOME%^) 1>&2
+    @rem set _EXITCODE=1
     goto :eof
 )
 goto :eof

@@ -2,7 +2,7 @@
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;;min-width:120px;"><a href="https://flix.dev/"><img src="./docs/images/flix-logo.png" width="120" alt="Flix project"/></a></td>
+  <td style="border:0;padding:0 10px 0 0;;min-width:120px;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="120" alt="Flix project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Source code of the <a href="https://flix.dev/" rel="external">Flix project</a> is hosted on <a href="https://github.com/flix/flix" rel="external">Github</a>.<br/>The Gradle build is used for continuous integration on GitHub.
   </td>
   </tr>
@@ -10,10 +10,18 @@
 
 Generating the [Flix] library using [Gradle][gradle_userguide] is fast and simple !
 
+> **:mag_right:** The GitHub Actions file [**`build.yaml`**](https://github.com/flix/flix/blob/master/.github/workflows/build.yaml) contains 2 of the following [Gradle][gradle_cli] commands.
+
+Command ...
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> clean compileTestScala --console=plain</b>
+</pre>
+
 Command [**`gradle.bat test`**][gradle_cli] runs the test suite (e.g. after updating some source files of our local copy of the [Flix Github repository][flix_github]) :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> test --console=plain</b>
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> test --console=plain</b>
 > Task :clean
 > Task :compileJava NO-SOURCE
 > Task :compileScala
@@ -40,18 +48,18 @@ BUILD SUCCESSFUL in 6m 44s
 
 Command [**`gradle jar`**][gradle_cli] generates the [Flix] Java archive :
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> jar</b>
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> jar</b>
 
 BUILD SUCCESSFUL in 3m 7s
 2 actionable tasks: 2 executed
 
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /r . flix*.jar</b>
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> /r . flix*.jar</b>
 F:\flix\build\libs\flix.jar
 </pre>
 
-> **:mag_right:**  The [Flix] library generated **locally** on September 19th 2022, is indeed the same as the corresponding [Flix nightly build][flix_nightly] :
+> **:mag_right:** The [Flix] library generated **locally** on September 19th 2022, is indeed the same as the corresponding [Flix nightly build][flix_nightly] :
 > <pre style="font-size:80%;">
-> <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where">where</a> /t "%FLIX_HOME%:*.jar" build\libs:*.jar</b>
+> <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> /t "%FLIX_HOME%:*.jar" build\libs:*.jar</b>
 >   36614213   19.09.2022      20:26:29  c:\opt\flix-0.31.0\flix-2022-09-19.jar
 >   36594654   17.09.2022      14:20:22  c:\opt\flix-0.31.0\flix.jar
 >   36614213   19.09.2022      23:00:34  F:\flix\build\libs\flix.jar
