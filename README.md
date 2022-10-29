@@ -184,12 +184,12 @@ C:\OPT\FLIX-0.33.0
     flix-2022-10-29.jar
     flix.jar
 </pre>
-Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available  instead of the release version (archive file <code><b>flix.jar</b></code> above).
+Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
 </dd></dl>
 
 <span id="footnote_02">[2]</span> ***mdBook*** [↩](#anchor_02)
 
-<a href="https://github.com/rust-lang/mdBook/releases"><code>mdbook.exe</code></a> is used to work on a local copy of the online book "**Programming Flix**" at <a href="https://doc.flix.dev"><code>doc.flix.dev</code></a> from the GitHub project <a href="https://github.com/flix/book"><code>flix/book</code></a>.
+We use <a href="https://github.com/rust-lang/mdBook/releases"><code>mdbook.exe</code></a> to work on our local copy of the online book "<a href="https://doc.flix.dev">**Programming Flix**</a>" generated from the GitHub project <a href="https://github.com/flix/book"><code>flix/book</code></a>.
 
 <span id="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
 
