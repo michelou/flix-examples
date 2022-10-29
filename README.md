@@ -17,7 +17,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Flix 0.32][flix_downloads] ([*release notes*][flix_relnotes])
+- [Flix 0.33][flix_downloads] ([*release notes*][flix_relnotes])
 - [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 
@@ -32,7 +32,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*October 2022*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\flix-0.32.0\             <i>( 35 MB)</i>
+C:\opt\flix-0.33.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.38.1\              <i>(317 MB)</i>
 C:\opt\gradle-7.5.1\            <i>(127 MB)</i>
 C:\opt\jdk-temurin-11.0.16_8\   <i>(301 MB)</i>
@@ -116,12 +116,12 @@ We distinguish different sets of batch commands:
 
 ### `setenv.bat`
 
-Command [**`setenv`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`git.exe`**][git_userguide], [**`gradle.bat`**][gradle_cli] and [**`make.exe`**][make_cli] directly available from the command prompt:
+Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`git.exe`**][git_userguide], [**`gradle.bat`**][gradle_cli] and [**`make.exe`**][make_cli] directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.32.0
+   java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.33.0
    git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make</b>
@@ -132,7 +132,7 @@ C:\opt\gradle-7.5.1\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
 </pre>
 
-Command [**`setenv`**](setenv.bat) with option **`-verbose`** displays additional information:
+Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays additional information:
 - the download of the [Flix] nightly build to directory **`%FLIX_HOME%`** (if not yet done),
 - the tool paths (which may not contain the version suffix, i.e. **`C:\opt\Git\bin\git.exe`** in some installations),
 - the environment variables *defined locally* within this session,
@@ -141,10 +141,10 @@ Command [**`setenv`**](setenv.bat) with option **`-verbose`** displays additiona
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2022-10-23.jar" to directory "C:\opt\flix-0.32.0"
+Download file "flix-2022-10-29.jar" to directory "C:\opt\flix-0.33.0"
 
 Tool versions:
-   java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.32.0
+   java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.33.0
    git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1, mdbook v0.4.21
 Tool paths:
    C:\opt\jdk-temurin-11.0.16_8\bin\java.exe
@@ -157,7 +157,7 @@ Tool paths:
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook-0.4.21\mdbook.exe
 Environment variables:
-   "FLIX_HOME=C:\opt\flix-0.32.0"
+   "FLIX_HOME=C:\opt\flix-0.33.0"
    "GIT_HOME=C:\opt\Git-2.38.1"
    "GRADLE_HOME=C:\opt\gradle-7.5.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.16_8"
@@ -177,11 +177,11 @@ Path associations:
 <dl><dd>
 Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on October 15th 2022 : 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.32.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
-C:\OPT\FLIX-0.32.0
-    flix-2022-10-21.jar
-    flix-2022-10-22.jar
-    flix-2022-10-23.jar
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.33.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+C:\OPT\FLIX-0.33.0
+    flix-2022-10-27.jar
+    flix-2022-10-28.jar
+    flix-2022-10-29.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available  instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -189,7 +189,7 @@ Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> i
 
 <span id="footnote_02">[2]</span> ***mdBook*** [↩](#anchor_02)
 
-<a href="https://github.com/rust-lang/mdBook/releases"><code>mdbook.exe</code></a> is used to create the online book "Programming Flix" at <a href="https://doc.flix.dev"><code>doc.flix.dev</code></a> from the GitHub project <a href="https://github.com/flix/book"><code>flix/book</code></a>.
+<a href="https://github.com/rust-lang/mdBook/releases"><code>mdbook.exe</code></a> is used to work on a local copy of the online book "**Programming Flix**" at <a href="https://doc.flix.dev"><code>doc.flix.dev</code></a> from the GitHub project <a href="https://github.com/flix/book"><code>flix/book</code></a>.
 
 <span id="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
 
@@ -199,7 +199,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                   <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-23.jar</a>                        <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-29.jar</a>                        <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>                       <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                          <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.21-x86_64-pc-windows-msvc.zip</a>  <i>(  4 MB)</i>
@@ -229,7 +229,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
 [flix_downloads]: https://github.com/flix/flix/releases/
-[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.32.0
+[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.33.0
 [github_flix_flix]: https://github.com/flix/flix
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html

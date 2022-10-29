@@ -162,7 +162,7 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=
 
 if %_NIGHTLY%==1 (
     set __NIGHTLY_JAR=
-    for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar"') do (
+    for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
         set "__NIGHTLY_JAR=%%i"
     )
     if defined __NIGHTLY_JAR (
