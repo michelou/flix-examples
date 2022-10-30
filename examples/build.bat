@@ -94,11 +94,13 @@ set _COMMANDS=
 set _HELP=0
 set _NIGHTLY=0
 set _VERBOSE=0
-
+set __N=0
 :args_loop
 set "__ARG=%~1"
-if not defined __ARG goto args_done
-
+if not defined __ARG (
+    if !__N!==0 set _HELP=1
+    goto args_done
+)
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
@@ -122,6 +124,7 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
+    set /a __N+=1
 )
 shift
 goto args_loop
