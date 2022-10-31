@@ -162,7 +162,7 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=
 
 if %_NIGHTLY%==1 (
     set __NIGHTLY_JAR=
-    for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar"') do (
+    for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
         set "__NIGHTLY_JAR=%%i"
     )
     if defined __NIGHTLY_JAR (
@@ -202,7 +202,7 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      show commands executed by this script
-echo     %__BEG_O%-nightly%__END%    use nightly Flix if locally available
+echo     %__BEG_O%-nightly%__END%    use latest Flix nightly build if locally available
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -355,7 +355,7 @@ goto :eof
 :run
 set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
+    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
 )
 set __JAVA_OPTS=
 if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%
@@ -465,7 +465,7 @@ goto :eof
 :test
 set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
+    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
 )
 set __JAVA_OPTS=
 if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%

@@ -569,7 +569,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined MDBOOK_HOME echo    "MDBOOK_HOME=%MDBOOK_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo Path associations: 1>&2
-    for /f "delims=" %%i in ('subst') do echo %%i
+    for /f "delims=" %%i in ('subst') do echo    %%i
 )
 goto :eof
 

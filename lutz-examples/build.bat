@@ -21,14 +21,11 @@ if %_HELP%==1 (
     call :help
     exit /b !_EXITCODE!
 )
-for /f "delims=" %%i in ('dir /b /ad "%_ROOT_DIR%\*"') do (
-    set "__BATCH_FILE=%_ROOT_DIR%\%%i\build.bat"
-    if exist "!__BATCH_FILE!" (
-       if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "!__BATCH_FILE!" clean 1>&2
-       ) else if %_VERBOSE%==1 echo Clean up directory "%%i"
-       call "!__BATCH_FILE!" clean
-    )
+for %%i in (%_COMMANDS%) do (
+    call :exec_command "%%i"
+    if not !_EXITCODE!==0 goto end
 )
+goto end
 
 @rem #########################################################################
 @rem ## Subroutines
@@ -93,16 +90,22 @@ goto :eof
 @rem input parameter: %*
 @rem output parameter: _HELP, _VERBOSE
 :args
+set _COMMANDS=
 set _HELP=0
+set _NIGHTLY=0
 set _VERBOSE=0
-
+set __N=0
 :args_loop
 set "__ARG=%~1"
-if not defined __ARG goto args_done
-
+if not defined __ARG (
+    if !__N!==0 set _HELP=1
+    goto args_done
+)
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-nightly" ( set _NIGHTLY=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
         echo %_ERROR_LABEL% Unknown option %__ARG% 1>&2
@@ -111,12 +114,17 @@ if "%__ARG:~0,1%"=="-" (
     )
 ) else (
     @rem subcommand
-    if "%__ARG%"=="help" ( set _HELP=1
+    if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
+    ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
+    ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! doc
+    ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
+    ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! test_compile test
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
         goto args_done
     )
+    set /a __N+=1
 )
 shift
 goto args_loop
@@ -142,7 +150,29 @@ echo     %__BEG_O%-debug%__END%      show commands executed by this script
 echo     %__BEG_O%-verbose%__END%    display environment settings
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%clean%__END%       delete generated files
+echo     %__BEG_O%compile%__END%     generate class files
+echo     %__BEG_O%run%__END%         execute the generated program
+echo     %__BEG_O%test%__END%        execute unit tests
+goto :eof
+
+@rem input parameter: %1=name of subcommand
+:exec_command
+set __COMMAND=%~1
+
+set __BATCH_OPTS=
+if %_NIGHTLY%==1 set __BATCH_OPTS=-nightly %__BATCH_OPTS%
+if %_DEBUG%==1 ( set __BATCH_OPTS=-debug %__BATCH_OPTS%
+) else if %_VERBOSE%==1 set __BATCH_OPTS=-verbose %__BATCH_OPTS%
+)   
+for /f "delims=" %%i in ('dir /b /ad "%_ROOT_DIR%\*"') do (
+    set "__BATCH_FILE=%_ROOT_DIR%%%i\build.bat"
+    if exist "!__BATCH_FILE!" (
+       if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "!__BATCH_FILE!" %__BATCH_OPTS% %__COMMAND% 1>&2
+       ) else if %_VERBOSE%==1 echo Execute command "%__COMMAND%" in directory "%%i" 1>&2
+       call "!__BATCH_FILE!" %__BATCH_OPTS% %__COMMAND%
+    )
+)
 goto :eof
 
 @rem #########################################################################
@@ -151,4 +181,3 @@ goto :eof
 :end
 if %_DEBUG%==1 echo %_DEBUG_LABEL% _EXITCODE=%_EXITCODE% 1>&2
 exit /b %_EXITCODE%
-

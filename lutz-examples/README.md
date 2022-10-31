@@ -60,7 +60,7 @@ Copy 1 Flix source file to directory "target\channels\src\"
 Copy 1 Flix test source file to directory "target\channels\test\"
 Compile 1 Flix source file and 1 Flix test source file
 Create archive file "target\channels\channels.jar"
-Extract Flix runtime from archive file "C:\opt\flix-0.32.0\flix.jar"
+Extract Flix runtime from archive file "C:\opt\flix-0.33.0\flix.jar"
 Add Flix runtime to archive file "target\channels\channels.jar"
 Execute tests for Flix program "target\channels\channels.jar"
 Running 1 tests...
@@ -79,7 +79,7 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 6,9ms.
 > Copy Flix test source files to directory "target/channels/test"
 > Compile 1 Flix source files to directory "target/channels/build"
 > Create archive file "target/channels/channels.jar"
-> Extract class files from archive file "C:/opt/flix-0.32.0/flix.jar"
+> Extract class files from archive file "C:/opt/flix-0.33.0/flix.jar"
 > Update archive file "target/channels/channels.jar"
 > Execute the JAR file "target/channels/channels.jar"
 > 20
