@@ -176,6 +176,7 @@ compile_init() {
     fi
     cp -r "$SOURCE_MAIN_DIR/"*.flix "$target_src_dir/"
 
+    [[ -z "$(ls -R $SOURCE_TEST_DIR/*.flix 2>/dev/null)" ]] && return 1
     local target_test_dir="$TARGET_APP_DIR/test"
     if $DEBUG; then
         debug "cp -r \"$SOURCE_TEST_DIR/\"*.flix \"$target_test_dir/\""
@@ -232,6 +233,9 @@ compile_scala() {
 compile_flix() {
     local n=0
     for f in $(find "$TARGET_APP_DIR/src/" -type f -name *.flix 2>/dev/null); do
+        n=$((n + 1))
+    done
+    for f in $(find "$TARGET_APP_DIR/test/" -type f -name *.flix 2>/dev/null); do
         n=$((n + 1))
     done
     local n_files="$n Flix source file"
@@ -472,7 +476,6 @@ if [ ! -x "$JAVA_HOME/bin/java" ]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
-JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 
 if [ ! -x "$SCALA_HOME/bin/scalac" ]; then
