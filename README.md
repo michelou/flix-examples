@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 8px 0 0;min-width:25%;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="160" alt="Flix project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites.<br/>
-  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Makefile scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
+  It also includes several build scripts (<a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -29,7 +29,10 @@ Optionally one may also install the following software:
 - [mdBook 0.4][mdbook_download] <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][mdbook_changelog])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 
-For instance our development environment looks as follows (*October 2022*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+> **&#9755;** ***Installation policy***<br/>
+> When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
+
+For instance our development environment looks as follows (*November 2022*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\flix-0.33.0\             <i>( 35 MB)</i>
@@ -56,13 +59,14 @@ lutz-examples\{<a href="./lutz-examples/README.md">README.md</a>, <a href="./lut
 README.md
 <a href="RESOURCES.md">RESOURCES.md</a>
 <a href="setenv.bat">setenv.bat</a>
+<a href="UBUNTU_WSL.md">UBUNTU_WSL.md</a>
 </pre>
 
 where
 
 - directory [**`docs\`**](docs/) contains [Flix] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Flix] code examples (see [**`README.md`**](./examples/README.md)).
-- directory **`flix\`** contains our fork of the [flix/flix][github_flix_flix] repository as a [Github submodule](.gitmodules).
+- directory **`flix\`** contains our fork of the [`flix/flix`][github_flix_flix] repository as a [Github submodule](.gitmodules).
 - directory [**`lutz-examples\`**](lutz-examples/) contains [Flix] code examples from Lutz Hühnken's article (see [**`README.md`**](./lutz-examples/README.md)).
 - file [**`BUILD.md`**](BUILD.md) presents the [Flix] build.
 - file [**`DEPS.md`**](DEPS.md) lists library dependencies of published [Flix] distributions.
@@ -70,6 +74,7 @@ where
 - file [**`README.md`**](README.md) is the [Markdown][github_markdown] document for this page.
 - file [**`RESOURCES.md`**](RESOURCES.md) gathers [Flix] related documents.
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
+- file [**`UBUNTU_WSL.md`**](UBUNTU_WSL.md) presents a [Flix] code examples in [Ubuntu WSL][wsl].
 
 ## <span id="commands">Batch commands</span>
 
@@ -89,7 +94,7 @@ We distinguish different sets of batch commands:
        help        display this help message
    </pre>
 
-2. [**`examples\*\build.bat`**](examples/areas/build.bat) &ndash; Each example can be built/run/tested using the [**`build.bat`**](examples/areas/build.bat) command.<br/>
+2. [**`examples\*\build.bat`**](examples/areas/build.bat) &ndash; Code examples can be built/run/tested using the [**`build.bat`**](examples/areas/build.bat) command.<br/>
 
     <pre style="font-size:80%;">
     <b>&gt; <a href="examples/Factorial/build.bat">build</a></b>
@@ -108,9 +113,9 @@ We distinguish different sets of batch commands:
       test        run the unit tests
     </pre>
 
-3. [**`examples\*\build.gradle`**](examples/areas/build.gradle) &ndash; Each example can be built/run/tested using the [**`gradle.bat`**][gradle_cli] build tool.
+3. [**`examples\*\build.gradle`**](examples/areas/build.gradle) &ndash; Code examples can be built/run/tested using the [**`gradle.bat`**][gradle_cli] build tool.
 
-4. [**`examples\*\build.sh`**](examples/areas/build.sh) &ndash; Each example can be built/run/tested using the [**`bash.exe`**][bash_cli] scripting tool.
+4. [**`examples\*\build.sh`**](examples/areas/build.sh) &ndash; Code examples can be built/run/tested using the [**`bash.exe`**][bash_cli] scripting tool.
 
 ## <span id="usage">Usage examples</span>
 
@@ -124,12 +129,14 @@ Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.33.0
    git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git-2.38.1\bin\git.exe
 C:\opt\Git-2.38.1\mingw64\bin\git.exe
 C:\opt\gradle-7.5.1\bin\gradle
 C:\opt\gradle-7.5.1\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
+C:\opt\Git-2.38.1\bin\sh.exe
+C:\opt\Git-2.38.1\usr\bin\sh.exe
 </pre>
 
 Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays additional information:
@@ -141,7 +148,7 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2022-10-29.jar" to directory "C:\opt\flix-0.33.0"
+Download file "flix-2022-10-31.jar" to directory "C:\opt\flix-0.33.0"
 
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.33.0
@@ -175,13 +182,13 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on October 15th 2022 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on October 31th 2022 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.33.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\OPT\FLIX-0.33.0
-    flix-2022-10-27.jar
-    flix-2022-10-28.jar
     flix-2022-10-29.jar
+    flix-2022-10-30.jar
+    flix-2022-10-31.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -199,7 +206,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                   <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-29.jar</a>                        <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-31.jar</a>                        <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>                       <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                          <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.21-x86_64-pc-windows-msvc.zip</a>  <i>(  4 MB)</i>
@@ -210,7 +217,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -254,4 +261,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [temurin_opendjk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-July/016017.html
 [temurin_opendjk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
+[unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[windows_installer]: https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal
+[windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
+[windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst
 [wix_examples]: https://github.com/michelou/wix-examples
+[wsl]: https://ubuntu.com/wsl "Ubuntu WSL"
+[zip_archive]: https://www.howtogeek.com/178146/htg-explains-everything-you-need-to-know-about-zipped-files/
