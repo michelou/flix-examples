@@ -17,7 +17,7 @@
 - *features shared with other languages* : [ADTs] and pattern matching, extensible records, type classes, HKTs, type inference, channel and process-based concurrency (like Go).
 - *unique features* : polymorphic effect system, region-based local mutation, purity reflection and first-class Datalog constraints.
 
-## <span id="annots">Annotations</span>
+## <span id="annotations">Annotations</span>
 
 | Annotation      | Description |
 |:----------------|:------------|
@@ -29,7 +29,7 @@
 | `@ParallelWhenPure` | |
 | `@Space(n)`     | |
 | `@Time(n)`      | |
-| `@Unsafe`       | |
+| `@Unsafe`       | [`library\Reflect.flix`](https://github.com/flix/flix/blob/master/main/src/library/Reflect.flix#L8) |
 | `@benchmark`    | |
 | `@test`         | |
 
