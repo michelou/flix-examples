@@ -123,6 +123,7 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
+@rem output parameter: _BASH, _HELP, _VERBOSE
 :args
 set _BASH=0
 set _HELP=0
@@ -222,6 +223,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
+echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
 echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-verbose%__END%    display environment settings
 echo.
@@ -370,6 +372,9 @@ if defined __GIT_CMD (
             set "__PATH=%ProgramFiles%"
             for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
+    )
+    if defined _GIT_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Git installation directory "!_GIT_HOME!" 1>&2
     )
 )
 if not exist "%_GIT_HOME%\bin\git.exe" (
@@ -569,7 +574,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined MDBOOK_HOME echo    "MDBOOK_HOME=%MDBOOK_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo Path associations: 1>&2
-    for /f "delims=" %%i in ('subst') do echo    %%i
+    for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
 )
 goto :eof
 
