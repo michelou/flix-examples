@@ -160,7 +160,7 @@ compile_init() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" init
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to initialize \"${TARGET_APP_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to initialize \"${TARGET_APP_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
@@ -225,7 +225,7 @@ compile_scala() {
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -249,7 +249,7 @@ compile_flix() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     if $DEBUG; then
@@ -260,7 +260,7 @@ compile_flix() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build-jar
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to create archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to create archive file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
@@ -394,7 +394,7 @@ run() {
     fi
     eval "$JAVA_CMD" $java_opts -jar "$(mixed_path $APP_JAR)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -409,7 +409,7 @@ run_tests() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" test
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null

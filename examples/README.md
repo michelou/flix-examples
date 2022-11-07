@@ -11,13 +11,14 @@
   </tr>
 </table>
 
-We currently provide four ways to build/run/test our [Flix] code examples:
+We currently support five ways to build/run/test our [Flix] code examples:
 
 | Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
 |---------------------|------------------------|----------------|----------------|
 | [**`build.bat`**](areas/build.bat) | &nbsp;                 | &nbsp; | MS Windows |
 | [**`build.sh`**](areas/build.sh) | &nbsp;                 | &nbsp; | Cygwin / MSYS2 / Unix |
-| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](areas/build.gradle) | [**`common.gradle`**](common.gradle) | Any <sup><b>a)</b></sup>  |
+| [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](./areas/build.xml) | &nbsp; | Any <sup><b>a)</b></sup> |
+| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](areas/build.gradle) | [**`common.gradle`**](common.gradle) | Any  |
 | [**`make.exe`**][make_cli] | [**`Makefile`**](areas/Makefile) | [**`Makefile.inc`**](./Makefile.inc)  | Any |
 <div style="margin:0 15% 0 8px;font-size:90%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
@@ -97,7 +98,7 @@ The [Flix] projects presented below share the same directory layout as project `
 
 ### <span id="areas">Example `areas`</span>
 
-Command [**`build -verbose run`**](./areas/build.bat) <sup id="anchor_03">[3](#footnote_03)</sup> generates the target file `target\areas\areas.jar` from the [Flix] source file [`src\main\Main.flix`](./areas/src/main/Main.flix) and executes the target file :
+Command [**`build.bat -verbose run`**](./areas/build.bat) <sup id="anchor_03">[3](#footnote_03)</sup> generates the target file `target\areas\areas.jar` from the [Flix] source file [`src\main\Main.flix`](./areas/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose run</b>
@@ -109,7 +110,7 @@ Execute Flix program "target\areas\areas.jar"
 2 :: 6 :: Nil
 </pre>
 
-Command [**`build -verbose test`**](./areas/build.bat) generates the target file `target\areas\areas.jar` from the [Flix] source files [`src\main\Main.flix`](./areas/src/main/Main.flix) and [`src\test\TestMain.flix`](./areas/src/test/TestMain.flix) and runs the tests:
+Command [**`build.bat -verbose test`**](./areas/build.bat) generates the target file `target\areas\areas.jar` from the [Flix] source files [`src\main\Main.flix`](./areas/src/main/Main.flix) and [`src\test\TestMain.flix`](./areas/src/test/TestMain.flix) and runs the tests:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose test</b>
@@ -177,7 +178,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 
 ### <span id="channels">Example `channels`</span> [**&#x25B4;**](#top)
 
-Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and executes the target file :
+Command [**`build.bat -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>
@@ -212,7 +213,7 @@ Execute Flix program "target\channels\channels.jar"
 
 ### <span id="datalog_constraints">Examples `datalog-constraints`</span>[**&#x25B4;**](#top)
 
-Command [**`build -verbose run`**](./datalog-constraints/build.bat) generates the target file `target\datalog-constraints\datalog-constraints.jar` from the [Flix] source file [`src\main\Main.flix`](./datalog-constraints/src/main/Main.flix) and executes the target file :
+Command [**`build.bat -verbose run`**](./datalog-constraints/build.bat) generates the target file `target\datalog-constraints\datalog-constraints.jar` from the [Flix] source file [`src\main\Main.flix`](./datalog-constraints/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./datalog-constraints/build.bat">build</a> -verbose run</b>
@@ -261,7 +262,7 @@ Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 -->
 ### <span id="fibonacci">Example `fibonacci`</span>[**&#x25B4;**](#top)
 
-Command [**`build -verbose run`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and executes the target file :
+Command [**`build.bat -verbose run`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./fibonacci/build.bat">build</a> -verbose run</b>
@@ -272,7 +273,7 @@ Execute Flix program "target\fibonacci\fibonacci.jar"
 0 :: 1 :: 1 :: 2 :: 3 :: 5 :: 8 :: 13 :: 21 :: 34 :: Nil
 </pre>
 
-Command [**`build -verbose test`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source files [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and [`src\test\TestMain.flix`](./fibonacci/src/test/TestMain.flix) and runs the tests:
+Command [**`build.bat -verbose test`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source files [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and [`src\test\TestMain.flix`](./fibonacci/src/test/TestMain.flix) and runs the tests:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./fibonacci/build.bat">build</a> -verbose test</b>
@@ -317,8 +318,8 @@ F:\EXAMPLES\LAMBDA-CALCULUS
 > </pre>
 
 Concretely we perform two additional steps before calling the [Flix] commands **`build`** and **`build-jar`**:
-- we compile **`Counter.scala`** into directory  **`target\lambda-calculus\lib\`** with the Scala command [**`scalac`**][scalac_cli]. 
-- we create **`target\lambda-calculus\lib\lib-lambda-calculus.jar`** with the Java command [**`jar`**][jar_cli].
+- we compile **`Counter.scala`** into directory  **`target\lambda-calculus\lib\`** with the Scala command [**`scalac.bat`**][scalac_cli]. 
+- we create **`target\lambda-calculus\lib\lib-lambda-calculus.jar`** with the Java command [**`jar.exe`**][jar_cli].
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./lambda-calculus/build.bat">build</a> -debug clean run</b>
@@ -345,7 +346,7 @@ Abs(1, Abs(0, Var(0)))
 
 ### <span id="mutability">Example `mutability` </span>[**&#x25B4;**](#top)
 
-Command [`build`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the [Flix] source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
+Command [`build.bat`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the [Flix] source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./mutability/build.bat">build -debug run</a></b>
@@ -369,7 +370,7 @@ Command [`build`](./mutability/build.bat)` -debug run` generates the target file
 
 ### <span id="named_arguments">Example `named-arguments`</span> </span>[**&#x25B4;**](#top)
 
-Command [`gradle run`][gradle_cli] ([`build.gradle`](./named-arguments/build.gradle)/[`common.gradle`](./common.gradle)) generates the target file `target\named-arguments\named-arguments.jar` from the [Flix] source file [`src\main\named-arguments.flix`](./named-arguments/src/main/named-arguments.flix) and executes the target file :
+Command [`gradle.bat run`][gradle_cli] ([`build.gradle`](./named-arguments/build.gradle)/[`common.gradle`](./common.gradle)) generates the target file `target\named-arguments\named-arguments.jar` from the [Flix] source file [`src\main\named-arguments.flix`](./named-arguments/src/main/named-arguments.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="">gradle</a> -Dnightly clean run</b>
@@ -388,7 +389,7 @@ BUILD SUCCESSFUL in 18s
 
 ### <span id="primes">Example `primes`</span>
 
-Command [`build run`](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and executes the target file :
+Command [`build.bat run`](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./primes/build.bat">build</a> run</b>
@@ -398,7 +399,7 @@ Using 'primes2'
 2 :: 3 :: 5 :: 7 :: 11 :: 13 :: 17 :: 19 :: 23 :: 29 :: Nil
 </pre>
 
-Command [**`build -verbose test`**](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source files [`src\main\Main.flix`](./primes/src/main/Main.flix) and [`src\test\TestMain.flix`](./primes/src/test/TestMain.flix) and runs the tests:
+Command [**`build.bat -verbose test`**](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source files [`src\main\Main.flix`](./primes/src/main/Main.flix) and [`src\test\TestMain.flix`](./primes/src/test/TestMain.flix) and runs the tests:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./primes/build.bat">build</a> -verbose test</b>
@@ -412,7 +413,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 5,7ms.
 
 ### <span id="records">Example `records`</span> [**&#x25B4;**](#top)
 
-Command [`build run`](./records/build.bat) generates the target file `target\records\records.jar` from the [Flix] source file [`src\main\Main.flix`](./records/src/main/Main.flix) and executes the target file :
+Command [`build.bat run`](./records/build.bat) generates the target file `target\records\records.jar` from the [Flix] source file [`src\main\Main.flix`](./records/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./records/build.bat">build</a> run</b>
@@ -424,7 +425,7 @@ r3 = { 3, 2 }
 
 ### <span id="trees">Example `trees`</span>
 
-Command [`build run`](./trees/build.bat) generates the target file `target\trees\trees.jar` from the [Flix] source file [`src\main\Main.flix`](./trees/src/main/Main.flix) and executes the target file :
+Command [`build.bat run`](./trees/build.bat) generates the target file `target\trees\trees.jar` from the [Flix] source file [`src\main\Main.flix`](./trees/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./trees/build.bat">build</a> run</b>
@@ -433,7 +434,7 @@ Command [`build run`](./trees/build.bat) generates the target file `target\trees
 
 ### <span id="type-aliases">Example `type-aliases`</span>
 
-Command [`build run`](./type-aliases/build.bat) generates the target file `target\type-aliases\type-aliases.jar` from the [Flix] source file [`src\main\Main.flix`](./type-aliases/src/main/Main.flix) and executes the target file :
+Command [`build.bat run`](./type-aliases/build.bat) generates the target file `target\type-aliases\type-aliases.jar` from the [Flix] source file [`src\main\Main.flix`](./type-aliases/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./type-aliases/build.bat">build</a> run</b>
@@ -584,11 +585,12 @@ BUILD SUCCESSFUL in 15s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
 
+[apache_ant_cli]: https://ant.apache.org/manual/running.html
 [bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [flix]: https://flix.dev/
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html

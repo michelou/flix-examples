@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="generics" default="compile" basedir=".">
+
+    <property environment="env" />
+
+    <property name="main-source.dir" value="${basedir}/src/main" />
+    <property name="target.dir" value="${basedir}/target" />
+    <property name="target.managed.dir" value="${basedir}/target/${ant.project.name}" />
+    <property name="target.jar" value="${target.managed.dir}/${ant.project.name}.jar" />
+
+    <property name="test-source.dir" value="${basedir}/src/test" />
+    <property name="test-target.txt" value="${target.managed.dir}/${ant.project.name}.txt" />
+
+    <pathconvert property="flix.jar">
+        <fileset dir="${env.FLIX_HOME}" includes="**/flix.jar" />
+    </pathconvert>
+
+    <uptodate property="action.notRequired" targetfile="${target.jar}">
+        <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
+    </uptodate>
+    <uptodate property="test-action.notRequired" targetfile="${test-target.txt}">
+        <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
+        <srcfiles dir="${test-source.dir}" includes="**/*.flix"/>
+    </uptodate>
+
+    <target name="init" unless="${action.notRequired}">
+        <mkdir dir="${target.managed.dir}" />
+        <java fork="true" jar="${flix.jar}" dir="${target.managed.dir}">
+            <arg value="init" />
+        </java>
+        <delete>
+            <fileset dir="${target.managed.dir}/src" includes="**/*.flix"/>
+            <fileset dir="${target.managed.dir}/test" includes="**/*.flix"/>
+        </delete>
+        <copy todir="${target.managed.dir}/src">
+            <fileset dir="${main-source.dir}" includes="*.flix" />
+        </copy>
+    </target>
+
+    <target name="build" depends="init" unless="${action.notRequired}">
+        <java fork="true" jar="${flix.jar}" dir="${target.managed.dir}">
+            <arg value="build" />
+        </java>
+        <java fork="true" jar="${flix.jar}" dir="${target.managed.dir}">
+            <arg value="build-jar" />
+        </java>
+    </target>
+
+    <target name="run" depends="build">
+        <java fork="true" jar="${target.jar}" >
+            <!-- <arg value="1" /> -->
+            <classpath>
+                <pathelement location="${flix.jar}" />
+            </classpath>
+        </java>
+    </target>
+
+    <target name="init-test" depends="init" unless="${test-action.notRequired}">
+        <copy todir="${target.managed.dir}/test">
+            <fileset dir="${test-source.dir}" includes="**/*.flix" />
+        </copy>
+    </target>
+
+    <target name="build-test" depends="init-test, build">
+        <touch file="${test-target.txt}" />
+    </target>
+
+    <target name="test" depends="build-test">
+        <java fork="true" jar="${flix.jar}" dir="${target.managed.dir}">
+            <arg value="test" />
+        </java>
+    </target>
+
+    <target name="clean">
+        <delete dir="${target.dir}"/>
+    </target>
+
+</project>
