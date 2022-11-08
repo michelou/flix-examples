@@ -160,7 +160,7 @@ compile_init() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" init
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to initialize \"${TARGET_APP_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to initialize \"${TARGET_APP_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
@@ -225,7 +225,7 @@ compile_scala() {
     fi
     eval "$SCALAC_CMD" -classpath "$(mixed_path $TARGET_LIB_DIR)" -d "$(mixed_path $TARGET_LIB_DIR)" $source_files
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     local library_jar="$TARGET_LIB_DIR/lib-$PROJECT_NAME.jar"
@@ -236,7 +236,7 @@ compile_scala() {
     fi
     eval "$JAR_CMD" cf "$(mixed_path $library_jar)" -C "$(mixed_path $TARGET_LIB_DIR)" .
     if [[ $? -ne 0 ]]; then
-        error "Failed to create Java archive file \"${library_jar/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to create Java archive file \"${library_jar/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -257,7 +257,7 @@ compile_flix() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     if $DEBUG; then
@@ -268,7 +268,7 @@ compile_flix() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build-jar
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to create archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to create archive file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
@@ -402,7 +402,7 @@ run() {
     fi
     eval "$JAVA_CMD" $java_opts -jar "$(mixed_path $APP_JAR)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -417,7 +417,7 @@ run_tests() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" test
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
