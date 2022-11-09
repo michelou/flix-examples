@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="named-arguments" default="compile" basedir=".">
+<project name="named-arguments" default="build" basedir=".">
 
     <property environment="env" />
 

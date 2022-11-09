@@ -23,10 +23,14 @@ if %_HELP%==1 (
     exit /b !_EXITCODE!
 )
 
+set _ANT_PATH=
 set _GIT_PATH=
 set _GRADLE_PATH=
 set _MAKE_PATH=
 set _MDBOOK_PATH=
+
+call :ant
+if not %_EXITCODE%==0 goto end
 
 @rem Flix requires Java 11 or newer
 call :java11
@@ -229,6 +233,44 @@ echo     %__BEG_O%-verbose%__END%    display environment settings
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%help%__END%        display this help message
+goto :eof
+
+@rem output parameters: _ANT_HOME, _ANT_PATH
+:ant
+set _ANT_HOME=
+set _ANT_PATH=
+
+set __ANT_CMD=
+for /f %%f in ('where ant.bat 2^>NUL') do set "__ANT_CMD=%%f"
+if defined __ANT_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Ant executable found in PATH 1>&2
+    for %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
+    for %%f in ("!__ANT_BIN_DIR!\.") do set "_ANT_HOME=%%~dpf"
+    @rem keep _ANT_PATH undefined since executable already in path
+    goto :eof
+) else if defined ANT_HOME (
+    set "_ANT_HOME=%ANT_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable ANT_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\apache-ant\" ( set "_ANT_HOME=!__PATH!\apache-ant"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
+        if not defined _ANT_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _ANT_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Ant installation directory !_ANT_HOME! 1>&2
+    )
+)
+if not exist "%_ANT_HOME%\bin\ant.cmd" (
+    echo %_ERROR_LABEL% Ant executable not found ^(%_ANT_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_ANT_PATH=;%_ANT_HOME%\bin"
 goto :eof
 
 @rem output parameter: _JAVA_HOME
@@ -566,6 +608,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     echo Tool paths: 1>&2
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
     echo Environment variables: 1>&2
+    if defined ANT_HOME echo    "ANT_HOME=%ANT_HOME%" 1>&2
     if defined FLIX_HOME echo    "FLIX_HOME=%FLIX_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
@@ -584,6 +627,7 @@ goto :eof
 :end
 endlocal & (
     if %_EXITCODE%==0 (
+        if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
         if not defined FLIX_HOME set "FLIX_HOME=%_FLIX_HOME%"
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
@@ -593,7 +637,7 @@ endlocal & (
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_GRADLE_PATH%%_MAKE_PATH%%_MDBOOK_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_GRADLE_PATH%%_MAKE_PATH%%_MDBOOK_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="fibonacci" default="compile" basedir=".">
+<project name="fibonacci" default="build" basedir=".">
 
     <property environment="env" />
 
