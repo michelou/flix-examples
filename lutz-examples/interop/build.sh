@@ -114,7 +114,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     compile      compile Scala/Flix source files
     decompile    decompile generated code with CFR
     help         display this help message
-    run          execute Flix program $PROJECT_NAME
+    run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
 EOS
 }
@@ -160,7 +160,7 @@ compile_init() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" init
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to initialize \"${TARGET_APP_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to initialize \"${TARGET_APP_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
@@ -176,6 +176,7 @@ compile_init() {
     fi
     cp -r "$SOURCE_MAIN_DIR/"*.flix "$target_src_dir/"
 
+    [[ -z "$(ls -R $SOURCE_TEST_DIR/*.flix 2>/dev/null)" ]] && return 1
     local target_test_dir="$TARGET_APP_DIR/test"
     if $DEBUG; then
         debug "cp -r \"$SOURCE_TEST_DIR/\"*.flix \"$target_test_dir/\""
@@ -186,23 +187,22 @@ compile_init() {
 }
 
 action_required() {
-    local timestamp_file=$1
+    local target_file=$1
     local search_path=$2
     local search_pattern=$3
-    local latest=
-    for f in $(find "$search_path" -name $search_pattern 2>/dev/null); do
-        [[ $f -nt $latest ]] && latest=$f
+    local source_file=
+    for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
+        [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$latest" ]; then
+    if [ -z "$source_file" ]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$timestamp_file" ]; then
+    elif [ ! -f "$target_file" ]; then
         ## Do compile if timestamp file doesn't exist
         echo 1
     else
         ## Do compile if timestamp file is older than most recent source file
-        local timestamp=$(stat -c %Y $timestamp_file)
-        [[ $timestamp_file -nt $latest ]] && echo 1 || echo 0
+        [[ $source_file -nt $target_file ]] && echo 1 || echo 0
     fi
 }
 
@@ -224,7 +224,7 @@ compile_scala() {
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -232,6 +232,9 @@ compile_scala() {
 compile_flix() {
     local n=0
     for f in $(find "$TARGET_APP_DIR/src/" -type f -name *.flix 2>/dev/null); do
+        n=$((n + 1))
+    done
+    for f in $(find "$TARGET_APP_DIR/test/" -type f -name *.flix 2>/dev/null); do
         n=$((n + 1))
     done
     local n_files="$n Flix source file"
@@ -245,7 +248,7 @@ compile_flix() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     if $DEBUG; then
@@ -256,7 +259,7 @@ compile_flix() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build-jar
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to create archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to create archive file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
@@ -308,7 +311,7 @@ decompile() {
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -346,7 +349,7 @@ extra_cpath() {
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find "$lib_path/" -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name *.jar); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
@@ -390,7 +393,7 @@ run() {
     fi
     eval "$JAVA_CMD" $java_opts -jar "$(mixed_path $APP_JAR)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -405,7 +408,7 @@ run_tests() {
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" test
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        error "Failed to run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null

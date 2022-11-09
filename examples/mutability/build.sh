@@ -106,7 +106,7 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
     -debug       show commands executed by this script
-    -nightly     select last nightly build if locally available
+    -nightly     select latest Flix nightly build if locally available
     -verbose     display progress messages
 
   Subcommands:
@@ -114,7 +114,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     compile      compile Scala/Flix source files
     decompile    decompile generated code with CFR
     help         display this help message
-    run          execute Flix program $PROJECT_NAME
+    run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
 EOS
 }
@@ -176,6 +176,7 @@ compile_init() {
     fi
     cp -r "$SOURCE_MAIN_DIR/"*.flix "$target_src_dir/"
 
+    [[ -z "$(ls -R $SOURCE_TEST_DIR/*.flix 2>/dev/null)" ]] && return 1
     local target_test_dir="$TARGET_APP_DIR/test"
     if $DEBUG; then
         debug "cp -r \"$SOURCE_TEST_DIR/\"*.flix \"$target_test_dir/\""
@@ -186,23 +187,22 @@ compile_init() {
 }
 
 action_required() {
-    local timestamp_file=$1
+    local target_file=$1
     local search_path=$2
     local search_pattern=$3
-    local latest=
-    for f in $(find "$search_path" -name $search_pattern 2>/dev/null); do
-        [[ $f -nt $latest ]] && latest=$f
+    local source_file=
+    for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
+        [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$latest" ]; then
+    if [ -z "$source_file" ]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$timestamp_file" ]; then
+    elif [ ! -f "$target_file" ]; then
         ## Do compile if timestamp file doesn't exist
         echo 1
     else
         ## Do compile if timestamp file is older than most recent source file
-        local timestamp=$(stat -c %Y $timestamp_file)
-        [[ $timestamp_file -nt $latest ]] && echo 1 || echo 0
+        [[ $source_file -nt $target_file ]] && echo 1 || echo 0
     fi
 }
 
@@ -232,6 +232,9 @@ compile_scala() {
 compile_flix() {
     local n=0
     for f in $(find "$TARGET_APP_DIR/src/" -type f -name *.flix 2>/dev/null); do
+        n=$((n + 1))
+    done
+    for f in $(find "$TARGET_APP_DIR/test/" -type f -name *.flix 2>/dev/null); do
         n=$((n + 1))
     done
     local n_files="$n Flix source file"
@@ -308,7 +311,7 @@ decompile() {
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -346,7 +349,7 @@ extra_cpath() {
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find $lib_path/ -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name *.jar); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
@@ -472,7 +475,6 @@ if [ ! -x "$JAVA_HOME/bin/java" ]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
-JAVAC_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 
 if [ ! -x "$SCALA_HOME/bin/scalac" ]; then

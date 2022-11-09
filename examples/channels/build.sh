@@ -114,7 +114,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     compile      compile Scala/Flix source files
     decompile    decompile generated code with CFR
     help         display this help message
-    run          execute Flix program $PROJECT_NAME
+    run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
 EOS
 }
@@ -187,23 +187,24 @@ compile_init() {
 }
 
 action_required() {
-    local timestamp_file=$1
+    local target_file=$1
     local search_path=$2
     local search_pattern=$3
-    local latest=
-    for f in $(find "$search_path" -name $search_pattern 2>/dev/null); do
-        [[ $f -nt $latest ]] && latest=$f
+    local source_file=
+    for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
+        [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$latest" ]; then
+    if [ -z "$source_file" ]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$timestamp_file" ]; then
+    elif [ ! -f "$target_file" ]; then
         ## Do compile if timestamp file doesn't exist
         echo 1
     else
         ## Do compile if timestamp file is older than most recent source file
-        local timestamp=$(stat -c %Y $timestamp_file)
-        [[ $timestamp_file -nt $latest ]] && echo 1 || echo 0
+        local target_ts=$(stat -c %Y $target_file)
+        local source_ts=$(stat -c %Y $source_file)
+        [[ $target_ts -lt $source_ts ]] && echo 1 || echo 0
     fi
 }
 
@@ -342,7 +343,7 @@ decompile() {
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -380,7 +381,7 @@ extra_cpath() {
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find $lib_path/ -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name *.jar); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
