@@ -198,10 +198,10 @@ action_required() {
         ## Do not compile if no source file
         echo 0
     elif [ ! -f "$target_file" ]; then
-        ## Do compile if timestamp file doesn't exist
+        ## Do compile if target file doesn't exist
         echo 1
     else
-        ## Do compile if timestamp file is older than most recent source file                                     
+        ## Do compile if target file is older than most recent source file
         [[ $source_file -nt $target_file ]] && echo 1 || echo 0
     fi
 }
