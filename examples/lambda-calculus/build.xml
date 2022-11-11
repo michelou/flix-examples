@@ -15,15 +15,19 @@
         <fileset dir="${env.FLIX_HOME}" includes="**/flix.jar" />
     </pathconvert>
 
-    <uptodate property="action.notRequired" targetfile="${target.jar}">
-        <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
-    </uptodate>
-    <uptodate property="test-action.notRequired" targetfile="${test-target.txt}">
-        <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
-        <srcfiles dir="${test-source.dir}" includes="**/*.flix"/>
-    </uptodate>
+    <target name="-pre-init">
+        <available file="${target.managed.dir}/build" type="dir" property="build.present" />
+	    <available file="${target.managed.dir}/lib/lib_${ant.project.name}.jar" property="lib.present" />
+        <uptodate property="action.notRequired" targetfile="${target.jar}">
+            <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
+        </uptodate>
+        <uptodate property="test-action.notRequired" targetfile="${test-target.txt}">
+            <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
+            <srcfiles dir="${test-source.dir}" includes="**/*.flix"/>
+        </uptodate>
+    </target>
 
-    <target name="init" unless="${action.notRequired}">
+    <target name="init" depends="-pre-init" unless="${build.present}">
         <mkdir dir="${target.managed.dir}" />
         <java fork="true" jar="${flix.jar}" dir="${target.managed.dir}">
             <arg value="init" />
@@ -37,7 +41,37 @@
         </copy>
     </target>
 
-    <target name="build" depends="init" unless="${action.notRequired}">
+    <target name="-build-lib" unless="lib.present">
+        <pathconvert property="scala.sources" pathsep=" ">
+             <fileset dir="${main-source.dir}" includes="**/*.scala" />
+        </pathconvert>
+        <path id="scalac.classpath">
+            <fileset dir="${env.SCALA_HOME}" includes="**/*.jar" />
+        </path>
+        <path id="classpath">
+            <pathelement location="${flix.jar}" />
+        </path>
+        <condition property="quoted" value="&quot;" else="">
+            <contains string="${classpath}" substring=" " />
+        </condition>
+        <java fork="true" classname="scala.tools.nsc.Main" classpathref="scalac.classpath">
+            <jvmarg value="-Xmx768m" />
+            <jvmarg value="-Xms768m" />
+            <jvmarg value="-Dscala.usejavacp=true" />
+            <arg value="-deprecation" />
+            <arg value="-feature" />
+            <arg value="-d" />
+            <arg value="${target.managed.dir}/lib" />
+            <arg value="-classpath" />
+            <arg value="${quoted}${classpath}${quoted}" />
+            <arg line="${scala.sources}" />
+        </java>
+        <jar destfile="${target.managed.dir}/lib/lib_${ant.project.name}.jar"
+            includes="**/*.class"
+            basedir="${target.managed.dir}/lib" />
+    </target>
+
+    <target name="build" depends="init, -build-lib" unless="${action.notRequired}">
         <java fork="true" jar="${flix.jar}" dir="${target.managed.dir}">
             <arg value="build" />
         </java>
@@ -48,10 +82,8 @@
 
     <target name="run" depends="build">
         <java fork="true" jar="${target.jar}" >
+            <jvmarg value="-Xbootclasspath/a:${target.managed.dir}/lib/lib_${ant.project.name}.jar" />
             <!-- <arg value="1" /> -->
-            <classpath>
-                <pathelement location="${flix.jar}" />
-            </classpath>
         </java>
     </target>
 

@@ -15,15 +15,18 @@
         <fileset dir="${env.FLIX_HOME}" includes="**/flix.jar" />
     </pathconvert>
 
-    <uptodate property="action.notRequired" targetfile="${target.jar}">
-        <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
-    </uptodate>
-    <uptodate property="test-action.notRequired" targetfile="${test-target.txt}">
-        <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
-        <srcfiles dir="${test-source.dir}" includes="**/*.flix"/>
-    </uptodate>
+    <target name="-pre-init">
+        <available file="${target.managed.dir}/build" type="dir" property="build.present" />
+        <uptodate property="action.notRequired" targetfile="${target.jar}">
+            <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
+        </uptodate>
+        <uptodate property="test-action.notRequired" targetfile="${test-target.txt}">
+            <srcfiles dir="${main-source.dir}" includes="**/*.flix"/>
+            <srcfiles dir="${test-source.dir}" includes="**/*.flix"/>
+        </uptodate>
+    </target>
 
-    <target name="init" unless="${action.notRequired}">
+    <target name="init" depends="-pre-init" unless="${build.present}">
         <mkdir dir="${target.managed.dir}" />
         <java fork="true" jar="${flix.jar}" dir="${target.managed.dir}">
             <arg value="init" />
