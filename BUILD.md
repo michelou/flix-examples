@@ -15,13 +15,13 @@ Generating the [Flix] library using [Gradle][gradle_userguide] is fast and simpl
 Command ...
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> clean compileTestScala --console=plain</b>
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> clean compileTestScala <a href="https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_customizing_log_format" rel="external">--console=plain</a></b>
 </pre>
 
 Command [**`gradle.bat test`**][gradle_cli] runs the test suite (e.g. after updating some source files of our local copy of the [Flix Github repository][flix_github]) :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> test --console=plain</b>
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> test <a href="https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_customizing_log_format" rel="external">--console=plain</a></b>
 > Task :clean
 > Task :compileJava NO-SOURCE
 > Task :compileScala
@@ -96,9 +96,9 @@ This section presents some of our unpublished works to improve the [Flix] softwa
 
 2. **Build dependencies**
 
-   All build dependencies are currently outdated (see [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle)).
+   Build dependencies are defined in [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle) and are currently outdated (October 2022).
    
-   A quick modification shows that only two external libraries require the [Flix] code to be updated, namely [**`json4s`**][json4s] and [**`scalatest/scalactic`**][scalatest].
+   A quick modification shows that only two external libraries require the [Flix] source code to be updated, namely [**`json4s`**][json4s] and [**`scalatest/scalactic`**][scalatest].
 
    Current dependencies:
    <pre style="font-size:80%;">
@@ -124,23 +124,51 @@ This section presents some of our unpublished works to improve the [Flix] softwa
    <pre style="font-size:80%;">
    <b>dependencies</b> {
      <span style="color:green;">// ...</span>
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket/1.5.3">Java-WebSocket-1.5.3.jar</a>')
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0">jline-3.21.0.jar</a>')
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket/1.5.3">org.java_websocket-1.5.3.jar</a>')
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0">org.jline-3.21.0.jar</a>')
      <b>implementation files</b>('lib/org.json4s-ast-3.5.5.jar')    <span style="color:green;">// unchanged</span>
      <b>implementation files</b>('lib/org.json4s-core-3.5.5.jar')   <span style="color:green;">// unchanged</span>
      <b>implementation files</b>('lib/org.json4s-native-3.5.5.jar') <span style="color:green;">// unchanged</span>
-     <b>implementation files</b>('lib/asm-9.3.jar') 
-     <b>implementation files</b>('lib/parboiled_2.13-2.4.0.jar')
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.4" rel="external">org.objectweb.asm-9.4.jar</a>') 
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.4.1" rel="external">org.parboiled_2.13-2.4.1.jar</a>')
      <b>implementation files</b>('lib/org.scalactic-3.0.8.jar')     <span style="color:green;">// unchanged</span>
      <b>implementation files</b>('lib/org.scalatest-3.0.8.jar')     <span style="color:green;">// unchanged</span>
-     <b>implementation files</b>('lib/scala-parallel-collections_2.13-1.0.4.jar')
+     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/1.0.4" rel="external">scala-parallel-collections_2.13-1.0.4.jar</a>')
      <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/2.1.0">scala-xml_2.13-2.1.0.jar</a>')
      <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.1.0">scopt_2.13-4.1.0.jar</a>')
      <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.10">shapeless_2.13-2.3.10.jar</a>')
    }
    </pre>
 
-3. *(to be completed)*
+3. Major issue with build times
+
+   | Scala&nbsp;Version | Build&nbsp;Times             | Average |
+   |--------------------|------------------------------|---------|
+   | 2.13.5             | 1:52, 1:53, 1.56, 1.52, 1.55, 1:58 |   1:54  |
+   | 2.13.6             | 7:52, 7:40                   |   7:52  |
+   | 2.13.7             | 7:37, 6:52, 7:07,            |         |
+   | 2.13.8             | 7:49 | |
+   | 2.13.9             | 7:23 | |
+   | 2.13.10            | 7:31 | |
+
+   **Workaround 1 (*provisory*)** Disable pattern matching analysis by writing `"-Xno-patmat-analysis"` instead of `"-Ypatmat-exhaust-depth", "400"` in build file [`build.gradle`](https://github.com/flix/flix/blob/master/build.gradle).
+
+   <pre style="font-size:80%;">
+   Search "XnoPatmatAnalysis" (6 hits in 3 files of 325 searched)
+   X:\scala-2.13.10\src\compiler\scala\tools\nsc\settings\ScalaSettings.scala (1 hit)
+	 Line 140:   val XnoPatmatAnalysis = BooleanSetting ("-Xno-patmat-analysis", "Don't perform exhaustivity/unreachability analysis. Also, ignore @switch annotation.")
+   X:\scala-2.13.10\src\compiler\scala\tools\nsc\transform\patmat\MatchTranslation.scala (3 hits)
+	 Line 193:       if (!settings.XnoPatmatAnalysis.value) checkMatchVariablePatterns(nonSyntheticCases)
+	 Line 232:         if (!settings.XnoPatmatAnalysis.value) unreachableTypeSwitchCase(caseDefs).foreach(cd => reportUnreachable(cd.body.pos))
+	 Line 258:             if (settings.XnoPatmatAnalysis.value) Suppression.FullSuppression
+   X:\scala-2.13.10\src\compiler\scala\tools\nsc\transform\patmat\MatchTreeMaking.scala (2 hits)
+	 Line 617:       if (settings.XnoPatmatAnalysis.value) Suppression.FullSuppression
+	 Line 631:       if (settings.XnoPatmatAnalysis.value) false
+   Search "-Xno-patmat-analysis" (1 hit in 1 file of 325 searched)
+   X:\scala-2.13.10\src\compiler\scala\tools\nsc\settings\ScalaSettings.scala (1 hit)
+	 Line 140:   val XnoPatmatAnalysis = BooleanSetting ("-Xno-patmat-analysis", "Don't perform exhaustivity/unreachability analysis. Also, ignore @switch annotation.")
+   Search "-Xno-patmat-analysis" (0 hits in 0 files of 11 searched)
+</pre>
 
 <!--=======================================================================-->
  
