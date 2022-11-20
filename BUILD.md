@@ -3,20 +3,60 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;;min-width:120px;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="120" alt="Flix project"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">Source code of the <a href="https://flix.dev/" rel="external">Flix project</a> is hosted on <a href="https://github.com/flix/flix" rel="external">Github</a>.<br/>The Gradle build is used for continuous integration on GitHub.
+  <td style="border:0;padding:0;vertical-align:text-top;">Source code of the <a href="https://flix.dev/" rel="external">Flix project</a> is hosted on <a href="https://github.com/flix/flix" rel="external">Github</a>.<br/>Continuous integration relies on Gradle and runs on <a href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources" rel="external"><code>ubuntu-latest</code></a>.
   </td>
   </tr>
 </table>
 
-Generating the [Flix] library using [Gradle][gradle_userguide] is fast and simple !
+> **:mag_right:** Generating the [Flix library][flix_releases] using [Gradle][gradle_userguide] is fast and simple ! We find a few examples of [Gradle][gradle_cli] commands in the GitHub Actions file [**`build.yaml`**](https://github.com/flix/flix/blob/master/.github/workflows/build.yaml), i.e. `clean`, `compileTestScala` and `test`.
+>
 
-> **:mag_right:** The GitHub Actions file [**`build.yaml`**](https://github.com/flix/flix/blob/master/.github/workflows/build.yaml) contains 2 of the following [Gradle][gradle_cli] commands.
+## <span id="build_tools">Build Tools</span>
 
-Command ...
+Currently we can build/run/test the [Flix library][flix_releases] in three different ways :
+
+| Build tool          | Configuration file     | Environment(s) |
+|---------------------|------------------------|----------------|
+| [**`build.bat`**](bin/flix/build.bat) | &nbsp; | MS Windows |
+| [**`build.sh`**](bin/flix/build.sh) | &nbsp; | Cygwin / MSYS2 |
+[**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](flix/build.gradle) | Any <sup><b>a)</b></sup> |
+<div style="margin:0 15% 0 8px;font-size:90%;">
+<sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
+</div>
+
+> **&#9755;** Unlike other [Flix contributors](https://flix.dev/contribute/) who work exclusively with [**`build.gradle`**](flix/build.gradle) we also run our own batch/bash scripts which give us more control over the build process i.e. when dealing with misbehaviors and potential bugs.
+
+### <span id="batch">Batch file</span>
+
+Command [**`build.bat run`**](./bin/flix/build.bat) generates the [fat jar](https://stackoverflow.com/questions/11947037/what-is-an-uber-jar) file **`build\libs\flix.jar`** and executes it with argument **`--version`** :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> clean compileTestScala <a href="https://docs.gradle.org/current/userguide/command_line_interface.html#sec:command_line_customizing_log_format" rel="external">--console=plain</a></b>
+<b>&gt; <a href="bin/flix/build.bat">build</a> -verbose run</b>
+Compile 1 Java source file to directory "build\classes"
+Compile 253 Scala source files to directory "build\classes"
+Create Java archive "build\libs\flix.jar"
+Update archive "build\libs\flix.jar" (Flix sources)
+Update archive "build\libs\flix.jar" ("C:\opt\scala-2.13.5\lib\scala-library.jar")
+Update archive "build\libs\flix.jar" ("C:\opt\scala-2.13.5\lib\scala-reflect.jar")
+Update archive "build\libs\flix.jar" ("lib\org.java_websocket-1.3.9.jar")
+Update archive "build\libs\flix.jar" ("lib\org.jline-3.5.1.jar")
+Update archive "build\libs\flix.jar" ("lib\org.json4s-ast-3.5.5.jar")
+Update archive "build\libs\flix.jar" ("lib\org.json4s-core-3.5.5.jar")
+Update archive "build\libs\flix.jar" ("lib\org.json4s-native-3.5.5.jar")
+Update archive "build\libs\flix.jar" ("lib\org.objectweb.asm-9.2.jar")
+Update archive "build\libs\flix.jar" ("lib\org.parboiled-2.2.1.jar")
+Update archive "build\libs\flix.jar" ("lib\org.scalactic-3.0.8.jar")
+Update archive "build\libs\flix.jar" ("lib\org.scalatest-3.0.8.jar")
+Update archive "build\libs\flix.jar" ("lib\scala.collection.parallel-0.2.0.jar")
+Update archive "build\libs\flix.jar" ("lib\scala.xml-1.2.0.jar")
+Update archive "build\libs\flix.jar" ("lib\scopt_2.13-4.0.1.jar")
+Update archive "build\libs\flix.jar" ("lib\shapeless-2.3.3.jar")
+Add manifest to archive "build\libs\flix.jar"
+Execute program file "build\libs\flix.jar" with arguments --version
+The Flix Programming Language v0.33.0
 </pre>
+
+### <span id="gradle">Gradle</span>
 
 Command [**`gradle.bat test`**][gradle_cli] runs the test suite (e.g. after updating some source files of our local copy of the [Flix Github repository][flix_github]) :
 
@@ -64,111 +104,6 @@ F:\flix\build\libs\flix.jar
 >   36594654   17.09.2022      14:20:22  c:\opt\flix-0.31.0\flix.jar
 >   36614213   19.09.2022      23:00:34  F:\flix\build\libs\flix.jar
 > </pre>
-
-## <span id="wip">Work in Progress</span> [**&#x25B4;**](#top)
-
-This section presents some of our unpublished works to improve the [Flix] software.
-
-1. <del>**Supported Scala 2 version**</del> *(obsolete since October 7th 2022)*
-   
-   > **Note:** [Commit 61d7e00](https://github.com/flix/flix/commit/61d7e00) from Magnus makes this local change obsolete.
-
-   [Flix] is currently built upon Scala 2.13.5 (see [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle)). Moving to current [Scala 2.13.9][scala_2_13_9] requires to rename all occurences of **`enum`** to **`enum0`** (i.e. parameter names), **`enumSym`** (i.e. case classes) or **`enumDecl`** (i.e. local vars). The reason is straightforward: the latest Scala 2 distributions now defines **`enum`** as a reserved keyword in order to ease the migration to [Scala 3][scala_3].
-   
-   Concretely we have updated the following [Scala] source files in directory **`main\src\ca\uwaterloo\flix\`**:
-
-   <pre style="font-size:80%;">
-   api/lsp/<a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/lsp/LocationLink.scala#L56">LocationLink.scala</a>
-   api/lsp/provider/FindReferencesProvider.scala
-   api/lsp/provider/HighlightProvider.scala
-   language/ast/Symbol.scala
-   language/phase/Inliner.scala
-   language/phase/Namer.scala
-   language/phase/PatternExhaustiveness.scala
-   language/phase/Redundancy.scala
-   language/phase/Resolver.scala
-   language/phase/Typer.scala
-   language/phase/Weeder.scala
-   language/phase/jvm/GenExpression.scala
-   language/phase/jvm/JvmOps.scala
-   language/phase/util/PredefinedClasses.scala
-   </pre>
-
-2. **Build dependencies**
-
-   Build dependencies are defined in [**`build.gradle`**](https://github.com/flix/flix/blob/master/build.gradle) and are currently outdated (October 2022).
-   
-   A quick modification shows that only two external libraries require the [Flix] source code to be updated, namely [**`json4s`**][json4s] and [**`scalatest/scalactic`**][scalatest].
-
-   Current dependencies:
-   <pre style="font-size:80%;">
-   <b>dependencies</b> {
-     <span style="color:green;">// ...</span>
-     <b>implementation files</b>('lib/org.java_websocket-1.3.9.jar')
-     <b>implementation files</b>('lib/org.jline-3.5.1.jar')
-     <b>implementation files</b>('lib/org.json4s-ast-3.5.5.jar')
-     <b>implementation files</b>('lib/org.json4s-core-3.5.5.jar')
-     <b>implementation files</b>('lib/org.json4s-native-3.5.5.jar')
-     <b>implementation files</b>('lib/org.objectweb.asm-9.2.jar')
-     <b>implementation files</b>('lib/org.parboiled-2.2.1.jar')
-     <b>implementation files</b>('lib/org.scalactic-3.0.8.jar')
-     <b>implementation files</b>('lib/org.scalatest-3.0.8.jar')
-     <b>implementation files</b>('lib/scala.collection.parallel-0.2.0.jar')
-     <b>implementation files</b>('lib/scala.xml-1.2.0.jar')
-     <b>implementation files</b>('lib/scopt_2.13-4.0.1.jar')
-     <b>implementation files</b>('lib/shapeless-2.3.3.jar')
-   }
-   </pre>
-  
-   Updated dependencies:
-   <pre style="font-size:80%;">
-   <b>dependencies</b> {
-     <span style="color:green;">// ...</span>
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket/1.5.3">org.java_websocket-1.5.3.jar</a>')
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0">org.jline-3.21.0.jar</a>')
-     <b>implementation files</b>('lib/org.json4s-ast-3.5.5.jar')    <span style="color:green;">// unchanged</span>
-     <b>implementation files</b>('lib/org.json4s-core-3.5.5.jar')   <span style="color:green;">// unchanged</span>
-     <b>implementation files</b>('lib/org.json4s-native-3.5.5.jar') <span style="color:green;">// unchanged</span>
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.4" rel="external">org.objectweb.asm-9.4.jar</a>') 
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.4.1" rel="external">org.parboiled_2.13-2.4.1.jar</a>')
-     <b>implementation files</b>('lib/org.scalactic-3.0.8.jar')     <span style="color:green;">// unchanged</span>
-     <b>implementation files</b>('lib/org.scalatest-3.0.8.jar')     <span style="color:green;">// unchanged</span>
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/1.0.4" rel="external">scala-parallel-collections_2.13-1.0.4.jar</a>')
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/2.1.0">scala-xml_2.13-2.1.0.jar</a>')
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.1.0">scopt_2.13-4.1.0.jar</a>')
-     <b>implementation files</b>('lib/<a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.10">shapeless_2.13-2.3.10.jar</a>')
-   }
-   </pre>
-
-3. Major issue with build times
-
-   | Scala&nbsp;Version | Build&nbsp;Times             | Average |
-   |--------------------|------------------------------|---------|
-   | 2.13.5             | 1:52, 1:53, 1.56, 1.52, 1.55, 1:58 |   1:54  |
-   | 2.13.6             | 7:52, 7:40                   |   7:52  |
-   | 2.13.7             | 7:37, 6:52, 7:07,            |         |
-   | 2.13.8             | 7:49 | |
-   | 2.13.9             | 7:23 | |
-   | 2.13.10            | 7:31 | |
-
-   **Workaround 1 (*provisory*)** Disable pattern matching analysis by writing `"-Xno-patmat-analysis"` instead of `"-Ypatmat-exhaust-depth", "400"` in build file [`build.gradle`](https://github.com/flix/flix/blob/master/build.gradle).
-
-   <pre style="font-size:80%;">
-   Search "XnoPatmatAnalysis" (6 hits in 3 files of 325 searched)
-   X:\scala-2.13.10\src\compiler\scala\tools\nsc\settings\ScalaSettings.scala (1 hit)
-	 Line 140:   val XnoPatmatAnalysis = BooleanSetting ("-Xno-patmat-analysis", "Don't perform exhaustivity/unreachability analysis. Also, ignore @switch annotation.")
-   X:\scala-2.13.10\src\compiler\scala\tools\nsc\transform\patmat\MatchTranslation.scala (3 hits)
-	 Line 193:       if (!settings.XnoPatmatAnalysis.value) checkMatchVariablePatterns(nonSyntheticCases)
-	 Line 232:         if (!settings.XnoPatmatAnalysis.value) unreachableTypeSwitchCase(caseDefs).foreach(cd => reportUnreachable(cd.body.pos))
-	 Line 258:             if (settings.XnoPatmatAnalysis.value) Suppression.FullSuppression
-   X:\scala-2.13.10\src\compiler\scala\tools\nsc\transform\patmat\MatchTreeMaking.scala (2 hits)
-	 Line 617:       if (settings.XnoPatmatAnalysis.value) Suppression.FullSuppression
-	 Line 631:       if (settings.XnoPatmatAnalysis.value) false
-   Search "-Xno-patmat-analysis" (1 hit in 1 file of 325 searched)
-   X:\scala-2.13.10\src\compiler\scala\tools\nsc\settings\ScalaSettings.scala (1 hit)
-	 Line 140:   val XnoPatmatAnalysis = BooleanSetting ("-Xno-patmat-analysis", "Don't perform exhaustivity/unreachability analysis. Also, ignore @switch annotation.")
-   Search "-Xno-patmat-analysis" (0 hits in 0 files of 11 searched)
-</pre>
 
 <!--=======================================================================-->
  
@@ -324,6 +259,7 @@ BUILD SUCCESSFUL in 6m 44s
 
 [flix]: https://flix.dev/
 [flix_github]: https://github.com/flix/flix
+[flix_releases]: https://github.com/flix/flix/releases
 [flix_nightly]: https://flix.dev/nightly/
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_userguide]: https://docs.gradle.org/current/userguide/userguide.html

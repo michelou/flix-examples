@@ -49,10 +49,12 @@ C:\opt\scala-2.13.10\           <i>( 24 MB)</i>
 This project is organized as follows:
 
 <pre style="font-size:80%;">
+bin\
 docs\
 examples\{<a href="./examples/README.md">README.md</a>, <a href="./examples/areas/">areas</a>, <a href="./examples/channels/">channels</a>, ..}
 <a href="https://github.com/michelou/flix">flix</a>\     <i>(Git submodule)</i>
 lutz-examples\{<a href="./lutz-examples/README.md">README.md</a>, <a href="./lutz-examples/channels/">channels</a>, <a href="./lutz-examples/datalog/">datalog</a>, etc.}
+<a href="CONTRIBUTIONS.md">CONTRIBUTIONS.md</a>
 <a href="BUILD.md">BUILD.md</a>
 <a href="DEPS.md">DEPS.md</a>
 <a href="QUICKREF.md">QUICKREF.md</a>
@@ -64,10 +66,12 @@ README.md
 
 where
 
+- directory [**`bin\`**](bin/) provides several utility [batch files][windows_batch_file].
 - directory [**`docs\`**](docs/) contains [Flix] related papers/articles.
 - directory [**`examples\`**](examples/) contains [Flix] code examples (see [**`README.md`**](./examples/README.md)).
 - directory **`flix\`** contains our fork of the [`flix/flix`][github_flix_flix] repository as a [Github submodule](.gitmodules).
 - directory [**`lutz-examples\`**](lutz-examples/) contains [Flix] code examples from Lutz Hühnken's article (see [**`README.md`**](./lutz-examples/README.md)).
+- file [**`CONTRIBUTIONS.md`**](CONTRIBUTIONS.md) presents ongoing works and contributions to the [Flix] project.
 - file [**`BUILD.md`**](BUILD.md) presents the [Flix] build.
 - file [**`DEPS.md`**](DEPS.md) lists library dependencies of published [Flix] distributions.
 - file [**`QUICKREF.md`**](QUICKREF.md) gathers [Flix] language features.
@@ -117,7 +121,7 @@ We distinguish different sets of batch commands:
 
 4. [**`examples\*\build.sh`**](examples/areas/build.sh) &ndash; Code examples can be built/run/tested using the [**`bash.exe`**][bash_cli] scripting tool.
 
-## <span id="usage">Usage examples</span>
+## <span id="usage">Usage examples</span> [**&#x25B4;**](#top)
 
 ### `setenv.bat`
 
@@ -177,7 +181,7 @@ Path associations:
 
 <!--=======================================================================-->
 
-## <span id="footnotes">Footnotes</span>[**&#x25B4;**](#top)
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
@@ -196,7 +200,9 @@ Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> i
 
 <span id="footnote_02">[2]</span> ***mdBook*** [↩](#anchor_02)
 
-We use <a href="https://github.com/rust-lang/mdBook/releases"><code>mdbook.exe</code></a> to work on our local copy of the online book "<a href="https://doc.flix.dev">**Programming Flix**</a>" generated from the GitHub project <a href="https://github.com/flix/book"><code>flix/book</code></a>.
+<dl><dd>
+We use <a href="https://github.com/rust-lang/mdBook/releases"><code>mdbook.exe</code></a> to work on our local copy of the online book "<a href="https://doc.flix.dev">Programming Flix</a>" generated from the GitHub project <a href="https://github.com/flix/book"><code>flix/book</code></a>.
+</dd></dl>
 
 <span id="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
 
@@ -263,6 +269,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [temurin_opendjk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[windows_batch_file]: https://en.wikibooks.org/wiki/Windows_Batch_Scripting
 [windows_installer]: https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation
 [windows_subst]: https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/subst

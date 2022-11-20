@@ -1,4 +1,4 @@
-# <span id="top">Flix Dependencies</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Flix Build Dependencies</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
@@ -6,7 +6,7 @@
     <a href="https://flix.dev/" rel="external"><img style="border:0;width:80px;" src="./docs/images/flix-logo.png" alt="Flix project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
-    This document presents changes in library dependencies for the <a href="https://flix.dev/" rel="external">Flix</a> software distributions.<br/>&nbsp;
+    This document presents changes in <a href="https://flix.dev/" rel="external">Flix</a> build dependencies.<br/>&nbsp;
   </td>
   </tr>
 </table>
@@ -32,12 +32,16 @@ The [Flix] 0.3 software distributions depend on the following external libraries
   <th style="padding:4px;min-width:115px;">Java Archive</th>
   <th style="padding:4px;">Current<br/>Version</th>
   <th><a href="https://github.com/flix/flix/releases/tag/v0.30.0">0.30.0</a><br/><span style="color:red;"></span></th>
-    <th><a href="https://github.com/flix/flix/releases/tag/v0.31.0">0.31.0</a><br/><span style="color:red;"></span></th>
+  <th><a href="https://github.com/flix/flix/releases/tag/v0.31.0">0.31.0</a><br/><span style="color:red;"></span></th>
+  <th><a href="https://github.com/flix/flix/releases/tag/v0.32.0">0.32.0</a><br/><span style="color:red;"></span></th>
+  <th><a href="https://github.com/flix/flix/releases/tag/v0.33.0">0.33.0</a><br/><span style="color:red;"></span></th>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket"><code>java_websocket</code></a><br/>(<a href="https://github.com/TooTallNate/Java-WebSocket/releases">relnotes</a>)</td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.3"><b>1.5.3</b></a><br/><span style="color:gray;font-size:80%;">(Apr&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a><br/><span style="color:gray;font-size:80%;">(Aug&nbsp;2018)</span></td>
+  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a><br/>&nbsp;</td>
 </tr>
 <tr>
@@ -45,11 +49,15 @@ The [Flix] 0.3 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0"><b>3.21.0</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2017)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core"><code>json4s-*</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/4.0.5"><b>4.0.5</b></a><br/><span style="color:gray;font-size:80%;">(Apr&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.5.5">3.5.5</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.5.5">3.5.5</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.5.5">3.5.5</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.5.5">3.5.5</a><br/>&nbsp;</td>
 </tr>
 <tr>
@@ -57,11 +65,15 @@ The [Flix] 0.3 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.4"><b>9.4</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.2">9.2</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.2">9.2</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.2">9.2</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.2">9.2</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled"><code>parboiled</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.4.0"><b>2.4.0</b></a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.2.1">2.2.1</a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2020)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.2.1">2.2.1</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.2.1">2.2.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.2.1">2.2.1</a><br/>&nbsp;</td>
 </tr>
 <tr>
@@ -69,11 +81,15 @@ The [Flix] 0.3 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/1.0.4"><b>1.0.4</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library"><code>scala-library</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.10"><b>2.13.10</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.5">2.13.5</a><br/>&nbsp;</td>
 </tr>
 <tr>
@@ -81,11 +97,15 @@ The [Flix] 0.3 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.10"><b>2.13.10</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2021)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-reflect/2.13.5">2.13.5</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml"><code>scala.xml</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/2.1.0"><b>2.1.0</b></a><br/><span style="color:gray;font-size:80%;">(Apr&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/1.2.0">1.2.0</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/1.2.0">1.2.0</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/1.2.0">1.2.0</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/1.2.0">1.2.0</a><br/>&nbsp;</td>
 </tr>
 <tr>
@@ -93,11 +113,15 @@ The [Flix] 0.3 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13"><code>scalatest</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
 </tr>
 <tr>
@@ -105,11 +129,15 @@ The [Flix] 0.3 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.1.0"><b>4.1.0</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless"><code>shapeless</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.10"><b>2.3.10</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2022)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3">2.3.3</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3">2.3.3</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3">2.3.3</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3">2.3.3</a><br/>&nbsp;</td>
 </tr>
 </table>
@@ -272,7 +300,7 @@ The [Flix] 0.2 software distributions depend on the following external libraries
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

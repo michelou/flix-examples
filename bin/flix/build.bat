@@ -141,7 +141,7 @@ if "%__ARG:~0,1%"=="-" (
     ) else if "%__ARG%"=="help" ( set _COMMANDS=help
     ) else if "%__ARG%"=="jar" ( set _COMMANDS=!_COMMANDS! compile jar
     ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile jar run
-    ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! compile jar test_compile test
+    ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! compile jar test
     ) else (
         echo %_ERROR_LABEL% Unknown subcommand %__ARG% 1>&2
         set _EXITCODE=1
@@ -181,16 +181,16 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%           show commands executed by this script
-echo     %__BEG_O%-verbose%__END%         display progress messages
+echo     %__BEG_O%-debug%__END%       show commands executed by this script
+echo     %__BEG_O%-verbose%__END%     display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%clean%__END%            delete generated files
-echo     %__BEG_O%compile%__END%          compile Java/Scala source files
-echo     %__BEG_O%help%__END%             display this help message
-echo     %__BEG_O%jar%__END%              create JAR archive
-echo     %__BEG_O%run%__END%              execute main class "%__BEG_N%%_MAIN_CLASS%%__END%"
-echo     %__BEG_O%test%__END%             execut unit tests with Scalatest
+echo     %__BEG_O%clean%__END%        delete generated files
+echo     %__BEG_O%compile%__END%      compile Java/Scala source files
+echo     %__BEG_O%help%__END%         display this help message
+echo     %__BEG_O%jar%__END%          create JAR archive "!_JAR_FILE=%_ROOT_DIR%=!"
+echo     %__BEG_O%run%__END%          execute main class "%__BEG_N%%_MAIN_CLASS%%__END%"
+echo     %__BEG_O%test%__END%         execut unit tests with Scalatest
 goto :eof
 
 :clean
@@ -217,15 +217,18 @@ if not exist "%_CLASSES_DIR%" mkdir "%_CLASSES_DIR%" 1>NUL
 set "__TIMESTAMP_FILE=%_BUILD_DIR%\.latest-build"
 
 call :action_required "%__TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.java"
-if %_ACTION_REQUIRED%==1 (
-    call :compile_java
-    if not !_EXITCODE!==0 goto :eof
-)
+if %_ACTION_REQUIRED%==0 goto compile_next
+
+call :compile_java
+if not %_EXITCODE%==0 goto :eof
+
+:compile_next
 call :action_required "%__TIMESTAMP_FILE%" "%_MAIN_SOURCE_DIR%\*.scala"
-if %_ACTION_REQUIRED%==1 (
-    call :compile_scala
-    if not !_EXITCODE!==0 goto :eof
-)
+if %_ACTION_REQUIRED%==0 goto :eof
+
+call :compile_scala
+if not %_EXITCODE%==0 goto :eof
+
 echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
@@ -372,11 +375,11 @@ for /f "delims=" %%f in ('dir /b /s "%_MAIN_SOURCE_DIR%\*.flix" "%_MAIN_SOURCE_D
     echo -C "%_ROOT_DIR:\=/%main" "!__FILE:\=/!" >> "%__ARG_FILE%"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" uf "%_JAR_FILE%" "@%__ARG_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Update archive "!_JAR_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Update archive "!_JAR_FILE:%_ROOT_DIR%=!" ^(Flix sources^) 1>&2
 )
 "%_JAR_CMD%" uf "%_JAR_FILE%" "@%__ARG_FILE%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to update Java archive "!_JAR_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to update Java archive "!_JAR_FILE:%_ROOT_DIR%=!" ^(Flix sources^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -390,12 +393,12 @@ for /f "delims=" %%f in ('dir /b "%_ROOT_DIR%lib\*.jar" 2^>NUL') do (
     call :include_jar "%_JAR_FILE%" "%_ROOT_DIR%lib\%%f"
     if not !_EXITCODE!==0 goto :eof
 )
-set "__MANIFEST_FILE=%_BUILD_DIR%\tmp\manifest.txt"
-(
-    echo Manifest-Version: 1.0
-    echo Main-Class: %_MAIN_CLASS%
-)> "%__MANIFEST_FILE%"
-
+set "__MANIFEST_FILE=%_MAIN_SOURCE_DIR%\META-INF\MANIFEST.MF"
+if not exist "%__MANIFEST_FILE%" (
+    echo %_ERROR_LABEL% Manifest file not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" ufm "%_JAR_FILE%" "%__MANIFEST_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Add manifest to archive "!_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
@@ -417,32 +420,33 @@ set "__OUTPUT_DIR=%_BUILD_DIR%\tmp\%__NAME%"
 if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
 
 pushd "%__OUTPUT_DIR%"
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" xf "%__SOURCE_JAR_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Extract class files from archive "!__SOURCE_JAR_FILE:%_ROOT_DIR%=!" 1>&2
-)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_JAR_CMD%" xf "%__SOURCE_JAR_FILE%" 1>&2
 "%_JAR_CMD%" xf "%__SOURCE_JAR_FILE%"
 if not !ERRORLEVEL!==0 (
     popd
+    echo %_ERROR_LABEL% Failed to extract archive "!__SOURCE_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
 popd
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" uf "%__TARGET_JAR_FILE%" -C "%__OUTPUT_DIR%" . 1>&2
-) else if %_VERBOSE%==1 ( echo Update archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Update archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%_ROOT_DIR%=!"^) 1>&2
 )
 "%_JAR_CMD%" uf "%__TARGET_JAR_FILE%" -C "%__OUTPUT_DIR%" .
 if not %ERRORLEVEL%==0 (
-    echo Failed to update archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" 1>&2
+    echo Failed to update archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
 goto :eof
 
 :run
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_JAR_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Execute program file "!_JAR_FILE:%_ROOT_DIR%=!" 1>&2
+set __RUN_ARGS=--version
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_JAR_FILE%" %__RUN_ARGS% 1>&2
+) else if %_VERBOSE%==1 ( echo Execute program file "!_JAR_FILE:%_ROOT_DIR%=!" with arguments %__RUN_ARGS% 1>&2
 )
-"%_JAVA_CMD%" -jar "%_JAR_FILE%"
+"%_JAVA_CMD%" -jar "%_JAR_FILE%" %__RUN_ARGS%
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute program file "!_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -451,18 +455,60 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :test_compile
-set "__TIMESTAMP_FILE=%_BUILD_DIR%\.latest-test-build"
+if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%" 1>NUL
+
+set "__TIMESTAMP_FILE=%_BUILD_DIR%\.latest-test_build"
 
 call :action_required "%__TIMESTAMP_FILE%" "%_TEST_SOURCE_DIR%\*.java"
+if %_ACTION_REQUIRED%==0 goto test_compile_next
+
+call :test_compile_java
+if not %_EXITCODE%==0 goto :eof
+
+:test_compile_next
+call :action_required "%__TIMESTAMP_FILE%" "%_TEST_SOURCE_DIR%\*.scala"
 if %_ACTION_REQUIRED%==0 goto :eof
 
-if not exist "%_TEST_CLASSES_DIR%" mkdir "%_TEST_CLASSES_DIR%"
+call :test_compile_scala
+if not %_EXITCODE%==0 goto :eof
 
+echo. > "%__TIMESTAMP_FILE%"
+goto :eof
+
+:compile_java
+set "__OPTS_FILE=%_BUILD_DIR%\javac_test_opts.txt"
+echo -d "%_TEST_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
+
+set "__SOURCES_FILE=%_BUILD_DIR%\javac_test_sources.txt"
+if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
+set __N=0
+for /f %%f in ('dir /s /b "%_TEST_SOURCE_DIR%\*.java" 2^>NUL') do (
+    echo %%f >> "%__SOURCES_FILE%"
+    set /a __N+=1
+)
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Java test source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Java test source file
+) else ( set __N_FILES=%__N% Java test source files
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JAVAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_TEST_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
+:test_compile_scala
 set __CPATH=
 for /f "delims=" %%f in ('dir /b "%_ROOT_DIR%lib\*.jar" 2^>NUL') do (
     set "__CPATH=!__CPATH!%_ROOT_DIR%lib\%%f;"
 )
-set "__CPATH=%__CPATH%%_CLASSES_DIR%"
+set "__CPATH=%__CPATH%%_CLASSES_DIR%;%_TEST_CLASSES_DIR%"
 
 set "__OPTS_FILE=%_BUILD_DIR%\scalac_test_opts.txt"
 echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_TEST_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
@@ -489,10 +535,12 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
 :test
+call test_compile
+if not %_EXITCODE%==0 goto :eof
+
 set __JAVA_OPTS=-cp "%_JAR_FILE%;%_TEST_CLASSES_DIR%"
 
 set __RUNNER_CLASS=org.scalatest.tools.Runner
