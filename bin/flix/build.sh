@@ -147,7 +147,7 @@ compile_java() {
         warning "No Java source file found"
         return
     fi
-    local s = [[ $n -gt 1 ]] && "s" || ""
+    local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n Java source file$s"
     if $DEBUG; then
         debug "$JAVAC_CMD \"@$(mixed_path $opts_file)\" \"@$(mixed_path $sources_file)\""
@@ -164,7 +164,7 @@ compile_java() {
 compile_scala() {
     local cpath=
     for f in $(find "$LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
-        cpath="$cpath$(mixed_path $f);"
+        cpath="$cpath$(mixed_path $f)$PSEP"
     done
     cpath="$cpath$(mixed_path $CLASSES_DIR)"
 
@@ -182,7 +182,7 @@ compile_scala() {
         warning "No Scala source file found"
         return
     fi
-    local s = [[ $n -gt 1 ]] && "s" || ""
+    local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n Scala source file$s"
     if $DEBUG; then
         debug "$SCALAC_CMD \"@$(mixed_path $opts_file)\" \"@$(mixed_path $sources_file)\""
@@ -372,7 +372,7 @@ test_compile_java() {
         warning "No Java test source file found"
         return
     fi
-    local s = [[ $n -gt 1 ]] && "s" || ""
+    local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n Java test source file$s"
     if $DEBUG; then
         debug "$JAVAC_CMD \"@$(mixed_path $opts_file)\" \"@$(mixed_path $sources_file)\""
@@ -389,7 +389,7 @@ test_compile_java() {
 test_compile_scala() {
     local cpath=
     for f in $(find "$LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
-        cpath="$cpath$(mixed_path $f);"
+        cpath="$cpath$(mixed_path $f)$PSEP"
     done
     cpath="$cpath$(mixed_path $CLASSES_DIR)$PSEP$(mixed_path $TEST_CLASSES_DIR)"
 
@@ -407,7 +407,7 @@ test_compile_scala() {
         warning "No Scala test source file found"
         return
     fi
-    local s = [[ $n -gt 1 ]] && "s" || ""
+    local s=; [[ $n -gt 1 ]] && s="s"
     local n_files="$n Scala test source file$s"
     if $DEBUG; then
         debug "$SCALAC_CMD \"@$(mixed_path $opts_file)\" \"@$(mixed_path $sources_file)\""
@@ -459,7 +459,7 @@ BUILD_DIR=$ROOT_DIR/build
 CLASSES_DIR=$BUILD_DIR/classes
 TEST_CLASSES_DIR=$BUILD_DIR/test-classes
 
-SCALAC_OPTS="-J-Xmx1536m -language:postfixOps -Ypatmat-exhaust-depth 400"
+SCALAC_OPTS="-J-Xmx1536m -encoding utf-8 -language:postfixOps -Ypatmat-exhaust-depth 400"
 
 JAR_FILE=$BUILD_DIR/libs/flix.jar
 

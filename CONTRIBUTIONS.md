@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;min-width:60px;max-width:100px;">
-    <a href="https://flix.dev/" rel="external"><img style="border:0;width:80px;" src="docs/images/dotty.png" alt="Flix project" /></a>
+    <a href="https://flix.dev/" rel="external"><img style="border:0;width:80px;" src="./docs/images/flix-logo.png" alt="Flix project" /></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     This document presents ongoing works, pull requests and issues we have submitted so far to the <a href="https://flix.dev/" rel="external">Flix</a> project.<br/>&nbsp;
@@ -90,12 +90,12 @@ This section presents some of our unpublished works to improve the [Flix] softwa
 
    | Scala&nbsp;Version | Build&nbsp;Times             | Average |
    |--------------------|------------------------------|---------|
-   | 2.13.5             | 1:52, 1:53, 1.56, 1.52, 1.55, 1:58 |   1:54  |
-   | 2.13.6             | 7:52, 7:40                   |   7:52  |
-   | 2.13.7             | 7:37, 6:52, 7:07,            |         |
-   | 2.13.8             | 7:49 | |
-   | 2.13.9             | 7:23 | |
-   | 2.13.10            | 7:31 | |
+   | 2.13.5             | 1:52, 1:53, 1:56, 1:52, 1:55, 1:58 |   1:54  |
+   | 2.13.6             | 7:52, 7:40                   |   7:46  |
+   | 2.13.7             | 7:37, 6:52, 7:07             |   7:00  |
+   | 2.13.8             | 7:49 | 7:49 |
+   | 2.13.9             | 7:23 | 7:23 |
+   | 2.13.10            | 7:31 | 7:31 |
 
    **Workaround 1 (*provisory*)** Disable pattern matching analysis by writing `"-Xno-patmat-analysis"` instead of `"-Ypatmat-exhaust-depth", "400"` in build file [`build.gradle`](https://github.com/flix/flix/blob/master/build.gradle).
 
@@ -141,3 +141,15 @@ This section presents some of our unpublished works to improve the [Flix] softwa
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
+
+[flix]: https://flix.dev/
+[flix_github]: https://github.com/flix/flix
+[flix_releases]: https://github.com/flix/flix/releases
+[flix_nightly]: https://flix.dev/nightly/
+[gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
+[gradle_userguide]: https://docs.gradle.org/current/userguide/userguide.html
+[json4s]: https://mvnrepository.com/artifact/org.json4s
+[scala]: https://www.scala-lang.org
+[scala_2_13_9]: https://www.scala-lang.org/download/2.13.9.html
+[scala_3]: https://docs.scala-lang.org/scala3/new-in-scala3.html
+[scalatest]: https://mvnrepository.com/artifact/org.scalatest/scalatest
