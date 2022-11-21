@@ -475,7 +475,7 @@ if not %_EXITCODE%==0 goto :eof
 echo. > "%__TIMESTAMP_FILE%"
 goto :eof
 
-:compile_java
+:test_compile_java
 set "__OPTS_FILE=%_BUILD_DIR%\javac_test_opts.txt"
 echo -d "%_TEST_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
