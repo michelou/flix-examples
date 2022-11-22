@@ -268,7 +268,7 @@ for /f "delims=" %%f in ('dir /b "%_ROOT_DIR%lib\*.jar" 2^>NUL') do (
 set "__CPATH=%__CPATH%%_CLASSES_DIR%"
 
 set "__OPTS_FILE=%_BUILD_DIR%\scalac_opts.txt"
-echo %_SCALAC_OPTS% -classpath "%__CPATH%" -d "%_CLASSES_DIR%" > "%__OPTS_FILE%"
+echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
 
 set "__SOURCES_FILE=%_BUILD_DIR%\scalac_sources.txt"
 if exist "%__SOURCES_FILE%" del "%__SOURCES_FILE%" 1>NUL
@@ -286,7 +286,8 @@ if %__N%==0 (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
-call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+@rem call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
+call "%_SCALAC_CMD%" %_SCALAC_OPTS% -classpath "%__CPATH%" -d "%_CLASSES_DIR%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -375,7 +376,7 @@ for /f "delims=" %%f in ('dir /b /s "%_MAIN_SOURCE_DIR%\*.flix" "%_MAIN_SOURCE_D
     echo -C "%_ROOT_DIR:\=/%main" "!__FILE:\=/!" >> "%__ARG_FILE%"
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" uf "%_JAR_FILE%" "@%__ARG_FILE%" 1>&2
-) else if %_VERBOSE%==1 ( echo Update archive "!_JAR_FILE:%_ROOT_DIR%=!" ^(Flix sources^) 1>&2
+) else if %_VERBOSE%==1 ( echo Update Java archive "!_JAR_FILE:%_ROOT_DIR%=!" ^(Flix sources^) 1>&2
 )
 "%_JAR_CMD%" uf "%_JAR_FILE%" "@%__ARG_FILE%"
 if not %ERRORLEVEL%==0 (
@@ -430,11 +431,11 @@ if not !ERRORLEVEL!==0 (
 )
 popd
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" uf "%__TARGET_JAR_FILE%" -C "%__OUTPUT_DIR%" . 1>&2
-) else if %_VERBOSE%==1 ( echo Update archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%_ROOT_DIR%=!"^) 1>&2
+) else if %_VERBOSE%==1 ( echo Update Java archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%_ROOT_DIR%=!"^) 1>&2
 )
 "%_JAR_CMD%" uf "%__TARGET_JAR_FILE%" -C "%__OUTPUT_DIR%" .
 if not %ERRORLEVEL%==0 (
-    echo Failed to update archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%_ROOT_DIR%=!"^) 1>&2
+    echo Failed to update Java archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%_ROOT_DIR%=!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
