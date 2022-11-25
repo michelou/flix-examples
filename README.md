@@ -17,7 +17,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Flix 0.33][flix_downloads] ([*release notes*][flix_relnotes])
+- [Flix 0.34][flix_downloads] ([*release notes*][flix_relnotes])
 - [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 
@@ -35,7 +35,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*November 2022*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\flix-0.33.0\             <i>( 35 MB)</i>
+C:\opt\flix-0.34.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.38.1\              <i>(317 MB)</i>
 C:\opt\gradle-7.5.1\            <i>(127 MB)</i>
 C:\opt\jdk-temurin-11.0.17_8\   <i>(301 MB)</i>
@@ -130,7 +130,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.33.0
+   java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.34.0
    git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
@@ -152,10 +152,10 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2022-10-31.jar" to directory "C:\opt\flix-0.33.0"
+Download file "flix-2022-10-31.jar" to directory "C:\opt\flix-0.34.0"
 
 Tool versions:
-   java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.33.0
+   java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.34.0
    git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1, mdbook v0.4.21
 Tool paths:
    C:\opt\jdk-temurin-11.0.17_8\bin\java.exe
@@ -168,7 +168,7 @@ Tool paths:
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook-0.4.21\mdbook.exe
 Environment variables:
-   "FLIX_HOME=C:\opt\flix-0.33.0"
+   "FLIX_HOME=C:\opt\flix-0.34.0"
    "GIT_HOME=C:\opt\Git-2.38.1"
    "GRADLE_HOME=C:\opt\gradle-7.5.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
@@ -186,13 +186,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on October 31th 2022 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on November 25th 2022 : 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.33.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
-C:\OPT\FLIX-0.33.0
-    flix-2022-10-29.jar
-    flix-2022-10-30.jar
-    flix-2022-10-31.jar
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.34.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+C:\OPT\FLIX-0.34.0
+    flix-2022-11-24.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -243,7 +241,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
 [flix_downloads]: https://github.com/flix/flix/releases/
-[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.33.0
+[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.34.0
 [github_flix_flix]: https://github.com/flix/flix
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
