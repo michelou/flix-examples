@@ -25,22 +25,22 @@ Optionally one may also install the following software:
 
 - [Flix nightly builds](https://flix.dev/nightly/) <sup id="anchor_01">[1](#footnote_01)</sup>
 - [GNU Make 3.81][make_install]
-- [Gradle 7.5][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 7.6][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [mdBook 0.4][mdbook_download] <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][mdbook_changelog])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*November 2022*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*December 2022*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\flix-0.34.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.38.1\              <i>(317 MB)</i>
-C:\opt\gradle-7.5.1\            <i>(127 MB)</i>
+C:\opt\gradle-7.6\              <i>(129 MB)</i>
 C:\opt\jdk-temurin-11.0.17_8\   <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
-C:\opt\mdBook-0.4.21\           <i>(  9 MB)</i>
+C:\opt\mdBook-0.4.22\           <i>(  9 MB)</i>
 C:\opt\scala-2.13.10\           <i>( 24 MB)</i>
 </pre>
 
@@ -131,13 +131,13 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.34.0
-   git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1
+   git 2.38.1.windows.1, diff 3.8, gradle 7.6, make 3.8.1
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git-2.38.1\bin\git.exe
 C:\opt\Git-2.38.1\mingw64\bin\git.exe
-C:\opt\gradle-7.5.1\bin\gradle
-C:\opt\gradle-7.5.1\bin\gradle.bat
+C:\opt\gradle-7.6\bin\gradle
+C:\opt\gradle-7.6\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
 C:\opt\Git-2.38.1\bin\sh.exe
 C:\opt\Git-2.38.1\usr\bin\sh.exe
@@ -156,7 +156,7 @@ Download file "flix-2022-10-31.jar" to directory "C:\opt\flix-0.34.0"
 
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.34.0
-   git 2.38.1.windows.1, diff 3.8, gradle 7.5.1, make 3.8.1, mdbook v0.4.21
+   git 2.38.1.windows.1, diff 3.8, gradle 7.6, make 3.8.1, mdbook v0.4.22
 Tool paths:
    C:\opt\jdk-temurin-11.0.17_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.17_8\bin\javac.exe
@@ -164,16 +164,16 @@ Tool paths:
    C:\opt\Git-2.38.1\bin\git.exe
    C:\opt\Git-2.38.1\mingw64\bin\git.exe
    C:\opt\Git-2.38.1\usr\bin\diff.exe
-   C:\opt\gradle-7.5.1\bin\gradle.bat
+   C:\opt\gradle-7.6\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\mdBook-0.4.21\mdbook.exe
+   C:\opt\mdBook-0.4.22\mdbook.exe
 Environment variables:
    "FLIX_HOME=C:\opt\flix-0.34.0"
    "GIT_HOME=C:\opt\Git-2.38.1"
-   "GRADLE_HOME=C:\opt\gradle-7.5.1"
+   "GRADLE_HOME=C:\opt\gradle-7.6"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
    "MAKE_HOME=C:\opt\make-3.8.1"
-   "MDBOOK_HOME=C:\opt\mdBook-0.4.21"
+   "MDBOOK_HOME=C:\opt\mdBook-0.4.22"
    "SCALA_HOME=C:\opt\scala-2.13.10"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
@@ -210,10 +210,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-10-31.jar</a>                                <i>( 35 MB)</i>
-<a href="https://gradle.org/install/">gradle-7.5.1-bin.zip</a>                               <i>(103 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2022-11-30.jar</a>                                <i>( 35 MB)</i>
+<a href="https://gradle.org/install/">gradle-7.6-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
-<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.21-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.22-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>   <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
@@ -222,7 +222,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -247,7 +247,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/7.5.1/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/7.6/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples

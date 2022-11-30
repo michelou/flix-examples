@@ -19,12 +19,12 @@
 
 ## <span id="annotations">Annotations</span>
 
-| Annotation      | Description |
-|:----------------|:------------|
-| `@Experimental` | [`ca\uwaterloo\flix\language\ast\Ast.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L114) |
-| `@Internal`     | [`ca\uwaterloo\flix\language\ast\Ast.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L123) |
-| `@Lazy`         | |
-| `@LazyWhenPure` | |
+| Annotation      | Definition / Usage |
+|:----------------|:-------------------|
+| `@Experimental` | [`ca\uwaterloo\flix\language\ast\Ast.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L147) |
+| `@Internal`     | [`ca\uwaterloo\flix\language\ast\Ast.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L156) |
+| `@Lazy`         | [`ca\uwaterloo\flix\language\ast\Ast.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L184) |
+| `@LazyWhenPure` | [`ca\uwaterloo\flix\language\ast\Ast.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L193) |
 | `@Parallel`     | |
 | `@ParallelWhenPure` | |
 | `@Space(n)`     | |
@@ -41,17 +41,17 @@ Each keyword below points to a usage example from the [Flix] library :
 
 | Keyword | Description |
 |:--------|:------------|
-| [`alias`](https://github.com/flix/flix/blob/master/main/src/library/File.flix#L145)
-| [`and`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L81)
-| [`as`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L34)
-| [`case`](https://)
-| [`catch`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L101)
-| [`chan`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel/Ticker.flix#L100)
-| [`choose`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L33)
-| [`class`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L20)
-| [`def`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L24)
-| [`deref`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L59)
-| [`discard`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L53)
+| [`alias`](https://github.com/flix/flix/blob/master/main/src/library/File.flix#L145) | [Short-hand name for a type](https://doc.flix.dev/type-aliases.html) |
+| [`and`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L81) | |
+| [`as`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L34) | |
+| [`case`](https://) | |
+| [`catch`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L101) | |
+| [`chan`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel/Ticker.flix#L100) | |
+| [`choose`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L33) | |
+| [`class`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L20) | |
+| [`def`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L24) | |
+| [`deref`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L59) | [To access a reference cell](https://doc.flix.dev/references.html?highlight=deref#dereference) |
+| [`discard`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L53) | |
 | [`do`]() | |
 | [`eff`]() | |
 | [`else`]() | |
@@ -73,7 +73,7 @@ Each keyword below points to a usage example from the [Flix] library :
 | [`lat`]() | |
 | [`law`]() | |
 | [`lawful`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L22) | |
-| [`lazy`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L430) | |
+| [`lazy`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L430) | [Lazy evaluation of an expression](https://doc.flix.dev/laziness.html?highlight=lazy#laziness) |
 | [`let`]() | |
 | [`match`]() | |
 | [`namespace`]() | |
@@ -246,25 +246,25 @@ GitHub: [`test\ca\uwaterloo\flix\TestMain.scala`](https://github.com/flix/flix/b
 <span id="footnote_01">[1]</span> ***Flix versus Scala*** [↩](#anchor_01)
 
 <dl><dd>
-Extract from the Flix FAQ :
+Extract from the <a href="https://flix.dev/faq/" rel="external">Flix FAQ</a> :
 <blockquote>
 <p>
 <a href="https://flix.dev/" rel="external">Flix</a> looks quite similar to <a href="https://www.scala-lang.org/" rel="external">Scala</a>. How are the two languages related?</p>
 <p>
-Flix borrows a lot of syntax from Scala, hence the two languages have a similar feel. We think Scala made many good design choices with respect to syntax, including:<br/>&ensp;<b>(a)</b> the use of short keywords,<br/>&ensp;<b>(b)</b> the <code>x : T</code> syntax for type annotations,<br/>&ensp;<b>(c)</b> the <code>List[Int32]</code> syntax for type parameters, and<br/>&ensp;<b>(d)</b> <code>if</code>, <code>match</code>, etc. as expressions.
+Flix borrows a lot of syntax from <a href="https://www.scala-lang.org/" rel="external">Scala</a>, hence the two languages have a similar feel. We think Scala made many good design choices with respect to syntax, including:<br/>&ensp;<b>a)</b> the use of short keywords,<br/>&ensp;<b>b)</b> the <code>x : T</code> syntax for type annotations,<br/>&ensp;<b>c)</b> the <code>List[Int32]</code> syntax for type parameters, and<br/>&ensp;<b>d)</b> <code>if</code>, <code>match</code>, etc. as expressions.
 </p>
 Other than syntax, the two languages are very different:
 <ul>
 <li><a href="https://www.scala-lang.org/" rel="external">Scala</a> is object-oriented, <a href="https://flix.dev/" rel="external">Flix</a> is not.</li>
 <li>Scala has sub-typing, Flix does not.</li>
-<li>The Scala type system is unsound and has imperfect type inference, whereas the Flix type system is both sound and supports type inference.</li>
+<li>The Scala type system is unsound and has imperfect type inference, whereas the <a href="https://flix.dev/" rel="external">Flix</a> type system is both sound and supports type inference.</li>
 </ul>
 </blockquote>
 </dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;;min-width:120px;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="120" alt="Flix project"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">Source code of the <a href="https://flix.dev/" rel="external">Flix project</a> is hosted on <a href="https://github.com/flix/flix" rel="external">Github</a>.<br/>Continuous integration relies on Gradle and runs on <a href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources" rel="external"><code>ubuntu-latest</code></a>.
+  <td style="border:0;padding:0;vertical-align:text-top;">Source code of the <a href="https://flix.dev/" rel="external">Flix project</a> is hosted on <a href="https://github.com/flix/flix" rel="external">Github</a>.<br/>Continuous integration relies on <a href="https://gradle.org/" rel="external">Gradle</a> and runs on the runner image <a href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources" rel="external"><code>ubuntu-latest</code></a>.
   </td>
   </tr>
 </table>
@@ -25,6 +25,9 @@ Currently we can build/run/test the [Flix library][flix_releases] in three diffe
 </div>
 
 > **&#9755;** Unlike other [Flix contributors](https://flix.dev/contribute/) who work exclusively with [**`build.gradle`**](flix/build.gradle) we also run our own batch/bash scripts which give us more control over the build process i.e. when dealing with misbehaviors and potential bugs.
+<!--
+https://docs.gradle.org/current/userguide/scala_plugin.html
+-->
 
 ### <span id="batch">Batch file</span>
 
@@ -38,22 +41,22 @@ Create Java archive "build\libs\flix.jar"
 Update archive "build\libs\flix.jar" (Flix sources)
 Update archive "build\libs\flix.jar" ("C:\opt\scala-2.13.5\lib\scala-library.jar")
 Update archive "build\libs\flix.jar" ("C:\opt\scala-2.13.5\lib\scala-reflect.jar")
-Update archive "build\libs\flix.jar" ("lib\org.java_websocket-1.3.9.jar")
-Update archive "build\libs\flix.jar" ("lib\org.jline-3.5.1.jar")
-Update archive "build\libs\flix.jar" ("lib\org.json4s-ast-3.5.5.jar")
-Update archive "build\libs\flix.jar" ("lib\org.json4s-core-3.5.5.jar")
-Update archive "build\libs\flix.jar" ("lib\org.json4s-native-3.5.5.jar")
-Update archive "build\libs\flix.jar" ("lib\org.objectweb.asm-9.2.jar")
-Update archive "build\libs\flix.jar" ("lib\org.parboiled-2.2.1.jar")
-Update archive "build\libs\flix.jar" ("lib\org.scalactic-3.0.8.jar")
-Update archive "build\libs\flix.jar" ("lib\org.scalatest-3.0.8.jar")
-Update archive "build\libs\flix.jar" ("lib\scala.collection.parallel-0.2.0.jar")
-Update archive "build\libs\flix.jar" ("lib\scala.xml-1.2.0.jar")
-Update archive "build\libs\flix.jar" ("lib\scopt_2.13-4.0.1.jar")
-Update archive "build\libs\flix.jar" ("lib\shapeless-2.3.3.jar")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket/1.3.9" rel="external">org.java_websocket-1.3.9.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1" rel="external">org.jline-3.5.1.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.json4s/json4s-ast_2.13/3.5.5" rel="external">org.json4s-ast-3.5.5.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.5.5" rel="external">org.json4s-core-3.5.5.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.json4s/json4s-native_2.13/3.5.5" rel="external">org.json4s-native-3.5.5.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.2" rel="external">org.objectweb.asm-9.2.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.2.1" rel="external">org.parboiled-2.2.1.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8" rel="external">org.scalactic-3.0.8.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8" rel="external">org.scalatest-3.0.8.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">scala.collection.parallel-0.2.0.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-xml_2.13/1.2.0" rel="external">scala.xml-1.2.0.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1" rel="external">scopt_2.13-4.0.1.jar</a>")
+Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3" rel="external">shapeless-2.3.3.jar</a>")
 Add manifest to archive "build\libs\flix.jar"
 Execute program file "build\libs\flix.jar" with arguments --version
-The Flix Programming Language v0.33.0
+The Flix Programming Language v0.34.0
 </pre>
 
 ### <span id="gradle">Gradle</span>
@@ -86,7 +89,7 @@ BUILD SUCCESSFUL in 6m 44s
 4 actionable tasks: 2 executed, 2 up-to-date
 </pre>
 
-Command [**`gradle jar`**][gradle_cli] generates the [Flix] Java archive :
+Command [**`gradle jar`**][gradle_cli] <sup id="anchor_02">[2](#footnote_01)</sup> generates the [Flix] Java archive :
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> jar</b>
 
@@ -249,10 +252,31 @@ BUILD SUCCESSFUL in 6m 44s
 </pre>
 </dd></dl>
 
+<span id="footnote_02">[2]</span> ***Gradle `compileClasspath`*** [↩](#anchor_02)
+
+<dl><dd>
+We can add a <a href="https://docs.gradle.org/current/dsl/org.gradle.api.Task.html">Gradle task</a> "<code>debug</code>" to the file <a href="flix/build.gradle"><code>build.gradle</code></a> to display the compile classpath :
+<pre style="font-size:80%;">
+<span style="color:green;">// Adapted from
+// https://discuss.gradle.org/t/gradle-cannot-infer-scala-class-path-despite-the-scala-library-being-declared-as-a-compile-dependency/7388/5</span>
+<b>task debug</b> {
+    println configurations.compileClasspath.findAll { it.name.endsWith(".jar") }
+}
+</pre>
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> debug</b>
+&nbsp;
+> Configure project :
+[F:\flix\lib\org.java_websocket-1.3.9.jar, F:\flix\lib\org.jline-3.5.1.jar, F:\flix\lib\org.json4s-ast-3.5.5.jar, F:\flix\lib\org.json4s-core-3.5.5.jar, F:\flix\lib\org.json4s-native-3.5.5.jar, F:\flix\lib\org.objectweb.asm-9.2.jar, F:\flix\lib\org.parboiled-2.2.1.jar, F:\flix\lib\org.scalactic-3.0.8.jar, F:\flix\lib\org.scalatest-3.0.8.jar, F:\flix\lib\scala.collection.parallel-0.2.0.jar, F:\flix\lib\scala.xml-1.2.0.jar, F:\flix\lib\scopt_2.13-4.0.1.jar, F:\flix\lib\shapeless-2.3.3.jar, %USERPROFILE%\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-reflect\2.13.5\8dee4d8c5374920f2db2f5f55d9dd6ecd4194cc\scala-reflect-2.13.5.jar, %USERPROFILE%\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.13.5\d0df6e78b6ccb0102cb0395bfa8cb806e9e81b61\scala-library-2.13.5.jar]
+&nbsp;
+BUILD SUCCESSFUL in 2s
+</pre>
+</dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

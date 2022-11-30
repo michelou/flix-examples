@@ -19,7 +19,7 @@ def toString(l: List[a]): String with ToString[a] =
         //for (x <- List.iterator(r, l)) yield {
         //    StringBuilder.appendString!("${x} :: ", sb)
         //};
-        List.foreach(x -> StringBuilder.appendString!("${x} :: ", sb), l);
+        List.forEach(x -> StringBuilder.appendString!("${x} :: ", sb), l);
         StringBuilder.appendString!("Nil", sb);
         StringBuilder.toString(sb)
     }

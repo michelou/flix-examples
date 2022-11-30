@@ -21,6 +21,10 @@
 
 - [Flix for Java Programmers][blog_huehnken] by Lutz Hühnken, June 2022.
 
+## <span id="community">Community</span>
+
+- [Gitter - flix/Lobby](https://gitter.im/flix/Lobby).
+
 ## <span id="interviews">Interviews</span>
 
 - [Flix: Designing a principled programming language with Magnus Madsen][anchor_flix], February 2022.
@@ -33,7 +37,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

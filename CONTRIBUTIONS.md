@@ -90,8 +90,8 @@ This section presents some of our unpublished works to improve the [Flix] softwa
 
    | Scala&nbsp;Version | Build&nbsp;Times             | Average |
    |--------------------|------------------------------|---------|
-   | 2.13.5             | 1:52, 1:53, 1:56, 1:52, 1:55, 1:58 |   1:54  |
-   | 2.13.6             | 7:52, 7:40                   |   7:46  |
+   | 2.13.5 (*current*) | 1:52, 1:53, 1:56, 1:52, 1:55, 1:58, 1:55 |   1:54  |
+   | 2.13.6             | 7:52, 7:40, 7:53             |   7:46  |
    | 2.13.7             | 7:37, 6:52, 7:07             |   7:00  |
    | 2.13.8             | 7:49 | 7:49 |
    | 2.13.9             | 7:23 | 7:23 |
@@ -137,7 +137,7 @@ This section presents some of our unpublished works to improve the [Flix] softwa
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

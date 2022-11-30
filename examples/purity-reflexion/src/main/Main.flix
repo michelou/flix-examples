@@ -9,7 +9,7 @@ def inspect(f: a -> b & ef): Unit \ IO =
 
 def inc1(x: Int32): Int32 = x + 1
 def inc2(x: Int32): Int32 \ IO = println("Hello"); x + 1
-                       
+
 ///
 /// We can use purity information to safely switch between
 /// lazy (or parallel) evaluation. In this case, if f is 
