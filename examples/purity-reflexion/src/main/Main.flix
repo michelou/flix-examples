@@ -2,9 +2,10 @@
 /// We can inspect the purity of a function argument.
 /// 
 def inspect(f: a -> b & ef): Unit \ IO = 
-    reifyEff(f) {
-        case Pure(g) => println("f is pure")
-        case _       => println("f is not pure")
+    typematch f {
+        case _: a -> b \ {} => println("f is pure")
+        case _: a -> b \ ef => println("f is not pure")
+        case _: _           => unreachable!()
     }
 
 def inc1(x: Int32): Int32 = x + 1
@@ -16,9 +17,10 @@ def inc2(x: Int32): Int32 \ IO = println("Hello"); x + 1
 /// pure then perform the map operation lazily.
 ///
 def map(f: a -> b & ef, l: DelayList[a]): DelayList[b] & ef =
-    reifyEff(f) {
-        case Pure(g) => DelayList.map(g, l)
-        case _       => DelayList.map(f, l)
+    typematch f {
+        case g: a -> b \ {} => DelayList.map(g, l)
+        case _: a -> b \ ef => DelayList.map(f, l)
+        case _: _           => unreachable!()
     }
 
 def main(): Unit \ IO = 
