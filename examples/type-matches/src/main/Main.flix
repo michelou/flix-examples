@@ -21,6 +21,7 @@ def f(b0: Bottle[a]): Bool = typematch b0 {
     case _: _ =>
         false
 }
+
 def main(): Unit \ IO =
     f1(Leaf(1)) |> println; // true
     f1(Node(Leaf(1), Leaf(2))) |> println; // false
@@ -29,19 +30,6 @@ def main(): Unit \ IO =
     f(Bottle.Opened(1)) |> println;   // true
     f(Bottle.Opened(2)) |> println;   // false
     f(Bottle.Opened('a')) |> println  // false
-
-/*
-enum Weekday {
-    case Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
-}
-
-def f1(d0: Weekday): Bool = typematch d0 {
-    case d: Weekday =>
-        match d0 { case Weekday.Monday => true case _ => false }
-    case _: _ =>
-        false
-}
-*/
 
 /*
 def f(): Bool = typematch () {

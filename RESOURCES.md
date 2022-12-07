@@ -8,10 +8,11 @@
   </tr>
 </table>
 
-> **:mag_right:** Useful online resources for the [Flix] developer include :
+> **:mag_right:** The following online [Flix] resources are very useful and nicely laid out :
 > - [Flix API][flix_api]
 > - [Flix Compiler Tests][flix_compiler_tests]
 > - [Flix Documentation][flix_doc]
+> - [Flix Playground][flix_playground]
 
 <!--
 ## <span id="articles">Articles</span>
@@ -48,5 +49,6 @@
 [flix_api]: https://api.flix.dev/
 [flix_doc]: https://doc.flix.dev/
 [flix_compiler_tests]: https://github.com/flix/flix/blob/master/main/test/flix/README.md
+[flix_playground]: https://play.flix.dev/
 [infoq_flix]: https://www.infoq.com/news/2022/02/flix-programming-language/
 [vscode-flix]: https://github.com/flix/vscode-flix

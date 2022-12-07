@@ -35,7 +35,9 @@
 
 ## <span id="keywords">Keywords</span>
 
-GitHub: [`src\ca\uwaterloo\flix\language\phase\Weeder.scala`](https://github.com/flix/flix/blob/8adacde4dc23ab355850aeeb94f24c17eb30dd0a/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L42).
+The list of [Flix] keywords is available from several locations :
+- [Online Flix documentation](https://doc.flix.dev/identifiers.html?highlight=instance#reserved-identifiers)
+- GitHub: [`src\ca\uwaterloo\flix\language\phase\Weeder.scala`](https://github.com/flix/flix/blob/8adacde4dc23ab355850aeeb94f24c17eb30dd0a/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L42).
 
 Each keyword below points to a usage example from the [Flix] library :
 
@@ -111,46 +113,54 @@ Each keyword below points to a usage example from the [Flix] library :
 | [`without`]() | |
 | [`yield`]() | |
 
-## <span id="buildin_types">Built-in Types and Functions</span>
+## <span id="buildin_functions">Built-in Functions</span>
 
-The [Flix] built-in types and functions are defined in file [`Flix.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala) (value [`coreLibrary`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala#L71)) :
+The [Flix] built-in functions are defined in file [`Flix.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala) (value [`coreLibrary`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala#L71)) :
 
-| Type | Description |
-|:-----|:------------|
-| [`Bool`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix) | |
+| Namespace | Function(s) |
+|:----------|:------------|
+| [`Bool`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix) | [`∨`](https://) |
 | [`Boxable`](https://github.com/flix/flix/blob/master/main/src/library/Boxable.flix) | |
 | [`Boxed`](https://github.com/flix/flix/blob/master/main/src/library/Boxed.flix) | |
+| [`Channel`](https://github.com/flix/flix/blob/master/main/src/library/Channel.flix) | [`buffered`](https://github.com/flix/flix/blob/master/main/src/library/Channel.flix#L23), [`recv`](https://github.com/flix/flix/blob/master/main/src/library/Channel.flix#L37), [`send`](https://github.com/flix/flix/blob/master/main/src/library/Channel.flix#L44), [`timeout`](https://github.com/flix/flix/blob/master/main/src/library/Channel.flix#L60), [`unbuffered`](https://github.com/flix/flix/blob/master/main/src/library/Channel.flix#L30) |
+| [`Comparison`](https://github.com/flix/flix/blob/master/main/src/library/Comparison.flix) | |
+| [`Debug`](https://github.com/flix/flix/blob/master/main/src/library/Debug.flix) | |
+| [`Eq`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix) | |
+| [`Hash`](https://github.com/flix/flix/blob/master/main/src/library/Hash.flix) | |
+| [`Reflect`](https://github.com/flix/flix/blob/master/main/src/library/Reflect.flix) | [`default`](https://github.com/flix/flix/blob/master/main/src/library/Reflect.flix#L9) |
+| [`Sendable`](https://github.com/flix/flix/blob/master/main/src/library/Sendable.flix) | |
+| [`Order`](https://github.com/flix/flix/blob/master/main/src/library/Order.flix) | |
+| [`Thread`](https://github.com/flix/flix/blob/master/main/src/library/Thread.flix) | |
+| [`Time`](https://github.com/flix/flix/blob/master/main/src/library/Time.flix) | |
 | [`ToString`](https://github.com/flix/flix/blob/master/main/src/library/ToString.flix) | |
 
-## <span id="standard_types">Standard Types</span>
+## <span id="standard_functions">Standard Functions</span>
 
-The [Flix] standard types are defined in file [`Flix.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala) (value [`standardLibrary`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala#L120)) :
+The [Flix] standard functions are defined in file [`Flix.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala) (value [`standardLibrary`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala#L120)) :
 
-| Type | Description |
-|:-----|:------------|
-| [`Array`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix) | Array functions are [`head`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L212), [`isEmpty`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L99), [`last`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L221), [`toList`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L119), etc. |
-| [`BigInt`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix) | BigInt functions are [`fromString`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L97), [`min`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L22), [`toString`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L91), etc. |
-| [`Char`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix) | Char functions are [`isLetter`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix#L40), [`isLowerCase`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix#L86), etc. |
+| Namespace | Function(s) |
+|:----------|:------------|
+| [`Array`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix) | [`head`](https://github.com/flix/flix/blob/3993789c43308c892d8c6cf49c869901d7e1bb44/main/src/library/Array.flix#L205), [`isEmpty`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L99), [`last`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L221), [`toList`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L119), etc. |
+| [`Assert`](https://github.com/flix/flix/blob/master/main/src/library/Assert.flix) | [`eq`](https://github.com/flix/flix/blob/master/main/src/library/Assert.flix#L23) |
+| [`Benchmark`](https://github.com/flix/flix/blob/master/main/src/library/Benchmark.flix) | [`runAll`](https://), [`runBenchmark`](https://), [`runBenchmarkOnce`](https://), [`loop`](https://) |
+| [`Bigdecimal`](https:) | |
+| [`BigInt`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix) | [`fromString`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L97), [`min`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L22), [`toString`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L91), etc. |
+| [`Chain`](https://github.com/flix/flix/blob/master/main/src/library/Chain.flix) | |
+| [`Char`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix) |[`isLetter`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix#L40), [`isLowerCase`](https://github.com/flix/flix/blob/master/main/src/library/Char.flix#L86), etc. |
 | [`Choice`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L20) | Defines the enumeration values [`Absent`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L21) and [`Present`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L22). |
-| [`Eff`]() | |
+| [`Console`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix/) | [`readLine`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L33), [`print`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L61), [`printLine`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L77) |
+| [`Environment`](https://github.com/flix/flix/blob/master/main/src/library/Environment.flix) | [`getEnv`](https://github.com/flix/flix/blob/master/main/src/library/Environment.flix#L30), [`getProp`](https://github.com/flix/flix/blob/master/main/src/library/Environment.flix#L58), [`getVar`](https://github.com/flix/flix/blob/master/main/src/library/Environment.flix#L30) |
+| [`File`](https://github.com/flix/flix/blob/master/main/src/library/File.flix) | [`accessTime`](https://) |
 | [`Float32`](https://github.com/flix/flix/blob/master/main/src/library/Float32.flix) | |
 | [`Float64`](https://github.com/flix/flix/blob/master/main/src/library/Float64.flix) | 64-bit float |
 | [`Int8`](https://github.com/flix/flix/blob/master/main/src/library/Int8.flix) |  8-bit integer |
 | [`Int16`](https://github.com/flix/flix/blob/master/main/src/library/Int16.flix) | |
 | [`Int32`](https://github.com/flix/flix/blob/master/main/src/library/Int32.flix) | |
-| [`Int64`](https://github.com/flix/flix/blob/master/main/src/library/Int64.flix) | |
+| [`Int64`](https://github.com/flix/flix/blob/master/main/src/library/Int64.flix) | [`bitCount`](https://github.com/flix/flix/blob/master/main/src/library/Int64.flix#L105),  [`factorial`](https://github.com/flix/flix/blob/master/main/src/library/Int64.flix#L261), [`fromString`](https://github.com/flix/flix/blob/master/main/src/library/Int64.flix#L281), [`log2`](https://github.com/flix/flix/blob/master/main/src/library/Int64.flix#L250) |
 | [`Iterable`](https://github.com/flix/flix/blob/master/main/src/library/Iterable.flix) | [`enumerator`](https://github.com/flix/flix/blob/master/main/src/library/Iterable.flix#L30), [`iterator`](https://github.com/flix/flix/blob/master/main/src/library/Iterable.flix#L25) |
-| [`Iterator`](https://github.com/flix/flix/blob/master/main/src/library/Iterator.flix) | Iterator functions are [`next`](https://github.com/flix/flix/blob/master/main/src/library/Iterator.flix#L87), etc. |
-| [`Nil`]() | |
-| [`Predicate`]() | |
-| [`Pure`]() | |
-| [`Read`]() | |
-| [`RecordNow`]() | |
-| [`Region`]() | |
-| [`SchemaNow`]() | |
-| [`Static`]() | |
-| [`Type`]() | |
-| [`Write`]() | |
+| [`Iterator`](https://github.com/flix/flix/blob/master/main/src/library/Iterator.flix) | [`isEmpty`](https://), [`next`](https://github.com/flix/flix/blob/master/main/src/library/Iterator.flix#L87), [`range`](https://github.com/flix/flix/blob/master/main/src/library/Iterator.flix#L109), etc. |
+| [`List`](https://github.com/flix/flix/blob/master/main/src/library/List.flix) | [`head`](https://github.com/flix/flix/blob/master/main/src/library/List.flix#L138), [`isEmpty`](https://github.com/flix/flix/blob/master/main/src/library/List.flix#L138), [`toString`](https://github.com/flix/flix/blob/master/main/src/library/List.flix#L127) |
+| [`StringBuilder`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix) | [`append!`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L42), [`length`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L132), [`toString`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L140) |
 | [`Concurrent/Channel`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Channel.flix) | |
 | [`Concurrent/Condition`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Condition.flix) | Condition functions are [`await`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Condition.flix#L35), [`signal`](https://github.com/flix/flix/blob/master/main/src/library/Concurrent/Condition.flix#L75), etc. |
 
