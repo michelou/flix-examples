@@ -14,7 +14,7 @@
 > **Hint**: Read the document <a href="https://github.com/flix/flix/blob/master/docs/DIDYOUKNOW.md">"Did You Know?"</a> from the <a href="https://flix.dev/" rel="external">Flix</a> documentation to know more about the <a href="https://flix.dev/" rel="external">Flix</a> ecosystem.
 
 [Flix] language features can be split into two categories :
-- *features shared with other languages* : [ADTs] and pattern matching, extensible records, type classes, HKTs, type inference, channel and process-based concurrency (like Go).
+- *features shared with other languages* : [ADTs] and pattern matching, extensible records, type classes, HKTs, type inference, channel and process-based concurrency (like [Go][go_concurrency]).
 - *unique features* : polymorphic effect system, region-based local mutation, purity reflection and first-class Datalog constraints.
 
 ## <span id="annotations">Annotations</span>
@@ -271,3 +271,4 @@ Other than syntax, the two languages are very different:
 
 [adts]: https://wiki.haskell.org/Algebraic_data_type
 [flix]: https://flix.dev/
+[go_concurrency]: https://www.golang-book.com/books/intro/10
