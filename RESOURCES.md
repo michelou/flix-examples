@@ -31,6 +31,12 @@
 - [Flix: Designing a principled programming language with Magnus Madsen][anchor_flix], February 2022.
 - [Interview with Magnus Madsen about the Flix Programming Language][infoq_flix], February 2022.
 
+## <span id="papers">Papers</span>
+
+- [The Principles of the Flix Programming Language][paper_madsen_2020] (Proceedings) by Magnus Madsen, November 2022.
+- [Extending Parallel Datalog with Lattice](https://www.cse.psu.edu/~gxt29/papers/) (Master Thesis) by Qing Gong, May 2020.
+- [From Datalog to Flix][paper_madsen_2016] by Magnus Madsen and al., June 2016.
+
 ## <span id="tools">Tools</span>
 
 - [Flix for Visual Studio Code][vscode-flix].
@@ -51,4 +57,6 @@
 [flix_compiler_tests]: https://github.com/flix/flix/blob/master/main/test/flix/README.md
 [flix_playground]: https://play.flix.dev/
 [infoq_flix]: https://www.infoq.com/news/2022/02/flix-programming-language/
+[paper_madsen_2020]: https://dl.acm.org/doi/10.1145/3563835.3567661
+[paper_madsen_2016]: https://cs.au.dk/~magnusm/papers/pldi16/paper.pdf
 [vscode-flix]: https://github.com/flix/vscode-flix
