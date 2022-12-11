@@ -32,8 +32,10 @@
 - [Interview with Magnus Madsen about the Flix Programming Language][infoq_flix], February 2022.
 
 ## <span id="papers">Papers</span>
+<!-- https://www.accentletters.com/accent-a.html -->
 
 - [The Principles of the Flix Programming Language][paper_madsen_2020] (Proceedings) by Magnus Madsen, November 2022.
+- [Programming with First-Class Datalog Constraints](https://dl.acm.org/doi/10.1145/3428193) by Magnus Madsen and Ondřey Lhoták, November 2020.<br><span style="font-size:80%;">(<a href="https://www.youtube.com/watch?v=ikVZrivln8c" rel="external">Youtube video</a>)</span>
 - [Extending Parallel Datalog with Lattice](https://www.cse.psu.edu/~gxt29/papers/) (Master Thesis) by Qing Gong, May 2020.
 - [From Datalog to Flix][paper_madsen_2016] by Magnus Madsen and al., June 2016.
 
