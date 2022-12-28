@@ -35,7 +35,7 @@
 | [`@Test`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L215) | [`library/TestApplicative.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestApplicative.flix#L26)<br/>[`library/TestArray.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestArray.flix#L25) |
 | [`@Unsafe`](https://github.com/flix/flix/blob/master/main/src/library/Reflect.flix#L8) | [`library/Object.flix`](https://github.com/flix/flix/blob/master/main/src/library/Object.flix#L44),<br/>[`library/Reflect.flix`](https://github.com/flix/flix/blob/master/main/src/library/Reflect.flix#L8) |
 
-## <span id="keywords">Keywords</span>
+## <span id="keywords">Keywords</span> [**&#x25B4;**](#top)
 
 The list of [Flix] keywords is available from several locations :
 - [Online Flix documentation](https://doc.flix.dev/identifiers.html?highlight=instance#reserved-identifiers)
@@ -57,13 +57,13 @@ The list of [Flix] keywords is available from several locations :
 | `do` | | |
 | `eff` | | <span style="font-size:80%;">[`library/Prelude.flix`](https://github.com/flix/flix/blob/master/main/src/library/Prelude.flix#L19)</span> |
 | `else` | | |
-| `enum` | | |
+| `enum` | | <span style="font-size:80%;">[`library/Comparison.flix`](https://github.com/flix/flix/blob/master/main/src/library/Comparison.flix#L17)</span> |
 | `false` | | |
-| `fix` | | |
+| `fix` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L89)</span> |
 | `for` | | |
-| `forall` | | |
-| `force` | | |
-| `foreach` | | |
+| `forall` | Used together with `law` | <span style="font-size:80%;">[`library/Applicative.flix`](https://github.com/flix/flix/blob/master/main/src/library/Applicative.flix#L79)</span> |
+| `force` | | <span style="font-size:80%;">[`library/Bool.flix`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix#L60)</span> |
+| `foreach` | | <span style="font-size:80%;">[`library/List.flix`](https://github.com/flix/flix/blob/master/main/src/library/List.flix#L129)</span> |
 | `from` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L33)</span>|
 | `get` | | |
 | `if` | | |
@@ -72,14 +72,14 @@ The list of [Flix] keywords is available from several locations :
 | `instance` | | <span style="font-size:80%;">[`library/Add.flix`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L20)</span> |
 | `into` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22)</span> |
 | `lat` | | |
-| `law` | | |
-| `lawful` | | |
+| `law` | | <span style="font-size:80%;">[`library/Applicative.flix`](https://github.com/flix/flix/blob/master/main/src/library/Applicative.flix#L79)</span> |
+| `lawful` | Class modifier | <span style="font-size:80%;">[`library/Applcative.flix`](https://github.com/flix/flix/blob/master/main/src/library/Applicative.flix#L37)</span> |
 | `lazy` | [Lazy evaluation of an expression](https://doc.flix.dev/laziness.html?highlight=lazy#laziness) | <span style="font-size:80%;">[`library/DelayList.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L430)</span> |
 | `let` | | |
-| `match` | | |
+| `match` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L326)</span> |
 | `namespace` | | <span style="font-size:80%;">[`library/Applicative.flix`](https://github.com/flix/flix/blob/master/main/src/library/Applicative.flix#L125)</span> |
 | `new` | | |
-| `not` | | |
+| `not` | | <span style="font-size:80%;">[`library/Bool.flix`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix#L40)</span> |
 | `null` | | |
 | `opaque` | | <span style="font-size:80%;">[`Tuple/Tuple.flix`](https://github.com/flix/flix/blob/master/main/src/library/Fixpoint/Tuple/Tuple.flix#L22)</span> |
 | `or` | | |
@@ -96,7 +96,7 @@ The list of [Flix] keywords is available from several locations :
 | `rel` | | |
 | `resume` | | |
 | `sealed` | | |
-| `select` | | |
+| `select` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L32)</span> |
 | `set` | | |
 | `solve` | | |
 | `spawn` | | <span style="font-size:80%;">[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L469)</span> |
@@ -104,12 +104,23 @@ The list of [Flix] keywords is available from several locations :
 | `true` | | |
 | `try` | | |
 | `type` | | |
+| `typematch` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L1633)</span> |
 | `upcast` | | <span style="font-size:80%;">[`library/Prelude.flix`](https://github.com/flix/flix/blob/master/main/src/library/Prelude.flix#L298)</span> |
 | `use` | | |
-| `where` | | |
+| `where` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L144)</span> |
 | `with` | | |
 | `without` | | |
-| `yield` | | |
+| `yield` | | <span style="font-size:80%;">[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L469)</span> |
+
+## <span id="intrinsic_functions">Intrinsic Functions</span>
+
+Intrinsic functions can appear in [Flix] source code and are translated directly to the underlying JVM operations.
+
+| Intrinsic function | Usage example |
+|:-------------------|:--------------|
+| [`BOOL_EQ`](https://github.com/michelou/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L504) | [`library/Eq.flix`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L60) |
+| [`BOOL_NEQ`](https://github.com/michelou/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L505) | [`library/Eq.flix`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L61) |
+| ... | ... |
 
 ## <span id="buildin_functions">Built-in Functions</span>
 
@@ -132,7 +143,7 @@ The [Flix] built-in functions are defined in file [`Flix.scala`](https://github.
 | [`Time`](https://github.com/flix/flix/blob/master/main/src/library/Time.flix) | |
 | [`ToString`](https://github.com/flix/flix/blob/master/main/src/library/ToString.flix) | |
 
-## <span id="standard_functions">Standard Functions</span>
+## <span id="standard_functions">Standard Functions</span> [**&#x25B4;**](#top)
 
 The [Flix] standard functions are defined in file [`Flix.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala) (value [`standardLibrary`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Flix.scala#L120)) :
 

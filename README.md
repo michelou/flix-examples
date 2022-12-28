@@ -40,7 +40,7 @@ C:\opt\Git-2.38.1\              <i>(317 MB)</i>
 C:\opt\gradle-7.6\              <i>(129 MB)</i>
 C:\opt\jdk-temurin-11.0.17_8\   <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
-C:\opt\mdBook-0.4.22\           <i>(  9 MB)</i>
+C:\opt\mdBook-0.4.25\           <i>(  9 MB)</i>
 C:\opt\scala-2.13.10\           <i>( 24 MB)</i>
 </pre>
 
@@ -156,7 +156,7 @@ Download file "flix-2022-10-31.jar" to directory "C:\opt\flix-0.34.0"
 
 Tool versions:
    java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.34.0
-   git 2.38.1.windows.1, diff 3.8, gradle 7.6, make 3.8.1, mdbook v0.4.22
+   git 2.38.1.windows.1, diff 3.8, gradle 7.6, make 3.8.1, mdbook v0.4.25
 Tool paths:
    C:\opt\jdk-temurin-11.0.17_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.17_8\bin\javac.exe
@@ -166,14 +166,14 @@ Tool paths:
    C:\opt\Git-2.38.1\usr\bin\diff.exe
    C:\opt\gradle-7.6\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\mdBook-0.4.22\mdbook.exe
+   C:\opt\mdBook-0.4.25\mdbook.exe
 Environment variables:
    "FLIX_HOME=C:\opt\flix-0.34.0"
    "GIT_HOME=C:\opt\Git-2.38.1"
    "GRADLE_HOME=C:\opt\gradle-7.6"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
    "MAKE_HOME=C:\opt\make-3.8.1"
-   "MDBOOK_HOME=C:\opt\mdBook-0.4.22"
+   "MDBOOK_HOME=C:\opt\mdBook-0.4.25"
    "SCALA_HOME=C:\opt\scala-2.13.10"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
@@ -213,7 +213,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://flix.dev/nightly/" rel="external">flix-2022-11-30.jar</a>                                <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.6-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
-<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.22-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.25-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>   <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>

@@ -37,6 +37,7 @@
 - [The Principles of the Flix Programming Language][paper_madsen_2020] (Proceedings) by Magnus Madsen, November 2022.
 - [Programming with First-Class Datalog Constraints](https://dl.acm.org/doi/10.1145/3428193) by Magnus Madsen and Ondřey Lhoták, November 2020.<br><span style="font-size:80%;">(<a href="https://www.youtube.com/watch?v=ikVZrivln8c" rel="external">Youtube video</a>)</span>
 - [Extending Parallel Datalog with Lattice](https://www.cse.psu.edu/~gxt29/papers/) (Master Thesis) by Qing Gong, May 2020.
+- [Tail call elimination and data representation for functional languages on the Java virtual machine][paper_madsen_2018] by Magnus Madsen and al., February 2018.
 - [From Datalog to Flix][paper_madsen_2016] by Magnus Madsen and al., June 2016.
 
 ## <span id="tools">Tools</span>
@@ -60,5 +61,6 @@
 [flix_playground]: https://play.flix.dev/
 [infoq_flix]: https://www.infoq.com/news/2022/02/flix-programming-language/
 [paper_madsen_2020]: https://dl.acm.org/doi/10.1145/3563835.3567661
+[paper_madsen_2018]: https://dl.acm.org/doi/10.1145/3178372.3179499
 [paper_madsen_2016]: https://cs.au.dk/~magnusm/papers/pldi16/paper.pdf
 [vscode-flix]: https://github.com/flix/vscode-flix

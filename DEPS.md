@@ -156,7 +156,7 @@ The [Flix] 0.3 software distributions depend on the following external libraries
 </tr>
 </table>
 
-## <span id="flix02_releases">Dependencies in Flix 0.2 Releases</span>
+## <span id="flix02_releases">Dependencies in Flix 0.2 Releases</span> [**&#x25B4;**](#top)
 
 The [Flix] 0.2 software distributions depend on the following external libraries.
 
