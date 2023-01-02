@@ -42,14 +42,13 @@ GRADLE_HOME=/opt/gradle-7.6
 > 2.4G    /opt/archives
 > 2.2M    /opt/cfr-0.151
 > 36M     /opt/flix-0.34.0
-> 51M     /opt/git-2.38.1
+> 51M     /opt/git-2.39.0
 > 129M    /opt/gradle-7.6
-> 308M    /opt/jdk-11.0.11+9
-> 103M    /opt/ktlint-0.41
-> 61M     /opt/mill-0.9.8
-> 81M     /opt/sbt-1.7.3
+> 308M    /opt/jdk-11.0.17+8
+> 61M     /opt/mill-0.10.10
+> 81M     /opt/sbt-1.8.0
 > 25M     /opt/scala-2.13.10
-> 36M     /opt/scala3-3.2.1
+> 36M     /opt/scala3-3.2.2-RC2
 > 15M     /opt/wabt-1.0.23
 > </pre>
 
@@ -182,7 +181,7 @@ done.ing certificates in /etc/ssl/certs.../cloud/cloud.cfg ...
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

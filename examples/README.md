@@ -131,11 +131,11 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 > 1. Command [**`make.exe`**][make_cli] reads its configuration from the two configuration files [**`Makefile`**](./areas/Makefile) and [**`Makefile.inc`**](./Makefile.inc) (we can use option **`--silent`** to hide the executed commands):
 >    <pre style="font-size:80%;">
 >     <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
->    [ -d "target/areas" ] || "C:/opt/Git-2.38.1/usr/bin/mkdir.exe" -p "target/areas"
+>    [ -d "target/areas" ] || "C:/opt/Git-2.39.0/usr/bin/mkdir.exe" -p "target/areas"
 >    cd "target/areas"; \
 >         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.17_8/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix.jar" init && \
->         "C:/opt/Git-2.38.1/usr/bin/rm.exe" -f "src/Main.flix" && \
->         "C:/opt/Git-2.38.1/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+>         "C:/opt/Git-2.39.0/usr/bin/rm.exe" -f "src/Main.flix" && \
+>         "C:/opt/Git-2.39.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
 >         "C:/opt/jdk-temurin-11.0.17_8/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix.jar" build && \
 >         "C:/opt/jdk-temurin-11.0.17_8/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix.jar" build-jar
 >    "C:/opt/jdk-temurin-11.0.17_8/bin/java.exe"  -jar "target/areas/areas.jar"
@@ -376,7 +376,7 @@ Command [`gradle.bat run`][gradle_cli] ([`build.gradle`](./named-arguments/build
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html">gradle</a> -Dnightly clean run</b>
 &nbsp;
 &gt; Configure project :
-Nightly build 'flix-2022-11-30.jar' was selected
+Nightly build 'flix-2023-01-01.jar' was selected
 &nbsp;
 &gt; Task :compileFlix
 &nbsp;
@@ -541,7 +541,7 @@ We can select the latest nightly build of the <a href="https://flix.dev/" rel="e
 Here is how it works with the <code>areas</code> example :
 <pre style="font-size:80%;">
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose -nightly clean run</b>
-Nightly build "flix-2022-10-29.jar" was selected
+Nightly build "flix-2023-01-01.jar" was selected
 Delete directory "target"
 Initialize Flix project directory "target\areas"
 Copy 1 Flix source file to directory "target\areas\src\"
@@ -554,11 +554,11 @@ Execute Flix program "target\areas\areas.jar"
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> NIGHTLY=1 run</b>
-[ -d "target/areas" ] || "C:/opt/Git-2.38.1/usr/bin/mkdir.exe" -p "target/areas"
+[ -d "target/areas" ] || "C:/opt/Git-2.39.0/usr/bin/mkdir.exe" -p "target/areas"
 cd "target/areas"; \
         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.17_8/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2022-10-29.jar" init && \
-        "C:/opt/Git-2.38.1/usr/bin/rm.exe" -f "src/Main.flix" && \
-        "C:/opt/Git-2.38.1/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+        "C:/opt/Git-2.39.0/usr/bin/rm.exe" -f "src/Main.flix" && \
+        "C:/opt/Git-2.39.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
         "C:/opt/jdk-temurin-11.0.17_8/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2022-10-12.jar" build && \
         "C:/opt/jdk-temurin-11.0.17_8/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2022-10-12.jar" build-jar
 "C:/opt/jdk-temurin-11.0.17_8/bin/java.exe"  -jar "target/areas/areas.jar"
@@ -585,7 +585,7 @@ BUILD SUCCESSFUL in 15s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

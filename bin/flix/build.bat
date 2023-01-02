@@ -188,7 +188,7 @@ echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%        delete generated files
 echo     %__BEG_O%compile%__END%      compile Java/Scala source files
 echo     %__BEG_O%help%__END%         display this help message
-echo     %__BEG_O%jar%__END%          create JAR archive "!_JAR_FILE=%_ROOT_DIR%=!"
+echo     %__BEG_O%jar%__END%          create JAR archive "!_JAR_FILE:%_ROOT_DIR%=!"
 echo     %__BEG_O%run%__END%          execute main class "%__BEG_N%%_MAIN_CLASS%%__END%"
 echo     %__BEG_O%test%__END%         execut unit tests with Scalatest
 goto :eof

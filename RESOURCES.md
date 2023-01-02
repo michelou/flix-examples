@@ -38,6 +38,8 @@
 - [Programming with First-Class Datalog Constraints](https://dl.acm.org/doi/10.1145/3428193) by Magnus Madsen and Ondřey Lhoták, November 2020.<br><span style="font-size:80%;">(<a href="https://www.youtube.com/watch?v=ikVZrivln8c" rel="external">Youtube video</a>)</span>
 - [Extending Parallel Datalog with Lattice](https://www.cse.psu.edu/~gxt29/papers/) (Master Thesis) by Qing Gong, May 2020.
 - [Tail call elimination and data representation for functional languages on the Java virtual machine][paper_madsen_2018] by Magnus Madsen and al., February 2018.
+  > **Note:** Compiler internals:
+  > - Tail recursive call vs self recursive call : [`phase/Tailrec.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Tailrec.scala#L91)
 - [From Datalog to Flix][paper_madsen_2016] by Magnus Madsen and al., June 2016.
 
 ## <span id="tools">Tools</span>

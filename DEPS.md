@@ -139,7 +139,7 @@ The [Flix] 0.3 software distributions depend on the following external libraries
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt"><code>scopt</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.1.0"><b>4.1.0</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.github.scopt/scopt_2.13/4.0.1">4.0.1</a><br/>&nbsp;</td>
@@ -314,7 +314,7 @@ The [Flix] 0.2 software distributions depend on the following external libraries
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
