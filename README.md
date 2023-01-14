@@ -17,8 +17,9 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
+- [Apache Maven 3.8][apache_maven] ([requires Java 7 or newer][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Flix 0.34][flix_downloads] ([*release notes*][flix_relnotes])
-- [Git 2.38][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.39][git_downloads] ([*release notes*][git_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 
 Optionally one may also install the following software:
@@ -35,8 +36,9 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*January 2023*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
+C:\opt\apache-maven-3.8.7\      <i>( 10 MB)</i>
 C:\opt\flix-0.34.0\             <i>( 35 MB)</i>
-C:\opt\Git-2.38.1\              <i>(317 MB)</i>
+C:\opt\Git-2.39.0\              <i>(317 MB)</i>
 C:\opt\gradle-7.6\              <i>(129 MB)</i>
 C:\opt\jdk-temurin-11.0.17_8\   <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
@@ -130,17 +132,18 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.34.0
-   git 2.38.1.windows.1, diff 3.8, gradle 7.6, make 3.8.1
+   java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.34.0,
+   gradle 7.6, make 3.81, mdbook v0.4.25, mvn 3.8.7,
+   git 2.39.0.windows.1, diff 3.8
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
-C:\opt\Git-2.38.1\bin\git.exe
-C:\opt\Git-2.38.1\mingw64\bin\git.exe
+C:\opt\Git-2.39.0\bin\git.exe
+C:\opt\Git-2.39.0\mingw64\bin\git.exe
 C:\opt\gradle-7.6\bin\gradle
 C:\opt\gradle-7.6\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
-C:\opt\Git-2.38.1\bin\sh.exe
-C:\opt\Git-2.38.1\usr\bin\sh.exe
+C:\opt\Git-2.39.0\bin\sh.exe
+C:\opt\Git-2.39.0\usr\bin\sh.exe
 </pre>
 
 Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays additional information:
@@ -155,24 +158,27 @@ Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
 Download file "flix-2022-10-31.jar" to directory "C:\opt\flix-0.34.0"
 
 Tool versions:
-   java 11.0.16, javac 11.0.16, scalac 2.13.10, flix v0.34.0
-   git 2.38.1.windows.1, diff 3.8, gradle 7.6, make 3.8.1, mdbook v0.4.25
+   java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.34.0,
+   gradle 7.6, make 3.81, mdbook v0.4.25, mvn 3.8.7,
+   git 2.39.0.windows.1, diff 3.8
 Tool paths:
    C:\opt\jdk-temurin-11.0.17_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.17_8\bin\javac.exe
    C:\opt\scala-2.13.10\bin\scalac.bat
-   C:\opt\Git-2.38.1\bin\git.exe
-   C:\opt\Git-2.38.1\mingw64\bin\git.exe
-   C:\opt\Git-2.38.1\usr\bin\diff.exe
    C:\opt\gradle-7.6\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook-0.4.25\mdbook.exe
+   C:\opt\apache-maven-3.8.7\bin\mvn.cmd
+   C:\opt\Git-2.39.0\bin\git.exe
+   C:\opt\Git-2.39.0\usr\bin\diff.exe
 Environment variables:
+   "ANT_HOME=C:\opt\apache-ant-1.10.12"
    "FLIX_HOME=C:\opt\flix-0.34.0"
-   "GIT_HOME=C:\opt\Git-2.38.1"
+   "GIT_HOME=C:\opt\Git-2.39.0"
    "GRADLE_HOME=C:\opt\gradle-7.6"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
-   "MAKE_HOME=C:\opt\make-3.8.1"
+   "MAKE_HOME=C:\opt\make-3.81"
+   "MAVEN_HOME=C:\opt\apache-maven-3.8.7"
    "MDBOOK_HOME=C:\opt\mdBook-0.4.25"
    "SCALA_HOME=C:\opt\scala-2.13.10"
 Path associations:
@@ -186,11 +192,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on November 25th 2022 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on January 14th 2023 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.34.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\OPT\FLIX-0.34.0
-    flix-2022-11-24.jar
+    flix-2023-01-13.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -209,13 +215,14 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.8.7-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 35 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2022-11-30.jar</a>                                <i>( 35 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2023-01-13.jar</a>                                <i>( 35 MB)</i>
 <a href="https://gradle.org/install/">gradle-7.6-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.25-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>   <i>(188 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.38.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.39.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
 </pre>
 </dd></dl>
@@ -229,6 +236,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
+[apache_maven]: https://maven.apache.org/download.cgi
+[apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
+[apache_maven_history]: https://maven.apache.org/docs/history.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.8.7/release-notes.html
 [bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [deno_examples]: https://github.com/michelou/deno-examples
@@ -236,7 +247,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.38.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/

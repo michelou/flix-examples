@@ -261,11 +261,15 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile_scala
+@rem needed since version 0.35
+call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
 set __CPATH=
 for /f "delims=" %%f in ('dir /b "%_ROOT_DIR%lib\*.jar" 2^>NUL') do (
     set "__CPATH=!__CPATH!%_ROOT_DIR%lib\%%f;"
 )
-set "__CPATH=%__CPATH%%_CLASSES_DIR%"
+set "__CPATH=%_LIBS_CPATH%%__CPATH%%_CLASSES_DIR%"
 
 set "__OPTS_FILE=%_BUILD_DIR%\scalac_opts.txt"
 echo %_SCALAC_OPTS% -classpath "%__CPATH:\=\\%" -d "%_CLASSES_DIR:\=\\%" > "%__OPTS_FILE%"
@@ -349,6 +353,20 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
+@rem output parameter: _LIBS_CPATH
+:libs_cpath
+@rem for %%f in ("%~dp0\.") do set "__BATCH_FILE=%%~dpfcpath.bat"
+set "__BATCH_FILE=%_ROOT_DIR%cpath.bat"
+if not exist "%__BATCH_FILE%" (
+    echo %_ERROR_LABEL% Batch file "%__BATCH_FILE%" not found 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%__BATCH_FILE%" %_DEBUG% 1>&2
+call "%__BATCH_FILE%" %_DEBUG%
+set "_LIBS_CPATH=%_CPATH%"
+goto :eof
+
 :jar
 if not exist "%_BUILD_DIR%\libs" mkdir "%_BUILD_DIR%\libs"
 if not exist "%_BUILD_DIR%\tmp" mkdir "%_BUILD_DIR%\tmp"
@@ -384,15 +402,16 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
-@rem we include the Scala library into the Flix jar file
-for %%i in (scala-library scala-reflect) do (
-    call :include_jar "%_JAR_FILE%" "%SCALA_HOME%\lib\%%i.jar"
+call :libs_cpath
+if not %_EXITCODE%==0 goto :eof
+
+set "__CPATH=%_LIBS_CPATH%"
+:loop_cpath
+for /f "delims=; tokens=1,*" %%f in ("%__CPATH%") do (
+    call :include_jar "%_JAR_FILE%" "%%f"
     if not !_EXITCODE!==0 goto :eof
-)
-@rem we include the library dependencies into the Flix jar file
-for /f "delims=" %%f in ('dir /b "%_ROOT_DIR%lib\*.jar" 2^>NUL') do (
-    call :include_jar "%_JAR_FILE%" "%_ROOT_DIR%lib\%%f"
-    if not !_EXITCODE!==0 goto :eof
+    set "__CPATH=%%g"
+    goto loop_cpath
 )
 set "__MANIFEST_FILE=%_MAIN_SOURCE_DIR%\META-INF\MANIFEST.MF"
 if not exist "%__MANIFEST_FILE%" (
@@ -425,17 +444,17 @@ if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_JAR_CMD%" xf "%__SOURCE_JAR_FILE%" 1>&2
 "%_JAR_CMD%" xf "%__SOURCE_JAR_FILE%"
 if not !ERRORLEVEL!==0 (
     popd
-    echo %_ERROR_LABEL% Failed to extract archive "!__SOURCE_JAR_FILE:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to extract archive "!__SOURCE_JAR_FILE:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
 popd
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAR_CMD%" uf "%__TARGET_JAR_FILE%" -C "%__OUTPUT_DIR%" . 1>&2
-) else if %_VERBOSE%==1 ( echo Update Java archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%_ROOT_DIR%=!"^) 1>&2
+) else if %_VERBOSE%==1 ( echo Update Java archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%USERPROFILE%=%%USERPROFILE%%!"^) 1>&2
 )
 "%_JAR_CMD%" uf "%__TARGET_JAR_FILE%" -C "%__OUTPUT_DIR%" .
 if not %ERRORLEVEL%==0 (
-    echo Failed to update Java archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%_ROOT_DIR%=!"^) 1>&2
+    echo Failed to update Java archive "!__TARGET_JAR_FILE:%_ROOT_DIR%=!" ^("!__SOURCE_JAR_FILE:%USERPROFILE%=%%USERPROFILE%%!"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )

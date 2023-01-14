@@ -27,6 +27,7 @@ set _ANT_PATH=
 set _GIT_PATH=
 set _GRADLE_PATH=
 set _MAKE_PATH=
+set _MAVEN_PATH=
 set _MDBOOK_PATH=
 
 call :ant
@@ -53,6 +54,9 @@ call :gradle
 if not %_EXITCODE%==0 goto end
 
 call :make
+if not %_EXITCODE%==0 goto end
+
+call :maven
 if not %_EXITCODE%==0 goto end
 
 call :mdbook
@@ -493,6 +497,39 @@ if not exist "%_MAKE_HOME%\bin\make.exe" (
 set "_MAKE_PATH=;%_MAKE_HOME%\bin"
 goto :eof
 
+@rem output parameters: _MAVEN_HOME, _MAVEN_PATH
+:maven
+set _MAVEN_HOME=
+set _MAVEN_PATH=
+
+set __MVN_CMD=
+for /f %%f in ('where mvn.cmd 2^>NUL') do (
+    set "__MVN_CMD=%%f"
+    @rem we ignore Scoop managed Maven installation
+    if not "!__MVN_CMD:scoop=!"=="!__MVN_CMD!" set __MVN_CMD=
+)
+if defined __MVN_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Maven executable found in PATH 1>&2
+    for %%i in ("%__MVN_CMD%") do set "__MAVEN_BIN_DIR=%%~dpi"
+    for %%f in ("!__MAVEN_BIN_DIR!\.") do set "_MAVEN_HOME=%%~dpf"
+) else if defined MAVEN_HOME (
+    set "_MAVEN_HOME=%MAVEN_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAVEN_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!_PATH!\%%f"
+    if defined _MAVEN_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Maven installation directory !_MAVEN_HOME! 1>&2
+    )
+)
+if not exist "%_MAVEN_HOME%\bin\mvn.cmd" (
+    echo %_ERROR_LABEL% Maven executable not found ^(%_MAVEN_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set "_MAVEN_PATH=;%_MAVEN_HOME%\bin"
+goto :eof
+
 @rem output parameters: _MDBOOK_HOME, _MDBOOK_PATH
 :mdbook
 set _MDBOOK_HOME=
@@ -555,6 +592,7 @@ goto :eof
 set __VERBOSE=%1
 set "__VERSIONS_LINE1=  "
 set "__VERSIONS_LINE2=  "
+set "__VERSIONS_LINE3=  "
 set __WHERE_ARGS=
 where /q "%JAVA_HOME%\bin:java.exe"
 if %ERRORLEVEL%==0 (
@@ -573,21 +611,11 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%FLIX_HOME%:flix.jar"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1-4,*" %%i in ('call "%JAVA_HOME%\bin\java.exe" -jar "%FLIX_HOME%\flix.jar" --version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% flix %%m"
-)
-where /q "%GIT_HOME%\bin:git.exe"
-if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% git %%k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
-)
-where /q diff.exe
-if %ERRORLEVEL%==0 (
-   for /f "tokens=1-3,*" %%i in ('diff.exe --version ^| findstr /B diff') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% diff %%l,"
-    set __WHERE_ARGS=%__WHERE_ARGS% diff.exe
+    for /f "tokens=1-4,*" %%i in ('call "%JAVA_HOME%\bin\java.exe" -jar "%FLIX_HOME%\flix.jar" --version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% flix %%m,"
 )
 where /q "%GRADLE_HOME%\bin:gradle.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('"%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j"
+    for /f "tokens=1,*" %%i in ('"%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GRADLE_HOME%\bin:gradle.bat"
 )
 where /q "%MAKE_HOME%\bin:make.exe"
@@ -597,12 +625,28 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%MDBOOK_HOME%:mdbook.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('"%MDBOOK_HOME%\mdbook.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mdbook %%j"
+    for /f "tokens=1,*" %%i in ('"%MDBOOK_HOME%\mdbook.exe" --version') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mdbook %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%MDBOOK_HOME%:mdbook.exe"
+)
+where /q "%MAVEN_HOME%\bin:mvn.cmd"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,3,*" %%i in ('"%MAVEN_HOME%\bin\mvn.cmd" -version ^| findstr Apache') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% mvn %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MAVEN_HOME%\bin:mvn.cmd"
+)
+where /q "%GIT_HOME%\bin:git.exe"
+if %ERRORLEVEL%==0 (
+    for /f "tokens=1,2,*" %%i in ('"%GIT_HOME%\bin\git.exe" --version') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% git %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\bin:git.exe"
+)
+where /q "%GIT_HOME%\usr\bin:diff.exe"
+if %ERRORLEVEL%==0 (
+   for /f "tokens=1-3,*" %%i in ('"%GIT_HOME%\usr\bin\diff.exe" --version ^| findstr /B diff') do set "__VERSIONS_LINE3=%__VERSIONS_LINE3% diff %%l"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%GIT_HOME%\usr\bin:diff.exe"
 )
 echo Tool versions:
 echo %__VERSIONS_LINE1%
 echo %__VERSIONS_LINE2%
+echo %__VERSIONS_LINE3%
 if %__VERBOSE%==1 if defined __WHERE_ARGS (
     @rem if %_DEBUG%==1 echo %_DEBUG_LABEL% where %__WHERE_ARGS%
     echo Tool paths: 1>&2
@@ -614,6 +658,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
     if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
+    if defined MAVEN_HOME echo    "MAVEN_HOME=%MAVEN_HOME%" 1>&2
     if defined MDBOOK_HOME echo    "MDBOOK_HOME=%MDBOOK_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo Path associations: 1>&2
@@ -633,11 +678,12 @@ endlocal & (
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
         if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
+        if not defined MAVEN_HOME set "MAVEN_HOME=%_MAVEN_HOME%"
         if not defined MDBOOK_HOME set "MDBOOK_HOME=%_MDBOOK_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_GRADLE_PATH%%_MAKE_PATH%%_MDBOOK_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_GRADLE_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MDBOOK_PATH%%_GIT_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%:" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME%: 1>&2
