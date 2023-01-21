@@ -31,7 +31,7 @@ Currently we provide four ways to build, run and test the [Flix] code examples :
 <sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
 </div>
 
-## <span id="channels">Example `channels`</span>
+## <span id="channels">`channels` Example</span>
 
 Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\channels.flix`](./channels/src/main/channels.flix) and executes the target file :
 
@@ -92,7 +92,7 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 6,9ms.
 > License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
 > </pre>
 
-## <span id="datalog">Example `datalog`</span> [**&#x25B4;**](#top)
+## <span id="datalog">`datalog` Example</span> [**&#x25B4;**](#top)
 
 Command [**`make run`**][make_cli] ([`Makefile`](./datalog/Makefile)/[`Makefile.inc`](./Makefile.inc)) generates the target file `target\datalog\datalog.jar` from the [Flix] source file [`src\main\datalog.flix`](./datalog/src/main/datalog.flix) and executes the target file :
 
@@ -111,7 +111,7 @@ Ancestors of Apollo = Kronos :: Leto :: Rhea :: Zeus :: Nil
 0
 </pre>
 
-## <span id="effects">Example `effects`</span>
+## <span id="effects">`effects` Example</span>
 
 Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./effects/build.gradle)/ [`common.gradle`](./common.gradle)) generates the target file `target\effects\effects.jar` from the [Flix] source file [`src\main\effects.flix`](./effects/src/main/effects.flix) and executes the target file :
 
@@ -131,7 +131,7 @@ Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./effects/build.grad
 0
 </pre>
 
-## <span id="interop">Example `interop`</span> [**&#x25B4;**](#top)
+## <span id="interop">`interop` Example</span> [**&#x25B4;**](#top)
 
 Command [**`build run`**](./interop/build.bat) generates the target file `target\interop\interop.jar` from the [Flix] source file [`src\main\interop.flix`](./interop/src/main/interop.flix) and executes the target file :
 
@@ -141,7 +141,7 @@ false
 0
 </pre>
 
-## <span id="mutualrecursion">Example `mutualrecursion`</span>
+## <span id="mutualrecursion">`mutualrecursion` Example</span>
 
 Command [**`make -s run`**][make_cli] ([`Makefile`](./mutualrecursion/Makefile)/[`Makefile.inc`](./Makefile.inc)) generates the target file `target\mutualrecursion\mutualrecursion.jar` from the [Flix] source file [`src\main\mutualrecursion.flix`](./mutualrecursion/src/main/mutualrecursion.flix) and executes the target file :
 
@@ -159,7 +159,7 @@ true
 > true
 > </pre>
 
-## <span id="random">Example `random`</span> [**&#x25B4;**](#top)
+## <span id="random">`random` Example</span> [**&#x25B4;**](#top)
 
 Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./random/build.gradle)/[`common.gradle`](./common.gradle)) generates the target file `target\random\random.jar` from the [Flix] source file [`src\main\random.flix`](./random/src/main/random.flix) and executes the target file :
 
@@ -173,7 +173,7 @@ Command [**`gradle -q run`**][gradle_cli] ([`build.gradle`](./random/build.gradl
 0
 </pre>
 
-## <span id="tailcalls">Example `tailcalls`</span> 
+## <span id="tailcalls">`tailcalls` Example</span> 
 
 Command [**`build run`**](./tailcalls/build.bat) generates the target file `target\tailcalls\tailcalls.jar` from the [Flix] source file [`src\main\tailcalls.flix`](./tailcalls/src/main/tailcalls.flix) and executes the target file :
 
@@ -222,7 +222,7 @@ Here are our modifications of the original <a href="https://flix.dev/">Flix</a> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/December 2022* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

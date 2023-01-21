@@ -11,7 +11,7 @@
 
 > **&#9755;** Read the document <a href="https://github.com/flix/flix/blob/master/docs/DIDYOUKNOW.md">"Did You Know?"</a> from the <a href="https://flix.dev/" rel="external">Flix</a> documentation to know more about the <a href="https://flix.dev/" rel="external">Flix</a> ecosystem.
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -38,7 +38,7 @@ For instance our development environment looks as follows (*January 2023*) <sup 
 <pre style="font-size:80%;">
 C:\opt\apache-maven-3.8.7\      <i>( 10 MB)</i>
 C:\opt\flix-0.34.0\             <i>( 35 MB)</i>
-C:\opt\Git-2.39.0\              <i>(317 MB)</i>
+C:\opt\Git-2.39.1\              <i>(317 MB)</i>
 C:\opt\gradle-7.6\              <i>(129 MB)</i>
 C:\opt\jdk-temurin-11.0.17_8\   <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
@@ -134,16 +134,16 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 Tool versions:
    java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.34.0,
    gradle 7.6, make 3.81, mdbook v0.4.25, mvn 3.8.7,
-   git 2.39.0.windows.1, diff 3.8
+   git 2.39.1.windows.1, diff 3.8
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
-C:\opt\Git-2.39.0\bin\git.exe
-C:\opt\Git-2.39.0\mingw64\bin\git.exe
+C:\opt\Git-2.39.1\bin\git.exe
+C:\opt\Git-2.39.1\mingw64\bin\git.exe
 C:\opt\gradle-7.6\bin\gradle
 C:\opt\gradle-7.6\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
-C:\opt\Git-2.39.0\bin\sh.exe
-C:\opt\Git-2.39.0\usr\bin\sh.exe
+C:\opt\Git-2.39.1\bin\sh.exe
+C:\opt\Git-2.39.1\usr\bin\sh.exe
 </pre>
 
 Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays additional information:
@@ -155,12 +155,12 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2022-10-31.jar" to directory "C:\opt\flix-0.34.0"
+Download file "flix-2023-01-13.jar" to directory "C:\opt\flix-0.34.0"
 
 Tool versions:
    java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.34.0,
    gradle 7.6, make 3.81, mdbook v0.4.25, mvn 3.8.7,
-   git 2.39.0.windows.1, diff 3.8
+   git 2.39.1.windows.1, diff 3.8
 Tool paths:
    C:\opt\jdk-temurin-11.0.17_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.17_8\bin\javac.exe
@@ -169,12 +169,12 @@ Tool paths:
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook-0.4.25\mdbook.exe
    C:\opt\apache-maven-3.8.7\bin\mvn.cmd
-   C:\opt\Git-2.39.0\bin\git.exe
-   C:\opt\Git-2.39.0\usr\bin\diff.exe
+   C:\opt\Git-2.39.1\bin\git.exe
+   C:\opt\Git-2.39.1\usr\bin\diff.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.12"
    "FLIX_HOME=C:\opt\flix-0.34.0"
-   "GIT_HOME=C:\opt\Git-2.39.0"
+   "GIT_HOME=C:\opt\Git-2.39.1"
    "GRADLE_HOME=C:\opt\gradle-7.6"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
    "MAKE_HOME=C:\opt\make-3.81"
@@ -222,7 +222,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.25-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>   <i>(188 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.39.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.39.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
 </pre>
 </dd></dl>
@@ -242,12 +242,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [apache_maven_relnotes]: https://maven.apache.org/docs/3.8.7/release-notes.html
 [bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [cpp_examples]: https://github.com/michelou/cpp-examples
+[dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [diff_cli]: https://www.gnu.org/software/diffutils/manual/html_node/Invoking-diff.html
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.0.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.1.txt
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/

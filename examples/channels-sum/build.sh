@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2022 Stéphane Micheloud
+# Copyright (c) 2018-2023 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -213,28 +213,30 @@ compile_scala() {
     local sources_file="$TARGET_LIB_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find "$SOURCE_MAIN_DIR/" -type f -name *.scala 2>/dev/null); do
+    for f in $(find "$SOURCE_MAIN_DIR/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    local n_files="$n Scala source file"
+    [[ $n -gt 1 ]] && n_files="${n_files}s"
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\""
+        error "Failed to compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
 
 compile_flix() {
     local n=0
-    for f in $(find "$TARGET_APP_DIR/src/" -type f -name *.flix 2>/dev/null); do
+    for f in $(find "$TARGET_APP_DIR/src/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    for f in $(find "$TARGET_APP_DIR/test/" -type f -name *.flix 2>/dev/null); do
+    for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
     local n_files="$n Flix source file"
@@ -254,12 +256,12 @@ compile_flix() {
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build-jar"
     elif $VERBOSE; then
-        echo "Create archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        echo "Create JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build-jar
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to create archive file \"${APP_JAR/$ROOT_DIR\//}\""
+        error "Failed to create JAR file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
@@ -273,23 +275,23 @@ flix_runtime() {
     if $DEBUG; then
         debug "$UNZIP_CMD $unzip_opts \"$(mixed_path $FLIX_JAR)\" \"ca/uwaterloo/flix/runtime/**\" -d \"$(mixed_path $TARGET_DIR/flix)\""
     elif $VERBOSE; then
-        echo "Extract class files from archive file \"$FLIX_JAR\"" 1>&2
+        echo "Extract class files from JAR file \"$FLIX_JAR\"" 1>&2
     fi
     eval "$UNZIP_CMD" $unzip_opts "$(mixed_path $FLIX_JAR)" "ca/uwaterloo/flix/runtime/**" -d "$(mixed_path $TARGET_DIR/flix)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to extract class files from archive file \"$FLIX_JAR\""
+        error "Failed to extract class files from JAR file \"$FLIX_JAR\""
         cleanup 1
     fi
     pushd "$TARGET_DIR/flix" 1>/dev/null
     if $DEBUG; then
         debug "$JAR_CMD -uf \"$(mixed_path $APP_JAR)\" -C . *"
     elif $VERBOSE; then
-        echo "Update archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        echo "Update JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAR_CMD" -uf "$(mixed_path $APP_JAR)" -C . *
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to update archive file \"${APP_JAR/$ROOT_DIR\//}\""
+        error "Failed to update JAR file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
@@ -419,11 +421,11 @@ run() {
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
-        echo "Execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        echo "Execute JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVA_CMD" $java_opts -jar "$(mixed_path $APP_JAR)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\""
+        error "Failed to execute JAR file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }

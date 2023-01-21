@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2022 Stéphane Micheloud
+# Copyright (c) 2018-2023 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -213,28 +213,30 @@ compile_scala() {
     local sources_file="$TARGET_LIB_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find "$SOURCE_MAIN_DIR/" -type f -name *.scala 2>/dev/null); do
+    for f in $(find "$SOURCE_MAIN_DIR/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    local n_files="$n Scala source file"
+    [[ $n -gt 1 ]] && n_files="${n_files}s"
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\""
+        error "Failed to compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
 
 compile_flix() {
     local n=0
-    for f in $(find "$TARGET_APP_DIR/src/" -type f -name *.flix 2>/dev/null); do
+    for f in $(find "$TARGET_APP_DIR/src/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    for f in $(find "$TARGET_APP_DIR/test/" -type f -name *.flix 2>/dev/null); do
+    for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
     local n_files="$n Flix source file"
@@ -254,12 +256,12 @@ compile_flix() {
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build-jar"
     elif $VERBOSE; then
-        echo "Create archive file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        echo "Create JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build-jar
     if [[ $? -ne 0 ]]; then
         popd 1>/dev/null
-        error "Failed to create archive file \"${APP_JAR/$ROOT_DIR\//}\""
+        error "Failed to create JAR file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
     popd 1>/dev/null
@@ -389,11 +391,11 @@ run() {
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
-        echo "Execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
+        echo "Execute JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVA_CMD" $java_opts -jar "$(mixed_path $APP_JAR)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to execute the JAR file \"${APP_JAR/$ROOT_DIR\//}\""
+        error "Failed to execute JAR file \"${APP_JAR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
@@ -475,7 +477,6 @@ if [ ! -x "$JAVA_HOME/bin/java" ]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
-JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 
 if [ ! -x "$SCALA_HOME/bin/scalac" ]; then
