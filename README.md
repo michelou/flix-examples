@@ -33,14 +33,14 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2023*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*February 2023*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-maven-3.8.7\      <i>( 10 MB)</i>
 C:\opt\flix-0.34.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.39.1\              <i>(317 MB)</i>
 C:\opt\gradle-7.6\              <i>(129 MB)</i>
-C:\opt\jdk-temurin-11.0.17_8\   <i>(301 MB)</i>
+C:\opt\jdk-temurin-11.0.18_10\  <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
 C:\opt\mdBook-0.4.25\           <i>(  9 MB)</i>
 C:\opt\scala-2.13.10\           <i>( 24 MB)</i>
@@ -132,7 +132,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.34.0,
+   java 11.0.18, javac 11.0.18, scalac 2.13.10, flix v0.34.0,
    gradle 7.6, make 3.81, mdbook v0.4.25, mvn 3.8.7,
    git 2.39.1.windows.1, diff 3.8
 
@@ -158,12 +158,12 @@ Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
 Download file "flix-2023-01-13.jar" to directory "C:\opt\flix-0.34.0"
 
 Tool versions:
-   java 11.0.17, javac 11.0.17, scalac 2.13.10, flix v0.34.0,
+   java 11.0.18, javac 11.0.18, scalac 2.13.10, flix v0.34.0,
    gradle 7.6, make 3.81, mdbook v0.4.25, mvn 3.8.7,
    git 2.39.1.windows.1, diff 3.8
 Tool paths:
-   C:\opt\jdk-temurin-11.0.17_8\bin\java.exe
-   C:\opt\jdk-temurin-11.0.17_8\bin\javac.exe
+   C:\opt\jdk-temurin-11.0.18_8\bin\java.exe
+   C:\opt\jdk-temurin-11.0.18_8\bin\javac.exe
    C:\opt\scala-2.13.10\bin\scalac.bat
    C:\opt\gradle-7.6\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
@@ -176,7 +176,7 @@ Environment variables:
    "FLIX_HOME=C:\opt\flix-0.34.0"
    "GIT_HOME=C:\opt\Git-2.39.1"
    "GRADLE_HOME=C:\opt\gradle-7.6"
-   "JAVA_HOME=C:\opt\jdk-temurin-11.0.17_8"
+   "JAVA_HOME=C:\opt\jdk-temurin-11.0.18_10"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven-3.8.7"
    "MDBOOK_HOME=C:\opt\mdBook-0.4.25"
@@ -221,7 +221,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://gradle.org/install/">gradle-7.6-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.25-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.17_8.zip</a>   <i>(188 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.18_10.zip</a>  <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.39.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
 </pre>
@@ -229,7 +229,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

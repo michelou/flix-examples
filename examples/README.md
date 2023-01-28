@@ -96,7 +96,7 @@ The [Flix] projects presented below share the same directory layout as project `
 
 > **:mag_right:** Command [**`examples\build.bat`**](./build.bat) allows us to clean, build and run all projects in directory **`examples\`**, for instance before updating our Github repository [`flix-examples`](https://github.com/michelou/flix-examples) with local changes.
 
-### <span id="areas">Example `areas`</span>
+### <span id="areas">`areas` Example</span>
 
 Command [**`build.bat -verbose run`**](./areas/build.bat) <sup id="anchor_03">[3](#footnote_03)</sup> generates the target file `target\areas\areas.jar` from the [Flix] source file [`src\main\Main.flix`](./areas/src/main/Main.flix) and executes the target file :
 
@@ -176,7 +176,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 >    2 :: 6 :: Nil
 >    </pre>
 
-### <span id="channels">Example `channels`</span> [**&#x25B4;**](#top)
+### <span id="channels">`channels` Example</span> [**&#x25B4;**](#top)
 
 Command [**`build.bat -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and executes the target file :
 
@@ -289,7 +289,7 @@ Running 1 tests...
 Passed: 1, Failed: 0. Skipped: 0. Elapsed: 5,8ms.
 </pre>
 
-### <span id="lambda_calculus">Example `lambda-calculus`</span>
+### <span id="lambda_calculus">`lambda-calculus` Example</span>
 
 This example is slightly more complex than the other examples because it contains several source files, including the [Scala] source file [`Counter.scala`](./lambda-calculus/src/main/Counter.scala).
 
@@ -344,7 +344,7 @@ Abs(1, Abs(0, Var(0)))
 [build] _EXITCODE=0
 </pre>
 
-### <span id="mutability">Example `mutability` </span>[**&#x25B4;**](#top)
+### <span id="mutability">`mutability` Example</span> [**&#x25B4;**](#top)
 
 Command [`build.bat`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the [Flix] source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
 
@@ -368,7 +368,7 @@ Command [`build.bat`](./mutability/build.bat)` -debug run` generates the target 
 [build] _EXITCODE=0
 </pre>
 
-### <span id="named_arguments">Example `named-arguments`</span> </span>[**&#x25B4;**](#top)
+### <span id="named_arguments">`named-arguments` Example</span> </span>[**&#x25B4;**](#top)
 
 Command [`gradle.bat run`][gradle_cli] ([`build.gradle`](./named-arguments/build.gradle)/[`common.gradle`](./common.gradle)) generates the target file `target\named-arguments\named-arguments.jar` from the [Flix] source file [`src\main\named-arguments.flix`](./named-arguments/src/main/named-arguments.flix) and executes the target file :
 
@@ -387,7 +387,7 @@ BUILD SUCCESSFUL in 18s
 8 actionable tasks: 8 executed
 </pre>
 
-### <span id="primes">Example `primes`</span>
+### <span id="primes">`primes` Example</span>
 
 Command [`build.bat run`](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and executes the target file :
 
@@ -411,7 +411,7 @@ Running 2 tests...
 Passed: 2, Failed: 0. Skipped: 0. Elapsed: 5,7ms.
 </pre>
 
-### <span id="records">Example `records`</span> [**&#x25B4;**](#top)
+### <span id="records">`records` Example</span> [**&#x25B4;**](#top)
 
 Command [`build.bat run`](./records/build.bat) generates the target file `target\records\records.jar` from the [Flix] source file [`src\main\Main.flix`](./records/src/main/Main.flix) and executes the target file :
 
@@ -423,7 +423,7 @@ r1 == r2: true
 r3 = { 3, 2 }
 </pre>
 
-### <span id="trees">Example `trees`</span>
+### <span id="trees">`trees` Example</span>
 
 Command [`build.bat run`](./trees/build.bat) generates the target file `target\trees\trees.jar` from the [Flix] source file [`src\main\Main.flix`](./trees/src/main/Main.flix) and executes the target file :
 
@@ -432,7 +432,7 @@ Command [`build.bat run`](./trees/build.bat) generates the target file `target\t
 10
 </pre>
 
-### <span id="type-aliases">Example `type-aliases`</span>
+### <span id="type-aliases">`type-aliases` Example</span>
 
 Command [`build.bat run`](./type-aliases/build.bat) generates the target file `target\type-aliases\type-aliases.jar` from the [Flix] source file [`src\main\Main.flix`](./type-aliases/src/main/Main.flix) and executes the target file :
 
@@ -444,7 +444,7 @@ Map#{1 => Ok(123), 2 => Err(Hello)}
 
 <!--=======================================================================-->
 
-## <span id="footnotes">Footnotes</span>[**&#x25B4;**](#top)
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Flix commands*** [↩](#anchor_01)
 
@@ -585,7 +585,7 @@ BUILD SUCCESSFUL in 15s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

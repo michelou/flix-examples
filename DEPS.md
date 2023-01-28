@@ -48,7 +48,7 @@ The [Flix] 0.3 software distributions depend on the following external libraries
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline"><code>jline</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0"><b>3.21.0</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.22.0"><b>3.22.0</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2017)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/>&nbsp;</td>
@@ -120,7 +120,7 @@ The [Flix] 0.3 software distributions depend on the following external libraries
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic"><code>scalactic</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.2.15"><b>3.2.15</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
@@ -129,7 +129,7 @@ The [Flix] 0.3 software distributions depend on the following external libraries
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13"><code>scalatest</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.2.15"><b>3.2.15</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/>&nbsp;</td>
@@ -183,7 +183,7 @@ The [Flix] 0.2 software distributions depend on the following external libraries
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline"><code>jline</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.21.0"><b>3.21.0</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.22.0"><b>3.22.0</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2017)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a></td>
@@ -263,7 +263,7 @@ The [Flix] 0.2 software distributions depend on the following external libraries
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic"><code>scalactic</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.2.15"><b>3.2.15</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalactic/scalactic_2.13/3.0.8">3.0.8</a></td>
@@ -273,7 +273,7 @@ The [Flix] 0.2 software distributions depend on the following external libraries
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13"><code>scalatest</code></a></td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.2.14"><b>3.2.14</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.2.15"><b>3.2.15</b></a><br/><span style="color:gray;font-size:80%;">(Jan&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a><br/><span style="color:gray;font-size:80%;">(Jun&nbsp;2019)</span></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scalatest/scalatest_2.13/3.0.8">3.0.8</a></td>
@@ -314,7 +314,7 @@ The [Flix] 0.2 software distributions depend on the following external libraries
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

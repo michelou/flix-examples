@@ -37,18 +37,18 @@ GRADLE_HOME=/opt/gradle-7.6
 > **:mag_right:** We install additional software tools such as [Flix] <sup id="anchor_01">[1](#footnote_01)</sup>, [Gradle][gradle_cli] or [Scala][scala_getting_started] into root directory **`/opt/`**:
 > <pre style="font-size:80%;">
 > <b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/find.1.html" rel="external">find</a> /opt -maxdepth 1 -type d -print | <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/sort.1.html" rel="external">sort</a> | <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/xargs.1.html" rel="external">xargs</a> -i sh -c 'du -sh {}'</b>
-> 44M     /opt/apache-ant-1.10.12
-> 9.9M    /opt/apache-maven-3.8.6
+> 44M     /opt/apache-ant-1.10.13
+> 9.9M    /opt/apache-maven-3.8.7
 > 2.4G    /opt/archives
 > 2.2M    /opt/cfr-0.151
 > 36M     /opt/flix-0.34.0
-> 51M     /opt/git-2.39.0
+> 51M     /opt/git-2.39.1
 > 129M    /opt/gradle-7.6
 > 308M    /opt/jdk-11.0.17+8
-> 61M     /opt/mill-0.10.10
-> 81M     /opt/sbt-1.8.0
+> 61M     /opt/mill-0.10.11
+> 81M     /opt/sbt-1.8.2
 > 25M     /opt/scala-2.13.10
-> 36M     /opt/scala3-3.2.2-RC2
+> 36M     /opt/scala3-3.2.2
 > 15M     /opt/wabt-1.0.23
 > </pre>
 
@@ -181,7 +181,7 @@ done.ing certificates in /etc/ssl/certs.../cloud/cloud.cfg ...
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
