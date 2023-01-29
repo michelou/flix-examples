@@ -11,7 +11,17 @@
   </tr>
 </table>
 
-## <span id="wip">Work in Progress</span>
+## <span id="issues">Reported Issues</span>
+
+*none*
+
+## <span id="pull_requests">Pull Requests</span>
+
+| Id     | Opened | Closed | Description | Action |
+|:-------|:-------|:-------|:------------|:------|
+| [#4896](https://github.com/flix/flix/pull/4896) | 14.11.2022 | 14.11.2022 | chore: update Scala 2 version | Reverted by [#4916](https://github.com/flix/flix/pull/4916) |
+
+## <span id="wip">Work in Progress</span> [**&#x25B4;**](#top)
 
 This section presents some of our unpublished works to improve the [Flix] software.
 
@@ -117,10 +127,6 @@ This section presents some of our unpublished works to improve the [Flix] softwa
    Search "-Xno-patmat-analysis" (0 hits in 0 files of 11 searched)
 </pre>
 -->
-
-## <span id="pull_requests">Pull Requests</span> [**&#x25B4;**](#top)
-
-## <span id="issues">Reported Issues</span>
 
 <!--=======================================================================-->
 
