@@ -1,6 +1,6 @@
 # <span id="top">Playing with Flix on Windows</span>
 
-<table style="font-family:Helvetica,Arial;font-size:12px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 8px 0 0;min-width:25%;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="160" alt="Flix project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites.<br/>
@@ -17,7 +17,7 @@
 
 This project depends on the following external software for the **Microsoft Windows** platform:
 
-- [Apache Maven 3.8][apache_maven] ([requires Java 7 or newer][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
+- [Apache Maven 3.9][apache_maven] ([requires Java 8 or newer][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Flix 0.34][flix_downloads] ([*release notes*][flix_relnotes])
 - [Git 2.39][git_downloads] ([*release notes*][git_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
@@ -26,7 +26,7 @@ Optionally one may also install the following software:
 
 - [Flix nightly builds](https://flix.dev/nightly/) <sup id="anchor_01">[1](#footnote_01)</sup>
 - [GNU Make 3.81][make_install]
-- [Gradle 7.6][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 8.0][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [mdBook 0.4][mdbook_download] <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][mdbook_changelog])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 
@@ -36,10 +36,10 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*February 2023*) <sup id="anchor_03">[3](#footnote_03)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\apache-maven-3.8.7\      <i>( 10 MB)</i>
+C:\opt\apache-maven-3.9.0\      <i>( 10 MB)</i>
 C:\opt\flix-0.34.0\             <i>( 35 MB)</i>
-C:\opt\Git-2.39.1\              <i>(317 MB)</i>
-C:\opt\gradle-7.6\              <i>(129 MB)</i>
+C:\opt\Git-2.39.2\              <i>(317 MB)</i>
+C:\opt\gradle-8.0\              <i>(129 MB)</i>
 C:\opt\jdk-temurin-11.0.18_10\  <i>(301 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
 C:\opt\mdBook-0.4.25\           <i>(  9 MB)</i>
@@ -133,17 +133,17 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.18, javac 11.0.18, scalac 2.13.10, flix v0.34.0,
-   gradle 7.6, make 3.81, mdbook v0.4.25, mvn 3.8.7,
-   git 2.39.1.windows.1, diff 3.8
+   gradle 8.0, make 3.81, mdbook v0.4.25, mvn 3.9.0,
+   git 2.39.2.windows.1, diff 3.8
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
-C:\opt\Git-2.39.1\bin\git.exe
-C:\opt\Git-2.39.1\mingw64\bin\git.exe
-C:\opt\gradle-7.6\bin\gradle
-C:\opt\gradle-7.6\bin\gradle.bat
+C:\opt\Git-2.39.2\bin\git.exe
+C:\opt\Git-2.39.2\mingw64\bin\git.exe
+C:\opt\gradle-8.0\bin\gradle
+C:\opt\gradle-8.0\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
-C:\opt\Git-2.39.1\bin\sh.exe
-C:\opt\Git-2.39.1\usr\bin\sh.exe
+C:\opt\Git-2.39.2\bin\sh.exe
+C:\opt\Git-2.39.2\usr\bin\sh.exe
 </pre>
 
 Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays additional information:
@@ -159,26 +159,26 @@ Download file "flix-2023-01-13.jar" to directory "C:\opt\flix-0.34.0"
 
 Tool versions:
    java 11.0.18, javac 11.0.18, scalac 2.13.10, flix v0.34.0,
-   gradle 7.6, make 3.81, mdbook v0.4.25, mvn 3.8.7,
-   git 2.39.1.windows.1, diff 3.8
+   gradle 8.0, make 3.81, mdbook v0.4.25, mvn 3.9.0,
+   git 2.39.2.windows.1, diff 3.8
 Tool paths:
    C:\opt\jdk-temurin-11.0.18_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.18_8\bin\javac.exe
    C:\opt\scala-2.13.10\bin\scalac.bat
-   C:\opt\gradle-7.6\bin\gradle.bat
+   C:\opt\gradle-8.0\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook-0.4.25\mdbook.exe
-   C:\opt\apache-maven-3.8.7\bin\mvn.cmd
-   C:\opt\Git-2.39.1\bin\git.exe
-   C:\opt\Git-2.39.1\usr\bin\diff.exe
+   C:\opt\apache-maven-3.9.0\bin\mvn.cmd
+   C:\opt\Git-2.39.2\bin\git.exe
+   C:\opt\Git-2.39.2\usr\bin\diff.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.12"
    "FLIX_HOME=C:\opt\flix-0.34.0"
-   "GIT_HOME=C:\opt\Git-2.39.1"
-   "GRADLE_HOME=C:\opt\gradle-7.6"
+   "GIT_HOME=C:\opt\Git-2.39.2"
+   "GRADLE_HOME=C:\opt\gradle-8.0"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.18_10"
    "MAKE_HOME=C:\opt\make-3.81"
-   "MAVEN_HOME=C:\opt\apache-maven-3.8.7"
+   "MAVEN_HOME=C:\opt\apache-maven-3.9.0"
    "MDBOOK_HOME=C:\opt\mdBook-0.4.25"
    "SCALA_HOME=C:\opt\scala-2.13.10"
 Path associations:
@@ -215,14 +215,14 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.8.7-bin.zip</a>                         <i>( 10 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.0-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 35 MB)</i>
 <a href="https://flix.dev/nightly/" rel="external">flix-2023-01-13.jar</a>                                <i>( 35 MB)</i>
-<a href="https://gradle.org/install/">gradle-7.6-bin.zip</a>                                 <i>(103 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.0-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.25-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.18_10.zip</a>  <i>(188 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.39.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.39.2-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
 </pre>
 </dd></dl>
@@ -239,7 +239,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.8.7/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.0/release-notes.html
 [bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples
@@ -248,7 +248,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.39.2.txt
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
@@ -259,7 +259,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/7.6/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/8.0/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [kafka_examples]: https://github.com/michelou/kafka-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
