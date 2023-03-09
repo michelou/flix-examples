@@ -9,7 +9,7 @@ BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name *.flix)
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.flix")
 TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar
 
 all: build
@@ -52,7 +52,7 @@ help:
 ##############################################################################
 ## test rules
 
-TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name *.flix 2>/dev/null)
+TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name "*.flix" 2>/dev/null)
 TEST_TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
 
 $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)

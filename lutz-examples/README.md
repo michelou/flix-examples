@@ -1,6 +1,6 @@
 # <span id="top">Lutz Hühnken's Flix Examples</span> <span style="size:25%;"><a href="../README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 8px 0 0;;min-width:160px;">
     <a href="https://flix.dev/"><img src="../docs/images/flix-logo.png" width="160" alt="Flix project"/></a>
@@ -222,7 +222,7 @@ Here are our modifications of the original <a href="https://flix.dev/">Flix</a> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

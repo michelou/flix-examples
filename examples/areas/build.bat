@@ -54,6 +54,14 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
 )
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 
+set _CFR_CMD=
+if defined CFR_HOME if exist "%CFR_HOME%\bin\cfr.bat" (
+    set "_CFR_CMD=%CFR_HOME%\bin\cfr.bat"
+)
+set _DIFF_CMD=
+if exist "%GIT_HOME%\usr\bin\diff.exe" (
+    set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
+)
 if not exist "%FLIX_HOME%\flix.jar" (
     echo %_ERROR_LABEL% Flix library not found 1>&2
     set _EXITCODE=1
@@ -137,6 +145,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
     ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
+    ) else if "%__ARG%"=="decompile" ( set _COMMANDS=!_COMMANDS! compile decompile
     ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! doc
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
@@ -160,6 +169,10 @@ set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+if not "%_COMMANDS:decompile=%"=="%_COMMANDS%" if not defined _CFR_CMD (
+    echo %_WARNING_LABEL% cfr installation not found 1>&2
+    set _COMMANDS=%_COMMANDS:decompile=%
+)
 if %_NIGHTLY%==1 (
     set __NIGHTLY_JAR=
     for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
@@ -201,13 +214,14 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-nightly%__END%    use latest Flix nightly build if locally available
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate class files
+echo     %__BEG_O%decompile%__END%   decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        display this help message
 echo     %__BEG_O%run%__END%         execute the generated program
@@ -331,6 +345,68 @@ if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
 ) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
     echo No action required ^(%__PATH_ARRAY1:~1%^) 1>&2
+)
+goto :eof
+
+:decompile
+set "__OUTPUT_DIR=%_TARGET_DIR%\cfr-sources"
+if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
+
+@rem --extraclasspath "%_EXTRA_CPATH%"
+set __CFR_OPTS=--outputdir "%__OUTPUT_DIR%"
+
+if exist "%_CLASSES_DIR%\*.class" ( set "__CLASS_DIRS=%_CLASSES_DIR%"
+) else ( set __CLASS_DIRS=
+)
+for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
+    if exist "%%f\*.class" set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
+)
+if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+for %%i in (%__CLASS_DIRS%) do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CFR_CMD%" %__CFR_OPTS% %%i\*.class 1>&2
+    call "%_CFR_CMD%" %__CFR_OPTS% %%i\*.class %_STDERR_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+for /f "tokens=1-4,*" %%i in ('call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" --version') do set __VERSION=%%m
+set __VERSION_STRING=Flix %__VERSION%
+set __VERSION_SUFFIX=_%__VERSION%
+
+@rem output file contains Scala and CFR headers
+set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_SUFFIX%.java"
+echo // Compiled with %__VERSION_STRING% > "%__OUTPUT_FILE%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Save generated Java source files to file "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+)
+set __JAVA_FILES=
+for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
+    set __JAVA_FILES=!__JAVA_FILES! "%%f"
+)
+if defined __JAVA_FILES type %__JAVA_FILES% >> "%__OUTPUT_FILE%" 2>NUL
+
+if not defined _DIFF_CMD (
+    if %_DEBUG%==1 ( echo %_WARNING_LABEL% diff command not found 1>&2
+    ) else if %_VERBOSE%==1 ( echo diff command not found 1>&2
+    )
+    goto :eof
+)
+set __DIFF_OPTS=--strip-trailing-cr
+
+set "__CHECK_FILE=%_SOURCE_DIR%\build\cfr-sources%__VERSION_SUFFIX%.java"
+if exist "%__CHECK_FILE%" (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Compare output file with check file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+    )
+    call "%_DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Output file and check file differ 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 goto :eof
 
@@ -465,7 +541,7 @@ goto :eof
 :test
 set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
 )
 set __JAVA_OPTS=
 if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JAVA_OPTS%

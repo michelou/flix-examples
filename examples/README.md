@@ -1,6 +1,6 @@
 # <span id="top">Flix Examples</span> <span style="size:25%;"><a href="../README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 8px 0 0;;min-width:160px;">
     <a href="https://flix.dev/"><img src="../docs/images/flix-logo.png" width="160" alt="Flix project"/></a>
@@ -556,11 +556,11 @@ Execute Flix program "target\areas\areas.jar"
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> NIGHTLY=1 run</b>
 [ -d "target/areas" ] || "C:/opt/Git-2.39.2/usr/bin/mkdir.exe" -p "target/areas"
 cd "target/areas"; \
-        [ -d "build" ] || "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2022-10-29.jar" init && \
+        [ -d "build" ] || "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2023-03-06.jar" init && \
         "C:/opt/Git-2.39.2/usr/bin/rm.exe" -f "src/Main.flix" && \
         "C:/opt/Git-2.39.2/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
-        "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2022-10-12.jar" build && \
-        "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2022-10-12.jar" build-jar
+        "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2023-03-06.jar" build && \
+        "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2023-03-06.jar" build-jar
 "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe"  -jar "target/areas/areas.jar"
 2 :: 6 :: Nil
 2 :: 6 :: Nil
@@ -585,7 +585,7 @@ BUILD SUCCESSFUL in 15s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/February 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
