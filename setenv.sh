@@ -7,7 +7,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [] -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -48,12 +48,14 @@ if [[ $OS == "cygwin" || $OS == "mingw" ]]; then
     export GRADLE_HOME="$(getPath "$prefix/c/opt/gradle-7")"
     export GIT_HOME="$(getPath "$prefix/c/opt/Git-2")"
     export JAVA_HOME="$(getPath "$prefix/c/opt/jdk-temurin-11")"
+    export JMC_HOME="$(getPath "$prefix/c/opt/jmc-8")"
     export MAKE_HOME="$(getPath "$prefix/c/opt/make-3")"
     export SCALA_HOME="$(getPath "$prefix/c/opt/scala-2.13")"
 else
     export FLIX_HOME="$(getPath "/opt/flix-0")"
     export GRADLE_HOME="$(getPath "/opt/gradle-7")"
     export JAVA_HOME="$(getPath "/opt/jdk-temurin-11")"
+    export JMC_HOME="$(getPath "/opt/jmc-8")"
     export SCALA_HOME="$(getPath "/opt/scala-2.13")"
 fi
 PATH1="$PATH"

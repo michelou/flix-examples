@@ -29,11 +29,12 @@ Optionally one may also install the following software:
 - [Gradle 8.0][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [mdBook 0.4][mdbook_download] <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][mdbook_changelog])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
+- [Temurin JDK Mission Control 8.3][jmc_download] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][jmc_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*March 2023*) <sup id="anchor_03">[3](#footnote_03)</sup>:
+For instance our development environment looks as follows (*March 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-maven-3.9.0\      <i>( 10 MB)</i>
@@ -41,6 +42,7 @@ C:\opt\flix-0.34.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.39.2\              <i>(317 MB)</i>
 C:\opt\gradle-8.0.2\            <i>(131 MB)</i>
 C:\opt\jdk-temurin-11.0.18_10\  <i>(301 MB)</i>
+C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
 C:\opt\mdBook-0.4.28\           <i>(  9 MB)</i>
 C:\opt\scala-2.13.10\           <i>( 24 MB)</i>
@@ -208,7 +210,19 @@ Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> i
 We use <a href="https://github.com/rust-lang/mdBook/releases"><code>mdbook.exe</code></a> to work on our local copy of the online book "<a href="https://doc.flix.dev">Programming Flix</a>" generated from the GitHub project <a href="https://github.com/flix/book"><code>flix/book</code></a>.
 </dd></dl>
 
-<span id="footnote_03">[3]</span> ***Downloads*** [↩](#anchor_03)
+<span id="footnote_03">[3]</span> ***JDK Mission Control*** [↩](#anchor_03)
+
+<dl><dd>
+Each vendor provides his own distribution of the JDK Mission Control tool, e.g. <a href="https://adoptium.net/jmc" rel="external">Adoptium JDK Mission Control</a> (our choice), <a href="https://www.azul.com/products/zulu-mission-control" rel="external">Zulu Mission Control</a>, <a href="https://bell-sw.com/pages/lmc">Liberica Mission Control</a> or <a href="https://www.oracle.com/java/technologies/jdk-mission-control.html" rel="external">Oracle JDK Mission Control</a>. 
+</dd>
+<dd>
+We use <a href=""><code>jmc.exe</code></a> to investigate issues occuring during the build of our GitHub fork of the <a href="https://github.com/flix/flix"><code>flix/flix</code></a> repository.
+<pre style="font-size:80%;">
+<b>&gt; %JMC_HOME%\bin\jmc.exe -vm %JAVA_HOME%\bin</b>
+</pre>
+</dd></dl>
+
+<span id="footnote_04">[4]</span> ***Downloads*** [↩](#anchor_04)
 
 <dl><dd>
 In our case we downloaded the following installation files (see <a href="#proj_deps">section 1</a>):
@@ -223,6 +237,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.28-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.18_10.zip</a>  <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.39.2-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
 </pre>
 </dd></dl>
@@ -261,6 +276,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [gradle_install]: https://gradle.org/install/
 [gradle_relnotes]: https://docs.gradle.org/8.0/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
+[jmc_download]: https://adoptium.net/jmc/
+[jmc_relnotes]: https://www.oracle.com/java/technologies/javase/jmc8-release-notes.html
 [kafka_examples]: https://github.com/michelou/kafka-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples

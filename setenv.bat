@@ -53,6 +53,10 @@ if not %_EXITCODE%==0 goto end
 call :gradle
 if not %_EXITCODE%==0 goto end
 
+call :jmc
+@rem JDK Mission Control installation is optional
+@rem if not %_EXITCODE%==0 goto end
+
 call :make
 if not %_EXITCODE%==0 goto end
 
@@ -468,6 +472,43 @@ if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
 set "_GRADLE_PATH=;%_GRADLE_HOME%\bin"
 goto :eof
 
+@rem output parameters: _JMC_HOME
+@rem usage example: %JMC_HOME%\bin\jmc.exe -vm %JAVA_HOME%\bin
+:jmc
+set _JMC_HOME=
+
+set __JMC_CMD=
+for /f %%f in ('where jmc.exe 2^>NUL') do set "__JMC_CMD=%%f"
+if defined __JMC_CMD (
+    for %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
+    for %%f in ("!__GRADLE_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of JDK Mission Control executable found in PATH 1>&2
+    goto :eof
+) else if defined JMC_HOME (
+    set "_JMC_HOME=%JMC_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JMC_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\jmc\" ( set "_JMC_HOME=!__PATH!\jmc"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\jmc-*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
+        if not defined _JMC_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f %%f in ('dir /ad /b "!__PATH!\jmc*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
+        )
+    )
+    if defined _JMC_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default JDK Mission Control installation directory !_JMC_HOME! 1>&2
+    )
+)
+if not exist "%_JMC_HOME%\bin\jmc.exe" (
+    echo %_ERROR_LABEL% JDK Mission Control executable not found ^(%_JMC_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+@rem set "_JMC_PATH=;%_JMC_HOME%\bin"
+goto :eof
+
 @rem output parameters: _MAKE_HOME, _MAKE_PATH
 :make
 set _MAKE_HOME=
@@ -657,6 +698,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
+    if defined JMC_HOME echo    "JMC_HOME=%JMC_HOME%" 1>&2
     if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
     if defined MAVEN_HOME echo    "MAVEN_HOME=%MAVEN_HOME%" 1>&2
     if defined MDBOOK_HOME echo    "MDBOOK_HOME=%MDBOOK_HOME%" 1>&2
@@ -677,6 +719,7 @@ endlocal & (
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
+        if not defined JMC_HOME set "JMC_HOME=%_JMC_HOME%"
         if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
         if not defined MAVEN_HOME set "MAVEN_HOME=%_MAVEN_HOME%"
         if not defined MDBOOK_HOME set "MDBOOK_HOME=%_MDBOOK_HOME%"
