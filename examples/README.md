@@ -211,7 +211,7 @@ Execute Flix program "target\channels\channels.jar"
 > Error: Failed to execute Flix program "target\channels\channels.jar"
 > </pre>
 
-### <span id="datalog_constraints">Examples `datalog-constraints`</span>[**&#x25B4;**](#top)
+### <span id="datalog_constraints">`datalog-constraints` Example</span>[**&#x25B4;**](#top)
 
 Command [**`build.bat -verbose run`**](./datalog-constraints/build.bat) generates the target file `target\datalog-constraints\datalog-constraints.jar` from the [Flix] source file [`src\main\Main.flix`](./datalog-constraints/src/main/Main.flix) and executes the target file :
 
@@ -260,7 +260,7 @@ Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 > (C++, x86) :: (MiniScala, C++) :: (MiniScala, x86) :: (Scala, C++) :: (Scala, MiniScala) :: (Scala, x86) :: Nil
 > </pre>
 -->
-### <span id="fibonacci">Example `fibonacci`</span>[**&#x25B4;**](#top)
+### <span id="fibonacci">`fibonacci` Example</span>[**&#x25B4;**](#top)
 
 Command [**`build.bat -verbose run`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and executes the target file :
 
@@ -569,7 +569,7 @@ cd "target/areas"; \
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -Dnightly run</b>
 &nbsp;
 &gt; Configure project :
-Nightly build 'flix-2022-10-29.jar' was selected
+Nightly build 'flix-2023-03-23.jar' was selected
 &nbsp;
 &g; Task :compileFlix
 &nbsp;
