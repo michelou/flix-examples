@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -73,7 +73,7 @@ args() {
         for f in $(find "$FLIX_HOME/" -type f -name "flix-*.jar" 2>/dev/null); do
             nightly_jar="$f"
         done
-        if [ -f "$nightly_jar" ]; then
+        if [[ -f "$nightly_jar" ]]; then
             if $DEBUG; then
                 debug "Nightly build \"$nightly_jar\" was selected"
             elif $VERBOSE; then
@@ -86,7 +86,7 @@ args() {
             warning "         It can be downloaded from https://flix.dev/nightly/."
         fi
     fi
-    if $DECOMPILE && [ ! -x "$CFR_CMD" ]; then
+    if $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
         DECOMPILE=false
     fi
@@ -105,7 +105,7 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       show commands executed by this script
+    -debug       display commands executed by this script
     -nightly     select latest Flix nightly build if locally available
     -verbose     display progress messages
 

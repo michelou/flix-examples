@@ -1,6 +1,6 @@
 # <span id="top">Building Flix on Windows</span> <span style="size:25%;"><a href="README.md">↩</a></span>
 
-<table style="font-family:Helvetica,Arial;font-size:14px;line-height:1.6;">
+<table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 10px 0 0;;min-width:120px;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="120" alt="Flix project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">Source code of the <a href="https://flix.dev/" rel="external">Flix project</a> is hosted on <a href="https://github.com/flix/flix" rel="external">Github</a>.<br/>Continuous integration relies on <a href="https://gradle.org/" rel="external">Gradle</a> and runs on the runner image <a href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources" rel="external"><code>ubuntu-latest</code></a>.
@@ -276,7 +276,7 @@ BUILD SUCCESSFUL in 2s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/March 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

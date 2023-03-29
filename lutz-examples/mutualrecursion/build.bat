@@ -209,7 +209,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-java%__END%       select Java example instead of Flix one
 echo     %__BEG_O%-nightly%__END%    use nightly Flix if locally available
 echo     %__BEG_O%-verbose%__END%    display progress messages
@@ -219,7 +219,7 @@ echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate class files
 echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        display this help message
-echo     %__BEG_O%run%__END%         execute the generated program
+echo     %__BEG_O%run%__END%         execute the generated program "%_PROJECT_NAME%"
 echo     %__BEG_O%test%__END%        execute unit tests
 goto :eof
 
@@ -236,6 +236,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -310,15 +311,23 @@ goto :eof
 
 :compile_java
 set __SOURCE_FILES=
+set __N=0
 for /f "delims=" %%f in ('dir /b /s "%_SOURCE_MAIN_DIR%\*.java" 2^>NUL') do (
     set __SOURCE_FILES=%__SOURCE_FILES% "%%f"
+    set /a __N+=1
+)
+if %__N%==0 (
+    echo %_WARNING_LABEL% No Java source file found 1>&2
+    goto :eof
+) else if %__N%==1 ( set __N_FILES=%__N% Java source file
+) else ( set __N_FILES=%__N% Java source files
 )
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" -d "%_CLASSES_DIR%" %__SOURCE_FILES% 1>&2
-) else if %_VERBOSE%==1 ( echo Compile Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVAC_CMD%" -d "%_CLASSES_DIR%" %__SOURCE_FILES%
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to compile Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

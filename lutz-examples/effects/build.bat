@@ -201,7 +201,7 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%      show commands executed by this script
+echo     %__BEG_O%-debug%__END%      display commands executed by this script
 echo     %__BEG_O%-nightly%__END%    use nightly Flix if locally available
 echo     %__BEG_O%-verbose%__END%    display progress messages
 echo.
@@ -210,7 +210,7 @@ echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate class files
 echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        display this help message
-echo     %__BEG_O%run%__END%         execute the generated program
+echo     %__BEG_O%run%__END%         execute the generated program "%_PROJECT_NAME%"
 echo     %__BEG_O%test%__END%        execute unit tests
 goto :eof
 
@@ -227,6 +227,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 )
 rmdir /s /q "%__DIR%"
 if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -262,7 +263,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_D
 xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1>NUL
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to copy %__N_FILES% 1>&2
+    echo %_ERROR_LABEL% Failed to copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
     set _EXITCODE=1
     goto :eof
 )

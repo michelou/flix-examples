@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
 include ../Makefile.inc
@@ -11,7 +18,7 @@ BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name *.flix)
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.flix")
 TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar
 
 all: build

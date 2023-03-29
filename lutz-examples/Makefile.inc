@@ -46,9 +46,9 @@ SCALA_LIB_JAR  = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-libr
 
 NIGHTLY ?=
 ifeq ($(NIGHTLY),)
-FLIX_LIB_JAR   = $(shell $(FIND) "$(FLIX_HOME)/" -name flix.jar)
+FLIX_LIB_JAR   = $(shell $(FIND) "$(FLIX_HOME)/" -name "flix.jar")
 else
-FLIX_LIB_JAR   = $(shell $(FIND) "$(FLIX_HOME)/" -name flix-*.jar | tail -n 1)
+FLIX_LIB_JAR   = $(shell $(FIND) "$(FLIX_HOME)/" -name "flix-*.jar" | tail -n 1)
 endif
 
 ifeq (,$(wildcard $(SCALA_LIB_JAR)))

@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -73,7 +73,7 @@ args() {
         for f in $(find "$FLIX_HOME/" -type f -name "flix-*.jar" 2>/dev/null); do
             nightly_jar="$f"
         done
-        if [ -f "$nightly_jar" ]; then
+        if [[ -f "$nightly_jar" ]]; then
             if $DEBUG; then
                 debug "Nightly build \"$nightly_jar\" was selected"
             elif $VERBOSE; then
@@ -86,7 +86,7 @@ args() {
             warning "         It can be downloaded from https://flix.dev/nightly/."
         fi
     fi
-    if $DECOMPILE && [ ! -x "$CFR_CMD" ]; then
+    if $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
         DECOMPILE=false
     fi
@@ -105,7 +105,7 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       show commands executed by this script
+    -debug       display commands executed by this script
     -nightly     select latest Flix nightly build if locally available
     -verbose     display progress messages
 
@@ -268,7 +268,7 @@ compile_flix() {
 }
 
 mixed_path() {
-    if [ -x "$CYGPATH_CMD" ]; then
+    if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
     elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
@@ -295,7 +295,7 @@ decompile() {
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
         eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
         if [[ $? -ne 0 ]]; then
-            error "Failed to decompile generated code in directory $f"
+            error "Failed to decompile generated code in directory \"$f\""
             cleanup 1
         fi
     done
@@ -313,7 +313,7 @@ decompile() {
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name "*.java" 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -333,7 +333,7 @@ decompile() {
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
-            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+            echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
@@ -383,11 +383,11 @@ version_string() {
 
 run() {
     local boot_cpath=
-    for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
+    for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
-    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
+    [[ -n "$boot_cpath" ]] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
@@ -473,22 +473,22 @@ if $cygwin || $mingw || $msys; then
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA_HOME" ]] && SCALA_HOME="$(mixed_path $SCALA_HOME)"
 fi
-if [ ! -x "$JAVA_HOME/bin/java" ]; then
+if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
 JAVA_CMD="$JAVA_HOME/bin/java"
 
-if [ ! -x "$SCALA_HOME/bin/scalac" ]; then
+if [[ ! -x "$SCALA_HOME/bin/scalac" ]]; then
     error "Scala 2 installation not found"
     cleanup 1
 fi
 SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
-if [ ! -f "$FLIX_HOME/flix.jar" ]; then
+if [[ ! -f "$FLIX_HOME/flix.jar" ]]; then
     error "Flix installation not found $FLIX_HOME"
     cleanup 1
 fi

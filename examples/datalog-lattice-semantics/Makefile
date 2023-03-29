@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
 include ../Makefile.inc
@@ -11,7 +18,7 @@ BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
 ##############################################################################
 ## main rules
 
-SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name *.flix)
+SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.flix")
 TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar
 
 all: build
@@ -44,13 +51,13 @@ help:
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   display this help message"
-	@$(ECHO) "    run    execute main program $(PROJECT_NAME)"
+	@$(ECHO) "    run    execute main program \"$(PROJECT_NAME)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
 ## test rules
 
-TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name *.flix 2>/dev/null)
+TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name "*.flix" 2>/dev/null)
 TEST_TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
 
 $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
@@ -74,3 +81,6 @@ test: $(TEST_TARGET)
 ## phony
 
 .PHONY: all build clean doc help run test
+
+.SUFFIXES:
+.SUFFIXES: .classes *.flix *.jar

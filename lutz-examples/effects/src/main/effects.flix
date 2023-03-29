@@ -23,7 +23,7 @@ def main(): Int32 \ IO =
 
     // 4. Foreach is about executing a side effect on every element.
     // Thus, it requires an impure function as argument.
-    List.foreach(write, list);
+    List.forEach(write, list);
     write("");
 
     // 5. List.map demonstrates effect polymorphism. If the passed 

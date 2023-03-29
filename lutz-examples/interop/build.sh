@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2022 Stéphane Micheloud
+# Copyright (c) 2018-2023 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -105,7 +105,7 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       show commands executed by this script
+    -debug       display commands executed by this script
     -nightly     select latest Flix nightly build if locally available
     -verbose     display progress messages
 
@@ -120,14 +120,17 @@ EOS
 }
 
 clean() {
-    if [ -d "$TARGET_DIR" ]; then
+    if [[ -d "$TARGET_DIR" ]]; then
         if $DEBUG; then
             debug "Delete directory \"$TARGET_DIR\""
         elif $VERBOSE; then
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
-        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+        if [[ $? -ne 0 ]]; then
+            error "Failed to delete directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+            EXITCODE=1 && return 0
+        fi
     fi
 }
 
@@ -194,10 +197,10 @@ action_required() {
     for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$source_file" ]; then
+    if [[ -z "$source_file" ]]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$target_file" ]; then
+    elif [[ ! -f "$target_file" ]]; then
         ## Do compile if target file doesn't exist
         echo 1
     else
@@ -213,32 +216,42 @@ compile_scala() {
     local sources_file="$TARGET_LIB_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find "$SOURCE_MAIN_DIR/" -type f -name *.scala 2>/dev/null); do
+    for f in $(find "$SOURCE_MAIN_DIR/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
-        echo "Compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
+        echo "Compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
     if [[ $? -ne 0 ]]; then
-        error "Failed to compile $n Scala source files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\""
+        error "Failed to compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
 }
 
 compile_flix() {
     local n=0
-    for f in $(find "$TARGET_APP_DIR/src/" -type f -name *.flix 2>/dev/null); do
+    for f in $(find "$TARGET_APP_DIR/src/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    for f in $(find "$TARGET_APP_DIR/test/" -type f -name *.flix 2>/dev/null); do
+    for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    local n_files="$n Flix source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Flix source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Flix source file$s"
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
     elif $VERBOSE; then
@@ -266,7 +279,7 @@ compile_flix() {
 }
 
 mixed_path() {
-    if [ -x "$CYGPATH_CMD" ]; then
+    if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
     elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
@@ -293,7 +306,7 @@ decompile() {
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
         eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
         if [[ $? -ne 0 ]]; then
-            error "Failed to decompile generated code in directory $f"
+            error "Failed to decompile generated code in directory \"$f\""
             cleanup 1
         fi
     done
@@ -303,20 +316,20 @@ decompile() {
 
     ## output file contains Scala and CFR headers
     local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
-    echo // Compiled with $version_string > "$output_file"
+    echo "// Compiled with $version_string" > "$output_file"
 
     if $DEBUG; then
         debug "cat $output_dir/*.java >> $output_file"
     elif $VERBOSE; then
-        echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
+        echo "Save generated Java source files to file \"${output_file/$ROOT_DIR\//}\"" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name "*.java" 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
 
-    if [ ! -x "$DIFF_CMD" ]; then
+    if [[ ! -x "$DIFF_CMD" ]]; then
         if $DEBUG; then
             warning "diff command not found"
         elif $VERBOSE; then
@@ -327,11 +340,11 @@ decompile() {
     local diff_opts=--strip-trailing-cr
 
     local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
-    if [ -f "$check_file" ]; then
+    if [[ -f "$check_file" ]]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
-            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+            echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
@@ -381,7 +394,7 @@ version_string() {
 
 run() {
     local boot_cpath=
-    for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
+    for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
@@ -471,22 +484,22 @@ if $cygwin || $mingw || $msys; then
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA_HOME" ]] && SCALA_HOME="$(mixed_path $SCALA_HOME)"
 fi
-if [ ! -x "$JAVA_HOME/bin/java" ]; then
+if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
 JAVA_CMD="$JAVA_HOME/bin/java"
 
-if [ ! -x "$SCALA_HOME/bin/scalac" ]; then
+if [[ ! -x "$SCALA_HOME/bin/scalac" ]]; then
     error "Scala 2 installation not found"
     cleanup 1
 fi
 SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
-if [ ! -f "$FLIX_HOME/flix.jar" ]; then
+if [[ ! -f "$FLIX_HOME/flix.jar" ]]; then
     error "Flix installation not found $FLIX_HOME"
     cleanup 1
 fi
