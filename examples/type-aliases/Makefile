@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
 include ../Makefile.inc
@@ -74,3 +81,6 @@ test: $(TEST_TARGET)
 ## phony
 
 .PHONY: all build clean doc help run test
+
+.SUFFIXES:
+.SUFFIXES: .classes *.flix *.jar

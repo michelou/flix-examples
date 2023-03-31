@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 include ../Makefile.inc
 
 PROJECT_NAME = channels
@@ -76,3 +83,6 @@ test: $(TEST_TARGET)
 ## phony
 
 .PHONY: all build clean doc help run test
+
+.SUFFIXES:
+.SUFFIXES: .classes *.flix *.jar *.java

@@ -8,5 +8,5 @@ def main(): Int32 \ NonDet =
     // let args = Environment.getArgs();
     let l = List.range(0, 100);
     let gen = Random.new();
-    List.foreach(_ -> printRandom(gen), l);
+    List.forEach(_ -> printRandom(gen), l);
     0

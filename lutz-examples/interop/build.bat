@@ -210,7 +210,7 @@ echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate class files
 echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        display this help message
-echo     %__BEG_O%run%__END%         execute the generated program
+echo     %__BEG_O%run%__END%         execute the generated program "%_PROJECT_NAME%"
 echo     %__BEG_O%test%__END%        execute unit tests
 goto :eof
 
