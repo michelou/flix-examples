@@ -356,7 +356,7 @@ decompile() {
 
 run() {
     local boot_cpath=
-    for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
+    for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
@@ -410,7 +410,8 @@ TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
 TARGET_BUILD_DIR=$TARGET_APP_DIR/build
 TARGET_LIB_DIR=$TARGET_APP_DIR/lib
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false

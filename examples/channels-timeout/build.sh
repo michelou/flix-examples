@@ -325,7 +325,7 @@ decompile() {
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
         eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
         if [[ $? -ne 0 ]]; then
-            error "Failed to decompile generated code in directory $f"
+            error "Failed to decompile generated code in directory \"$f\""
             cleanup 1
         fi
     done
@@ -375,7 +375,7 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
@@ -417,7 +417,7 @@ run() {
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
-    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
+    [[ -n "$boot_cpath" ]] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
@@ -467,7 +467,8 @@ TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
 TARGET_BUILD_DIR=$TARGET_APP_DIR/build
 TARGET_LIB_DIR=$TARGET_APP_DIR/lib
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false

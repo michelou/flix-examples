@@ -157,7 +157,8 @@ goto args_loop
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
-set "_MAIN_JAR_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar"
+@rem Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+set "_MAIN_JAR_FILE=%_BUILD_DIR%\artifact\%_PROJECT_NAME%.jar"
 set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL
@@ -218,7 +219,7 @@ echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate class files
 echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        display this help message
-echo     %__BEG_O%run%__END%         execute the generated program
+echo     %__BEG_O%run%__END%         execute the generated program "%__BEG_N%!_MAIN_JAR_FILE:%_BUILD_DIR%=!%__END%"
 echo     %__BEG_O%test%__END%        execute unit tests
 goto :eof
 
@@ -234,7 +235,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% rmdir /s /q "%__DIR%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
 )
 rmdir /s /q "%__DIR%"
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to delete directory "!__DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -263,13 +264,19 @@ if not exist "%_BUILD_DIR%\build" (
     ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
     call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
+    if not !ERRORLEVEL!==0 (
+        popd
+        echo %_ERROR_LABEL% Failed to initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 @rem xcopy must be called AFTER flix init
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
 )
 xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1>NUL
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to copy %__N_FILES% 1>&2
     set _EXITCODE=1
@@ -289,7 +296,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JA
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% into directory "!_BUILD_DIR:%_ROOT_DIR%=!\build\" 1>&2
 )
 call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS%
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% into directory "!_BUILD_DIR:%_ROOT_DIR%=!\build\" 1>&2
     set _EXITCODE=1
@@ -299,7 +306,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar 
 ) else if %_VERBOSE%==1 ( echo Create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -317,7 +324,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVAC_CMD%" -d "%_CLASSES_DIR%" %__SOURC
 ) else if %_VERBOSE%==1 ( echo Compile Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVAC_CMD%" -d "%_CLASSES_DIR%" %__SOURCE_FILES%
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to compile Java source files to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -391,7 +398,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_MAIN_JA
 ) else if %_VERBOSE%==1 ( echo Execute Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_MAIN_JAR_FILE%" %__MAIN_ARGS%
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -403,7 +410,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -cp "%_CLASSES_DIR%" %_MAIN_C
 ) else if %_VERBOSE%==1 ( echo Execute Java program "%_MAIN_CLASS%" 1>&2
 )
 call "%_JAVA_CMD%" -cp "%_CLASSES_DIR%" %_MAIN_CLASS%
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     echo %_ERROR_LABEL% Failed to execute Java program "%_MAIN_CLASS%" 1>&2
     set _EXITCODE=1
     goto :eof
@@ -454,7 +461,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_D
 ) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
 )
 xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1>NUL
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
     set _EXITCODE=1
@@ -464,7 +471,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_TEST_DIR%" "%_BUILD_D
 ) else if %_VERBOSE%==1 ( echo Copy %__N_TEST_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\test\" 1>&2
 )
 xcopy /s /y "%_SOURCE_TEST_DIR%" "%_BUILD_DIR%\test\" 1>NUL
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to copy %__N_TEST_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\test\" 1>&2
     set _EXITCODE=1
@@ -479,7 +486,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JA
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% and %__N_TEST_FILES% 1>&2
 )
 call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS%
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% and %__N_TEST_FILES% 1>&2
     set _EXITCODE=1
@@ -489,7 +496,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar 
 ) else if %_VERBOSE%==1 ( echo Create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
@@ -512,7 +519,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JA
 )
 pushd "%_BUILD_DIR%"
 call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test
-if not errorlevel 0 (
+if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to execute tests for Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1

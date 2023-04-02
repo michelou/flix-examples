@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -346,7 +346,7 @@ decompile() {
         echo "Save generated Java source files to file \"${output_file/$ROOT_DIR\//}\"" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name "*.java" 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -485,7 +485,7 @@ fi
 SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 if [[ ! -x "$GIT_HOME/usr/bin/unzip" ]]; then
     error "unzip command not found"

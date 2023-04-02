@@ -319,7 +319,7 @@ decompile() {
         echo "Save generated Java source files to file \"${output_file/$ROOT_DIR\//}\"" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name "*.java" 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -339,7 +339,7 @@ decompile() {
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
-            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+            echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
@@ -351,7 +351,7 @@ decompile() {
 
 run() {
     local boot_cpath=
-    for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
+    for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
@@ -405,7 +405,8 @@ TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
 TARGET_BUILD_DIR=$TARGET_APP_DIR/build
 TARGET_LIB_DIR=$TARGET_APP_DIR/lib
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false
@@ -457,7 +458,7 @@ fi
 SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 if [[ ! -f "$FLIX_HOME/flix.jar" ]]; then
     error "Flix installation not found $FLIX_HOME"

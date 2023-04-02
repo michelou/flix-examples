@@ -1,5 +1,5 @@
 // See `NonDet` usage in main\src\library\Random.flix
-def printRandom(gen: Random.Random): Unit \ NonDet =
+def printRandom(gen: Random): Unit \ NonDet =
     let r = Random.nextNatWithMax(gen, 200);
     println(r)
 

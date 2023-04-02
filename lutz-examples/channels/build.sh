@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2022 Stéphane Micheloud
+# Copyright (c) 2018-2023 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -73,7 +73,7 @@ args() {
         for f in $(find "$FLIX_HOME/" -type f -name "flix-*.jar" 2>/dev/null); do
             nightly_jar="$f"
         done
-        if [ -f "$nightly_jar" ]; then
+        if [[ -f "$nightly_jar" ]]; then
             if $DEBUG; then
                 debug "Nightly build \"$nightly_jar\" was selected"
             elif $VERBOSE; then
@@ -86,7 +86,7 @@ args() {
             warning "         It can be downloaded from https://flix.dev/nightly/."
         fi
     fi
-    if $DECOMPILE && [ ! -x "$CFR_CMD" ]; then
+    if $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
         DECOMPILE=false
     fi
@@ -105,7 +105,7 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       show commands executed by this script
+    -debug       display commands executed by this script
     -nightly     select latest Flix nightly build if locally available
     -verbose     display progress messages
 
@@ -120,7 +120,7 @@ EOS
 }
 
 clean() {
-    if [ -d "$TARGET_DIR" ]; then
+    if [[ -d "$TARGET_DIR" ]]; then
         if $DEBUG; then
             debug "Delete directory \"$TARGET_DIR\""
         elif $VERBOSE; then
@@ -194,10 +194,10 @@ action_required() {
     for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$source_file" ]; then
+    if [[ -z "$source_file" ]]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$target_file" ]; then
+    elif [[ ! -f "$target_file" ]]; then
         ## Do compile if target file doesn't exist
         echo 1
     else
@@ -213,7 +213,7 @@ compile_scala() {
     local sources_file="$TARGET_LIB_DIR/scalac_sources.txt"
     [[ -f "$sources_file" ]] && rm "$sources_file"
     local n=0
-    for f in $(find "$SOURCE_MAIN_DIR/" -type f -name *.scala 2>/dev/null); do
+    for f in $(find "$SOURCE_MAIN_DIR/" -type f -name "*.scala" 2>/dev/null); do
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
@@ -231,10 +231,10 @@ compile_scala() {
 
 compile_flix() {
     local n=0
-    for f in $(find "$TARGET_APP_DIR/src/" -type f -name *.flix 2>/dev/null); do
+    for f in $(find "$TARGET_APP_DIR/src/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    for f in $(find "$TARGET_APP_DIR/test/" -type f -name *.flix 2>/dev/null); do
+    for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
     local n_files="$n Flix source file"
@@ -296,7 +296,7 @@ flix_runtime() {
 }
 
 mixed_path() {
-    if [ -x "$CYGPATH_CMD" ]; then
+    if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
     elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
@@ -333,7 +333,7 @@ decompile() {
 
     ## output file contains Scala and CFR headers
     local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
-    echo // Compiled with $version_string > "$output_file"
+    echo "// Compiled with $version_string" > "$output_file"
 
     if $DEBUG; then
         debug "cat $output_dir/*.java >> $output_file"
@@ -341,12 +341,12 @@ decompile() {
         echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name "*.java" 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
 
-    if [ ! -x "$DIFF_CMD" ]; then
+    if [[ ! -x "$DIFF_CMD" ]]; then
         if $DEBUG; then
             warning "diff command not found"
         elif $VERBOSE; then
@@ -357,7 +357,7 @@ decompile() {
     local diff_opts=--strip-trailing-cr
 
     local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
-    if [ -f "$check_file" ]; then
+    if [[ -f "$check_file" ]]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
@@ -373,13 +373,13 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find "$lib_path/" -type f -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name "*.jar"); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
@@ -411,11 +411,11 @@ version_string() {
 
 run() {
     local boot_cpath=
-    for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
+    for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
-    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
+    [[ -n "$boot_cpath" ]] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
@@ -465,7 +465,8 @@ TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
 TARGET_BUILD_DIR=$TARGET_APP_DIR/build
 TARGET_LIB_DIR=$TARGET_APP_DIR/lib
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false
@@ -501,29 +502,29 @@ if $cygwin || $mingw || $msys; then
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA_HOME" ]] && SCALA_HOME="$(mixed_path $SCALA_HOME)"
 fi
-if [ ! -x "$JAVA_HOME/bin/java" ]; then
+if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
 JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 
-if [ ! -x "$SCALA_HOME/bin/scalac" ]; then
+if [[ ! -x "$SCALA_HOME/bin/scalac" ]]; then
     error "Scala 2 installation not found"
     cleanup 1
 fi
 SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
-if [ ! -x "$GIT_HOME/usr/bin/unzip" ]; then
+if [[ ! -x "$GIT_HOME/usr/bin/unzip" ]]; then
     error "unzip command not found"
     cleanup 1
 fi
 UNZIP_CMD="$GIT_HOME/usr/bin/unzip"
 
-if [ ! -f "$FLIX_HOME/flix.jar" ]; then
+if [[ ! -f "$FLIX_HOME/flix.jar" ]]; then
     error "Flix installation not found $FLIX_HOME"
     cleanup 1
 fi

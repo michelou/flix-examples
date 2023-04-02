@@ -178,9 +178,11 @@ task run(type: JavaExec) {
     jvmArgs "-Dfile.encoding=UTF-8"
 
     def bootClasspath = fileTree(dir: "${buildAppDir}/lib", include: "**/*.jar").join(File.pathSeparator)
+    // Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+    def appJar = "${buildAppDir}${File.separator}artifact${File.separator}${appName}.jar"
 
     mainClass = "-Xbootclasspath/a:${bootClasspath}"
-    args = [ "-jar", "${buildAppDir}/${appName}.jar" ]
+    args = [ "-jar", "${appJar}" ]
 
     workingDir buildAppDir
 }

@@ -3,7 +3,7 @@
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
   <td style="border:0;padding:0 8px 0 0;;min-width:160px;">
-    <a href="https://flix.dev/"><img src="../docs/images/flix-logo.png" width="160" alt="Flix project"/></a>
+    <a href="https://flix.dev/" rel="external"><img src="../docs/images/flix-logo.png" width="160" alt="Flix project"/></a>
   </td>
   <td style="border:0;padding:0;vertical-align:text-top;">
     Directory <strong><code>examples\</code></strong> contains <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites - mostly from the <a href="https://flix.dev/" rel="external">Flix</a> project.
@@ -131,11 +131,11 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 > 1. Command [**`make.exe`**][make_cli] reads its configuration from the two configuration files [**`Makefile`**](./areas/Makefile) and [**`Makefile.inc`**](./Makefile.inc) (we can use option **`--silent`** to hide the executed commands):
 >    <pre style="font-size:80%;">
 >     <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
->    [ -d "target/areas" ] || "C:/opt/Git-2.39.2/usr/bin/mkdir.exe" -p "target/areas"
+>    [ -d "target/areas" ] || "C:/opt/Git-2.40.0/usr/bin/mkdir.exe" -p "target/areas"
 >    cd "target/areas"; \
 >         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix.jar" init && \
->         "C:/opt/Git-2.39.2/usr/bin/rm.exe" -f "src/Main.flix" && \
->         "C:/opt/Git-2.39.2/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+>         "C:/opt/Git-2.40.0/usr/bin/rm.exe" -f "src/Main.flix" && \
+>         "C:/opt/Git-2.40.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
 >         "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix.jar" build && \
 >         "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix.jar" build-jar
 >    "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe"  -jar "target/areas/areas.jar"
@@ -554,11 +554,11 @@ Execute Flix program "target\areas\areas.jar"
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> NIGHTLY=1 run</b>
-[ -d "target/areas" ] || "C:/opt/Git-2.39.2/usr/bin/mkdir.exe" -p "target/areas"
+[ -d "target/areas" ] || "C:/opt/Git-2.40.0/usr/bin/mkdir.exe" -p "target/areas"
 cd "target/areas"; \
         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2023-03-06.jar" init && \
-        "C:/opt/Git-2.39.2/usr/bin/rm.exe" -f "src/Main.flix" && \
-        "C:/opt/Git-2.39.2/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+        "C:/opt/Git-2.40.0/usr/bin/rm.exe" -f "src/Main.flix" && \
+        "C:/opt/Git-2.40.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
         "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2023-03-06.jar" build && \
         "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe" -jar "C:\opt\flix-0.34.0/flix-2023-03-06.jar" build-jar
 "C:/opt/jdk-temurin-11.0.18_10/bin/java.exe"  -jar "target/areas/areas.jar"

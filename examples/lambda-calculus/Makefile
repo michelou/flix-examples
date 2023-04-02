@@ -1,3 +1,10 @@
+##
+## Copyright (c) 2018-2023 Stéphane Micheloud
+##
+## Licensed under the MIT License.
+##
+##############################################################################
+
 ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
 include ../Makefile.inc
@@ -15,7 +22,8 @@ SCALA_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.scala")
 SCALA_TARGET  = $(BUILD_DIR)/lib/lib_$(PROJECT_NAME).jar
 
 SOURCES       = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.flix")
-TARGET        = $(BUILD_DIR)/$(PROJECT_NAME).jar
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+TARGET        = $(BUILD_DIR)/artifact/$(PROJECT_NAME).jar
 
 all: build
 
@@ -49,7 +57,7 @@ help:
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   display this help message"
-	@$(ECHO) "    run    execute main program $(PROJECT_NAME)"
+	@$(ECHO) "    run    execute main program \"$(PROJECT_NAME)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
@@ -81,3 +89,6 @@ test: $(TEST_TARGET)
 ## phony
 
 .PHONY: all build clean doc help run test
+
+.SUFFIXES:
+.SUFFIXES: .classes *.flix *.jar *.scala

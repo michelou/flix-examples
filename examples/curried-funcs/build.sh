@@ -127,7 +127,10 @@ clean() {
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
-        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+        if [[ $? -ne 0 ]]; then
+            error "Failed to delete directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+            EXITCODE=1 && return 0
+        fi
     fi
 }
 
@@ -194,10 +197,10 @@ action_required() {
     for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$source_file" ]; then
+    if [[ -z "$source_file" ]]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$target_file" ]; then
+    elif [[ ! -f "$target_file" ]]; then
         ## Do compile if target file doesn't exist
         echo 1
     else
@@ -295,7 +298,7 @@ decompile() {
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
         eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
         if [[ $? -ne 0 ]]; then
-            error "Failed to decompile generated code in directory $f"
+            error "Failed to decompile generated code in directory \"$f\""
             cleanup 1
         fi
     done
@@ -310,7 +313,7 @@ decompile() {
     if $DEBUG; then
         debug "cat $output_dir/*.java >> $output_file"
     elif $VERBOSE; then
-        echo "Save generated Java source files to file ${output_file/$ROOT_DIR\//}" 1>&2
+        echo "Save generated Java source files to file \"${output_file/$ROOT_DIR\//}\"" 1>&2
     fi
     local java_files=
     for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
@@ -318,7 +321,7 @@ decompile() {
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
 
-    if [ ! -x "$DIFF_CMD" ]; then
+    if [[ ! -x "$DIFF_CMD" ]]; then
         if $DEBUG; then
             warning "diff command not found"
         elif $VERBOSE; then
@@ -333,7 +336,7 @@ decompile() {
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
-            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+            echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
@@ -345,13 +348,13 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find "$lib_path/" -type f -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name "*.jar"); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
@@ -437,7 +440,8 @@ TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
 TARGET_BUILD_DIR=$TARGET_APP_DIR/build
 TARGET_LIB_DIR=$TARGET_APP_DIR/lib
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false
