@@ -18,7 +18,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Apache Maven 3.9][apache_maven] ([requires Java 8 or newer][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Flix 0.34][flix_downloads] ([*release notes*][flix_relnotes])
+- [Flix 0.35][flix_downloads] ([*release notes*][flix_relnotes])
 - [Git 2.40][git_downloads] ([*release notes*][git_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 
@@ -84,7 +84,7 @@ where
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 - file [**`UBUNTU_WSL.md`**](UBUNTU_WSL.md) presents a [Flix] code examples in [Ubuntu WSL][wsl].
 
-## <span id="commands">Batch commands</span>
+## <span id="commands">Bash/Batch commands</span>
 
 We distinguish different sets of batch commands:
 
@@ -110,20 +110,38 @@ We distinguish different sets of batch commands:
     &nbsp;
     Options:
       -debug      display commands executed by this script
-      -nightly    use Flix nightly build if locally available
+      -nightly    use latest Flix nightly build if locally available
       -verbose    display progress messages
     &nbsp;
     Subcommands:
       clean       delete generated files
       compile     generate program executable
       help        display this help message
-      run         execute the generated program
+      run         execute the generated program "areas"
       test        run the unit tests
     </pre>
 
 3. [**`examples\*\build.gradle`**](examples/areas/build.gradle) &ndash; Code examples can be built/run/tested using the [**`gradle.bat`**][gradle_cli] build tool.
 
 4. [**`examples\*\build.sh`**](examples/areas/build.sh) &ndash; Code examples can be built/run/tested using the [**`bash.exe`**][bash_cli] scripting tool.
+
+   <pre style="font-size:80%;">
+   <b>&gt; <a href="https://linux.die.net/man/1/sh" rel="external">sh</a> <a href="examples/Factorial/build.sh">build.sh</a> help</b>
+   Usage: build.sh { &lt;option> | &lt;subcommand> }
+   &nbsp;
+   Options:
+     -debug       display commands executed by this script
+     -nightly     select latest Flix nightly build if locally available
+     -verbose     display progress messages
+   &nbsp;
+   Subcommands:
+     clean        delete generated files
+     compile      compile Scala/Flix source files
+     decompile    decompile generated code with CFR
+     help         display this help message
+     run          execute Flix program "areas"
+     test         run the unit tests
+   </pre>
 
 ## <span id="usage">Usage examples</span> [**&#x25B4;**](#top)
 
