@@ -24,6 +24,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 Optionally one may also install the following software:
 
+- [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Flix nightly builds](https://flix.dev/nightly/) <sup id="anchor_01">[1](#footnote_01)</sup>
 - [GNU Make 3.81][make_install]
 - [Gradle 8.0][gradle_install] ([requires Java 8 or newer][gradle_compatibility]) ([*release notes*][gradle_relnotes])
@@ -37,6 +38,7 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*April 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
+C:\opt\apache-ant-1.10.13\      <i>( 43 MB)</i>
 C:\opt\apache-maven-3.9.1\      <i>( 10 MB)</i>
 C:\opt\flix-0.35.0\             <i>( 35 MB)</i>
 C:\opt\Git-2.40.0\              <i>(317 MB)</i>
@@ -175,7 +177,7 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2023-03-06.jar" to directory "C:\opt\flix-0.35.0"
+Download file "flix-2023-04-06.jar" to directory "C:\opt\flix-0.35.0"
 
 Tool versions:
    java 11.0.18, javac 11.0.18, scalac 2.13.10, flix v0.35.0,
@@ -247,9 +249,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 </dd>
 <dd>
 <pre style="font-size:80%;">
+<a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.1-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2023-04-02.jar</a>                                <i>( 39 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2023-04-06.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.0.2-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.28-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
@@ -269,6 +272,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 [ada_examples]: https://github.com/michelou/ada-examples
 [akka_examples]: https://github.com/michelou/akka-examples
+[apache_ant]: https://ant.apache.org/
+[apache_ant_cli]: https://ant.apache.org/manual/running.html
+[apache_ant_relnotes]: https://github.com/apache/ant/blob/master/WHATSNEW
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html

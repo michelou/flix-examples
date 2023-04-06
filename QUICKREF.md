@@ -31,10 +31,10 @@
 | [`@LazyWhenPure`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L214) | [`library/DelayList.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L415)<br/>[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L352) |
 | [`@MustUse`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L223) | |
 | [`@Parallel`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L187) | [`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L441) |
-| [`@ParallelWhenPure`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L196) | [`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L155) |
-| [`@Skip`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L238) | *unused* |
-| [`@Test`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L245) | [`library/TestApplicative.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestApplicative.flix#L26)<br/>[`library/TestArray.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestArray.flix#L25) |
-| [`@Unsafe`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L254) | [`library/Object.flix`](https://github.com/flix/flix/blob/master/main/src/library/Object.flix#L44),<br/>[`library/Reflect.flix`](https://github.com/flix/flix/blob/master/main/src/library/Reflect.flix#L8) |
+| [`@ParallelWhenPure`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L194) | [`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L155) |
+| [`@Skip`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L232) | *unused* |
+| [`@Test`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L243) | [`library/TestApplicative.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestApplicative.flix#L26)<br/>[`library/TestArray.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestArray.flix#L25) |
+| [`@Unsafe`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L252) | [`library/Object.flix`](https://github.com/flix/flix/blob/master/main/src/library/Object.flix#L44),<br/>[`library/Reflect.flix`](https://github.com/flix/flix/blob/master/main/src/library/Reflect.flix#L8) |
 
 ## <span id="keywords">Keywords</span> [**&#x25B4;**](#top)
 
@@ -43,32 +43,32 @@ The list of [Flix] keywords is available from several locations :
 - [Flix] compiler: [`src\ca\uwaterloo\flix\language\phase\Weeder.scala`](https://github.com/flix/flix/blob/8adacde4dc23ab355850aeeb94f24c17eb30dd0a/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L42).
 - [Flix] API: [`src\ca\uwaterloo\flix\api\lsp\provider\CompletionProvider.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/lsp/provider/CompletionProvider.scala#L241).
 
+<!--
+| `choose` | | <span style="font-size:80%;">[`library/Choice.flix`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L33)</span> |
+-->
+
 | Keyword | Description | Usage examples |
 |:--------|:------------|:---------------|
 | `alias` | [Short-hand name for a type](https://doc.flix.dev/type-aliases.html) | <span style="font-size:80%;">[`library/File.flix`](https://github.com/flix/flix/blob/master/main/src/library/File.flix#L145)</span> |
 | `and`   | | <span style="font-size:80%">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L1187)<br/>[`library/Bool.flix`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix#L30)<br/>[`library/Eq.flix`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L47)</span> |
 | `as` | | <span style="font-size:80%;">[`library/Console.flix`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L34)</span> |
 | `case` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L325)</span> |
-| `catch` | | <span style="font-size:80%;">[`library/BigInt.flix`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L101)</span> |
-| `choose` | | <span style="font-size:80%;">[`library/Choice.flix`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L33)</span> |
+| `catch` | | <span style="font-size:80%;">[`library/BigInt.flix`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L130)</span> |
 | `class` | | <span style="font-size:80%;">[`library/Add.flix`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L20)</span> |
 | `def` | | <span style="font-size:80%;">[`library/Add.flix`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L24)</span> |
-| `deref` | [To access a reference cell](https://doc.flix.dev/references.html?highlight=deref#dereference) | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L59)</span> |
-| `discard` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L639)<br/>[`library/StringBuilder.flix`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L53)</span> |
-| `do` | | |
+| `deref` | [To access a reference cell](https://doc.flix.dev/references.html?highlight=deref#dereference) | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L51)</span> |
+| `discard` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L627)<br/>[`library/StringBuilder.flix`](https://github.com/flix/flix/blob/master/main/src/library/StringBuilder.flix#L53)</span> |
 | `eff` | | <span style="font-size:80%;">[`library/Prelude.flix`](https://github.com/flix/flix/blob/master/main/src/library/Prelude.flix#L19)</span> |
-| `else` | | |
+| `else` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L29)</span> |
 | `enum` | | <span style="font-size:80%;">[`library/Comparison.flix`](https://github.com/flix/flix/blob/master/main/src/library/Comparison.flix#L17)</span> |
-| `false` | | |
+| `false` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L698)</span> |
 | `fix` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L89)</span> |
-| `for` | | |
 | `forall` | Used together with `law` | <span style="font-size:80%;">[`library/Applicative.flix`](https://github.com/flix/flix/blob/master/main/src/library/Applicative.flix#L79)</span> |
 | `force` | | <span style="font-size:80%;">[`library/Bool.flix`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix#L60)</span> |
-| `foreach` | | <span style="font-size:80%;">[`library/List.flix`](https://github.com/flix/flix/blob/master/main/src/library/List.flix#L129)</span> |
+| `foreach` | | <span style="font-size:80%;">[`library/List.flix`](https://github.com/flix/flix/blob/master/main/src/library/List.flix#L136)</span> |
 | `from` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L33)</span>|
-| `get` | | |
 | `if` | | |
-| `import` | | <span style="font-size:80%;">[`library/Add.flix`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L57)</span> |
+| `import` | | <span style="font-size:80%;">[`library/Add.flix`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L61)</span> |
 | `inject` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22)</span> |
 | `instance` | | <span style="font-size:80%;">[`library/Add.flix`](https://github.com/flix/flix/blob/master/main/src/library/Add.flix#L20)</span> |
 | `into` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L22)</span> |
@@ -76,15 +76,14 @@ The list of [Flix] keywords is available from several locations :
 | `law` | | <span style="font-size:80%;">[`library/Applicative.flix`](https://github.com/flix/flix/blob/master/main/src/library/Applicative.flix#L79)</span> |
 | `lawful` | Class modifier | <span style="font-size:80%;">[`library/Applcative.flix`](https://github.com/flix/flix/blob/master/main/src/library/Applicative.flix#L37)</span> |
 | `lazy` | [Lazy evaluation of an expression](https://doc.flix.dev/laziness.html?highlight=lazy#laziness) | <span style="font-size:80%;">[`library/DelayList.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L430)</span> |
-| `let` | | |
+| `let` | |  <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L23)</span> |
 | `match` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L326)</span> |
 | `namespace` | | <span style="font-size:80%;">[`library/Applicative.flix`](https://github.com/flix/flix/blob/master/main/src/library/Applicative.flix#L125)</span> |
-| `new` | | |
 | `not` | | <span style="font-size:80%;">[`library/Bool.flix`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix#L40)</span> |
 | `null` | | |
 | `opaque` | | <span style="font-size:80%;">[`Tuple/Tuple.flix`](https://github.com/flix/flix/blob/master/main/src/library/Fixpoint/Tuple/Tuple.flix#L22)</span> |
 | `or` | | |
-| `override` | | |
+| `override` | | <span style="font-size:80%;">[`library/List.flix`](https://github.com/flix/flix/blob/master/main/src/library/List.flix#L83)</span> |
 | `par` | | |
 | `pub` | | |
 | `query` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L31)</span> |

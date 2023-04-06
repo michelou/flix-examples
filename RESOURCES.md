@@ -20,6 +20,7 @@
 
 ## <span id="blogs">Blogs</span>
 
+- [An Introduction to Datalog](https://blogit.michelin.io/an-introduction-to-datalog/) by Fabien Alberi, December 2022.
 - [Flix for Java Programmers][blog_huehnken] by Lutz Hühnken, June 2022.
 
 ## <span id="community">Community</span>
@@ -31,7 +32,7 @@
 - [Flix: Designing a principled programming language with Magnus Madsen][anchor_flix], February 2022.
 - [Interview with Magnus Madsen about the Flix Programming Language][infoq_flix], February 2022.
 
-## <span id="papers">Papers</span>
+## <span id="papers">Papers</span> [**&#x25B4;**](#top)
 <!-- https://www.accentletters.com/accent-a.html -->
 
 - [The Principles of the Flix Programming Language][paper_madsen_2020] (Proceedings) by Magnus Madsen, November 2022.
@@ -41,6 +42,10 @@
   > **Note:** Compiler internals:
   > - Tail recursive call vs self recursive call : [`phase/Tailrec.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Tailrec.scala#L91)
 - [From Datalog to Flix][paper_madsen_2016] by Magnus Madsen and al., June 2016.
+
+## <span id="projects">Projects</span>
+
+- [flix-pretty](https://github.com/stephentetley/flix-pretty) &ndash; A pretty print library for Flix.
 
 ## <span id="tools">Tools</span>
 
