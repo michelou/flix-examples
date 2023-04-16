@@ -19,7 +19,8 @@ BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
 ## main rules
 
 SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.flix")
-TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+TARGET  = $(BUILD_DIR)/artifact/$(PROJECT_NAME).jar
 
 all: build
 
@@ -47,7 +48,7 @@ help:
 	@$(ECHO) ""
 	@$(ECHO) "  Subcommands:"
 	@$(ECHO) "    all    alias for build"
-	@$(ECHO) "    build  compile Java/Scala source files"
+	@$(ECHO) "    build  compile Flix source files"
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   display this help message"
@@ -83,4 +84,4 @@ test: $(TEST_TARGET)
 .PHONY: all build clean doc help run test
 
 .SUFFIXES:
-.SUFFIXES: .classes *.flix *.jar
+.SUFFIXES: .classes .flix .jar .java

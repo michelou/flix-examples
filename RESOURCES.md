@@ -25,7 +25,8 @@
 
 ## <span id="community">Community</span>
 
-- [Gitter - flix/Lobby](https://gitter.im/flix/Lobby).
+- [Gitter &ndash; flix/Lobby](https://gitter.im/flix/Lobby).
+- [Twitter &ndash; @flixlang](https://twitter.com/flixlang).
 
 ## <span id="interviews">Interviews</span>
 
@@ -35,13 +36,16 @@
 ## <span id="papers">Papers</span> [**&#x25B4;**](#top)
 <!-- https://www.accentletters.com/accent-a.html -->
 
-- [The Principles of the Flix Programming Language][paper_madsen_2020] (Proceedings) by Magnus Madsen, November 2022.
+- [The Principles of the Flix Programming Language][paper_madsen_nov_2022] (Proceedings) by Magnus Madsen, November 2022.
+- [Functional Programming with Datalog][paper_pacak_2022] (ECOOP 2022 Proceedings) by André Pacak and Sebastian Erdweg, July 2022.
 - [Programming with First-Class Datalog Constraints](https://dl.acm.org/doi/10.1145/3428193) by Magnus Madsen and Ondřey Lhoták, November 2020.<br><span style="font-size:80%;">(<a href="https://www.youtube.com/watch?v=ikVZrivln8c" rel="external">Youtube video</a>)</span>
+- [Flix: A Meta Programming Language for Datalog][paper_madsen_sep_2022] ([CEUR Workshop 2022 Proceedings](https://ceur-ws.org/Vol-3203/)) by Magnus Madsen and al., September 2022.
 - [Extending Parallel Datalog with Lattice](https://www.cse.psu.edu/~gxt29/papers/) (Master Thesis) by Qing Gong, May 2020.
 - [Tail call elimination and data representation for functional languages on the Java virtual machine][paper_madsen_2018] by Magnus Madsen and al., February 2018.
   > **Note:** Compiler internals:
   > - Tail recursive call vs self recursive call : [`phase/Tailrec.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Tailrec.scala#L91)
 - [From Datalog to Flix][paper_madsen_2016] by Magnus Madsen and al., June 2016.
+- [Implementing a Functional Language for Flix][paper_yee_sep_2016] (Master) by Ming-Ho Yee, September 2016.
 
 ## <span id="projects">Projects</span>
 
@@ -67,7 +71,10 @@
 [flix_compiler_tests]: https://github.com/flix/flix/blob/master/main/test/flix/README.md
 [flix_playground]: https://play.flix.dev/
 [infoq_flix]: https://www.infoq.com/news/2022/02/flix-programming-language/
-[paper_madsen_2020]: https://dl.acm.org/doi/10.1145/3563835.3567661
+[paper_madsen_nov_2022]: https://dl.acm.org/doi/10.1145/3563835.3567661
+[paper_madsen_sep_2022]: https://ceur-ws.org/Vol-3203/
 [paper_madsen_2018]: https://dl.acm.org/doi/10.1145/3178372.3179499
 [paper_madsen_2016]: https://cs.au.dk/~magnusm/papers/pldi16/paper.pdf
+[paper_pacak_2022]: https://drops.dagstuhl.de/opus/volltexte/2022/16235/pdf/LIPIcs-ECOOP-2022-7.pdf&usg=AOvVaw0UrhiQImHACKVm45XGqu7y
+[paper_yee_sep_2016]: https://uwspace.uwaterloo.ca/recent-submissions?offset=8316
 [vscode-flix]: https://github.com/flix/vscode-flix
