@@ -19,6 +19,15 @@ ext.getNightly = { flixHome ->
     }
 }
 
+ext.convertPath = { path ->
+    if (path.startsWith("/cygdrive/")) {
+        return path[10] + ":" + path.substring(11)
+    }
+    else {
+        return path
+    }
+}
+
 project.ext {
 
     configurations {
@@ -39,9 +48,7 @@ project.ext {
     jarName = System.getProperty("nightly") != null
         ? getNightly(flixHome)
         : "flix.jar"
-    flixJar = file(flixHome + "/" + jarName)
-
-    bootClasspath = configurations.getByName("bootClasspath").resolve().join(File.pathSeparator)
+    flixJar = file(convertPath(flixHome) + "/" + jarName)
 
     mainSourceTree = fileTree(dir: "src/main", include: "**/*.flix")
     //testSourceTree = fileTree(dir: "src/test", include: "**/*.flix")
@@ -83,7 +90,7 @@ task deleteFiles(type: Delete) {
     delete fileTree("${buildAppDir}/test") { include "**/*.flix" }
 }
 
-task copyFiles(type: Copy) {
+task copyFlix(type: Copy) {
     dependsOn initFlix, deleteFiles
 
     from("src/main") { include "**/*.flix" }
@@ -91,7 +98,7 @@ task copyFiles(type: Copy) {
 }
 
 task compileFlix(type: JavaExec) {
-    dependsOn copyFiles, compileJava
+    dependsOn copyFlix, compileJava
 
     description "Compile Flix source files"
 
@@ -131,8 +138,12 @@ task run(type: JavaExec) {
 
     jvmArgs "-Dfile.encoding=UTF-8"
 
+    def bootClasspath = fileTree(dir: "${buildAppDir}/lib", include: "**/*.jar").join(File.pathSeparator)
+    // Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+    def appJar = "${buildAppDir}${File.separator}artifact${File.separator}${appName}.jar"
+
     mainClass = "-Xbootclasspath/a:${bootClasspath}"
-    args = [ "-jar", "${buildAppDir}/${appName}.jar" ]
+    args = [ "-jar", "${appJar}" ]
 
     workingDir buildAppDir
 }
