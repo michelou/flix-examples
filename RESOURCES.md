@@ -58,7 +58,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
@@ -75,6 +75,6 @@
 [paper_madsen_sep_2022]: https://ceur-ws.org/Vol-3203/
 [paper_madsen_2018]: https://dl.acm.org/doi/10.1145/3178372.3179499
 [paper_madsen_2016]: https://cs.au.dk/~magnusm/papers/pldi16/paper.pdf
-[paper_pacak_2022]: https://drops.dagstuhl.de/opus/volltexte/2022/16235/pdf/LIPIcs-ECOOP-2022-7.pdf&usg=AOvVaw0UrhiQImHACKVm45XGqu7y
+[paper_pacak_2022]: https://drops.dagstuhl.de/opus/volltexte/2022/16235/
 [paper_yee_sep_2016]: https://uwspace.uwaterloo.ca/recent-submissions?offset=8316
 [vscode-flix]: https://github.com/flix/vscode-flix

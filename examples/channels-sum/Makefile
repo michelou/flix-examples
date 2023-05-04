@@ -88,4 +88,4 @@ test: $(TEST_TARGET)
 .PHONY: all build clean doc help run test
 
 .SUFFIXES:
-.SUFFIXES: .classes .flix .jar .java
+.SUFFIXES: .class .flix .jar .java
