@@ -25,16 +25,19 @@
 |:----------------|:---------------|
 | [`@Benchmark`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L150) | [`benchmark/BenchmarkConstraint.flix`](https://github.com/flix/flix/blob/master/main/src/resources/benchmark/BenchmarkConstraint.flix#L9)<br/>[`benchmark/BenchmarkList.flix`](https://github.com/flix/flix/blob/master/main/src/resources/benchmark/BenchmarkList.flix#L6) |
 | [`@Deprecated`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L159) | *unused* |
-| [`@Experimental`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L169) | [`library/Benchmark.flix`](https://github.com/flix/flix/blob/master/main/src/library/Benchmark.flix#L47)<br/> [`library/Choice.flix`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L32) |
+| [`@Experimental`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L168) | [`library/Benchmark.flix`](https://github.com/flix/flix/blob/master/main/src/library/Benchmark.flix#L47)<br/> [`library/Choice.flix`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L32) |
 | [`@Internal`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L177) | [`library/Debug.flix`](https://github.com/flix/flix/blob/master/main/src/library/Debug.flix#L34) |
 | [`@Lazy`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L205) | [`library/DelayList.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L196)<br/>[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L372) |
 | [`@LazyWhenPure`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L214) | [`library/DelayList.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L415)<br/>[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L352) |
 | [`@MustUse`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L223) | |
 | [`@Parallel`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L187) | [`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L441) |
-| [`@ParallelWhenPure`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L194) | [`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L155) |
-| [`@Skip`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L232) | *unused* |
-| [`@Test`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L243) | [`library/TestApplicative.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestApplicative.flix#L26)<br/>[`library/TestArray.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestArray.flix#L25) |
+| [`@ParallelWhenPure`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L196) | [`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L155) |
+| [`@Skip`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L234) | *unused* |
+| [`@Test`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L245) | [`library/TestApplicative.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestApplicative.flix#L26)<br/>[`library/TestArray.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestArray.flix#L25) |
+<!-- dropped on May 11, 2023, see https://github.com/flix/flix/pull/5909 -->
+<!--
 | [`@Unsafe`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L252) | [`library/Object.flix`](https://github.com/flix/flix/blob/master/main/src/library/Object.flix#L44),<br/>[`library/Reflect.flix`](https://github.com/flix/flix/blob/master/main/src/library/Reflect.flix#L8) |
+-->
 
 ## <span id="keywords">Keywords</span> [**&#x25B4;**](#top)
 

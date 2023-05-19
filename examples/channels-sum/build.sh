@@ -217,8 +217,12 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
-    local n_files="$n Scala source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
@@ -467,7 +471,8 @@ TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
 TARGET_BUILD_DIR=$TARGET_APP_DIR/build
 TARGET_LIB_DIR=$TARGET_APP_DIR/lib
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false

@@ -454,6 +454,7 @@ if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
+JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 
 if [[ ! -x "$SCALA_HOME/bin/scalac" ]]; then
@@ -464,6 +465,12 @@ SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
 [[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
+
+if [[ ! -x "$GIT_HOME/usr/bin/unzip" ]]; then
+    error "unzip command not found"
+    cleanup 1
+fi
+UNZIP_CMD="$GIT_HOME/usr/bin/unzip"
 
 if [[ ! -f "$FLIX_HOME/flix.jar" ]]; then
     error "Flix installation not found $FLIX_HOME"

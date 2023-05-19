@@ -217,8 +217,12 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
-    local n_files="$n Scala source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
@@ -239,8 +243,12 @@ compile_flix() {
     for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    local n_files="$n Flix source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Flix source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Flix source file$s"
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
     elif $VERBOSE; then
@@ -366,7 +374,7 @@ decompile() {
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
-            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+            echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
@@ -378,11 +386,11 @@ decompile() {
 
 run() {
     local boot_cpath=
-    for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
+    for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
-    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
+    [[ -n "$boot_cpath" ]] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
@@ -432,7 +440,8 @@ TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
 TARGET_BUILD_DIR=$TARGET_APP_DIR/build
 TARGET_LIB_DIR=$TARGET_APP_DIR/lib
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false

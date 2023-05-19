@@ -21,6 +21,12 @@
 ## <span id="blogs">Blogs</span>
 
 - [An Introduction to Datalog](https://blogit.michelin.io/an-introduction-to-datalog/) by Fabien Alberi, December 2022.
+- [Paul Butcher Blog posts](https://paulbutcher.com/blog/) :
+  - [An introduction to Datalog in Flix: Part 4](https://paulbutcher.com/blog/2022/datalog4/), October 2022.
+  - [An introduction to Datalog in Flix: Part 3](https://paulbutcher.com/blog/2022/datalog3/), October 2022.
+  - [An introduction to Datalog in Flix: Part 2](https://paulbutcher.com/blog/2022/datalog2/), October 2022.
+  - [An introduction to Datalog in Flix: Part 1](https://paulbutcher.com/blog/2022/datalog1/), October 2022.
+
 - [Flix for Java Programmers][blog_huehnken] by Lutz Hühnken, June 2022.
 
 ## <span id="community">Community</span>

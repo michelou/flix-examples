@@ -15,7 +15,7 @@ def sort(l: List[a]): List[a] with Order[a] =
 ///
 def toString(l: List[a]): String with ToString[a] = 
     region r {
-        let sb = new StringBuilder(r);
+        let sb = StringBuilder.new(r);  // up to 0.35 : new StringBuilder(r);
         //for (x <- List.iterator(r, l)) yield {
         //    StringBuilder.appendString!("${x} :: ", sb)
         //};
@@ -36,7 +36,7 @@ def deduplicate(l: List[a]): List[a] with Order[a] =
         /// Create a new `MutSet` at region `r`.
         /// This will be used to keep track of
         /// unique elements in `l`.
-        let s = new MutSet(r);
+        let s = MutSet.new(r);  // up to 0.35 : new MutSet(r);
 
         /// The lambda used in the call to `filter`
         /// would be impure without a region.

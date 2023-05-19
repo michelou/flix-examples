@@ -52,8 +52,17 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
     set _EXITCODE=1
     goto :eof
 )
+set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 
+set _CFR_CMD=
+if defined CFR_HOME if exist "%CFR_HOME%\bin\cfr.bat" (
+    set "_CFR_CMD=%CFR_HOME%\bin\cfr.bat"
+)
+set _DIFF_CMD=
+if exist "%GIT_HOME%\usr\bin\diff.exe" (
+    set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
+)
 if not exist "%FLIX_HOME%\flix.jar" (
     echo %_ERROR_LABEL% Flix library not found 1>&2
     set _EXITCODE=1
@@ -154,12 +163,17 @@ goto args_loop
 for %%i in ("%_ROOT_DIR:~0,-1%") do set "_PROJECT_NAME=%%~ni"
 
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
-set "_MAIN_JAR_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar"
+@rem Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+set "_MAIN_JAR_FILE=%_BUILD_DIR%\artifact\%_PROJECT_NAME%.jar"
 set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
+if not "%_COMMANDS:decompile=%"=="%_COMMANDS%" if not defined _CFR_CMD (
+    echo %_WARNING_LABEL% cfr installation not found 1>&2
+    set _COMMANDS=%_COMMANDS:decompile=%
+)
 if %_NIGHTLY%==1 (
     set __NIGHTLY_JAR=
     for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
