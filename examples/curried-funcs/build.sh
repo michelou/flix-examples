@@ -73,7 +73,7 @@ args() {
         for f in $(find "$FLIX_HOME/" -type f -name "flix-*.jar" 2>/dev/null); do
             nightly_jar="$f"
         done
-        if [ -f "$nightly_jar" ]; then
+        if [[ -f "$nightly_jar" ]]; then
             if $DEBUG; then
                 debug "Nightly build \"$nightly_jar\" was selected"
             elif $VERBOSE; then

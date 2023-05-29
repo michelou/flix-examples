@@ -36,14 +36,14 @@ pub enum Player({id = Int32}, {score = Int32})
 /// A ToString instance for Player.
 instance ToString[Player] {
     pub def toString(p: Player): String = match p {
-        case Player(r1, r2) => "Player(${r1.id}, ${r2.score})"
+        case Player.Player(r1, r2) => "Player(${r1.id}, ${r2.score})"
     }
 }
 
 ///
 /// Creates a new player from the given ID.
 ///
-pub def initializePlayer(id: Int32): Player = Player(id = id, score = 0)
+pub def initializePlayer(id: Int32): Player = Player.Player(id = id, score = 0)
 
 def main(): Unit \ IO =
     let player = initializePlayer(1);

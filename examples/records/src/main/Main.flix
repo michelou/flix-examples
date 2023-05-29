@@ -9,7 +9,7 @@ enum Rec2({ x = Int32, y = Int32 })
 
 instance ToString[Rec2] {
     pub def toString(r0: Rec2): String = match r0 {
-        case Rec2(r) => "{ ${r.x}, ${r.y} }"
+        case Rec2.Rec2(r) => "{ ${r.x}, ${r.y} }"
     }
 }
 
@@ -26,4 +26,4 @@ def main(): Unit \ IO =
     // with an updated field value:
     let r3 = { x = 3 | r1 };
 
-    println("r3 = ${Rec2(r3)}")
+    println("r3 = ${Rec2.Rec2(r3)}")
