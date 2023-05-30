@@ -452,7 +452,7 @@ Map#{1 => Ok(123), 2 => Err(Hello)}
 We give option <code><b>--help</b></code> to display the Flix commands :
 <pre style="font-size:80%;">
 <b>&gt; "%JAVA_HOME%\bin\java.exe" -jar "%FLIX_HOME%\flix.jar" --help</b>
-The Flix Programming Language v0.35.0
+The Flix Programming Language v0.37.0
 Usage: flix [init|check|build|build-jar|build-pkg|run <b>↲</b><br/>&emsp;|benchmark|test|repl|install|lsp] [options] &lt;args&gt;...
 &nbsp;
 Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L76"><b>init</b></a>
@@ -569,7 +569,7 @@ cd "target/areas"; \
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -Dnightly run</b>
 &nbsp;
 &gt; Configure project :
-Nightly build 'flix-2023-03-23.jar' was selected
+Nightly build 'flix-2023-05-29.jar' was selected
 &nbsp;
 &g; Task :compileFlix
 &nbsp;
@@ -585,7 +585,7 @@ BUILD SUCCESSFUL in 15s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

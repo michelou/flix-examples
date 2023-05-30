@@ -23,14 +23,14 @@
 
 | Definition      | Usage examples |
 |:----------------|:---------------|
-| [`@Benchmark`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L150) | [`benchmark/BenchmarkConstraint.flix`](https://github.com/flix/flix/blob/master/main/src/resources/benchmark/BenchmarkConstraint.flix#L9)<br/>[`benchmark/BenchmarkList.flix`](https://github.com/flix/flix/blob/master/main/src/resources/benchmark/BenchmarkList.flix#L6) |
+| [`@Benchmark`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L150) | [`benchmark/BenchmarkConstraint.flix`](https://github.com/flix/flix/blob/master/main/src/resources/benchmark/BenchmarkConstraint.flix#L6)<br/>[`benchmark/BenchmarkList.flix`](https://github.com/flix/flix/blob/master/main/src/resources/benchmark/BenchmarkList.flix#L6) |
 | [`@Deprecated`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L159) | *unused* |
-| [`@Experimental`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L168) | [`library/Benchmark.flix`](https://github.com/flix/flix/blob/master/main/src/library/Benchmark.flix#L47)<br/> [`library/Choice.flix`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L32) |
+| [`@Experimental`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L168) | [`library/Benchmark.flix`](https://github.com/flix/flix/blob/master/main/src/library/Benchmark.flix#L49)<br/> [`library/Choice.flix`](https://github.com/flix/flix/blob/master/main/src/library/Choice.flix#L33) |
 | [`@Internal`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L177) | [`library/Debug.flix`](https://github.com/flix/flix/blob/master/main/src/library/Debug.flix#L34) |
-| [`@Lazy`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L205) | [`library/DelayList.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L196)<br/>[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L372) |
+| [`@Lazy`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L205) | [`library/DelayList.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L200)<br/>[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L371) |
 | [`@LazyWhenPure`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L214) | [`library/DelayList.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayList.flix#L415)<br/>[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L352) |
 | [`@MustUse`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L223) | |
-| [`@Parallel`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L187) | [`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L441) |
+| [`@Parallel`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L187) | [`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L440) |
 | [`@ParallelWhenPure`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L196) | [`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L155) |
 | [`@Skip`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L234) | *unused* |
 | [`@Test`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/ast/Ast.scala#L245) | [`library/TestApplicative.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestApplicative.flix#L26)<br/>[`library/TestArray.flix`](https://github.com/flix/flix/blob/master/main/test/ca/uwaterloo/flix/library/TestArray.flix#L25) |
@@ -52,8 +52,8 @@ The list of [Flix] keywords is available from several locations :
 
 | Keyword | Description | Usage examples |
 |:--------|:------------|:---------------|
-| `alias` | [Short-hand name for a type](https://doc.flix.dev/type-aliases.html) | <span style="font-size:80%;">[`library/File.flix`](https://github.com/flix/flix/blob/master/main/src/library/File.flix#L145)</span> |
-| `and`   | | <span style="font-size:80%">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L1187)<br/>[`library/Bool.flix`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix#L30)<br/>[`library/Eq.flix`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L47)</span> |
+| `alias` | [Short-hand name for a type](https://doc.flix.dev/type-aliases.html) | <span style="font-size:80%;">[`library/File.flix`](https://github.com/flix/flix/blob/master/main/src/library/File.flix#L139)</span> |
+| `and`   | | <span style="font-size:80%">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L1138)<br/>[`library/Bool.flix`](https://github.com/flix/flix/blob/master/main/src/library/Bool.flix#L30)<br/>[`library/Eq.flix`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L47)</span> |
 | `as` | | <span style="font-size:80%;">[`library/Console.flix`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L34)</span> |
 | `case` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L325)</span> |
 | `catch` | | <span style="font-size:80%;">[`library/BigInt.flix`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L130)</span> |
@@ -286,7 +286,7 @@ Other than syntax, the two languages are very different:
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
