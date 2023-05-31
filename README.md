@@ -46,7 +46,7 @@ C:\opt\gradle-8.1.1\            <i>(131 MB)</i>
 C:\opt\jdk-temurin-11.0.19_7\   <i>(301 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
-C:\opt\mdBook-0.4.29\           <i>(  9 MB)</i>
+C:\opt\mdBook-0.4.30\           <i>(  9 MB)</i>
 C:\opt\scala-2.13.10\           <i>( 24 MB)</i>
 </pre>
 
@@ -155,7 +155,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.19, javac 11.0.19, scalac 2.13.10, flix v0.37.0,
-   gradle 8.1, make 3.81, mdbook v0.4.29, mvn 3.9.2,
+   gradle 8.1, make 3.81, mdbook v0.4.30, mvn 3.9.2,
    git 2.40.1.windows.1, diff 3.9
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
@@ -181,7 +181,7 @@ Download file "flix-2023-05-04.jar" to directory "C:\opt\flix-0.37.0"
 
 Tool versions:
    java 11.0.19, javac 11.0.19, scalac 2.13.10, flix v0.37.0,
-   gradle 8.1.1, make 3.81, mdbook v0.4.29, mvn 3.9.2,
+   gradle 8.1.1, make 3.81, mdbook v0.4.30, mvn 3.9.2,
    git 2.40.1.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.19_7\bin\java.exe
@@ -189,7 +189,7 @@ Tool paths:
    C:\opt\scala-2.13.10\bin\scalac.bat
    C:\opt\gradle-8.1.1\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\mdBook-0.4.29\mdbook.exe
+   C:\opt\mdBook-0.4.30\mdbook.exe
    C:\opt\apache-maven-3.9.2\bin\mvn.cmd
    C:\opt\Git-2.40.1\bin\git.exe
    C:\opt\Git-2.40.1\usr\bin\diff.exe
@@ -201,7 +201,7 @@ Environment variables:
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.19_7"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven-3.9.2"
-   "MDBOOK_HOME=C:\opt\mdBook-0.4.29"
+   "MDBOOK_HOME=C:\opt\mdBook-0.4.30"
    "SCALA_HOME=C:\opt\scala-2.13.10"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
@@ -255,7 +255,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://flix.dev/nightly/" rel="external">flix-2023-05-04.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.1.1-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
-<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.29-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.30-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.19_7.zip</a>   <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.40.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>

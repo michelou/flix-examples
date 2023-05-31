@@ -319,6 +319,8 @@ popd
 goto :eof
 
 :compile_lib
+if not exist "%_BUILD_DIR%\lib" mkdir "%_BUILD_DIR%\lib"
+
 set __SOURCE_FILES=
 set __N=0
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\src\*.scala" 2^>NUL') do (
