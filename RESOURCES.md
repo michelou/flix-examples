@@ -53,9 +53,13 @@
 - [From Datalog to Flix][paper_madsen_2016] by Magnus Madsen and al., June 2016.
 - [Implementing a Functional Language for Flix][paper_yee_sep_2016] (Master) by Ming-Ho Yee, September 2016.
 
-## <span id="projects">Projects</span>
+## <span id="projects">Projects</span> [**&#x25B4;**](#top)
 
 - [flix-pretty](https://github.com/stephentetley/flix-pretty) &ndash; A pretty print library for Flix.
+
+## <span id="talks">Talks</span>
+
+- [An Introduction to Functional Imperative Programming in Flix](https://gotoaarhus.com/2023/sessions/2497/an-introduction-to-functional-imperative-programming-in-flix) by Magnus Madsen, May 2023.
 
 ## <span id="tools">Tools</span>
 

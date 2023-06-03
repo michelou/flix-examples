@@ -19,7 +19,7 @@ This project depends on the following external software for the **Microsoft Wind
 
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Flix 0.37][flix_downloads] ([*release notes*][flix_relnotes])
-- [Git 2.40][git_downloads] ([*release notes*][git_relnotes])
+- [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 
 Optionally one may also install the following software:
@@ -41,7 +41,7 @@ For instance our development environment looks as follows (*June 2023*) <sup id=
 C:\opt\apache-ant-1.10.13\      <i>( 43 MB)</i>
 C:\opt\apache-maven-3.9.2\      <i>( 10 MB)</i>
 C:\opt\flix-0.37.0\             <i>( 37 MB)</i>
-C:\opt\Git-2.40.1\              <i>(315 MB)</i>
+C:\opt\Git-2.41.0\              <i>(315 MB)</i>
 C:\opt\gradle-8.1.1\            <i>(131 MB)</i>
 C:\opt\jdk-temurin-11.0.19_7\   <i>(301 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
@@ -156,16 +156,16 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 Tool versions:
    java 11.0.19, javac 11.0.19, scalac 2.13.10, flix v0.37.0,
    gradle 8.1, make 3.81, mdbook v0.4.30, mvn 3.9.2,
-   git 2.40.1.windows.1, diff 3.9
+   git 2.41.0.windows.1, diff 3.9
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
-C:\opt\Git-2.40.1\bin\git.exe
-C:\opt\Git-2.40.1\mingw64\bin\git.exe
+C:\opt\Git-2.41.0\bin\git.exe
+C:\opt\Git-2.41.0\mingw64\bin\git.exe
 C:\opt\gradle-8.1.1\bin\gradle
 C:\opt\gradle-8.1.1\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
-C:\opt\Git-2.40.1\bin\sh.exe
-C:\opt\Git-2.40.1\usr\bin\sh.exe
+C:\opt\Git-2.41.0\bin\sh.exe
+C:\opt\Git-2.41.0\usr\bin\sh.exe
 </pre>
 
 Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays additional information:
@@ -182,7 +182,7 @@ Download file "flix-2023-05-04.jar" to directory "C:\opt\flix-0.37.0"
 Tool versions:
    java 11.0.19, javac 11.0.19, scalac 2.13.10, flix v0.37.0,
    gradle 8.1.1, make 3.81, mdbook v0.4.30, mvn 3.9.2,
-   git 2.40.1.windows.1, diff 3.9, bash 5.2.15(1)-release
+   git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.19_7\bin\java.exe
    C:\opt\jdk-temurin-11.0.19_7\bin\javac.exe
@@ -191,12 +191,12 @@ Tool paths:
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook-0.4.30\mdbook.exe
    C:\opt\apache-maven-3.9.2\bin\mvn.cmd
-   C:\opt\Git-2.40.1\bin\git.exe
-   C:\opt\Git-2.40.1\usr\bin\diff.exe
+   C:\opt\Git-2.41.0\bin\git.exe
+   C:\opt\Git-2.41.0\usr\bin\diff.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.13"
    "FLIX_HOME=C:\opt\flix-0.37.0"
-   "GIT_HOME=C:\opt\Git-2.40.1"
+   "GIT_HOME=C:\opt\Git-2.41.0"
    "GRADLE_HOME=C:\opt\gradle-8.1.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.19_7"
    "MAKE_HOME=C:\opt\make-3.81"
@@ -257,7 +257,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.30-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.19_7.zip</a>   <i>(188 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.40.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.10.zip</a>                                  <i>( 22 MB)</i>
 </pre>
@@ -287,7 +287,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.40.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.41.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
