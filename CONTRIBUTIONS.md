@@ -98,14 +98,15 @@ This section presents some of our unpublished works to improve the [Flix] softwa
 
 3. Major issue with build times
 
-   | Scala&nbsp;Version | Build&nbsp;Times             | Average |
-   |--------------------|------------------------------|---------|
-   | 2.13.5 (*current*) | 1:52, 1:53, 1:56, 1:52, 1:55, 1:58, 1:55 |   1:54  |
-   | 2.13.6             | 7:52, 7:40, 7:53             |   7:46  |
-   | 2.13.7             | 7:37, 6:52, 7:07             |   7:00  |
-   | 2.13.8             | 7:49 | 7:49 |
-   | 2.13.9             | 7:23 | 7:23 |
-   | 2.13.10            | 7:31 | 7:31 |
+   | Scala&nbsp;Version    | Build&nbsp;Times             | Average |
+   |-----------------------|------------------------------|---------|
+   | 2.13.5 <span style="color:red;">(*&lt;0.38.0*)</span> | 1:52, 1:53, 1:56, 1:52, 1:55, 1:58, 1:55 |   1:54  |
+   | 2.13.6                | 7:52, 7:40, 7:53             |   7:46  |
+   | 2.13.7                | 7:37, 6:52, 7:07             |   7:00  |
+   | 2.13.8                | 7:49 | 7:49 |
+   | 2.13.9                | 7:23 | 7:23 |
+   | 2.13.10               | 7:31 | 7:31 |
+   | 2.13.11 <span style="color:red;">(*0.38.0+*)</span> | 2:16, 2:04, 2:02, 2:12 | 2:11 |
 
    **Workaround 1 (*provisory*)** Disable pattern matching analysis by writing `"-Xno-patmat-analysis"` instead of `"-Ypatmat-exhaust-depth", "400"` in build file [`build.gradle`](https://github.com/flix/flix/blob/master/build.gradle).
 
@@ -143,7 +144,7 @@ This section presents some of our unpublished works to improve the [Flix] softwa
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
