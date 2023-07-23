@@ -56,7 +56,7 @@ Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/ar
 Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3" rel="external">shapeless-2.3.3.jar</a>")
 Add manifest to archive "build\libs\flix.jar"
 Execute program file "build\libs\flix.jar" with arguments --version
-The Flix Programming Language v0.34.0
+The Flix Programming Language v0.38.0
 </pre>
 
 ### <span id="gradle">Gradle</span>
@@ -100,11 +100,11 @@ BUILD SUCCESSFUL in 3m 7s
 F:\flix\build\libs\flix.jar
 </pre>
 
-> **:mag_right:** The [Flix] library generated **locally** on September 19th 2022, is indeed the same as the corresponding [Flix nightly build][flix_nightly] :
+> **:mag_right:** The [Flix] library generated **locally** on July 23th 2023, is indeed the same as the corresponding [Flix nightly build][flix_nightly] :
 > <pre style="font-size:80%;">
 > <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/where" rel="external">where</a> /t "%FLIX_HOME%:*.jar"</b>
->   41028097    4/2/2023    1:03:28 PM  C:\opt\flix-0.37.0\flix-2023-05-24.jar
->   41028263    4/2/2023    5:00:55 PM  C:\opt\flix-0.37.0\flix.jar
+>   41028097    4/2/2023    1:03:28 PM  C:\opt\flix-0.38.0\flix-2023-07-23.jar
+>   41028263    4/2/2023    5:00:55 PM  C:\opt\flix-0.38.0\flix.jar
 > </pre>
 
 <!--=======================================================================-->
@@ -275,7 +275,7 @@ BUILD SUCCESSFUL in 2s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

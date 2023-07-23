@@ -11,7 +11,7 @@
 
 > **&#9755;** Read the document <a href="https://github.com/flix/flix/blob/master/docs/DIDYOUKNOW.md">"Did You Know?"</a> from the <a href="https://flix.dev/" rel="external">Flix</a> documentation to know more about the <a href="https://flix.dev/" rel="external">Flix</a> ecosystem.
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [TruffleSqueak][trufflesqueak_examples] and [WiX Toolset][wix_examples] are other topics we are continuously monitoring.
 
 ## <span id="proj_deps">Project dependencies</span>
 
@@ -42,7 +42,7 @@ C:\opt\apache-ant-1.10.13\      <i>( 43 MB)</i>
 C:\opt\apache-maven-3.9.3\      <i>( 10 MB)</i>
 C:\opt\flix-0.38.0\             <i>( 37 MB)</i>
 C:\opt\Git-2.41.0\              <i>(315 MB)</i>
-C:\opt\gradle-8.2\              <i>(131 MB)</i>
+C:\opt\gradle-8.2.1\            <i>(131 MB)</i>
 C:\opt\jdk-temurin-11.0.19_7\   <i>(301 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
@@ -155,14 +155,14 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.19, javac 11.0.19, scalac 2.13.11, flix v0.38.0,
-   gradle 8.2, make 3.81, mdbook v0.4.31, mvn 3.9.3,
+   gradle 8.2.1, make 3.81, mdbook v0.4.31, mvn 3.9.3,
    git 2.41.0.windows.1, diff 3.9
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git-2.41.0\bin\git.exe
 C:\opt\Git-2.41.0\mingw64\bin\git.exe
-C:\opt\gradle-8.2\bin\gradle
-C:\opt\gradle-8.2\bin\gradle.bat
+C:\opt\gradle-8.2.1\bin\gradle
+C:\opt\gradle-8.2.1\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
 C:\opt\Git-2.41.0\bin\sh.exe
 C:\opt\Git-2.41.0\usr\bin\sh.exe
@@ -181,13 +181,13 @@ Download file "flix-2023-05-04.jar" to directory "C:\opt\flix-0.38.0"
 
 Tool versions:
    java 11.0.19, javac 11.0.19, scalac 2.13.11, flix v0.38.0,
-   gradle 8.2, make 3.81, mdbook v0.4.31, mvn 3.9.3,
+   gradle 8.2.1, make 3.81, mdbook v0.4.31, mvn 3.9.3,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.19_7\bin\java.exe
    C:\opt\jdk-temurin-11.0.19_7\bin\javac.exe
    C:\opt\scala-2.13.11\bin\scalac.bat
-   C:\opt\gradle-8.2\bin\gradle.bat
+   C:\opt\gradle-8.2.1\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook-0.4.31\mdbook.exe
    C:\opt\apache-maven-3.9.3\bin\mvn.cmd
@@ -197,7 +197,7 @@ Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.13"
    "FLIX_HOME=C:\opt\flix-0.38.0"
    "GIT_HOME=C:\opt\Git-2.41.0"
-   "GRADLE_HOME=C:\opt\gradle-8.2"
+   "GRADLE_HOME=C:\opt\gradle-8.2.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.19_7"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven-3.9.3"
@@ -214,11 +214,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on July 6, 2023 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on July 23, 2023 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.38.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix-0.38.0
-    flix-2023-07-05.jar
+    flix-2023-07-23.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -252,8 +252,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.3-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2023-07-05.jar</a>                                <i>( 39 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.2-bin.zip</a>                                 <i>(103 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2023-07-23.jar</a>                                <i>( 39 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.2.1-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.31-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.19_7.zip</a>   <i>(188 MB)</i>
@@ -284,6 +284,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [dart_examples]: https://github.com/michelou/dart-examples
 [deno_examples]: https://github.com/michelou/deno-examples
 [diff_cli]: https://www.gnu.org/software/diffutils/manual/html_node/Invoking-diff.html
+[docker_examples]: https://github.com/michelou/docker-examples
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
