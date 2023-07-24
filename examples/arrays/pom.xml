@@ -26,7 +26,7 @@
     <build>
         <sourceDirectory>src/main</sourceDirectory>
         <testSourceDirectory>src/test</testSourceDirectory>
-        <outputDirectory>target/classes</outputDirectory>
+        <outputDirectory>target/${project.artifactId}</outputDirectory>
         <plugins>
             <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
             <plugin>
@@ -51,44 +51,38 @@
                     </includes>
                 </configuration>
             </plugin>
-            <!-- local Maven plugin for Scala 2.x/3.x (see ${scala.version}) -->
-            <!-- (see directory /plugins/scala-maven-plugin/) -->
+            <!-- local Maven plugin for Flix (see ${flix.version}) -->
+            <!-- (see directory /plugins/flix-maven-plugin/) -->
             <plugin>
                 <groupId>ch.epfl.alumni</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>${scala.maven.version}</version>
+                <artifactId>flix-maven-plugin</artifactId>
+                <version>${flix.maven.version}</version>
                 <executions>
                     <execution>
-                        <id>scala-compile</id>
+                        <id>flix-compile</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <!--
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
-                                <!-- NB. specs2-core depends on scala-reflect -->
-                                <additionalClasspathElement>${m2.scala-reflect.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.scalatest.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.specs2-common.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.specs2-core.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.specs2-fp.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.specs2-junit.jar}</additionalClasspathElement>
-                                <additionalClasspathElement>${m2.specs2-matcher.jar}</additionalClasspathElement>
                             </additionalClasspathElements>
+                            -->
                             <includes>
-                                <include>scala/**/*.scala</include>
+                                <include>**/*.flix</include>
                             </includes>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>scala-run</id>
+                        <id>flix-run</id>
                         <phase>test</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <mainClass>${mainClass}</mainClass>
+                            <appName>${project.artifactId}</appName>
                             <arguments>
                                 <argument>1</argument>
                             </arguments>
@@ -96,8 +90,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <scalaVersion>${scala.version}</scalaVersion>
-                    <localInstall>${scala.local.install}</localInstall>
+                    <flixVersion>${flix.version}</flixVersion>
+                    <localInstall>${flix.local.install}</localInstall>
                     <jvmArgs>
                         <jvmArg>-Xms64m</jvmArg>
                         <jvmArg>-Xmx1024m</jvmArg>
@@ -139,6 +133,8 @@
                 <configuration>
                     <mainClass>${mainClass}</mainClass>
                     <arguments>
+                        <argument>-jar</argument>
+                        <argument>${build.outputDirectory}${file.separator}artifact${file.separator}${project.artifactId}.jar</argument>
                         <argument>1</argument>
                     </arguments>
                 </configuration>

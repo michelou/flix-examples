@@ -35,7 +35,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*June 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*July 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.13\      <i>( 43 MB)</i>
@@ -46,7 +46,7 @@ C:\opt\gradle-8.2.1\            <i>(131 MB)</i>
 C:\opt\jdk-temurin-11.0.19_7\   <i>(301 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
-C:\opt\mdBook-0.4.31\           <i>(  9 MB)</i>
+C:\opt\mdBook-0.4.32\           <i>(  9 MB)</i>
 C:\opt\scala-2.13.11\           <i>( 24 MB)</i>
 </pre>
 
@@ -155,7 +155,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.19, javac 11.0.19, scalac 2.13.11, flix v0.38.0,
-   gradle 8.2.1, make 3.81, mdbook v0.4.31, mvn 3.9.3,
+   gradle 8.2.1, make 3.81, mdbook v0.4.32, mvn 3.9.3,
    git 2.41.0.windows.1, diff 3.9
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
@@ -181,7 +181,7 @@ Download file "flix-2023-05-04.jar" to directory "C:\opt\flix-0.38.0"
 
 Tool versions:
    java 11.0.19, javac 11.0.19, scalac 2.13.11, flix v0.38.0,
-   gradle 8.2.1, make 3.81, mdbook v0.4.31, mvn 3.9.3,
+   gradle 8.2.1, make 3.81, mdbook v0.4.32, mvn 3.9.3,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.19_7\bin\java.exe
@@ -189,7 +189,7 @@ Tool paths:
    C:\opt\scala-2.13.11\bin\scalac.bat
    C:\opt\gradle-8.2.1\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\mdBook-0.4.31\mdbook.exe
+   C:\opt\mdBook-0.4.32\mdbook.exe
    C:\opt\apache-maven-3.9.3\bin\mvn.cmd
    C:\opt\Git-2.41.0\bin\git.exe
    C:\opt\Git-2.41.0\usr\bin\diff.exe
@@ -201,7 +201,7 @@ Environment variables:
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.19_7"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven-3.9.3"
-   "MDBOOK_HOME=C:\opt\mdBook-0.4.31"
+   "MDBOOK_HOME=C:\opt\mdBook-0.4.32"
    "SCALA_HOME=C:\opt\scala-2.13.11"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
@@ -255,7 +255,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://flix.dev/nightly/" rel="external">flix-2023-07-23.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.2.1-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
-<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.31-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.32-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.19_7.zip</a>   <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>

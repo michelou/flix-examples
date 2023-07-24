@@ -30,7 +30,7 @@ all: build
 build: $(TARGET)
 
 $(TARGET): $(SOURCES)
-	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
+	[ -d "$(BUILD_DIR)/lib" ] || "$(MKDIR)" -p "$(BUILD_DIR)/lib"
 	cd "$(BUILD_DIR)"; \
 	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_LIB_JAR)" init && \
 	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \

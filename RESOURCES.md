@@ -42,8 +42,9 @@
 ## <span id="papers">Papers</span> [**&#x25B4;**](#top)
 <!-- https://www.accentletters.com/accent-a.html -->
 
-- [The Principles of the Flix Programming Language][paper_madsen_nov_2022] (Proceedings) by Magnus Madsen, November 2022.
+- [The Principles of the Flix Programming Language][paper_madsen_nov_2022] (ACM Proceedings) by Magnus Madsen, November 2022.
 - [Functional Programming with Datalog][paper_pacak_2022] (ECOOP 2022 Proceedings) by André Pacak and Sebastian Erdweg, July 2022.
+- [Fuzzing Channel-Based Concurrency Runtimes using Types and Effects](https://dl.acm.org/doi/10.1145/3428254) by Quentin Stiévenart and Magnus Madsen, November 2020.
 - [Programming with First-Class Datalog Constraints](https://dl.acm.org/doi/10.1145/3428193) by Magnus Madsen and Ondřey Lhoták, November 2020.<br><span style="font-size:80%;">(<a href="https://www.youtube.com/watch?v=ikVZrivln8c" rel="external">Youtube video</a>)</span>
 - [Flix: A Meta Programming Language for Datalog][paper_madsen_sep_2022] ([CEUR Workshop 2022 Proceedings](https://ceur-ws.org/Vol-3203/)) by Magnus Madsen and al., September 2022.
 - [Extending Parallel Datalog with Lattice](https://www.cse.psu.edu/~gxt29/papers/) (Master Thesis) by Qing Gong, May 2020.
@@ -59,6 +60,7 @@
 
 ## <span id="talks">Talks</span>
 
+ - [The Principles of the Flix Programming Language](https://www.youtube.com/watch?v=RNZeAmp1EaA) (ACM SIGPLAN) by Magnus Madsen, June 2023.
 - [An Introduction to Functional Imperative Programming in Flix](https://gotoaarhus.com/2023/sessions/2497/an-introduction-to-functional-imperative-programming-in-flix) by Magnus Madsen, May 2023.
 
 ## <span id="tools">Tools</span>
