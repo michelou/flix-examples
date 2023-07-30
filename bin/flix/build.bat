@@ -111,6 +111,7 @@ goto :eof
 @rem input parameter: %*
 :args
 set _COMMANDS=
+set _JMC=0
 set _MAIN_CLASS=ca.uwaterloo.flix.Main
 set _MAIN_ARGS=
 set _TEST=0
@@ -127,6 +128,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
+    ) else if "%__ARG%"=="-jmc" ( set _JMC=1
     ) else if "%__ARG%"=="-timer" ( set _TIMER=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
     ) else (
@@ -157,7 +159,7 @@ set _SCALAC_OPTS=-J-Xmx1536m -language:postfixOps -Ypatmat-exhaust-depth 400
 set "_JAR_FILE=%_BUILD_DIR%\libs\flix.jar"
 
 if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% Options    : _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _JMC=%_JMC% _TIMER=%_TIMER% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: %_COMMANDS% 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "SCALA_HOME=%SCALA_HOME%" 1>&2
@@ -181,7 +183,8 @@ if %_VERBOSE%==1 (
 echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
-echo     %__BEG_O%-debug%__END%       show commands executed by this script
+echo     %__BEG_O%-debug%__END%       display commands executed by this script
+echo     %__BEG_O%-jmc%__END%         activate flight recording with JDK Mission Control
 echo     %__BEG_O%-verbose%__END%     display progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
@@ -287,16 +290,21 @@ if %__N%==0 (
 ) else if %__N%==1 ( set __N_FILES=%__N% Scala source file
 ) else ( set __N_FILES=%__N% Scala source files
 )
+set __JAVA_OPTS=%JAVA_OPTS%
+if %_JMC%==1 set JAVA_OPTS=-XX:+FlightRecorder -XX:"StartFlightRecording=dumponexit=true,filename=%_BUILD_DIR%\flix.jfr"
+
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%" 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
 )
 @rem call "%_SCALAC_CMD%" "@%__OPTS_FILE%" "@%__SOURCES_FILE%"
 call "%_SCALAC_CMD%" %_SCALAC_OPTS% -classpath "%__CPATH%" -d "%_CLASSES_DIR%" "@%__SOURCES_FILE%"
 if not %ERRORLEVEL%==0 (
+    set JAVA_OPTS=%__JAVA_OPTS%
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% to directory "!_CLASSES_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )
+set JAVA_OPTS=%__JAVA_OPTS%
 goto :eof
 
 @rem input parameter: 1=target file 2,3,..=path (wildcards accepted)

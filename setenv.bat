@@ -140,7 +140,6 @@ set _BASH=0
 set _HELP=0
 set _MSYS=0
 set _VERBOSE=0
-set __N=0
 :args_loop
 set "__ARG=%~1"
 if not defined __ARG goto args_done
@@ -163,7 +162,6 @@ if "%__ARG:~0,1%"=="-" (
         set _EXITCODE=1
         goto args_done
     )
-    set /a __N+=1
 )
 shift
 goto args_loop
@@ -229,7 +227,7 @@ if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assigned drive %_DRIVE_NAME% to path 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path 1>&2
     set _EXITCODE=1
     goto :eof
 )

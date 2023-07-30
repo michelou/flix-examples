@@ -18,7 +18,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Flix 0.38][flix_downloads] ([*release notes*][flix_relnotes])
+- [Flix 0.39][flix_downloads] ([*release notes*][flix_relnotes])
 - [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
 - [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
 
@@ -35,15 +35,15 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*August 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.13\      <i>( 43 MB)</i>
 C:\opt\apache-maven-3.9.3\      <i>( 10 MB)</i>
-C:\opt\flix-0.38.0\             <i>( 37 MB)</i>
+C:\opt\flix-0.39.0\             <i>( 37 MB)</i>
 C:\opt\Git-2.41.0\              <i>(315 MB)</i>
 C:\opt\gradle-8.2.1\            <i>(131 MB)</i>
-C:\opt\jdk-temurin-11.0.19_7\   <i>(301 MB)</i>
+C:\opt\jdk-temurin-11.0.20_8\   <i>(301 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
 C:\opt\mdBook-0.4.32\           <i>(  9 MB)</i>
@@ -154,7 +154,7 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 11.0.19, javac 11.0.19, scalac 2.13.11, flix v0.38.0,
+   java 11.0.20, javac 11.0.20, scalac 2.13.11, flix v0.39.0,
    gradle 8.2.1, make 3.81, mdbook v0.4.32, mvn 3.9.3,
    git 2.41.0.windows.1, diff 3.9
 
@@ -177,15 +177,15 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2023-05-04.jar" to directory "C:\opt\flix-0.38.0"
+Download file "flix-2023-05-04.jar" to directory "C:\opt\flix-0.39.0"
 
 Tool versions:
-   java 11.0.19, javac 11.0.19, scalac 2.13.11, flix v0.38.0,
+   java 11.0.20, javac 11.0.20, scalac 2.13.11, flix v0.39.0,
    gradle 8.2.1, make 3.81, mdbook v0.4.32, mvn 3.9.3,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
-   C:\opt\jdk-temurin-11.0.19_7\bin\java.exe
-   C:\opt\jdk-temurin-11.0.19_7\bin\javac.exe
+   C:\opt\jdk-temurin-11.0.20_8\bin\java.exe
+   C:\opt\jdk-temurin-11.0.20_8\bin\javac.exe
    C:\opt\scala-2.13.11\bin\scalac.bat
    C:\opt\gradle-8.2.1\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
@@ -195,10 +195,10 @@ Tool paths:
    C:\opt\Git-2.41.0\usr\bin\diff.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.13"
-   "FLIX_HOME=C:\opt\flix-0.38.0"
+   "FLIX_HOME=C:\opt\flix-0.39.0"
    "GIT_HOME=C:\opt\Git-2.41.0"
    "GRADLE_HOME=C:\opt\gradle-8.2.1"
-   "JAVA_HOME=C:\opt\jdk-temurin-11.0.19_7"
+   "JAVA_HOME=C:\opt\jdk-temurin-11.0.20_8"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven-3.9.3"
    "MDBOOK_HOME=C:\opt\mdBook-0.4.32"
@@ -214,11 +214,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on July 23, 2023 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on July 28, 2023 : 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.38.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
-C:\opt\flix-0.38.0
-    flix-2023-07-23.jar
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.39.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+C:\opt\flix-0.39.0
+    flix-2023-07-28.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -252,11 +252,11 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.3-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2023-07-23.jar</a>                                <i>( 39 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2023-07-28.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.2.1-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.32-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.19_7.zip</a>   <i>(188 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.20_8.zip</a>   <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.11.zip</a>                                  <i>( 22 MB)</i>
@@ -265,7 +265,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -293,7 +293,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
 [flix_downloads]: https://github.com/flix/flix/releases/
-[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.38.0
+[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.39.0
 [github_flix_flix]: https://github.com/flix/flix
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
@@ -336,6 +336,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 11.0.17 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-October/018119.html
 11.0.18 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-January/020111.html
 11.0.19 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
+11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
 -->
 [temurin_opendjk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
