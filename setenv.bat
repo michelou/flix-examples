@@ -33,6 +33,9 @@ set _MDBOOK_PATH=
 call :ant
 if not %_EXITCODE%==0 goto end
 
+call :cfr
+if not %_EXITCODE%==0 goto end
+
 @rem Flix requires Java 11 or newer
 call :java11
 if not %_EXITCODE%==0 goto end
@@ -271,7 +274,7 @@ set _ANT_HOME=
 set _ANT_PATH=
 
 set __ANT_CMD=
-for /f %%f in ('where ant.bat 2^>NUL') do set "__ANT_CMD=%%f"
+for /f "delims=" %%f in ('where ant.bat 2^>NUL') do set "__ANT_CMD=%%f"
 if defined __ANT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Ant executable found in PATH 1>&2
     for %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
@@ -303,13 +306,42 @@ if not exist "%_ANT_HOME%\bin\ant.cmd" (
 set "_ANT_PATH=;%_ANT_HOME%\bin"
 goto :eof
 
+@rem http://www.benf.org/other/cfr/
+@rem output parameter: _CFR_HOME
+:cfr
+set _CFR_HOME=
+
+set __CFR_CMD=
+for /f "delims=" %%f in ('where cfr.bat 2^>NUL') do set "__CFR_CMD=%%f"
+if defined __CFR_CMD (
+    for /f "delims=" %%i in ("%__CFR_CMD%") do set "__CFR_BIN_DIR=%%~dpi"
+    for %%f in ("!__CFR_BIN_DIR!\.") do set "_CFR_HOME=%%~dpf"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of CFR executable found in PATH 1>&2
+    goto :eof
+) else if defined CFR_HOME (
+    set "_CFR_HOME=%CFR_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable CFR_HOME 1>&2
+) else (
+    set _PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!_PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!_PATH!\%%f"
+    if defined _CFR_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default cfr installation directory !_CFR_HOME! 1>&2
+    )
+)
+if not exist "%_CFR_HOME%\bin\cfr.bat" (
+    echo %_ERROR_LABEL% cfr executable not found ^(%_CFR_HOME%^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+goto :eof
+
 @rem output parameter: _JAVA_HOME
 :java11
 set _JAVA_HOME=
 
 set __JAVA_DISTRO=temurin
 set __JAVAC_CMD=
-for /f %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
+for /f "delims=" %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
 @rem ignore command if Java version is not 11
 if defined __JAVAC_CMD (
     for /f "tokens=1,*" %%i in ('"%__JAVAC_CMD%" -version') do (
@@ -348,7 +380,7 @@ goto :eof
 set _SCALA_HOME=
 
 set __SCALAC_CMD=
-for /f %%f in ('where scalac.bat 2^>NUL') do (
+for /f "delims=" %%f in ('where scalac.bat 2^>NUL') do (
     set __VERSION=
     for /f "tokens=1,2,3,4,*" %%i in ('scalac.bat -version 2^>^&1') do set "__VERSION=%%l"
     if defined __VERSION if "!__VERSION:~0,1!"=="2" set "__SCALAC_CMD=%%f"
@@ -384,7 +416,7 @@ if defined FLIX_HOME (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable FLIX_HOME 1>&2
 ) else (
     set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\flix-*" 2^>NUL') do set "_FLIX_HOME=!_PATH!\%%f"
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\flix-*" 2^>NUL') do set "_FLIX_HOME=!_PATH!\%%f"
     if defined _FLIX_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Flix installation directory "!_FLIX_HOME!"
     )
@@ -427,7 +459,7 @@ set _GIT_HOME=
 set _GIT_PATH=
 
 set __GIT_CMD=
-for /f %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
+for /f "delims=" %%f in ('where git.exe 2^>NUL') do set "__GIT_CMD=%%f"
 if defined __GIT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Git executable found in PATH 1>&2
     @rem keep _GIT_PATH undefined since executable already in path
@@ -463,7 +495,7 @@ set _GRADLE_HOME=
 set _GRADLE_PATH=
 
 set __GRADLE_CMD=
-for /f %%f in ('where gradle.bat 2^>NUL') do set "__GRADLE_CMD=%%f"
+for /f "delims=" %%f in ('where gradle.bat 2^>NUL') do set "__GRADLE_CMD=%%f"
 if defined __GRADLE_CMD (
     for %%i in ("%__GRADLE_CMD%") do set "__GRADLE_BIN_DIR=%%~dpi"
     for %%f in ("!__GRADLE_BIN_DIR!\.") do set "_GRADLE_HOME=%%~dpf"
@@ -500,7 +532,7 @@ goto :eof
 set _JMC_HOME=
 
 set __JMC_CMD=
-for /f %%f in ('where jmc.exe 2^>NUL') do set "__JMC_CMD=%%f"
+for /f "delims=" %%f in ('where jmc.exe 2^>NUL') do set "__JMC_CMD=%%f"
 if defined __JMC_CMD (
     for %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
     for %%f in ("!__GRADLE_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
@@ -537,7 +569,7 @@ set _MAKE_HOME=
 set _MAKE_PATH=
 
 set __MAKE_CMD=
-for /f %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
+for /f "delims=" %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
 if defined __MAKE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Make executable found in PATH 1>&2
     rem keep _MAKE_PATH undefined since executable already in path
@@ -566,7 +598,7 @@ set _MAVEN_HOME=
 set _MAVEN_PATH=
 
 set __MVN_CMD=
-for /f %%f in ('where mvn.cmd 2^>NUL') do (
+for /f "delims=" %%f in ('where mvn.cmd 2^>NUL') do (
     set "__MVN_CMD=%%f"
     @rem we ignore Scoop managed Maven installation
     if not "!__MVN_CMD:scoop=!"=="!__MVN_CMD!" set __MVN_CMD=
@@ -599,7 +631,7 @@ set _MDBOOK_HOME=
 set _MDBOOK_PATH=
 
 set __MDBOOK_CMD=
-for /f %%f in ('where mdbook.exe 2^>NUL') do set "__MDBOOK_CMD=%%f"
+for /f "delims=" %%f in ('where mdbook.exe 2^>NUL') do set "__MDBOOK_CMD=%%f"
 if defined __MDBOOK_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of mdBook executable found in PATH 1>&2
     @rem keep _MAKE_PATH undefined since executable already in path
@@ -628,7 +660,7 @@ goto :eof
 set _MSYS_HOME=
 
 set __MSYS2_CMD=
-for /f %%f in ('where msy2_shell.cmd 2^>NUL') do set "__MSYS2_CMD=%%f"
+for /f "delims=" %%f in ('where msy2_shell.cmd 2^>NUL') do set "__MSYS2_CMD=%%f"
 if defined __MSYS2_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of msys2 command found in PATH 1>&2
     goto :eof

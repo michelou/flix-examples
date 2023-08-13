@@ -22,15 +22,19 @@ def main(): Unit \ IO =
         x |> println
     }
 */
-    region r {
-        let fruits = Array#{"Apple", "Pear", "Mango"} @ r;
-        let result = Array.slice(r, start = 1, end = 2, fruits);
+    region rc {
+        let fruits = Array#{"Apple", "Pear", "Mango"} @ rc;
+        let result = Array.slice(rc, start = 1, end = 2, fruits);
         println(Array.toString(result));
+        println(Array.length(fruits));
 
-        let arr = Array.repeat(r, 1_00, 42);
+        let arr = Array.repeat(rc, 1_00, 42);
         println(Array.toString(arr));
 
+        let arr1 = Array.range(rc, 0, 100);
+        println(Array.toString(arr1));
+
         let fruitList = List#{"Apple", "Pear", "Mango"};
-        let fruitArray = List.toArray(r, fruitList);
-        println(Array.toString(fruitArray));
+        let fruitArray = List.toArray(rc, fruitList);
+        println(Array.toString(fruitArray))
     }

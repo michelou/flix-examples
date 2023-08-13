@@ -111,7 +111,7 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Subcommands:
     clean        delete generated files
-    compile      compile Scala/Flix source files
+    compile      compile Flix source files
     decompile    decompile generated code with CFR
     help         display this help message
     run          execute Flix program "$PROJECT_NAME"
@@ -217,12 +217,8 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
-    if [[ $n -eq 0 ]]; then
-        warning "No Scala source file found"
-        return 1
-    fi
-    local s=; [[ $n -gt 1 ]] && s="s"
-    local n_files="$n Scala source file$s"
+    local n_files="$n Scala source file"
+    [[ $n -gt 1 ]] && n_files="${n_files}s"
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
@@ -243,12 +239,8 @@ compile_flix() {
     for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    if [[ $n -eq 0 ]]; then
-        warning "No Flix source file found"
-        return 1
-    fi
-    local s=; [[ $n -gt 1 ]] && s="s"
-    local n_files="$n Flix source file$s"
+    local n_files="$n Flix source file"
+    [[ $n -gt 1 ]] && n_files="${n_files}s"
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
     elif $VERBOSE; then
@@ -431,10 +423,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -454,7 +446,6 @@ if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
-JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 
 if [[ ! -x "$SCALA_HOME/bin/scalac" ]]; then
@@ -465,12 +456,6 @@ SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
 [[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
-
-if [[ ! -x "$GIT_HOME/usr/bin/unzip" ]]; then
-    error "unzip command not found"
-    cleanup 1
-fi
-UNZIP_CMD="$GIT_HOME/usr/bin/unzip"
 
 if [[ ! -f "$FLIX_HOME/flix.jar" ]]; then
     error "Flix installation not found $FLIX_HOME"

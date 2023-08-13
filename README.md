@@ -39,14 +39,14 @@ For instance our development environment looks as follows (*August 2023*) <sup i
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.13\      <i>( 43 MB)</i>
-C:\opt\apache-maven-3.9.3\      <i>( 10 MB)</i>
+C:\opt\apache-maven-3.9.4\      <i>( 10 MB)</i>
 C:\opt\flix-0.39.0\             <i>( 37 MB)</i>
 C:\opt\Git-2.41.0\              <i>(315 MB)</i>
 C:\opt\gradle-8.2.1\            <i>(131 MB)</i>
 C:\opt\jdk-temurin-11.0.20_8\   <i>(301 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
-C:\opt\mdBook-0.4.32\           <i>(  9 MB)</i>
+C:\opt\mdBook-0.4.34\           <i>( 10 MB)</i>
 C:\opt\scala-2.13.11\           <i>( 24 MB)</i>
 </pre>
 
@@ -155,8 +155,8 @@ Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.20, javac 11.0.20, scalac 2.13.11, flix v0.39.0,
-   gradle 8.2.1, make 3.81, mdbook v0.4.32, mvn 3.9.3,
-   git 2.41.0.windows.1, diff 3.9
+   gradle 8.2.1, make 3.81, mdbook v0.4.34, mvn 3.9.4,
+   git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git-2.41.0\bin\git.exe
@@ -177,11 +177,11 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2023-05-04.jar" to directory "C:\opt\flix-0.39.0"
+Download file "flix-2023-08-12.jar" to directory "C:\opt\flix-0.39.0"
 
 Tool versions:
    java 11.0.20, javac 11.0.20, scalac 2.13.11, flix v0.39.0,
-   gradle 8.2.1, make 3.81, mdbook v0.4.32, mvn 3.9.3,
+   gradle 8.2.1, make 3.81, mdbook v0.4.34, mvn 3.9.4,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.20_8\bin\java.exe
@@ -189,8 +189,8 @@ Tool paths:
    C:\opt\scala-2.13.11\bin\scalac.bat
    C:\opt\gradle-8.2.1\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\mdBook-0.4.32\mdbook.exe
-   C:\opt\apache-maven-3.9.3\bin\mvn.cmd
+   C:\opt\mdBook-0.4.34\mdbook.exe
+   C:\opt\apache-maven-3.9.4\bin\mvn.cmd
    C:\opt\Git-2.41.0\bin\git.exe
    C:\opt\Git-2.41.0\usr\bin\diff.exe
 Environment variables:
@@ -200,8 +200,8 @@ Environment variables:
    "GRADLE_HOME=C:\opt\gradle-8.2.1"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.20_8"
    "MAKE_HOME=C:\opt\make-3.81"
-   "MAVEN_HOME=C:\opt\apache-maven-3.9.3"
-   "MDBOOK_HOME=C:\opt\mdBook-0.4.32"
+   "MAVEN_HOME=C:\opt\apache-maven-3.9.4"
+   "MDBOOK_HOME=C:\opt\mdBook-0.4.34"
    "SCALA_HOME=C:\opt\scala-2.13.11"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
@@ -214,11 +214,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on July 28, 2023 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on August 12, 2023 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.39.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix-0.39.0
-    flix-2023-07-28.jar
+    flix-2023-08-12.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -238,7 +238,7 @@ Each vendor provides his own distribution of the JDK Mission Control tool, e.g. 
 <dd>
 We use <a href=""><code>jmc.exe</code></a> to investigate issues occuring during the build of our GitHub fork of the <a href="https://github.com/flix/flix"><code>flix/flix</code></a> repository.
 <pre style="font-size:80%;">
-<b>&gt; %JMC_HOME%\bin\jmc.exe -vm %JAVA_HOME%\bin</b>
+<b>&gt; %JMC_HOME%\bin\<a href="https://github.com/thegreystone/jmc-tutorial">jmc.exe</a> -vm %JAVA_HOME%\bin</b>
 </pre>
 </dd></dl>
 
@@ -250,12 +250,12 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.3-bin.zip</a>                         <i>( 10 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.4-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2023-07-28.jar</a>                                <i>( 39 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2023-08-12.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.2.1-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
-<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.32-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.34-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.20_8.zip</a>   <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
@@ -278,7 +278,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.3/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.4/release-notes.html
 [bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples

@@ -191,7 +191,7 @@ action_required() {
     local search_path=$2
     local search_pattern=$3
     local source_file=
-    for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
+    for f in $(find "$search_path" -type f -name "$search_pattern" 2>/dev/null); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
     if [[ -z "$source_file" ]]; then
@@ -243,8 +243,12 @@ compile_flix() {
     for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    local n_files="$n Flix source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Flix source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Flix source file$s"
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
     elif $VERBOSE; then
@@ -327,9 +331,13 @@ decompile() {
     $VERBOSE && echo "Decompile Java bytecode to directory \"${output_dir/$ROOT_DIR\//}\"" 1>&2
     for f in $class_dirs; do
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
-        eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
+        if $DEBUG; then
+            eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class"
+        else 
+            eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" 2>/dev/null
+        fi
         if [[ $? -ne 0 ]]; then
-            error "Failed to decompile generated code in directory $f"
+            error "Failed to decompile generated code in directory \"$f\""
             cleanup 1
         fi
     done
@@ -339,7 +347,7 @@ decompile() {
 
     ## output file contains Scala and CFR headers
     local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
-    echo "// Compiled with $version_string" > "$output_file"
+    echo "// Compiled with Flix $version_string" > "$output_file"
 
     if $DEBUG; then
         debug "cat $output_dir/*.java >> $output_file"
@@ -507,6 +515,9 @@ if $cygwin || $mingw || $msys; then
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA_HOME" ]] && SCALA_HOME="$(mixed_path $SCALA_HOME)"
+    DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
+else
+    DIFF_CMD="$(which diff)"
 fi
 if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"

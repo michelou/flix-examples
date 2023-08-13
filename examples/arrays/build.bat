@@ -76,6 +76,15 @@ if not exist "%FLIX_HOME%\flix.jar" (
     goto :eof
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
+
+set _CFR_CMD=
+if defined CFR_HOME if exist "%CFR_HOME%\bin\cfr.bat" (
+    set "_CFR_CMD=%CFR_HOME%\bin\cfr.bat"
+)
+set _DIFF_CMD=
+if exist "%GIT_HOME%\usr\bin\diff.exe" (
+    set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
+)
 goto :eof
 
 :env_colors
@@ -233,7 +242,7 @@ echo     %__BEG_O%compile%__END%     generate class files
 echo     %__BEG_O%decompile%__END%   decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        display this help message
-echo     %__BEG_O%run%__END%         execute the generated program "%__BEG_N%!_MAIN_JAR_FILE:%_BUILD_DIR%=!%__END%"
+echo     %__BEG_O%run%__END%         execute the generated program "%__BEG_N%!_MAIN_JAR_FILE:%_BUILD_DIR%\=!%__END%"
 echo     %__BEG_O%test%__END%        execute unit tests
 goto :eof
 
@@ -531,6 +540,12 @@ if not exist "%_BUILD_DIR%\build" (
     ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
     call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
+    if not !ERRORLEVEL!==0 (
+        popd
+        echo %_ERROR_LABEL% Failed to initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 if exist "%_BUILD_DIR%\src\*.flix" del /q "%_BUILD_DIR%\src\*.flix"
 if exist "%_BUILD_DIR%\test\*.flix" del /q "%_BUILD_DIR%\test\*.flix"

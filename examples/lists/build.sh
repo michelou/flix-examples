@@ -191,7 +191,7 @@ action_required() {
     local search_path=$2
     local search_pattern=$3
     local source_file=
-    for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
+    for f in $(find "$search_path" -type f -name "$search_pattern" 2>/dev/null); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
     if [[ -z "$source_file" ]]; then

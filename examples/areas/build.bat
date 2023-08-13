@@ -68,6 +68,15 @@ if not exist "%FLIX_HOME%\flix.jar" (
     goto :eof
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
+
+set _CFR_CMD=
+if defined CFR_HOME if exist "%CFR_HOME%\bin\cfr.bat" (
+    set "_CFR_CMD=%CFR_HOME%\bin\cfr.bat"
+)
+set _DIFF_CMD=
+if exist "%GIT_HOME%\usr\bin\diff.exe" (
+    set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
+)
 goto :eof
 
 :env_colors
@@ -321,41 +330,6 @@ if not %ERRORLEVEL%==0 (
 popd
 goto :eof
 
-@rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
-@rem output parameter: _ACTION_REQUIRED
-:action_required
-set "__TARGET_FILE=%~1"
-
-set __PATH_ARRAY=
-set __PATH_ARRAY1=
-:action_path
-shift
-set __PATH=%~1
-if not defined __PATH goto action_next
-set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
-set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
-goto action_path
-
-:action_next
-set __TARGET_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
-     set __TARGET_TIMESTAMP=%%i
-)
-set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
-    set __SOURCE_TIMESTAMP=%%i
-)
-call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
-set _ACTION_REQUIRED=%_NEWER%
-if %_DEBUG%==1 (
-    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
-    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
-    echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
-) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
-    echo No action required ^(%__PATH_ARRAY1:~1%^) 1>&2
-)
-goto :eof
-
 :decompile
 set "__OUTPUT_DIR=%_TARGET_DIR%\cfr-sources"
 if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
@@ -415,6 +389,41 @@ if exist "%__CHECK_FILE%" (
         set _EXITCODE=1
         goto :eof
     )
+)
+goto :eof
+
+@rem input parameter: 1=target file 2,3,..=path (wildcards accepted)
+@rem output parameter: _ACTION_REQUIRED
+:action_required
+set "__TARGET_FILE=%~1"
+
+set __PATH_ARRAY=
+set __PATH_ARRAY1=
+:action_path
+shift
+set __PATH=%~1
+if not defined __PATH goto action_next
+set __PATH_ARRAY=%__PATH_ARRAY%,'%__PATH%'
+set __PATH_ARRAY1=%__PATH_ARRAY1%,'!__PATH:%_ROOT_DIR%=!'
+goto action_path
+
+:action_next
+set __TARGET_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+     set __TARGET_TIMESTAMP=%%i
+)
+set __SOURCE_TIMESTAMP=00000000000000
+for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+    set __SOURCE_TIMESTAMP=%%i
+)
+call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%
+set _ACTION_REQUIRED=%_NEWER%
+if %_DEBUG%==1 (
+    echo %_DEBUG_LABEL% %__TARGET_TIMESTAMP% Target : '%__TARGET_FILE%' 1>&2
+    echo %_DEBUG_LABEL% %__SOURCE_TIMESTAMP% Sources: %__PATH_ARRAY:~1% 1>&2
+    echo %_DEBUG_LABEL% _ACTION_REQUIRED=%_ACTION_REQUIRED% 1>&2
+) else if %_VERBOSE%==1 if %_ACTION_REQUIRED%==0 if %__SOURCE_TIMESTAMP% gtr 0 (
+    echo No action required ^(%__PATH_ARRAY1:~1%^) 1>&2
 )
 goto :eof
 
