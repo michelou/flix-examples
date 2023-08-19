@@ -20,7 +20,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Flix 0.39][flix_downloads] ([*release notes*][flix_relnotes])
 - [Git 2.41][git_downloads] ([*release notes*][git_relnotes])
-- [Temurin OpenJDK 11 LTS][temurin_opendjk11] ([*release notes*][temurin_opendjk11_relnotes], [*bug fixes*][temurin_opendjk11_bugfixes])
+- [Temurin OpenJDK 11 LTS][temurin_openjdk11] ([*release notes*][temurin_openjdk11_relnotes], [*bug fixes*][temurin_openjdk11_bugfixes])
 
 Optionally one may also install the following software:
 
@@ -31,6 +31,7 @@ Optionally one may also install the following software:
 - [mdBook 0.4][mdbook_download] <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][mdbook_changelog])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 - [Temurin JDK Mission Control 8.3][jmc_download] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][jmc_relnotes])
+- [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
@@ -42,8 +43,9 @@ C:\opt\apache-ant-1.10.13\      <i>( 43 MB)</i>
 C:\opt\apache-maven-3.9.4\      <i>( 10 MB)</i>
 C:\opt\flix-0.39.0\             <i>( 37 MB)</i>
 C:\opt\Git-2.41.0\              <i>(315 MB)</i>
-C:\opt\gradle-8.2.1\            <i>(131 MB)</i>
+C:\opt\gradle\                  <i>(131 MB)</i>
 C:\opt\jdk-temurin-11.0.20_8\   <i>(301 MB)</i>
+C:\opt\jdk-temurin-17.0.8_7\    <i>(299 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
 C:\opt\mdBook-0.4.34\           <i>( 10 MB)</i>
@@ -161,8 +163,8 @@ Tool versions:
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git-2.41.0\bin\git.exe
 C:\opt\Git-2.41.0\mingw64\bin\git.exe
-C:\opt\gradle-8.2.1\bin\gradle
-C:\opt\gradle-8.2.1\bin\gradle.bat
+C:\opt\gradle\bin\gradle
+C:\opt\gradle\bin\gradle.bat
 C:\opt\make-3.81\bin\make.exe
 C:\opt\Git-2.41.0\bin\sh.exe
 C:\opt\Git-2.41.0\usr\bin\sh.exe
@@ -177,7 +179,7 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2023-08-12.jar" to directory "C:\opt\flix-0.39.0"
+Download file "flix-2023-08-17.jar" to directory "C:\opt\flix-0.39.0"
 
 Tool versions:
    java 11.0.20, javac 11.0.20, scalac 2.13.11, flix v0.39.0,
@@ -187,7 +189,7 @@ Tool paths:
    C:\opt\jdk-temurin-11.0.20_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.20_8\bin\javac.exe
    C:\opt\scala-2.13.11\bin\scalac.bat
-   C:\opt\gradle-8.2.1\bin\gradle.bat
+   C:\opt\gradle\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook-0.4.34\mdbook.exe
    C:\opt\apache-maven-3.9.4\bin\mvn.cmd
@@ -197,8 +199,10 @@ Environment variables:
    "ANT_HOME=C:\opt\apache-ant-1.10.13"
    "FLIX_HOME=C:\opt\flix-0.39.0"
    "GIT_HOME=C:\opt\Git-2.41.0"
-   "GRADLE_HOME=C:\opt\gradle-8.2.1"
+   "GRADLE_HOME=C:\opt\gradle"
    "JAVA_HOME=C:\opt\jdk-temurin-11.0.20_8"
+   "JAVA11_HOME=C:\opt\jdk-temurin-11.0.20_8"
+   "JAVA17_HOME=C:\opt\jdk-temurin-17.0.8_7"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven-3.9.4"
    "MDBOOK_HOME=C:\opt\mdBook-0.4.34"
@@ -214,11 +218,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on August 12, 2023 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on August 17, 2023 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.39.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix-0.39.0
-    flix-2023-08-12.jar
+    flix-2023-08-17.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -252,11 +256,12 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.4-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2023-08-12.jar</a>                                <i>( 39 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2023-08-17.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.2.1-bin.zip</a>                               <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.34-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.20_8.zip</a>   <i>(188 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.8_7.zip</a>    <i>(188 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.11.zip</a>                                  <i>( 22 MB)</i>
@@ -318,18 +323,6 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
 <!--
-11.0.18+10 -> https://github.com/openjdk/jdk11u/releases/tag/jdk-11.0.18%2B10
-11.0.19+7  -> https://github.com/openjdk/jdk11u/releases/tag/jdk-11.0.19%2B7
--->
-[temurin_opendjk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
-<!--
-11.0.9  -> https://www.oracle.com/java/technologies/javase/11-0-9-bugfixes.html
-11.0.16 -> https://www.oracle.com/java/technologies/javase/11-0-16-bugfixes.html
-11.0.17 -> https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
--->
-
-[temurin_opendjk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
-<!--
 11.0.9  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2020-October/004007.html
 11.0.13 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2021-October/009368.html
 11.0.16 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2022-July/016017.html
@@ -338,7 +331,21 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 11.0.19 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
 11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
 -->
-[temurin_opendjk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
+[temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
+[temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
+<!--
+11.0.9  -> https://www.oracle.com/java/technologies/javase/11-0-9-bugfixes.html
+11.0.16 -> https://www.oracle.com/java/technologies/javase/11-0-16-bugfixes.html
+11.0.17 -> https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
+-->
+[temurin_openjdk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
+<!--
+17.0.7  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021899.html
+17.0.8  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
+-->
+[temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
+[temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
+[temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [windows_batch_file]: https://en.wikibooks.org/wiki/Windows_Batch_Scripting

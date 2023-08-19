@@ -36,8 +36,14 @@ if not %_EXITCODE%==0 goto end
 call :cfr
 if not %_EXITCODE%==0 goto end
 
+@rem %1=vendor, %2=version
+@rem eg. bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, temurin, zulu
+call :java "temurin" 17
+if not %_EXITCODE%==0 goto end
+
+@rem last call to :java defines variable JAVA_HOME
 @rem Flix requires Java 11 or newer
-call :java11
+call :java "temurin" 11
 if not %_EXITCODE%==0 goto end
 
 call :scala2
@@ -137,7 +143,7 @@ set _STRONG_BG_BLUE=[104m
 goto :eof
 
 @rem input parameter: %*
-@rem output parameter: _BASH, _HELP, _VERBOSE
+@rem output parameters: _BASH, _HELP, _VERBOSE
 :args
 set _BASH=0
 set _HELP=0
@@ -228,11 +234,11 @@ set "_DRIVE_NAME=!__DRIVE_NAMES:~0,2!"
 if /i "%_DRIVE_NAME%"=="%__GIVEN_PATH:~0,2%" goto :eof
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% subst "%_DRIVE_NAME%" "%__GIVEN_PATH%" 1>&2
-) else if %_VERBOSE%==1 ( echo Assign path "%__GIVEN_PATH%" to drive %_DRIVE_NAME% 1>&2
+) else if %_VERBOSE%==1 ( echo Assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
 )
 subst "%_DRIVE_NAME%" "%__GIVEN_PATH%"
 if not %ERRORLEVEL%==0 (
-    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path 1>&2
+    echo %_ERROR_LABEL% Failed to assign drive %_DRIVE_NAME% to path "%__GIVEN_PATH%" 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -335,43 +341,71 @@ if not exist "%_CFR_HOME%\bin\cfr.bat" (
 )
 goto :eof
 
-@rem output parameter: _JAVA_HOME
-:java11
+@rem input parameters: %1=vendor %2=required version
+@rem output parameter: _JAVA_HOME (resp. JAVA11_HOME)
+:java
 set _JAVA_HOME=
 
-set __JAVA_DISTRO=temurin
+set __VENDOR=%~1
+set __VERSION=%~2
+if not defined __VENDOR ( set __JDK_NAME=jdk-%__VERSION%
+) else ( set __JDK_NAME=jdk-%__VENDOR%-%__VERSION%
+)
 set __JAVAC_CMD=
-for /f "delims=" %%f in ('where javac.exe 2^>NUL') do set "__JAVAC_CMD=%%f"
-@rem ignore command if Java version is not 11
-if defined __JAVAC_CMD (
-    for /f "tokens=1,*" %%i in ('"%__JAVAC_CMD%" -version') do (
-        set __JAVAC_VERSION=%%j
-        if "!__JAVAC_VERSION:11.=!"=="!__JAVAC_VERSION!" (
-            echo "%_WARNING_LABEL% Expected: Java 11 executable, found: !__JAVAC_VERSION! 1>&2
-            set __JAVAC_CMD=
-        )
-    )
+for /f "delims=" %%f in ('where javac.exe 2^>NUL') do (
+    set "__JAVAC_CMD=%%f"
+    @rem we ignore Scoop managed Java installation
+    if not "!__JAVAC_CMD:scoop=!"=="!__JAVAC_CMD!" set __JAVAC_CMD=
 )
 if defined __JAVAC_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of javac executable found in PATH 1>&2
-    for %%i in ("%__JAVAC_CMD%") do set "__JAVA_BIN_DIR=%%~dpi"
-    for %%f in ("!__JAVA_BIN_DIR!\.") do set "_JAVA_HOME=%%~dpf"
-    goto :eof
-) else if defined JAVA_HOME (
+    call :jdk_version "%__JAVAC_CMD%"
+    if !_JDK_VERSION!==%__VERSION% (
+        for %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
+        for %%f in ("%__BIN_DIR%") do set "_JAVA_HOME=%%~dpf"
+    ) else (
+        echo %_ERROR_LABEL% Required JDK installation not found ^(%__JDK_NAME%^) 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+if defined JAVA_HOME (
     set "_JAVA_HOME=%JAVA_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JAVA_HOME 1>&2
 ) else (
-    set __PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!__PATH!\jdk-%__JAVA_DISTRO%-11*" 2^>NUL') do set "_JAVA_HOME=!__PATH!\%%f"
+    set _PATH=C:\opt
+    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
     if not defined _JAVA_HOME (
-        set "__PATH=%ProgramFiles%"
-        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jdk-%__JAVA_DISTRO%-11*" 2^>NUL') do set "_JAVA_HOME=!__PATH!\%%f"
+        set "_PATH=%ProgramFiles%\Java"
+        for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+    )
+    if defined _JAVA_HOME (
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JAVA_HOME! 1>&2
     )
 )
 if not exist "%_JAVA_HOME%\bin\javac.exe" (
     echo %_ERROR_LABEL% Executable javac.exe not found ^(%_JAVA_HOME%^) 1>&2
     set _EXITCODE=1
     goto :eof
+)
+call :jdk_version "%_JAVA_HOME%\bin\javac.exe"
+set "_JAVA!_JDK_VERSION!_HOME=%_JAVA_HOME%"
+goto :eof
+
+@rem input parameter: %1=javac file path
+@rem output parameter: _JDK_VERSION
+:jdk_version
+set "__JAVAC_CMD=%~1"
+if not exist "%__JAVAC_CMD%" (
+    echo %_ERROR_LABEL% Command javac.exe not found ^("%__JAVAC_CMD%"^) 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+set __JAVAC_VERSION=
+for /f "usebackq tokens=1,*" %%i in (`"%__JAVAC_CMD%" -version 2^>^&1`) do set __JAVAC_VERSION=%%j
+set "__PREFIX=%__JAVAC_VERSION:~0,2%"
+@rem either 1.7, 1.8 or 11..18
+if "%__PREFIX%"=="1." ( set _JDK_VERSION=%__JAVAC_VERSION:~2,1%
+) else ( set _JDK_VERSION=%__PREFIX%
 )
 goto :eof
 
@@ -401,7 +435,7 @@ if defined __SCALAC_CMD (
     )
 )
 if not exist "%_SCALA_HOME%\bin\scalac.bat" (
-    echo %_ERROR_LABEL% Scala executable not found ^(%_SCALA_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Scala executable not found ^("%_SCALA_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -422,7 +456,7 @@ if defined FLIX_HOME (
     )
 )
 if not exist "%_FLIX_HOME%\flix.jar" (
-    echo %_ERROR_LABEL% Flix archive not found ^(%_FLIX_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Flix archive not found ^("%_FLIX_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -474,7 +508,7 @@ if defined __GIT_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         if not defined _GIT_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\Git*" 2^>NUL') do set "_GIT_HOME=!__PATH!\%%f"
         )
     )
     if defined _GIT_HOME (
@@ -511,7 +545,7 @@ if defined __GRADLE_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         if not defined _GRADLE_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\gradle-*" 2^>NUL') do set "_GRADLE_HOME=!__PATH!\%%f"
         )
     )
     if defined _GRADLE_HOME (
@@ -548,7 +582,7 @@ if defined __JMC_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\jmc-*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
         if not defined _JMC_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\jmc*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\jmc*" 2^>NUL') do set "_JMC_HOME=!__PATH!\%%f"
         )
     )
     if defined _JMC_HOME (
@@ -757,6 +791,8 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
     if defined JAVA_HOME echo    "JAVA_HOME=%JAVA_HOME%" 1>&2
+    if defined JAVA11_HOME echo    "JAVA11_HOME=%JAVA11_HOME%" 1>&2
+    if defined JAVA17_HOME echo    "JAVA17_HOME=%JAVA17_HOME%" 1>&2
     if defined JMC_HOME echo    "JMC_HOME=%JMC_HOME%" 1>&2
     if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
     if defined MAVEN_HOME echo    "MAVEN_HOME=%MAVEN_HOME%" 1>&2
@@ -778,6 +814,8 @@ endlocal & (
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
         if not defined JAVA_HOME set "JAVA_HOME=%_JAVA_HOME%"
+        if not defined JAVA11_HOME set "JAVA11_HOME=%_JAVA11_HOME%"
+        if not defined JAVA17_HOME set "JAVA17_HOME=%_JAVA17_HOME%"
         if not defined JMC_HOME set "JMC_HOME=%_JMC_HOME%"
         if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
         if not defined MAVEN_HOME set "MAVEN_HOME=%_MAVEN_HOME%"

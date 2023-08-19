@@ -99,7 +99,7 @@ The list of [Flix] keywords is available from several locations :
 | `rel` | | |
 | `resume` | Flix [effect system](https://doc.flix.dev/effects.html) (*unused in library*) | |
 | `sealed` | | |
-| `select` | See [`query`](#query) | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L32)</span> |
+| <span id="select">`select`</span> | See [`query`](#query). | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L32)</span> |
 | `set` | | |
 | `solve` | | |
 | `spawn` | | <span style="font-size:80%;">[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L469)</span> |
@@ -107,22 +107,27 @@ The list of [Flix] keywords is available from several locations :
 | `true` | | |
 | `try` | For [interoperability with Java](https://doc.flix.dev/exceptions.html), Flix supports the `try-catch` mechanism. | |
 | `type` | *Unused in library* | |
-| `typematch` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L1633)</span> |
+| `typematch` | | <span style="font-size:80%;">[`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L1600)</span> |
 | `upcast` | | <span style="font-size:80%;">[`library/Prelude.flix`](https://github.com/flix/flix/blob/master/main/src/library/Prelude.flix#L298)</span> |
 | `use` | | |
-| `where` | | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L144)</span> |
-| `with` | | |
-| `without` | | |
+| `where` | See [`select`](#select). | <span style="font-size:80%;">[`library/Graph.flix`](https://github.com/flix/flix/blob/master/main/src/library/Graph.flix#L144)</span> |
+| `with` | | <span style="font-size:80%;">[`library/Console.flix`](https://github.com/flix/flix/blob/master/main/src/library/Console.flix#L61) |
+| `without` | *Unused in library*. | |
 | `yield` | See [`forM`](#forM) and [`par`](#par). | <span style="font-size:80%;">[`library/BigInt.flix`](https://github.com/flix/flix/blob/master/main/src/library/BigInt.flix#L261)<br/>[`library/DelayMap.flix`](https://github.com/flix/flix/blob/master/main/src/library/DelayMap.flix#L470)</span> |
 
 ## <span id="intrinsic_functions">Intrinsic Functions</span>
 
 Intrinsic functions can appear in [Flix] source code and are translated directly to the underlying JVM operations.
+> **Note**: Intrinsic functions are rewritten in method [`VisitExp`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L598) in Scala source file [`ca/uwaterloo/flix/language/phase/Weeder.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala).
 
 | Intrinsic function | Usage example |
 |:-------------------|:--------------|
-| [`BOOL_EQ`](https://github.com/michelou/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L504) | [`library/Eq.flix`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L60) |
-| [`BOOL_NEQ`](https://github.com/michelou/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L505) | [`library/Eq.flix`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L61) |
+| [`$ARRAY_LENGTHs$`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L360) | [`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L95) |
+| [`$ARRAY_LOAD$`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L360) | [`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L70) |
+| [`$ARRAY_NEW$`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L360) | [`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L64) |
+| [`$ARRAY_STORE$`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L360) | [`library/Array.flix`](https://github.com/flix/flix/blob/master/main/src/library/Array.flix#L76) |
+| [`$BOOL_EQ$`](https://github.com/michelou/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L504) | [`library/Eq.flix`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L60) |
+| [`$BOOL_NEQ$`](https://github.com/michelou/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Weeder.scala#L505) | [`library/Eq.flix`](https://github.com/flix/flix/blob/master/main/src/library/Eq.flix#L61) |
 | ... | ... |
 
 ## <span id="buildin_functions">Built-in Functions</span>
@@ -211,11 +216,10 @@ UseName       = NLowerCaseName | NUpperCaseName
 Import      = <b>import</b> <i>NJavaName</i>
               [ '.{' { NameAndAlias { ',' NameAndAlias } } '}' ].
 
-Declaration = Namespace | Def | Law | Enum
-            | TypeAlias | Relation | Lattice
-            | Class | Instance | Effect.
+Declaration = Namespace | Def | Law | Enum | RestrictedEnum
+            | TypeAlias | Class | Instance | Effect.
 
-Namespace   = <b>namespace</b> <i>NNamespace</i> '{' Program '}'.
+Namespace   = <b>mod</b> <i>NNamespace</i> '{' Program '}'.
 
 Def         = Documentation Annotations Modifiers
               <b>def</b> <i>NDefinition</i> TypeParams FormalParamList ':' TypeAndEffect OptTypeConstraintList '=' Stmt.
@@ -286,7 +290,7 @@ Other than syntax, the two languages are very different:
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

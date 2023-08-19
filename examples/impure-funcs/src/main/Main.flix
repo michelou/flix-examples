@@ -7,7 +7,7 @@ def twice1(f: Int32 -> Int32, x: Int32): Int32 = f(f(x))
 def twice2(f: Int32 -> Int32 \ IO, x: Int32): Int32 \ IO = f(f(x))
 
 /// But we can also write *effect polymorphic* functions:
-def twice3(f: Int32 -> Int32 & ef, x: Int32): Int32 & ef = f(f(x))
+def twice3(f: Int32 -> Int32 \ ef, x: Int32): Int32 \ ef = f(f(x))
 
 /// We can use `twice3` with both pure and impure functions:
 def main(): Unit \ IO =
