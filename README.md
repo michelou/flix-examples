@@ -4,7 +4,7 @@
   <tr>
   <td style="border:0;padding:0 8px 0 0;min-width:25%;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="160" alt="Flix project"/></a></td>
   <td style="border:0;padding:0;vertical-align:text-top;">This repository gathers <a href="https://flix.dev/" rel="external">Flix</a> code examples coming from various websites.<br/>
-  It also includes several build scripts (<a href="https://ant.apache.org/manual/using.html" rel="external">Ant files</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
+  It also includes several build scripts (<a href="https://ant.apache.org/manual/using.html" rel="external">Ant files</a>, <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">Bash scripts</a>, <a href="https://en.wikibooks.org/wiki/Windows_Batch_Scripting" rel="external">batch files</a>, <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html" rel="external">Gradle scripts</a>, <a href="https://makefiletutorial.com/" rel="external">Make scripts</a>) for experimenting with <a href="https://flix.dev/" rel="external">Flix</a> on a Windows machine.
   </td>
   </tr>
 </table>
@@ -27,8 +27,9 @@ Optionally one may also install the following software:
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Flix nightly builds](https://flix.dev/nightly/) <sup id="anchor_01">[1](#footnote_01)</sup>
 - [GNU Make 3.81][make_install]
-- [Gradle 8.2][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 8.3][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [mdBook 0.4][mdbook_download] <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][mdbook_changelog])
+- [Oracle OpenJDK 21 LTS][oracle_openjdk21] ([*release notes*][oracle_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 - [Temurin JDK Mission Control 8.3][jmc_download] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][jmc_relnotes])
 - [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes])
@@ -44,11 +45,12 @@ C:\opt\apache-maven-3.9.4\      <i>( 10 MB)</i>
 C:\opt\flix-0.39.0\             <i>( 37 MB)</i>
 C:\opt\Git-2.41.0\              <i>(315 MB)</i>
 C:\opt\gradle\                  <i>(131 MB)</i>
+C:\opt\jdk-oracle-21-ea-35\     <i>(320 MB)</i>
 C:\opt\jdk-temurin-11.0.20_8\   <i>(301 MB)</i>
 C:\opt\jdk-temurin-17.0.8_7\    <i>(299 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
-C:\opt\mdBook-0.4.34\           <i>( 10 MB)</i>
+C:\opt\mdBook\                  <i>( 10 MB)</i>
 C:\opt\scala-2.13.11\           <i>( 24 MB)</i>
 </pre>
 
@@ -151,13 +153,13 @@ We distinguish different sets of batch commands:
 
 ### `setenv.bat`
 
-Command [**`setenv.bat`**](setenv.bat) is executed once to setup our development environment; it makes external tools such as [**`git.exe`**][git_userguide], [**`gradle.bat`**][gradle_cli] and [**`make.exe`**][make_cli] directly available from the command prompt:
+We execute command [**`setenv.bat`**](setenv.bat) once to setup our development environment; it makes external tools such as [**`git.exe`**][git_userguide], [**`gradle.bat`**][gradle_cli], [**`make.exe`**][make_cli] and [**`sh.exe`**][sh_cli] directly available from the command prompt:
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.20, javac 11.0.20, scalac 2.13.11, flix v0.39.0,
-   gradle 8.2.1, make 3.81, mdbook v0.4.34, mvn 3.9.4,
+   gradle 8.3, make 3.81, mdbook v0.4.34, mvn 3.9.4,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
@@ -179,11 +181,11 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2023-08-17.jar" to directory "C:\opt\flix-0.39.0"
+Download file "flix-2023-08-20.jar" to directory "C:\opt\flix-0.39.0"
 
 Tool versions:
    java 11.0.20, javac 11.0.20, scalac 2.13.11, flix v0.39.0,
-   gradle 8.2.1, make 3.81, mdbook v0.4.34, mvn 3.9.4,
+   gradle 8.3, make 3.81, mdbook v0.4.34, mvn 3.9.4,
    git 2.41.0.windows.1, diff 3.9, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.20_8\bin\java.exe
@@ -191,7 +193,7 @@ Tool paths:
    C:\opt\scala-2.13.11\bin\scalac.bat
    C:\opt\gradle\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
-   C:\opt\mdBook-0.4.34\mdbook.exe
+   C:\opt\mdBook\mdbook.exe
    C:\opt\apache-maven-3.9.4\bin\mvn.cmd
    C:\opt\Git-2.41.0\bin\git.exe
    C:\opt\Git-2.41.0\usr\bin\diff.exe
@@ -205,7 +207,7 @@ Environment variables:
    "JAVA17_HOME=C:\opt\jdk-temurin-17.0.8_7"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven-3.9.4"
-   "MDBOOK_HOME=C:\opt\mdBook-0.4.34"
+   "MDBOOK_HOME=C:\opt\mdBook"
    "SCALA_HOME=C:\opt\scala-2.13.11"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
@@ -218,11 +220,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on August 17, 2023 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on August 20, 2023 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.39.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix-0.39.0
-    flix-2023-08-17.jar
+    flix-2023-08-20.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -256,12 +258,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.13-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.4-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2023-08-17.jar</a>                                <i>( 39 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.2.1-bin.zip</a>                               <i>(103 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2023-08-20.jar</a>                                <i>( 39 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.3-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.34-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.20_8.zip</a>   <i>(188 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.8_7.zip</a>    <i>(188 MB)</i>
+<a href="https://jdk.java.net/21/">openjdk-21_windows-x64_bin_build_35.zip</a>            <i>(191 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.41.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.11.zip</a>                                  <i>( 22 MB)</i>
@@ -316,10 +319,14 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [mdbook_changelog]: https://github.com/rust-lang/mdBook/blob/master/CHANGELOG.md
 [mdbook_download]: https://github.com/rust-lang/mdBook/releases
 [nodejs_examples]: https://github.com/michelou/nodejs-examples
+[oracle_openjdk21]: https://jdk.java.net/21/
+[oracle_openjdk21_api]: https://download.java.net/java/early_access/jdk21/docs/api/
+[oracle_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
 [rust_examples]: https://github.com/michelou/rust-examples
 [scala_download]: https://www.scala-lang.org/files/archive/
 [scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.11
 [scala3_examples]: https://github.com/michelou/dotty-examples
+[sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
 <!--
