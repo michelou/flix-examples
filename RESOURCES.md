@@ -29,7 +29,7 @@
 
 - [Flix for Java Programmers][blog_huehnken] by Lutz Hühnken, June 2022.
 
-## <span id="community">Community</span>
+## <span id="community">Community</span> [**&#x25B4;**](#top)
 
 - [Gitter &ndash; flix/Lobby](https://gitter.im/flix/Lobby).
 - [Twitter &ndash; @flixlang](https://twitter.com/flixlang).
@@ -70,7 +70,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

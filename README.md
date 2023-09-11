@@ -37,7 +37,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*September 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant-1.10.14\      <i>( 43 MB)</i>
@@ -51,7 +51,7 @@ C:\opt\jdk-temurin-17.0.8_7\    <i>(299 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
 C:\opt\mdBook\                  <i>( 10 MB)</i>
-C:\opt\scala-2.13.11\           <i>( 24 MB)</i>
+C:\opt\scala-2.13.12\           <i>( 24 MB)</i>
 </pre>
 
 ## <span id="structure">Directory structure</span> [**&#x25B4;**](#top)
@@ -90,7 +90,7 @@ where
 - file [**`setenv.bat`**](setenv.bat) is the batch script for setting up our environment.
 - file [**`UBUNTU_WSL.md`**](UBUNTU_WSL.md) presents a [Flix] code examples in [Ubuntu WSL][wsl].
 
-## <span id="commands">Bash/Batch commands</span>
+## <span id="commands">Bash/Batch commands</span> [**&#x25B4;**](#top)
 
 We distinguish different sets of batch commands:
 
@@ -102,7 +102,7 @@ We distinguish different sets of batch commands:
    &nbsp;
      Options:
        -debug      display commands executed by this script
-       -verbose    display environment settings
+       -verbose    display progress messages
    &nbsp;
      Subcommands:
        help        display this help message
@@ -158,7 +158,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 11.0.20, javac 11.0.20, scalac 2.13.11, flix v0.40.0,
+   java 11.0.20, javac 11.0.20, scalac 2.13.12, flix v0.40.0,
    gradle 8.3, make 3.81, mdbook v0.4.34, mvn 3.9.4,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 
@@ -181,16 +181,16 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2023-08-23.jar" to directory "C:\opt\flix-0.40.0"
+Download file "flix-2023-09-11.jar" to directory "C:\opt\flix-0.40.0"
 
 Tool versions:
-   java 11.0.20, javac 11.0.20, scalac 2.13.11, flix v0.40.0,
+   java 11.0.20, javac 11.0.20, scalac 2.13.12, flix v0.40.0,
    gradle 8.3, make 3.81, mdbook v0.4.34, mvn 3.9.4,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.20_8\bin\java.exe
    C:\opt\jdk-temurin-11.0.20_8\bin\javac.exe
-   C:\opt\scala-2.13.11\bin\scalac.bat
+   C:\opt\scala-2.13.12\bin\scalac.bat
    C:\opt\gradle\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook\mdbook.exe
@@ -208,7 +208,7 @@ Environment variables:
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven-3.9.4"
    "MDBOOK_HOME=C:\opt\mdBook"
-   "SCALA_HOME=C:\opt\scala-2.13.11"
+   "SCALA_HOME=C:\opt\scala-2.13.12"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
 </pre>
@@ -220,11 +220,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on August 24, 2023 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on September 11, 2023 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.40.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix-0.40.0
-    flix-2023-08-23.jar
+    flix-2023-09-11.jar
     flix.jar
 </pre>
 Command <a hfef="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -258,7 +258,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.14-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.4-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2023-08-23.jar</a>                                <i>( 39 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2023-09-11.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.3-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.34-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
@@ -267,13 +267,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://jdk.java.net/21/">openjdk-21_windows-x64_bin_build_35.zip</a>            <i>(191 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.42.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/">scala-2.13.11.zip</a>                                  <i>( 22 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.12.zip</a>                                  <i>( 22 MB)</i>
 </pre>
 </dd></dl>
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -324,7 +324,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [oracle_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
 [rust_examples]: https://github.com/michelou/rust-examples
 [scala_download]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.11
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.12
 [scala3_examples]: https://github.com/michelou/dotty-examples
 [sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [spark_examples]: https://github.com/michelou/spark-examples

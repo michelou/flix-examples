@@ -15,11 +15,11 @@
 
 Currently we can build/run/test the [Flix library][flix_releases] in three different ways :
 
-| Build tool          | Configuration file     | Environment(s) |
-|---------------------|------------------------|----------------|
-| [**`build.bat`**](bin/flix/build.bat) | &nbsp; | MS Windows |
-| [**`build.sh`**](bin/flix/build.sh) | &nbsp; | Cygwin / MSYS2 |
-[**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](flix/build.gradle) | Any <sup><b>a)</b></sup> |
+| Build&nbsp;tool     | Build&nbsp;file     | Environment(s) |
+|---------------------|---------------------|----------------|
+| [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](bin/flix/build.bat) | MS Windows |
+| [**`sh.exe`**][sh_cli] | [**`build.sh`**](bin/flix/build.sh) | Any <sup><b>a)</b></sup> |
+| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](flix/build.gradle) | Any |
 <div style="margin:0 15% 0 8px;font-size:90%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
 </div>
@@ -275,11 +275,12 @@ BUILD SUCCESSFUL in 2s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
 
+[cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [flix]: https://flix.dev/
 [flix_github]: https://github.com/flix/flix
 [flix_releases]: https://github.com/flix/flix/releases
@@ -291,3 +292,4 @@ BUILD SUCCESSFUL in 2s
 [scala_2_13_9]: https://www.scala-lang.org/download/2.13.9.html
 [scala_3]: https://docs.scala-lang.org/scala3/new-in-scala3.html
 [scalatest]: https://mvnrepository.com/artifact/org.scalatest/scalatest
+[sh_cli]: https://www.man7.org/linux/man-pages/man1/bash.1.html

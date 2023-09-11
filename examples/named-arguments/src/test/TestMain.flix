@@ -5,5 +5,5 @@ def test01(): Bool =
 @test
 def test02(): Bool =
     match initializePlayer(1) {
-        case Player(r1, r2) => r1.id  == 1 and r2.score == 0
+        case Player.Player(r1, r2) => r1.id  == 1 and r2.score == 0
     }

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>flix-examples</groupId>
+    <artifactId>impure-funcs</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>flix-examples</groupId>
+        <artifactId>examples</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <dependencies>
+        <!-- see parent pom.xml -->
+    </dependencies>
+
+    <properties>
+        <appJar>${project.build.outputDirectory}${file.separator}artifact${file.separator}${project.artifactId}.jar</appJar>
+        <mainClass>Main</mainClass>
+    </properties>
+
+    <build>
+        <sourceDirectory>src/main</sourceDirectory>
+        <testSourceDirectory>src/test</testSourceDirectory>
+        <outputDirectory>target/${project.artifactId}</outputDirectory>
+        <plugins>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.version}</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <includes>
+                        <include>java/**/*.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <!-- local Maven plugin for Flix (see ${flix.version}) -->
+            <!-- (see directory /plugins/flix-maven-plugin/) -->
+            <plugin>
+                <groupId>ch.epfl.alumni</groupId>
+                <artifactId>flix-maven-plugin</artifactId>
+                <version>${flix.maven.version}</version>
+                <executions>
+                    <execution>
+                        <id>flix-compile</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <!--
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${m2.junit.jar}</additionalClasspathElement>
+                            </additionalClasspathElements>
+                            -->
+                            <includes>
+                                <include>**/*.flix</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>flix-run</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <appName>${project.artifactId}</appName>
+                            <arguments>
+                                <argument>1</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <flixVersion>${flix.version}</flixVersion>
+                    <localInstall>${flix.local.install}</localInstall>
+                    <jvmArgs>
+                        <jvmArg>-Xms64m</jvmArg>
+                        <jvmArg>-Xmx1024m</jvmArg>
+                    </jvmArgs>
+                </configuration>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-resources-plugin -->
+            <!--
+            [WARNING] Plugin validation issues were detected in 1 plugin(s)
+            [WARNING]
+            [WARNING]  * org.apache.maven.plugins:maven-resources-plugin:3.3.0
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+            </plugin>
+            <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${exec.maven.version}</version>
+                <executions>
+                    <execution>
+                        <phase>exec</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- https://itecnote.com/tecnote/maven-how-to-set-classpath-for-mvn-execexec/ -->
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-classpath</argument>
+                        <argument>${appJar}</argument>
+                    </arguments>
+                    <mainClass>${mainClass}</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

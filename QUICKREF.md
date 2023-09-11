@@ -192,7 +192,7 @@ The [Flix] standard functions are defined in file [`Flix.scala`](https://github.
 | [`:`]() | |
 | [`:::`]() | The infix operator `:::` is an alias for [`List.append(xs, ys)`](https://github.com/flix/flix/blob/master/main/src/library/List.flix#L184). |
 
-## <span id="grammar">Flix Grammar (WIP)</span> <sup id="anchor_01">[1](#footnote_01)</sup>
+## <span id="grammar">Flix Grammar (WIP)</span> [**&#x25B4;**](#top)
 
 GitHub: [`src\ca\uwaterloo\flix\language\phase\Parser.scala`](https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/language/phase/Parser.scala#L128)
 <pre style="font-size:80%;">
@@ -267,7 +267,7 @@ GitHub: [`test\ca\uwaterloo\flix\TestMain.scala`](https://github.com/flix/flix/b
 
 <!--============================================================-->
 
-## <span id="footnotes">Footnotes</span>
+## <span id="footnotes">Footnotes</span> [**&#x25B4;**](#top)
 
 <span id="footnote_01">[1]</span> ***Flix versus Scala*** [↩](#anchor_01)
 
@@ -290,7 +290,7 @@ Other than syntax, the two languages are very different:
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

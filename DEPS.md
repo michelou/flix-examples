@@ -11,6 +11,7 @@
   </tr>
 </table>
 
+Releases : [0.4](#flix04_releases), [0.3](#flix03_releases), [0.2](#flix02_releases).
 <!--
 ## <span id="intro">Introduction</span>
 
@@ -23,13 +24,82 @@
 > |  [3.1.2](https://github.com/lampepfl/dotty/releases/tag/3.1.2)     | Apr 2022 |   33.4 MB   |   35.3 MB    |
 -->
 
+## <span id="flix04_releases">Dependencies in Flix 0.4 Releases</span>
+
+The [Flix] 0.4 software distributions depend on the following external libraries.
+
+<table style="font-size:80%;">
+<tr>
+  <th style="padding:4px;min-width:115px;">Java&nbsp;Archive</th>
+  <th style="padding:4px;">Current<br/>Version</th>
+  <th><a href="https://github.com/flix/flix/releases/tag/v0.40.0">0.40.0</a><br/><span style="color:red;"></span></th>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://github.com/antlr/antlr4"><code>antlr4-runtime </code></a><br/>(<a href="https://github.com/antlr/antlr4/releases">relnotes</a>)</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4-runtime/4.13.1"><b>4.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4-runtime/4.11.1">4.11.1</a><br/>&nbsp;</td>
+</tr>
+<tr>
+<td style="padding:4px;"><a href="https://github.com/coursier/coursier/releases"><code>coursier</code></a><br/>(<a href="https://github.com/coursier/coursier/releases">relnotes</a>)</td>
+  <td style="padding:4px;"><a href="https://github.com/coursier/coursier/releases/tag/v2.1.7"><b>2.1.7</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/io.get-coursier/coursier_2.13/2.1.4">2.1.4</a><br/>&nbsp;</td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://github.com/google/guava/releases"><code>guava</code></a><br/>(<a href="https://github.com/google/guava/releases">relnotes</a>)</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.guava/guava/32.1.2-jre"><b>32.1.2-jre</b></a><br/><span style="color:gray;font-size:80%;">(Aug&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.guava/guava/31.1-jre">31.1-jre</a><br/>&nbsp;</td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket"><code>java_websocket</code></a><br/>(<a href="https://github.com/TooTallNate/Java-WebSocket/releases">relnotes</a>)</td>
+  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.4"><b>1.5.4</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.3">1.5.3</a><br/>&nbsp;</td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline"><code>jline</code></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.23.0"><b>3.23.0</b></a><br/><span style="color:gray;font-size:80%;">(Mar&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1">3.5.1</a><br/>&nbsp;</td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core"><code>json4s-*</code></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/4.0.6"><b>4.0.6</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.6.12">3.6.12</a><br/>&nbsp;</td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm"><code>objectweb.asm</code></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.5"><b>9.5</b></a><br/><span style="color:gray;font-size:80%;">(Mar&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.2">9.2</a></td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled"><code>parboiled</code></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.5.0"><b>2.5.0</b></a><br/><span style="color:gray;font-size:80%;">(May&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.4.1">2.4.1</a><br/>&nbsp;</td>
+</tr>
+<tr>
+  <td style="padding:4px;font-size:80%;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections"><code>scala.collection.parallel</code></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/1.0.4"><b>1.0.4</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2021)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a><br/>&nbsp;</td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library"><code>scala-library</code></a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.12"><b>2.13.12</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.11">2.13.11</a><br/>&nbsp;</td>
+</tr>
+<tr>
+  <td style="padding:4px;"><a href="https://github.com/tomlj/tomlj"><code>tomj</code></a><br/>(<a href="https://github.com/tomlj/tomlj/releases/tag/1.1.0">relnotes</a>)</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.tomlj/tomlj/1.1.0"><b>1.1.0</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.tomlj/tomlj/1.1.0">1.1.0</a><br/>&nbsp;</td>
+</tr>
+</table>
+
+<!--================================ 0.3 ==================================-->
+
 ## <span id="flix03_releases">Dependencies in Flix 0.3 Releases</span>
 
 The [Flix] 0.3 software distributions depend on the following external libraries.
 
 <table style="font-size:80%;">
 <tr>
-  <th style="padding:4px;min-width:115px;">Java Archive</th>
+  <th style="padding:4px;min-width:115px;">Java&nbsp;Archive</th>
   <th style="padding:4px;">Current<br/>Version</th>
   <th><a href="https://github.com/flix/flix/releases/tag/v0.30.0">0.30.0</a><br/><span style="color:red;"></span></th>
   <th><a href="https://github.com/flix/flix/releases/tag/v0.31.0">0.31.0</a><br/><span style="color:red;"></span></th>
@@ -41,7 +111,7 @@ The [Flix] 0.3 software distributions depend on the following external libraries
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://github.com/antlr/antlr4"><code>antlr4-runtime </code></a><br/>(<a href="https://github.com/antlr/antlr4/releases">relnotes</a>)</td>
-  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4-runtime/4.12.0"><b>4.12.0</b></a><br/><span style="color:gray;font-size:80%;">(Feb&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4-runtime/4.13.1"><b>4.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
   <td style="padding:4px;">-</td>
   <td style="padding:4px;">-</td>
   <td style="padding:4px;">-</td>
@@ -63,7 +133,7 @@ The [Flix] 0.3 software distributions depend on the following external libraries
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://github.com/google/guava/releases"><code>guava</code></a><br/>(<a href="https://github.com/google/guava/releases">relnotes</a>)</td>
-  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v31.1-jre"><b>31.1-jre</b></a><br/><span style="color:gray;font-size:80%;">(Mar&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.guava/guava/32.1.2-jre"><b>32.1.2-jre</b></a><br/><span style="color:gray;font-size:80%;">(Aug&nbsp;2023)</span></td>
   <td style="padding:4px;">-</td>
   <td style="padding:4px;">-</td>
   <td style="padding:4px;">-</td>
@@ -74,7 +144,7 @@ The [Flix] 0.3 software distributions depend on the following external libraries
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket"><code>java_websocket</code></a><br/>(<a href="https://github.com/TooTallNate/Java-WebSocket/releases">relnotes</a>)</td>
-  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.3"><b>1.5.3</b></a><br/><span style="color:gray;font-size:80%;">(Apr&nbsp;2022)</span></td>
+  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.4"><b>1.5.4</b></a><br/><span style="color:gray;font-size:80%;">(Jul&nbsp;2023)</span></td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a><br/><span style="color:gray;font-size:80%;">(Aug&nbsp;2018)</span></td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.3.9">1.3.9</a><br/>&nbsp;</td>
@@ -227,6 +297,8 @@ The [Flix] 0.3 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.tomlj/tomlj/1.1.0">1.1.0</a><br/>&nbsp;</td>
 </tr>
 </table>
+
+<!--================================== 0.2 ================================-->
 
 ## <span id="flix02_releases">Dependencies in Flix 0.2 Releases</span> [**&#x25B4;**](#top)
 
@@ -386,7 +458,7 @@ The [Flix] 0.2 software distributions depend on the following external libraries
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -111,7 +111,7 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Subcommands:
     clean        delete generated files
-    compile      compile Scala/Flix source files
+    compile      compile Flix source files
     decompile    decompile generated code with CFR
     help         display this help message
     run          execute Flix program "$PROJECT_NAME"
@@ -336,7 +336,7 @@ decompile() {
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
-            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+            echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
@@ -352,7 +352,7 @@ run() {
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
-    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
+    [[ -n "$boot_cpath" ]] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
@@ -402,7 +402,8 @@ TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
 TARGET_BUILD_DIR=$TARGET_APP_DIR/build
 TARGET_LIB_DIR=$TARGET_APP_DIR/lib
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false
@@ -422,10 +423,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -454,7 +455,7 @@ fi
 SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 if [[ ! -f "$FLIX_HOME/flix.jar" ]]; then
     error "Flix installation not found $FLIX_HOME"

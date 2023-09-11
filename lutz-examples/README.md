@@ -21,11 +21,11 @@ We made the following changes resp. additions in comparison to the original [Fli
 
 Currently we provide four ways to build, run and test the [Flix] code examples :
 
-| Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
-|---------------------|------------------------|----------------|----------------|
-| [**`build.bat`**](channels/build.bat) | &nbsp;                 | &nbsp; | MS Windows |
-| [**`build.sh`**](channels/build.sh) | &nbsp;                 | &nbsp; | Cygwin / MSYS2 / Unix |
-| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](channels/build.gradle) | [**`common.gradle`**](common.gradle) | Any <sup><b>a)</b></sup>  |
+| Build tool          | Build&nbsp;file  | Parent&nbsp;file | Environment(s) |
+|---------------------|------------------|------------------|----------------|
+| [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](channels/build.bat) | &nbsp; | MS Windows |
+| [**`sh.exe`**][sh_cli] | [**`build.sh`**](channels/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
+| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](channels/build.gradle) | [**`common.gradle`**](common.gradle) | Any |
 | [**`make.exe`**][make_cli] | [**`Makefile`**](channels/Makefile) | [**`Makefile.inc`**](./Makefile.inc)  | Any |
 <div style="margin:0 15% 0 8px;font-size:90%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
@@ -222,14 +222,16 @@ Here are our modifications of the original <a href="https://flix.dev/">Flix</a> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
 
 [bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
+[cmd_cli]: https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd
 [flix]: https://flix.dev/
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [lutz_article]: https://www.reactivesystems.eu/2022/06/24/flix-for-java-programmers.html
 [lutz_codeberg]: https://codeberg.org/reactivesystems.eu/2022-06-24-flix-for-java-programmers
 [make_cli]: https://www.gnu.org/software/make/manual/make.html
+[sh_cli]: https://www.man7.org/linux/man-pages/man1/bash.1.html
