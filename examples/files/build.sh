@@ -120,7 +120,7 @@ EOS
 }
 
 clean() {
-    if [ -d "$TARGET_DIR" ]; then
+    if [[ -d "$TARGET_DIR" ]]; then
         if $DEBUG; then
             debug "Delete directory \"$TARGET_DIR\""
         elif $VERBOSE; then
@@ -194,10 +194,10 @@ action_required() {
     for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$source_file" ]; then
+    if [[ -z "$source_file" ]]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$target_file" ]; then
+    elif [[ ! -f "$target_file" ]]; then
         ## Do compile if target file doesn't exist
         echo 1
     else
@@ -305,7 +305,7 @@ decompile() {
 
     ## output file contains Scala and CFR headers
     local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
-    echo // Compiled with $version_string > "$output_file"
+    echo "// Compiled with $version_string" > "$output_file"
 
     if $DEBUG; then
         debug "cat $output_dir/*.java >> $output_file"
@@ -318,7 +318,7 @@ decompile() {
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
 
-    if [ ! -x "$DIFF_CMD" ]; then
+    if [[ ! -x "$DIFF_CMD" ]]; then
         if $DEBUG; then
             warning "diff command not found"
         elif $VERBOSE; then
@@ -329,7 +329,7 @@ decompile() {
     local diff_opts=--strip-trailing-cr
 
     local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
-    if [ -f "$check_file" ]; then
+    if [[ -f "$check_file" ]]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
@@ -345,13 +345,13 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [ $SCALA_VERSION==3 ]; then
+    if [[ $SCALA_VERSION==3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find "$lib_path/" -type f -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name "*.jar"); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath

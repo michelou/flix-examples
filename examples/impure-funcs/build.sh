@@ -316,7 +316,7 @@ decompile() {
         echo "Save generated Java source files to file \"${output_file/$ROOT_DIR\//}\"" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name "*.java" 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -348,7 +348,7 @@ decompile() {
 
 run() {
     local boot_cpath=
-    for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
+    for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=

@@ -40,8 +40,8 @@ Optionally one may also install the following software:
 For instance our development environment looks as follows (*September 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
-C:\opt\apache-ant-1.10.14\      <i>( 43 MB)</i>
-C:\opt\apache-maven-3.9.4\      <i>( 10 MB)</i>
+C:\opt\apache-ant\              <i>( 43 MB)</i>
+C:\opt\apache-maven\            <i>( 10 MB)</i>
 C:\opt\flix-0.40.0\             <i>( 37 MB)</i>
 C:\opt\Git\                     <i>(367 MB)</i>
 C:\opt\gradle\                  <i>(131 MB)</i>
@@ -194,11 +194,11 @@ Tool paths:
    C:\opt\gradle\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook\mdbook.exe
-   C:\opt\apache-maven-3.9.4\bin\mvn.cmd
+   C:\opt\apache-maven\bin\mvn.cmd
    C:\opt\Git\bin\git.exe
    C:\opt\Git\usr\bin\diff.exe
 Environment variables:
-   "ANT_HOME=C:\opt\apache-ant-1.10.14"
+   "ANT_HOME=C:\opt\apache-ant"
    "FLIX_HOME=C:\opt\flix-0.40.0"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
@@ -206,7 +206,7 @@ Environment variables:
    "JAVA11_HOME=C:\opt\jdk-temurin-11.0.20_8"
    "JAVA17_HOME=C:\opt\jdk-temurin-17.0.8_7"
    "MAKE_HOME=C:\opt\make-3.81"
-   "MAVEN_HOME=C:\opt\apache-maven-3.9.4"
+   "MAVEN_HOME=C:\opt\apache-maven"
    "MDBOOK_HOME=C:\opt\mdBook"
    "SCALA_HOME=C:\opt\scala-2.13.12"
 Path associations:

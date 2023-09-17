@@ -6,7 +6,7 @@
     <property name="main-source.dir" value="${basedir}/src/main" />
     <property name="target.dir" value="${basedir}/target" />
     <property name="target.managed.dir" value="${basedir}/target/${ant.project.name}" />
-	<!-- Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'. -->
+    <!-- Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'. -->
     <property name="target.jar" value="${target.managed.dir}/artifact/${ant.project.name}.jar" />
 
     <property name="test-source.dir" value="${basedir}/src/test" />

@@ -355,7 +355,7 @@ run() {
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
-    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
+    [[ -n "$boot_cpath" ]] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
@@ -426,10 +426,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"

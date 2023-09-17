@@ -288,8 +288,8 @@ set __ANT_CMD=
 for /f "delims=" %%f in ('where ant.bat 2^>NUL') do set "__ANT_CMD=%%f"
 if defined __ANT_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Ant executable found in PATH 1>&2
-    for %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
-    for %%f in ("!__ANT_BIN_DIR!\.") do set "_ANT_HOME=%%~dpf"
+    for /f "delims=" %%i in ("%__ANT_CMD%") do set "__ANT_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__ANT_BIN_DIR!\.") do set "_ANT_HOME=%%~dpf"
     @rem keep _ANT_PATH undefined since executable already in path
     goto :eof
 ) else if defined ANT_HOME (
@@ -302,15 +302,15 @@ if defined __ANT_CMD (
         for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         if not defined _ANT_HOME (
             set "__PATH=%ProgramFiles%"
-            for /f %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\apache-ant-*" 2^>NUL') do set "_ANT_HOME=!__PATH!\%%f"
         )
     )
     if defined _ANT_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Ant installation directory !_ANT_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Ant installation directory "!_ANT_HOME!" 1>&2
     )
 )
 if not exist "%_ANT_HOME%\bin\ant.cmd" (
-    echo %_ERROR_LABEL% Ant executable not found ^(%_ANT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Ant executable not found ^("%_ANT_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -326,21 +326,21 @@ set __CFR_CMD=
 for /f "delims=" %%f in ('where cfr.bat 2^>NUL') do set "__CFR_CMD=%%f"
 if defined __CFR_CMD (
     for /f "delims=" %%i in ("%__CFR_CMD%") do set "__CFR_BIN_DIR=%%~dpi"
-    for %%f in ("!__CFR_BIN_DIR!\.") do set "_CFR_HOME=%%~dpf"
+    for /f "delims=" %%f in ("!__CFR_BIN_DIR!\.") do set "_CFR_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of CFR executable found in PATH 1>&2
     goto :eof
 ) else if defined CFR_HOME (
     set "_CFR_HOME=%CFR_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable CFR_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\cfr*" 2^>NUL') do set "_CFR_HOME=!__PATH!\%%f"
     if defined _CFR_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default cfr installation directory !_CFR_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default CFR installation directory "!_CFR_HOME!" 1>&2
     )
 )
 if not exist "%_CFR_HOME%\bin\cfr.bat" (
-    echo %_ERROR_LABEL% cfr executable not found ^(%_CFR_HOME%^) 1>&2
+    echo %_ERROR_LABEL% CFR executable not found ^("%_CFR_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -377,18 +377,18 @@ if defined JAVA_HOME (
     set "_JAVA_HOME=%JAVA_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JAVA_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    for /f "delims=" %%f in ('dir /ad /b "!__PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!__PATH!\%%f"
     if not defined _JAVA_HOME (
-        set "_PATH=%ProgramFiles%\Java"
-        for /f "delims=" %%f in ('dir /ad /b "!_PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!_PATH!\%%f"
+        set "__PATH=%ProgramFiles%\Java"
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\%__JDK_NAME%*" 2^>NUL') do set "_JAVA_HOME=!__PATH!\%%f"
     )
     if defined _JAVA_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory !_JAVA_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Java SDK installation directory "!_JAVA_HOME!" 1>&2
     )
 )
 if not exist "%_JAVA_HOME%\bin\javac.exe" (
-    echo %_ERROR_LABEL% Executable javac.exe not found ^(%_JAVA_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Executable javac.exe not found ^("%_JAVA_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -425,18 +425,18 @@ for /f "delims=" %%f in ('where scalac.bat 2^>NUL') do (
     if defined __VERSION if "!__VERSION:~0,1!"=="2" set "__SCALAC_CMD=%%f"
 )
 if defined __SCALAC_CMD (
-    for %%i in ("%__SCALAC_CMD%") do set "__SCALA_BIN_DIR=%%~dpi"
-    for %%f in ("!__SCALA_BIN_DIR!..") do set "_SCALA_HOME=%%f"
+    for /f "delims=" %%i in ("%__SCALAC_CMD%") do set "__SCALA_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__SCALA_BIN_DIR!..") do set "_SCALA_HOME=%%f"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala 2 executable found in PATH 1>&2
     goto :eof
 ) else if defined SCALA_HOME (
     set "_SCALA_HOME=%SCALA_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\scala-2*" 2^>NUL') do set _SCALA_HOME=!_PATH!\%%f
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\scala-2*" 2^>NUL') do set _SCALA_HOME=!__PATH!\%%f
     if defined _SCALA_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 2 installation directory !_SCALA_HOME!
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Scala 2 installation directory "!_SCALA_HOME!" 1>&2
     )
 )
 if not exist "%_SCALA_HOME%\bin\scalac.bat" (
@@ -454,8 +454,11 @@ if defined FLIX_HOME (
     set "_FLIX_HOME=%FLIX_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable FLIX_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f "delims=" %%f in ('dir /ad /b "!_PATH!\flix-*" 2^>NUL') do set "_FLIX_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    if exist "!__PATH!\flix\" ( set "_FLIX_HOME=!__PATH!\flix"
+    ) else (
+        for /f "delims=" %%f in ('dir /ad /b "!__PATH!\flix-*" 2^>NUL') do set "_FLIX_HOME=!__PATH!\%%f"
+    )
     if defined _FLIX_HOME (
         if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Flix installation directory "!_FLIX_HOME!"
     )
@@ -521,7 +524,7 @@ if defined __GIT_CMD (
     )
 )
 if not exist "%_GIT_HOME%\bin\git.exe" (
-    echo %_ERROR_LABEL% Git executable not found ^(%_GIT_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Git executable not found ^("%_GIT_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -554,11 +557,11 @@ if defined __GRADLE_CMD (
         )
     )
     if defined _GRADLE_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Gradle installation directory !_GRADLE_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Gradle installation directory "!_GRADLE_HOME!" 1>&2
     )
 )
 if not exist "%_GRADLE_HOME%\bin\gradle.bat" (
-    echo %_ERROR_LABEL% Gradle executable not found ^(%_GRADLE_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Gradle executable not found ^("%_GRADLE_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -573,8 +576,8 @@ set _JMC_HOME=
 set __JMC_CMD=
 for /f "delims=" %%f in ('where jmc.exe 2^>NUL') do set "__JMC_CMD=%%f"
 if defined __JMC_CMD (
-    for %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
-    for %%f in ("!__GRADLE_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
+    for /f "delims=" %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
+    for /f "delims=" %%f in ("!__GRADLE_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of JDK Mission Control executable found in PATH 1>&2
     goto :eof
 ) else if defined JMC_HOME (
@@ -591,11 +594,11 @@ if defined __JMC_CMD (
         )
     )
     if defined _JMC_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default JDK Mission Control installation directory !_JMC_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default JDK Mission Control installation directory "!_JMC_HOME!" 1>&2
     )
 )
 if not exist "%_JMC_HOME%\bin\jmc.exe" (
-    echo %_ERROR_LABEL% JDK Mission Control executable not found ^(%_JMC_HOME%^) 1>&2
+    echo %_ERROR_LABEL% JDK Mission Control executable not found ^("%_JMC_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -617,14 +620,14 @@ if defined __MAKE_CMD (
     set "_MAKE_HOME=%MAKE_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAKE_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\make-3*" 2^>NUL') do set "_MAKE_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\make-3*" 2^>NUL') do set "_MAKE_HOME=!__PATH!\%%f"
     if defined _MAKE_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Make installation directory !_MAKE_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Make installation directory "!_MAKE_HOME!" 1>&2
     )
 )
 if not exist "%_MAKE_HOME%\bin\make.exe" (
-    echo %_ERROR_LABEL% Make executable not found ^(%_MAKE_HOME%^) 1>&2
+    echo %_ERROR_LABEL% Make executable not found ^("%_MAKE_HOME%"^) 1>&2
     set _EXITCODE=1
     goto :eof
 )
@@ -652,10 +655,10 @@ if defined __MVN_CMD (
     set "_MAVEN_HOME=%MAVEN_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAVEN_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
+    set __PATH=C:\opt
     if exist "!__PATH!\apache-maven\" ( set "_MAVEN_HOME=!__PATH!\apache-maven"
     ) else (
-        for /f %%f in ('dir /ad /b "!_PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!_PATH!\%%f"
+        for /f %%f in ('dir /ad /b "!__PATH!\apache-maven-*" 2^>NUL') do set "_MAVEN_HOME=!__PATH!\%%f"
         if not defined _MAVEN_HOME (
             set "__PATH=%ProgramFiles%"
             for /f "delims=" %%f in ('dir /ad /b "!__PATH!\apache-maven*" 2^>NUL') do set "_MAVEN_HOME=!__PATH!\%%f"
@@ -688,10 +691,17 @@ if defined __MDBOOK_CMD (
     set "_MDBOOK_HOME=%MDBOOK_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MDBOOK_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\mdbook-*" 2^>NUL') do set "_MDBOOK_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    if exist "!__PATH!\mdbook\" ( set "_MDBOOK_HOME=!__PATH!\mdbook"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\mdbook-*" 2^>NUL') do set "_MDBOOK_HOME=!__PATH!\%%f"
+        if not defined _MDBOOK_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\mdbook*" 2^>NUL') do set "_MDBOOK_HOME=!__PATH!\%%f"
+        )
+    )
     if defined _MDBOOK_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default mdBook installation directory !_MDBOOK_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default mdBook installation directory "!_MDBOOK_HOME!" 1>&2
     )
 )
 if not exist "%_MDBOOK_HOME%\mdbook.exe" (
@@ -716,19 +726,55 @@ if defined __MSYS2_CMD (
     set "_MSYS_HOME=%MSYS_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MSYS_HOME 1>&2
 ) else (
-    set _PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!_PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!_PATH!\%%f"
+    set __PATH=C:\opt
+    for /f %%f in ('dir /ad /b "!__PATH!\msys64*" 2^>NUL') do set "_MSYS_HOME=!__PATH!\%%f"
     if defined _MSYS_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default MSYS2 installation directory !_MSYS_HOME! 1>&2
+        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default MSYS2 installation directory "!_MSYS_HOME!" 1>&2
     )
 )
 if not exist "%_MSYS_HOME%\msys2_shell.cmd" if %_MSYS%==1 (
     set _MSYS=0
 	@rem installation is optional
-    echo %_WARNING_LABEL% MSYS2 command not found ^(%_MSYS_HOME%^) 1>&2
+    echo %_WARNING_LABEL% MSYS2 command not found ^("%_MSYS_HOME%"^) 1>&2
     @rem set _EXITCODE=1
     goto :eof
 )
+goto :eof
+
+@rem output parameters: _VSCODE_HOME, _VSCODE_PATH
+:vscode
+set _VSCODE_HOME=
+set _VSCODE_PATH=
+
+set __CODE_CMD=
+for /f "delims=" %%f in ('where code.exe 2^>NUL') do set "__CODE_CMD=%%f"
+if defined __CODE_CMD (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of VSCode executable found in PATH 1>&2
+    @rem keep _VSCODE_PATH undefined since executable already in path
+    goto :eof
+) else if defined VSCODE_HOME (
+    set "_VSCODE_HOME=%VSCODE_HOME%"
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable VSCODE_HOME 1>&2
+) else (
+    set __PATH=C:\opt
+    if exist "!__PATH!\VSCode\" ( set "_VSCODE_HOME=!__PATH!\VSCode"
+    ) else (
+        for /f %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        if not defined _VSCODE_HOME (
+            set "__PATH=%ProgramFiles%"
+            for /f "delims=" %%f in ('dir /ad /b "!__PATH!\VSCode-1*" 2^>NUL') do set "_VSCODE_HOME=!__PATH!\%%f"
+        )
+    )
+)
+if not exist "%_VSCODE_HOME%\code.exe" (
+    echo %_WARNING_LABEL% VSCode executable not found ^("%_VSCODE_HOME%"^) 1>&2
+    if exist "%_VSCODE_HOME%\Code - Insiders.exe" (
+        echo %_WARNING_LABEL% It looks like you've installed an Insider version of VSCode 1>&2
+    )
+    set _EXITCODE=1
+    goto :eof
+)
+set "_VSCODE_PATH=;%_VSCODE_HOME%"
 goto :eof
 
 :print_env
@@ -749,7 +795,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%SCALA_HOME%\bin:scalac.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,3,4,*" %%i in ('"%SCALA_HOME%\bin\scalac.bat" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
+    for /f "tokens=1,2,3,4,*" %%i in ('call "%SCALA_HOME%\bin\scalac.bat" -version') do set "__VERSIONS_LINE1=%__VERSIONS_LINE1% scalac %%l,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%SCALA_HOME%\bin:scalac.bat"
 )
 where /q "%FLIX_HOME%:flix.jar"
@@ -758,7 +804,7 @@ if %ERRORLEVEL%==0 (
 )
 where /q "%GRADLE_HOME%\bin:gradle.bat"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,*" %%i in ('"%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
+    for /f "tokens=1,*" %%i in ('call "%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GRADLE_HOME%\bin:gradle.bat"
 )
 where /q "%MAKE_HOME%\bin:make.exe"
@@ -813,7 +859,11 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined MDBOOK_HOME echo    "MDBOOK_HOME=%MDBOOK_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo Path associations: 1>&2
-    for /f "delims=" %%i in ('subst') do echo    %%i 1>&2
+    for /f "delims=" %%i in ('subst') do (
+        set "__LINE=%%i"
+        setlocal enabledelayedexpansion
+        echo    !__LINE:%USERPROFILE%=%%USERPROFILE%%! 1>&2
+    )
 )
 goto :eof
 

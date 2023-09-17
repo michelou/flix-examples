@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -348,7 +348,7 @@ decompile() {
 
 run() {
     local boot_cpath=
-    for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
+    for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
@@ -422,10 +422,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
