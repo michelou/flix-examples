@@ -79,7 +79,7 @@ help:
 	@$(ECHO) "    build  compile Java/Flix source files"
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
-	@$(ECHO) "    help   display this help message"
+	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    run    execute main program \"$(PROJECT_NAME)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
 	@$(ECHO) ""
@@ -115,4 +115,4 @@ test: $(TEST_TARGET)
 .PHONY: all build clean doc help run test
 
 .SUFFIXES:
-.SUFFIXES: .classes *.flix *.jar *.java
+.SUFFIXES: .class .flix .jar .java

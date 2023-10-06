@@ -26,7 +26,7 @@
   - [An introduction to Datalog in Flix: Part 3](https://paulbutcher.com/blog/2022/datalog3/), October 2022.
   - [An introduction to Datalog in Flix: Part 2](https://paulbutcher.com/blog/2022/datalog2/), October 2022.
   - [An introduction to Datalog in Flix: Part 1](https://paulbutcher.com/blog/2022/datalog1/), October 2022.
-
+- [Flix Series Part 1: Higher-order functions & infix combinators][blog_potter] by Susan Potter, July 2022.
 - [Flix for Java Programmers][blog_huehnken] by Lutz Hühnken, June 2022.
 
 ## <span id="community">Community</span> [**&#x25B4;**](#top)
@@ -70,13 +70,14 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
 
 [anchor_flix]: https://anchor.fm/happypathprogramming/episodes/54-Flix-Designing-a-principled-programming-language-with-Magnus-Madsen-e1dueb2
 [blog_huehnken]: https://www.reactivesystems.eu/2022/06/24/flix-for-java-programmers.html
+[blog_potter]: https://www.susanpotter.net/software/flix-series-part-1-higher-order-functions-infix-combinators/
 [flix]: https://flix.dev/
 [flix_api]: https://api.flix.dev/
 [flix_doc]: https://doc.flix.dev/

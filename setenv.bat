@@ -272,11 +272,11 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-bash%__END%       start Git bash shell instead of Windows command prompt
-echo     %__BEG_O%-debug%__END%      display commands executed by this script
-echo     %__BEG_O%-verbose%__END%    display progress messages
+echo     %__BEG_O%-debug%__END%      print commands executed by this script
+echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
-echo     %__BEG_O%help%__END%        display this help message
+echo     %__BEG_O%help%__END%        print this help message
 goto :eof
 
 @rem output parameters: _ANT_HOME, _ANT_PATH
@@ -365,8 +365,8 @@ for /f "delims=" %%f in ('where javac.exe 2^>NUL') do (
 if defined __JAVAC_CMD (
     call :jdk_version "%__JAVAC_CMD%"
     if !_JDK_VERSION!==%__VERSION% (
-        for %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
-        for %%f in ("%__BIN_DIR%") do set "_JAVA_HOME=%%~dpf"
+        for /f "delims=" %%i in ("%__JAVAC_CMD%") do set "__BIN_DIR=%%~dpi"
+        for /f "delims=" %%f in ("%__BIN_DIR%") do set "_JAVA_HOME=%%~dpf"
     ) else (
         echo %_ERROR_LABEL% Required JDK installation not found ^(%__JDK_NAME%^) 1>&2
         set _EXITCODE=1
@@ -428,7 +428,6 @@ if defined __SCALAC_CMD (
     for /f "delims=" %%i in ("%__SCALAC_CMD%") do set "__SCALA_BIN_DIR=%%~dpi"
     for /f "delims=" %%f in ("!__SCALA_BIN_DIR!..") do set "_SCALA_HOME=%%f"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Scala 2 executable found in PATH 1>&2
-    goto :eof
 ) else if defined SCALA_HOME (
     set "_SCALA_HOME=%SCALA_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable SCALA_HOME 1>&2
@@ -542,6 +541,7 @@ if defined __GRADLE_CMD (
     for /f "delims=" %%i in ("%__GRADLE_CMD%") do set "__GRADLE_BIN_DIR=%%~dpi"
     for /f "delims=" %%f in ("!__GRADLE_BIN_DIR!\.") do set "_GRADLE_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Gradle executable found in PATH 1>&2
+    @rem keep _GRADLE_PATH undefined since executable already in path
     goto :eof
 ) else if defined GRADLE_HOME (
     set "_GRADLE_HOME=%GRADLE_HOME%"
@@ -579,7 +579,6 @@ if defined __JMC_CMD (
     for /f "delims=" %%i in ("%__JMC_CMD%") do set "__JMC_BIN_DIR=%%~dpi"
     for /f "delims=" %%f in ("!__GRADLE_BIN_DIR!\.") do set "_JMC_HOME=%%~dpf"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of JDK Mission Control executable found in PATH 1>&2
-    goto :eof
 ) else if defined JMC_HOME (
     set "_JMC_HOME=%JMC_HOME%"
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable JMC_HOME 1>&2
@@ -602,7 +601,6 @@ if not exist "%_JMC_HOME%\bin\jmc.exe" (
     set _EXITCODE=1
     goto :eof
 )
-@rem set "_JMC_PATH=;%_JMC_HOME%\bin"
 goto :eof
 
 @rem output parameters: _MAKE_HOME, _MAKE_PATH
@@ -614,7 +612,7 @@ set __MAKE_CMD=
 for /f "delims=" %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
 if defined __MAKE_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Make executable found in PATH 1>&2
-    rem keep _MAKE_PATH undefined since executable already in path
+    @rem keep _MAKE_PATH undefined since executable already in path
     goto :eof
 ) else if defined MAKE_HOME (
     set "_MAKE_HOME=%MAKE_HOME%"
@@ -685,7 +683,7 @@ set __MDBOOK_CMD=
 for /f "delims=" %%f in ('where mdbook.exe 2^>NUL') do set "__MDBOOK_CMD=%%f"
 if defined __MDBOOK_CMD (
     if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of mdBook executable found in PATH 1>&2
-    @rem keep _MAKE_PATH undefined since executable already in path
+    @rem keep _MDBOOK_PATH undefined since executable already in path
     goto :eof
 ) else if defined MDBOOK_HOME (
     set "_MDBOOK_HOME=%MDBOOK_HOME%"

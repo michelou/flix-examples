@@ -27,31 +27,33 @@ Optionally one may also install the following software:
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [Flix nightly builds](https://flix.dev/nightly/) <sup id="anchor_01">[1](#footnote_01)</sup>
 - [GNU Make 3.81][make_install]
-- [Gradle 8.3][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 8.4][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [mdBook 0.4][mdbook_download] <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][mdbook_changelog])
 - [Oracle OpenJDK 21 LTS][oracle_openjdk21] ([*release notes*][oracle_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 - [Temurin JDK Mission Control 8.3][jmc_download] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][jmc_relnotes])
 - [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes])
+- [Visual Studio Code 1.82][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*September 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*October 2023*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\              <i>( 43 MB)</i>
 C:\opt\apache-maven\            <i>( 10 MB)</i>
 C:\opt\flix-0.40.0\             <i>( 37 MB)</i>
 C:\opt\Git\                     <i>(367 MB)</i>
-C:\opt\gradle\                  <i>(131 MB)</i>
-C:\opt\jdk-oracle-21-ea-35\     <i>(320 MB)</i>
+C:\opt\gradle\                  <i>(138 MB)</i>
+C:\opt\jdk-oracle-21-ga\        <i>(320 MB)</i>
 C:\opt\jdk-temurin-11.0.20_8\   <i>(301 MB)</i>
 C:\opt\jdk-temurin-17.0.8_7\    <i>(299 MB)</i>
 C:\opt\jmc-8.3.0\               <i>( 99 MB)</i>
 C:\opt\make-3.81\               <i>(  2 MB)</i>
 C:\opt\mdBook\                  <i>( 10 MB)</i>
 C:\opt\scala-2.13.12\           <i>( 24 MB)</i>
+C:\opt\VSCode\                  <i>(341 MB)</i>
 </pre>
 
 ## <span id="structure">Directory structure</span> [**&#x25B4;**](#top)
@@ -101,11 +103,11 @@ We distinguish different sets of batch commands:
    Usage: setenv { &lt;option&gt; | &lt;subcommand&gt; }
    &nbsp;
      Options:
-       -debug      display commands executed by this script
-       -verbose    display progress messages
+       -debug      print commands executed by this script
+       -verbose    print progress messages
    &nbsp;
      Subcommands:
-       help        display this help message
+       help        print this help message
    </pre>
 
 2. [**`examples\*\build.bat`**](examples/areas/build.bat) &ndash; Code examples can be built/run/tested using the [**`build.bat`**](examples/areas/build.bat) command.<br/>
@@ -115,14 +117,14 @@ We distinguish different sets of batch commands:
     Usage: build { &lt;option&gt; | &lt;subcommand&gt; }
     &nbsp;
     Options:
-      -debug      display commands executed by this script
+      -debug      print commands executed by this script
       -nightly    use latest Flix nightly build if locally available
-      -verbose    display progress messages
+      -verbose    print progress messages
     &nbsp;
     Subcommands:
       clean       delete generated files
       compile     generate program executable
-      help        display this help message
+      help        print this help message
       run         execute the generated program "areas"
       test        run the unit tests
     </pre>
@@ -136,15 +138,15 @@ We distinguish different sets of batch commands:
    Usage: build.sh { &lt;option> | &lt;subcommand> }
    &nbsp;
    Options:
-     -debug       display commands executed by this script
+     -debug       print commands executed by this script
      -nightly     select latest Flix nightly build if locally available
-     -verbose     display progress messages
+     -verbose     print progress messages
    &nbsp;
    Subcommands:
      clean        delete generated files
      compile      compile Scala/Flix source files
      decompile    decompile generated code with CFR
-     help         display this help message
+     help         print this help message
      run          execute Flix program "areas"
      test         run the unit tests
    </pre>
@@ -159,7 +161,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 11.0.20, javac 11.0.20, scalac 2.13.12, flix v0.40.0,
-   gradle 8.3, make 3.81, mdbook v0.4.34, mvn 3.9.4,
+   gradle 8.4, make 3.81, mdbook v0.4.35, mvn 3.9.5,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
@@ -185,7 +187,7 @@ Download file "flix-2023-09-11.jar" to directory "C:\opt\flix-0.40.0"
 
 Tool versions:
    java 11.0.20, javac 11.0.20, scalac 2.13.12, flix v0.40.0,
-   gradle 8.3, make 3.81, mdbook v0.4.34, mvn 3.9.4,
+   gradle 8.4, make 3.81, mdbook v0.4.35, mvn 3.9.5,
    git 2.42.0.windows.1, diff 3.10, bash 5.2.15(1)-release
 Tool paths:
    C:\opt\jdk-temurin-11.0.20_8\bin\java.exe
@@ -256,12 +258,12 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.14-bin.zip</a>                         <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.4-bin.zip</a>                         <i>( 10 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.5-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
 <a href="https://flix.dev/nightly/" rel="external">flix-2023-09-11.jar</a>                                <i>( 39 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.3-bin.zip</a>                                 <i>(103 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.4-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://sourceforge.net/projects/gnuwin32/files/make/3.81/">make-3.81-bin.zip</a>                                  <i>( 10 MB)</i>
-<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.34-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.35-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.20_8.zip</a>   <i>(188 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot">OpenJDK17U-jdk_x64_windows_hotspot_17.0.8_7.zip</a>    <i>(188 MB)</i>
 <a href="https://jdk.java.net/21/">openjdk-21_windows-x64_bin_build_35.zip</a>            <i>(191 MB)</i>
@@ -273,7 +275,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -286,7 +288,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.4/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.5/release-notes.html
 [bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [cpp_examples]: https://github.com/michelou/cpp-examples
 [dart_examples]: https://github.com/michelou/dart-examples
@@ -307,7 +309,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/8.2/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/8.4/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples
 [jmc_download]: https://adoptium.net/jmc/
 [jmc_relnotes]: https://www.oracle.com/java/technologies/javase/jmc8-release-notes.html
@@ -355,6 +357,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
+[vscode_downloads]: https://code.visualstudio.com/#alt-downloads
+[vscode_relnotes]: https://code.visualstudio.com/updates/
 [windows_batch_file]: https://en.wikibooks.org/wiki/Windows_Batch_Scripting
 [windows_installer]: https://docs.microsoft.com/en-us/windows/win32/msi/windows-installer-portal
 [windows_limitation]: https://support.microsoft.com/en-gb/help/830473/command-prompt-cmd-exe-command-line-string-limitation

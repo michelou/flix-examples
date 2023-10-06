@@ -21,7 +21,7 @@ We made the following changes resp. additions in comparison to the original [Fli
 
 Currently we provide four ways to build, run and test the [Flix] code examples :
 
-| Build tool          | Build&nbsp;file  | Parent&nbsp;file | Environment(s) |
+| Build&nbsp;tool     | Build&nbsp;file  | Parent&nbsp;file | Environment(s) |
 |---------------------|------------------|------------------|----------------|
 | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](channels/build.bat) | &nbsp; | MS Windows |
 | [**`sh.exe`**][sh_cli] | [**`build.sh`**](channels/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
@@ -31,7 +31,7 @@ Currently we provide four ways to build, run and test the [Flix] code examples :
 <sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
 </div>
 
-## <span id="channels">`channels` Example</span>
+## <span id="channels">`channels` Example</span> [**&#x25B4;**](#top)
 
 Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\channels.flix`](./channels/src/main/channels.flix) and executes the target file :
 
@@ -222,7 +222,7 @@ Here are our modifications of the original <a href="https://flix.dev/">Flix</a> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

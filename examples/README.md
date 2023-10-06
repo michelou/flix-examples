@@ -13,8 +13,8 @@
 
 We currently support five ways to build/run/test our [Flix] code examples:
 
-| Build tool          | Configuration file(s)  | Parent file(s) | Environment(s) |
-|---------------------|------------------------|----------------|----------------|
+| Build&nbsp;tool     | Build&nbsp;file | Parent file | Environment(s) |
+|---------------------|-----------------|-------------|----------------|
 | [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](areas/build.bat) | &nbsp; | MS Windows |
 | [**`sh.exe`**][sh_cli] | [**`build.sh`**](areas/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
 | [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](./areas/build.xml) | &nbsp; | Any |
@@ -98,7 +98,7 @@ The [Flix] projects presented below share the same directory layout as project `
 
 > **:mag_right:** Command [**`examples\build.bat`**](./build.bat) allows us to clean, build and run all projects in directory **`examples\`**, for instance before updating our Github repository [`flix-examples`](https://github.com/michelou/flix-examples) with local changes.
 
-### <span id="areas">`areas` Example</span>
+### <span id="areas">`areas` Example</span> [**&#x25B4;**](#top)
 
 Command [**`build.bat -verbose run`**](./areas/build.bat) <sup id="anchor_03">[3](#footnote_03)</sup> generates the target file `target\areas\areas.jar` from the [Flix] source file [`src\main\Main.flix`](./areas/src/main/Main.flix) and executes the target file :
 
@@ -587,7 +587,7 @@ BUILD SUCCESSFUL in 15s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/September 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

@@ -52,7 +52,7 @@ args() {
         -nightly)  NIGHTLY=true ;;
         -verbose)  VERBOSE=true ;;
         -*)
-            error "Unknown option $arg"
+            error "Unknown option \"$arg\""
             EXITCODE=1 && return 0
             ;;
         ## subcommands
@@ -63,7 +63,7 @@ args() {
         run)       COMPILE=true && RUN=true ;;
         test)      COMPILE=true && TEST=true ;;
         *)
-            error "Unknown subcommand $arg"
+            error "Unknown subcommand \"$arg\""
             EXITCODE=1 && return 0
             ;;
         esac
@@ -105,15 +105,15 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       display commands executed by this script
+    -debug       print commands executed by this script
     -nightly     select latest Flix nightly build if locally available
-    -verbose     display progress messages
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile Flix source files
     decompile    decompile generated code with CFR
-    help         display this help message
+    help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
 EOS
