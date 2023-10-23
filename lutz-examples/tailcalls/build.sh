@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [] -h "$source" ]]; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -120,7 +120,7 @@ EOS
 }
 
 clean() {
-    if [ -d "$TARGET_DIR" ]; then
+    if [[ -d "$TARGET_DIR" ]]; then
         if $DEBUG; then
             debug "Delete directory \"$TARGET_DIR\""
         elif $VERBOSE; then

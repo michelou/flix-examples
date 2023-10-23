@@ -39,7 +39,8 @@ project.ext {
     }
 
     dependencies {
-        bootClasspath "org.scala-lang:scala-library:2.13.10"
+        // see flix.jar:library.properties 
+        bootClasspath "org.scala-lang:scala-library:2.13.11"
     }
 
     flixHome = System.getenv("FLIX_HOME")

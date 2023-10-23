@@ -171,7 +171,7 @@ if %_JAVA%==1 (
     set _COMMANDS=!_COMMANDS:compile=compile_java!
 ) else if %_NIGHTLY%==1 (
     set __NIGHTLY_JAR=
-    for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
+    for /f "delims=" %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
         set "__NIGHTLY_JAR=%%i"
     )
     if defined __NIGHTLY_JAR (
