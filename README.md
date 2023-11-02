@@ -48,7 +48,7 @@ C:\opt\Git\                     <i>(367 MB)</i>
 C:\opt\gradle\                  <i>(138 MB)</i>
 C:\opt\jdk-temurin-11.0.21_9\   <i>(301 MB)</i>
 C:\opt\jdk-temurin-17.0.9_9\    <i>(299 MB)</i>
-C:\opt\jdk-temurin-21_35\       <i>(325 MB)</i>
+C:\opt\jdk-temurin-21.0.1\      <i>(326 MB)</i>
 C:\opt\jmc\                     <i>( 99 MB)</i>
 C:\opt\mdBook\                  <i>( 10 MB)</i>
 C:\opt\msys64\                  <i>(5.5 GB)</i>
@@ -376,6 +376,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
 <!--
 21_35   -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
+21.0.1  -> https://
 -->
 [temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
 [temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
