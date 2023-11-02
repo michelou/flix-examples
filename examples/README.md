@@ -15,11 +15,11 @@ We currently support five ways to build/run/test our [Flix] code examples:
 
 | Build&nbsp;tool     | Build&nbsp;file | Parent file | Environment(s) |
 |---------------------|-----------------|-------------|----------------|
-| [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](areas/build.bat) | &nbsp; | MS Windows |
-| [**`sh.exe`**][sh_cli] | [**`build.sh`**](areas/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
-| [**`ant.bat`**][apache_ant_cli] | [**`build.xml`**](./areas/build.xml) | &nbsp; | Any |
-| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](areas/build.gradle) | [**`common.gradle`**](common.gradle) | Any  |
-| [**`make.exe`**][make_cli] <sup><b>b)</b></sup> | [**`Makefile`**](areas/Makefile) | [**`Makefile.inc`**](./Makefile.inc)  | Any |
+| [**`cmd.exe`**][cmd_cli] | [`build.bat`](areas/build.bat) | &nbsp; | MS Windows |
+| [**`sh.exe`**][sh_cli] | [`build.sh`](areas/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
+| [**`ant.bat`**][apache_ant_cli] | [`build.xml`](./areas/build.xml) | &nbsp; | Any |
+| [**`gradle.exe`**][gradle_cli] | [`build.gradle`](areas/build.gradle) | [`common.gradle`](common.gradle) | Any  |
+| [**`make.exe`**][make_cli] <sup><b>b)</b></sup> | [`Makefile`](areas/Makefile) | [`Makefile.inc`](./Makefile.inc)  | Any |
 <div style="margin:0 15% 0 8px;font-size:90%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix"<br/>
 <sup><b>b)</b></sup> Default shell is <code><b>/bin/sh</b></code> as described in the online document <a href="https://www.gnu.org/software/make/manual/html_node/Choosing-the-Shell.html">Choosing the Shell</a>.<br/>
@@ -133,14 +133,14 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 > 1. Command [**`make.exe`**][make_cli] reads its configuration from the two configuration files [**`Makefile`**](./areas/Makefile) and [**`Makefile.inc`**](./Makefile.inc) (we can use option **`--silent`** to hide the executed commands):
 >    <pre style="font-size:80%;">
 >     <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
->    [ -d "target/areas" ] || "C:/opt/Git-2.42.0/usr/bin/mkdir.exe" -p "target/areas"
+>    [ -d "target/areas" ] || "C:/opt/Git/usr/bin/mkdir.exe" -p "target/areas"
 >    cd "target/areas"; \
->         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.20_8/bin/java.exe" -jar "C:\opt\flix-0.40.0/flix.jar" init && \
->         "C:/opt/Git-2.42.0/usr/bin/rm.exe" -f "src/Main.flix" && \
->         "C:/opt/Git-2.42.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
->         "C:/opt/jdk-temurin-11.0.20_8/bin/java.exe" -jar "C:\opt\flix-0.40.0/flix.jar" build && \
->         "C:/opt/jdk-temurin-11.0.20_8/bin/java.exe" -jar "C:\opt\flix-0.40.0/flix.jar" build-jar
->    "C:/opt/jdk-temurin-11.0.20_8/bin/java.exe"  -jar "target/areas/areas.jar"
+>         [ -d "build" ] || "C:/opt/jdk-temurin-11.0.21_9/bin/java.exe" -jar "C:\opt\flix-0.41.0/flix.jar" init && \
+>         "C:/opt/Git/usr/bin/rm.exe" -f "src/Main.flix" && \
+>         "C:/opt/Git/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+>         "C:/opt/jdk-temurin-11.0.21_9/bin/java.exe" -jar "C:\opt\flix-0.41.0/flix.jar" build && \
+>         "C:/opt/jdk-temurin-11.0.21_9/bin/java.exe" -jar "C:\opt\flix-0.41.0/flix.jar" build-jar
+>    "C:/opt/jdk-temurin-11.0.21_9/bin/java.exe"  -jar "target/areas/areas.jar"
 >    2 :: 6 :: Nil
 >    2 :: 6 :: Nil
 >    &nbsp;
@@ -187,7 +187,7 @@ Command [**`build.bat -verbose run`**](./channels/build.bat) generates the targe
 Copy 1 Flix source file to directory "target\channels\src\"
 Compile 1 Flix source file to directory "target\channels\src\"
 Create archive file "target\channels\channels.jar"
-Extract Flix runtime from archive file "C:\opt\flix-0.40.0\flix.jar"
+Extract Flix runtime from archive file "C:\opt\flix-0.41.0\flix.jar"
 Add Flix runtime to archive file "target\channels\channels.jar"
 Execute Flix program "target\channels\channels.jar"
 1 :: 2 :: 3 :: Nil
@@ -328,20 +328,20 @@ Concretely we perform two additional steps before calling the [Flix] commands **
 [build] Properties : _PROJECT_NAME=lambda-calculus
 [build] Options    : _NIGHTLY=0 _VERBOSE=0
 [build] Subcommands: _COMMANDS= clean compile run
-[build] Variables  : "FLIX_HOME=C:\opt\flix-0.40.0"
-[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.20_8"
+[build] Variables  : "FLIX_HOME=C:\opt\flix-0.41.0"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.21_9"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.12"
 [build] rmdir /s /q "F:\examples\lambda-calculus\target"
 [build] 00000000000000 Target : 'F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar'
 [build] 20220924220123 Sources: 'F:\examples\lambda-calculus\src\main\*.flix'
 [build] _ACTION_REQUIRED=1
-[build] "C:\opt\jdk-temurin-11.0.20_8\bin\java.exe" -jar "C:\opt\flix-0.40.0\flix.jar" init
+[build] "C:\opt\jdk-temurin-11.0.21_9\bin\java.exe" -jar "C:\opt\flix-0.41.0\flix.jar" init
 [build] xcopy /s /y "F:\examples\lambda-calculus\src\main" "F:\examples\lambda-calculus\target\lambda-calculus\src\" 1>NUL
-[build] "C:\opt\scala-2.13.12\bin\scalac.bat" -cp "C:\opt\flix-0.40.0\flix.jar" -d "F:\examples\lambda-calculus\target\lambda-calculus\lib"  "F:\examples\lambda-calculus\target\lambda-calculus\src\Counter.scala"
-[build] "C:\opt\jdk-temurin-11.0.20_8\bin\jar.exe" cf "F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -C "F:\examples\lambda-calculus\target\lambda-calculus\lib" .
-[build] "C:\opt\jdk-temurin-11.0.20_8\bin\java.exe" -cp "F:\examples\lambda-calculus\target\lambda-calculus\build" -jar "C:\opt\flix-0.40.0\flix.jar" build --explain
-[build] "C:\opt\jdk-temurin-11.0.20_8\bin\java.exe" -jar "C:\opt\flix-0.40.0\flix.jar" build-jar
-[build] "C:\opt\jdk-temurin-11.0.20_8\bin\java.exe" "-Xbootclasspath/a:F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -jar "F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar"
+[build] "C:\opt\scala-2.13.12\bin\scalac.bat" -cp "C:\opt\flix-0.41.0\flix.jar" -d "F:\examples\lambda-calculus\target\lambda-calculus\lib"  "F:\examples\lambda-calculus\target\lambda-calculus\src\Counter.scala"
+[build] "C:\opt\jdk-temurin-11.0.21_9\bin\jar.exe" cf "F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -C "F:\examples\lambda-calculus\target\lambda-calculus\lib" .
+[build] "C:\opt\jdk-temurin-11.0.21_9\bin\java.exe" -cp "F:\examples\lambda-calculus\target\lambda-calculus\build" -jar "C:\opt\flix-0.41.0\flix.jar" build --explain
+[build] "C:\opt\jdk-temurin-11.0.21_9\bin\java.exe" -jar "C:\opt\flix-0.41.0\flix.jar" build-jar
+[build] "C:\opt\jdk-temurin-11.0.21_9\bin\java.exe" "-Xbootclasspath/a:F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -jar "F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar"
 Abs(1, Abs(0, Var(0)))
 [build] _EXITCODE=0
 </pre>
@@ -355,17 +355,17 @@ Command [`build.bat`](./mutability/build.bat)` -debug run` generates the target 
 [build] Properties : _PROJECT_NAME=mutability
 [build] Options    : _NIGHTLY=0 _VERBOSE=0
 [build] Subcommands: _COMMANDS= compile run
-[build] Variables  : "FLIX_HOME=C:\opt\flix-0.40.0"
-[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.20_8"
+[build] Variables  : "FLIX_HOME=C:\opt\flix-0.41.0"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-11.0.21_9"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.12"
 [build] 00000000000000 Target : 'F:\examples\mutability\target\mutability\mutability.jar'
 [build] 20220908185859 Sources: 'F:\examples\mutability\src\*.flix'
 [build] _ACTION_REQUIRED=1
-[build] "C:\opt\jdk-temurin-11.0.20_8\bin\java.exe" -jar "C:\opt\flix-0.40.0\flix.jar" init
+[build] "C:\opt\jdk-temurin-11.0.21_9\bin\java.exe" -jar "C:\opt\flix-0.41.0\flix.jar" init
 [build] xcopy /s /y "F:\examples\mutability\src" "F:\examples\mutability\target\mutability\src\" 1>NUL
-[build] "C:\opt\jdk-temurin-11.0.20_8\bin\java.exe" -jar "C:\opt\flix-0.40.0\flix.jar" build
-[build] "C:\opt\jdk-temurin-11.0.20_8\bin\java.exe" -jar "C:\opt\flix-0.40.0\flix.jar" build-jar
-[build] "C:\opt\jdk-temurin-11.0.20_8\bin\java.exe"  -jar "F:\examples\mutability\target\mutability\mutability.jar"
+[build] "C:\opt\jdk-temurin-11.0.21_9\bin\java.exe" -jar "C:\opt\flix-0.41.0\flix.jar" build
+[build] "C:\opt\jdk-temurin-11.0.21_9\bin\java.exe" -jar "C:\opt\flix-0.41.0\flix.jar" build-jar
+[build] "C:\opt\jdk-temurin-11.0.21_9\bin\java.exe"  -jar "F:\examples\mutability\target\mutability\mutability.jar"
 1 :: 2 :: 3 :: Nil
 [build] _EXITCODE=0
 </pre>
@@ -391,7 +391,7 @@ BUILD SUCCESSFUL in 18s
 
 ### <span id="primes">`primes` Example</span>
 
-Command [`build.bat run`](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and executes the target file :
+Command [**`build.bat run`**](./primes/build.bat) generates the target file `target\primes\primes.jar` from the [Flix] source file [`src\main\Main.flix`](./primes/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./primes/build.bat">build</a> run</b>
@@ -415,7 +415,7 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 5,7ms.
 
 ### <span id="records">`records` Example</span> [**&#x25B4;**](#top)
 
-Command [`build.bat run`](./records/build.bat) generates the target file `target\records\records.jar` from the [Flix] source file [`src\main\Main.flix`](./records/src/main/Main.flix) and executes the target file :
+Command [**`build.bat run`**](./records/build.bat) generates the target file `target\records\records.jar` from the [Flix] source file [`src\main\Main.flix`](./records/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./records/build.bat">build</a> run</b>
@@ -436,7 +436,7 @@ Command [`build.bat run`](./trees/build.bat) generates the target file `target\t
 
 ### <span id="type-aliases">`type-aliases` Example</span>
 
-Command [`build.bat run`](./type-aliases/build.bat) generates the target file `target\type-aliases\type-aliases.jar` from the [Flix] source file [`src\main\Main.flix`](./type-aliases/src/main/Main.flix) and executes the target file :
+Command [**`build.bat run`**](./type-aliases/build.bat) generates the target file `target\type-aliases\type-aliases.jar` from the [Flix] source file [`src\main\Main.flix`](./type-aliases/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./type-aliases/build.bat">build</a> run</b>
@@ -556,14 +556,14 @@ Execute Flix program "target\areas\areas.jar"
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> NIGHTLY=1 run</b>
-[ -d "target/areas" ] || "C:/opt/Git-2.42.0/usr/bin/mkdir.exe" -p "target/areas"
+[ -d "target/areas" ] || "C:/opt/Git/usr/bin/mkdir.exe" -p "target/areas"
 cd "target/areas"; \
-        [ -d "build" ] || "C:/opt/jdk-temurin-11.0.20_8/bin/java.exe" -jar "C:\opt\flix-0.40.0/flix-2023-09-11.jar" init && \
-        "C:/opt/Git-2.42.0/usr/bin/rm.exe" -f "src/Main.flix" && \
-        "C:/opt/Git-2.42.0/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
-        "C:/opt/jdk-temurin-11.0.20_8/bin/java.exe" -jar "C:\opt\flix-0.40.0/flix-2023-09-11.jar" build && \
-        "C:/opt/jdk-temurin-11.0.20_8/bin/java.exe" -jar "C:\opt\flix-0.40.0/flix-2023-09-11.jar" build-jar
-"C:/opt/jdk-temurin-11.0.20_8/bin/java.exe"  -jar "target/areas/areas.jar"
+        [ -d "build" ] || "C:/opt/jdk-temurin-11.0.21_9/bin/java.exe" -jar "C:\opt\flix-0.41.0/flix-2023-09-11.jar" init && \
+        "C:/opt/Git/usr/bin/rm.exe" -f "src/Main.flix" && \
+        "C:/opt/Git/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
+        "C:/opt/jdk-temurin-11.0.21_9/bin/java.exe" -jar "C:\opt\flix-0.41.0/flix-2023-09-11.jar" build && \
+        "C:/opt/jdk-temurin-11.0.21_9/bin/java.exe" -jar "C:\opt\flix-0.41.0/flix-2023-09-11.jar" build-jar
+"C:/opt/jdk-temurin-11.0.21_9/bin/java.exe"  -jar "target/areas/areas.jar"
 2 :: 6 :: Nil
 2 :: 6 :: Nil
 </pre>
@@ -587,7 +587,7 @@ BUILD SUCCESSFUL in 15s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

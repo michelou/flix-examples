@@ -42,7 +42,7 @@ TOUCH      = touch
 UNZIP      = unzip
 endif
 
-SCALA_LIB_JAR  = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.10.jar)
+SCALA_LIB_JAR  = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-2.13.11.jar)
 
 NIGHTLY ?=
 ifeq ($(NIGHTLY),)
@@ -51,9 +51,36 @@ else
 FLIX_LIB_JAR   = $(shell $(FIND) "$(FLIX_HOME)/" -name "flix-*.jar" | tail -n 1)
 endif
 
+deps:
+	$(eval MVN_OPTS := -quiet)
+	$(eval REMOTE_REPO := https://repo1.maven.org/maven2)
+	$(eval WGET_OPTS := --user-agent="Mozilla/5.0 (Windows NT 6.3; WOW64; rv:40.0)" --no-check-certificate --directory-prefix="$(TMP)")
+	@$(ECHO) "## Check Maven dependencies on $(REMOTE_REPO)"
 ifeq (,$(wildcard $(SCALA_LIB_JAR)))
-$(error Variable SCALA_LIB_JAR is not set)
+	$(eval GROUP_ID := org.scala-lang)
+	$(eval ARTIFACT_ID := scala-library)
+	$(eval VERSION := 2.13.11)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := $(REMOTE_REPO)/$(subst .,/,$(GROUP_ID))/$(ARTIFACT_ID)/$(VERSION)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(MVN) $(MVN_OPTS) install:install-file -Dfile="$(JAR_FILE)" -DgroupId=$(GROUP_ID) -DartifactId=$(ARTIFACT_ID) -Dversion=$(VERSION) -Dpackaging=jar
+	$(eval SCALA_LIB_JAR := $(shell $(FIND) "$(LOCAL_REPO)/$(subst .,/,$(GROUP_ID))" -name "$(ARTIFACT_ID)-$(VERSION).jar"))
 endif
+ifeq ($(NIGHTLY),)
 ifeq (,$(wildcard $(FLIX_LIB_JAR)))
-$(error Variable FLIX_LIB_JAR is not set)
+	$(eval ARTIFACT_ID := flix)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID).jar)
+	$(eval URL := https://github.com/flix/flix/releases/download/v0.41.0/$(ARTIFACT_ID).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID).jar)
+	$(eval FLIX_LIB_JAR := $(shell $(FIND) "$(FLIX_HOME)/" -name "$(ARTIFACT_ID).jar")
+endif
+else  ## latest nightly jar
+ifeq (,$(wildcard $(FLIX_LIB_JAR)))
+	$(eval ARTIFACT_ID := flix)
+	$(eval VERSION := latest)
+	$(eval JAR_FILE := $(TMP)/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval URL := https://flix.dev/nightly/$(ARTIFACT_ID)-$(VERSION).jar)
+	$(WGET) $(WGET_OPTS) $(URL) || $(error Failed to download $(ARTIFACT_ID)-$(VERSION).jar)
+	$(eval FLIX_LIB_JAR := $(shell $(FIND) "$(FLIX_HOME)/" -name "$(ARTIFACT_ID)-$(VERSION).jar")
+endif
 endif

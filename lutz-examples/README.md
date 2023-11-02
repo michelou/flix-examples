@@ -23,10 +23,10 @@ Currently we provide four ways to build, run and test the [Flix] code examples :
 
 | Build&nbsp;tool     | Build&nbsp;file  | Parent&nbsp;file | Environment(s) |
 |---------------------|------------------|------------------|----------------|
-| [**`cmd.exe`**][cmd_cli] | [**`build.bat`**](channels/build.bat) | &nbsp; | MS Windows |
-| [**`sh.exe`**][sh_cli] | [**`build.sh`**](channels/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
-| [**`gradle.exe`**][gradle_cli] | [**`build.gradle`**](channels/build.gradle) | [**`common.gradle`**](common.gradle) | Any |
-| [**`make.exe`**][make_cli] | [**`Makefile`**](channels/Makefile) | [**`Makefile.inc`**](./Makefile.inc)  | Any |
+| [**`cmd.exe`**][cmd_cli] | [`build.bat`](channels/build.bat) | &nbsp; | MS Windows |
+| [**`sh.exe`**][sh_cli] | [`build.sh`](channels/build.sh) | &nbsp; | Any <sup><b>a)</b></sup> |
+| [**`gradle.exe`**][gradle_cli] | [`build.gradle`](channels/build.gradle) | [`common.gradle`](common.gradle) | Any |
+| [**`make.exe`**][make_cli] | [`Makefile`](channels/Makefile) | [`Makefile.inc`](./Makefile.inc)  | Any |
 <div style="margin:0 15% 0 8px;font-size:90%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix".<br/>&nbsp;
 </div>
@@ -88,7 +88,7 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 6,9ms.
 > done
 > &nbsp;
 > <b>&gt; <a href="https://www.man7.org/linux/man-pages/man1/bash.1.html">bash</a> --version | <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> version</b>
-> GNU bash, version 4.4.20(1)-release (x86_64-pc-linux-gnu)
+> GNU bash, version 5.2.15(1)-release (x86_64-pc-linux-gnu)
 > License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;
 > </pre>
 
@@ -222,7 +222,7 @@ Here are our modifications of the original <a href="https://flix.dev/">Flix</a> 
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

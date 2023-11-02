@@ -17,15 +17,15 @@ JAVA       = $(subst \,/,$(JAVA_HOME))/bin/java.exe
 SCALAC     = $(subst \,/,$(SCALA_HOME))/bin/scalac.bat
 LOCAL_REPO = $(subst \,/,$(USERPROFILE))/.m2/repository
 PSEP       = ;
-CP         = $(subst \,/,$(GIT_HOME))/usr/bin/cp.exe
-CYGPATH    = $(subst \,/,$(GIT_HOME))/usr/bin/cygpath.exe
-ECHO       = $(subst \,/,$(GIT_HOME))/usr/bin/echo.exe
-## We grab Mingw version instead of C:\Windows\System32\find.exe
-FIND       = $(subst \,/,$(GIT_HOME))/usr/bin/find.exe
-MKDIR      = $(subst \,/,$(GIT_HOME))/usr/bin/mkdir.exe
-RM         = $(subst \,/,$(GIT_HOME))/usr/bin/rm.exe
-TOUCH      = $(subst \,/,$(GIT_HOME))/usr/bin/touch.exe
-UNZIP      = $(subst \,/,$(GIT_HOME))/usr/bin/unzip.exe
+## $(MSYS_HOME)\usr\bin\{cp.exe, make.exe, wget.exe}
+CP         = /usr/bin/cp.exe
+CYGPATH    = /usr/bin/cygpath.exe
+ECHO       = /usr/bin/echo.exe
+FIND       = /usr/bin/find.exe
+MKDIR      = /usr/bin/mkdir.exe
+RM         = /usr/bin/rm.exe
+TOUCH      = /usr/bin/touch.exe
+UNZIP      = /usr/bin/unzip.exe
 else ifeq ($(OS),cygwin)
 JAR        = $(JAVA_HOME)/bin/jar
 JAVA       = $(JAVA_HOME)/bin/java
@@ -72,4 +72,3 @@ FLIX_LIB_JAR = $(JAR_FILE)
 else
 FLIX_LIB_JAR = $(shell $(CYGPATH) -am $(JAR_FILE))
 endif
-## $(info "11111111111111111 $(FLIX_LIB_JAR)")

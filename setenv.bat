@@ -26,9 +26,9 @@ if %_HELP%==1 (
 set _ANT_PATH=
 set _GIT_PATH=
 set _GRADLE_PATH=
-set _MAKE_PATH=
 set _MAVEN_PATH=
 set _MDBOOK_PATH=
+set _MSYS_PATH=
 
 call :ant
 if not %_EXITCODE%==0 goto end
@@ -65,9 +65,6 @@ if not %_EXITCODE%==0 goto end
 call :jmc
 @rem JDK Mission Control installation is optional
 @rem if not %_EXITCODE%==0 goto end
-
-call :make
-if not %_EXITCODE%==0 goto end
 
 call :maven
 if not %_EXITCODE%==0 goto end
@@ -603,35 +600,6 @@ if not exist "%_JMC_HOME%\bin\jmc.exe" (
 )
 goto :eof
 
-@rem output parameters: _MAKE_HOME, _MAKE_PATH
-:make
-set _MAKE_HOME=
-set _MAKE_PATH=
-
-set __MAKE_CMD=
-for /f "delims=" %%f in ('where make.exe 2^>NUL') do set "__MAKE_CMD=%%f"
-if defined __MAKE_CMD (
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using path of Make executable found in PATH 1>&2
-    @rem keep _MAKE_PATH undefined since executable already in path
-    goto :eof
-) else if defined MAKE_HOME (
-    set "_MAKE_HOME=%MAKE_HOME%"
-    if %_DEBUG%==1 echo %_DEBUG_LABEL% Using environment variable MAKE_HOME 1>&2
-) else (
-    set __PATH=C:\opt
-    for /f %%f in ('dir /ad /b "!__PATH!\make-3*" 2^>NUL') do set "_MAKE_HOME=!__PATH!\%%f"
-    if defined _MAKE_HOME (
-        if %_DEBUG%==1 echo %_DEBUG_LABEL% Using default Make installation directory "!_MAKE_HOME!" 1>&2
-    )
-)
-if not exist "%_MAKE_HOME%\bin\make.exe" (
-    echo %_ERROR_LABEL% Make executable not found ^("%_MAKE_HOME%"^) 1>&2
-    set _EXITCODE=1
-    goto :eof
-)
-set "_MAKE_PATH=;%_MAKE_HOME%\bin"
-goto :eof
-
 @rem output parameters: _MAVEN_HOME, _MAVEN_PATH
 :maven
 set _MAVEN_HOME=
@@ -711,9 +679,10 @@ if not exist "%_MDBOOK_HOME%\mdbook.exe" (
 set "_MDBOOK_PATH=;%_MDBOOK_HOME%"
 goto :eof
 
-@rem output parameter: _MSYS_HOME
+@rem output parameter: _MSYS_HOME, _MSYS_PATH
 :msys
 set _MSYS_HOME=
+set _MSYS_PATH=
 
 set __MSYS2_CMD=
 for /f "delims=" %%f in ('where msy2_shell.cmd 2^>NUL') do set "__MSYS2_CMD=%%f"
@@ -737,6 +706,7 @@ if not exist "%_MSYS_HOME%\msys2_shell.cmd" if %_MSYS%==1 (
     @rem set _EXITCODE=1
     goto :eof
 )
+set "_MSYS_PATH=;%_MSYS_HOME%\usr\bin"
 goto :eof
 
 @rem output parameters: _VSCODE_HOME, _VSCODE_PATH
@@ -805,10 +775,10 @@ if %ERRORLEVEL%==0 (
     for /f "tokens=1,*" %%i in ('call "%GRADLE_HOME%\bin\gradle.bat" -version ^| findstr Gradle') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% gradle %%j,"
     set __WHERE_ARGS=%__WHERE_ARGS% "%GRADLE_HOME%\bin:gradle.bat"
 )
-where /q "%MAKE_HOME%\bin:make.exe"
+where /q "%MSYS_HOME%\usr\bin:make.exe"
 if %ERRORLEVEL%==0 (
-    for /f "tokens=1,2,*" %%i in ('"%MAKE_HOME%\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% make %%k,"
-    set __WHERE_ARGS=%__WHERE_ARGS% "%MAKE_HOME%\bin:make.exe"
+    for /f "tokens=1,2,*" %%i in ('"%MSYS_HOME%\usr\bin\make.exe" --version 2^>^&1 ^| findstr Make') do set "__VERSIONS_LINE2=%__VERSIONS_LINE2% make %%k,"
+    set __WHERE_ARGS=%__WHERE_ARGS% "%MSYS_HOME%\usr\bin:make.exe"
 )
 where /q "%MDBOOK_HOME%:mdbook.exe"
 if %ERRORLEVEL%==0 (
@@ -852,9 +822,9 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     if defined JAVA11_HOME echo    "JAVA11_HOME=%JAVA11_HOME%" 1>&2
     if defined JAVA17_HOME echo    "JAVA17_HOME=%JAVA17_HOME%" 1>&2
     if defined JMC_HOME echo    "JMC_HOME=%JMC_HOME%" 1>&2
-    if defined MAKE_HOME echo    "MAKE_HOME=%MAKE_HOME%" 1>&2
     if defined MAVEN_HOME echo    "MAVEN_HOME=%MAVEN_HOME%" 1>&2
     if defined MDBOOK_HOME echo    "MDBOOK_HOME=%MDBOOK_HOME%" 1>&2
+    if defined MSYS_HOME echo    "MSYS_HOME=%MSYS_HOME%" 1>&2
     if defined SCALA_HOME echo    "SCALA_HOME=%SCALA_HOME%" 1>&2
     echo Path associations: 1>&2
     for /f "delims=" %%i in ('subst') do (
@@ -879,13 +849,12 @@ endlocal & (
         if not defined JAVA11_HOME set "JAVA11_HOME=%_JAVA11_HOME%"
         if not defined JAVA17_HOME set "JAVA17_HOME=%_JAVA17_HOME%"
         if not defined JMC_HOME set "JMC_HOME=%_JMC_HOME%"
-        if not defined MAKE_HOME set "MAKE_HOME=%_MAKE_HOME%"
         if not defined MAVEN_HOME set "MAVEN_HOME=%_MAVEN_HOME%"
         if not defined MDBOOK_HOME set "MDBOOK_HOME=%_MDBOOK_HOME%"
         if not defined MSYS_HOME set "MSYS_HOME=%_MSYS_HOME%"
         if not defined SCALA_HOME set "SCALA_HOME=%_SCALA_HOME%"
         @rem We prepend %_GIT_HOME%\bin to hide C:\Windows\System32\bash.exe
-        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_GRADLE_PATH%%_MAKE_PATH%%_MAVEN_PATH%%_MDBOOK_PATH%%_GIT_PATH%;%~dp0bin"
+        set "PATH=%_GIT_HOME%\bin;%PATH%%_ANT_PATH%%_GRADLE_PATH%%_MAVEN_PATH%%_MDBOOK_PATH%%_GIT_PATH%%_MSYS_PATH%;%~dp0bin"
         call :print_env %_VERBOSE%
         if not "%CD:~0,2%"=="%_DRIVE_NAME%" (
             if %_DEBUG%==1 echo %_DEBUG_LABEL% cd /d %_DRIVE_NAME% 1>&2

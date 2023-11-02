@@ -2,7 +2,7 @@
 // Example: Flix Effect System
 
 // 1. pure functions with no side effects
-def isEven(x: Int32): Bool \ {} = x mod 2 == 0
+def isEven(x: Int32): Bool \ {} = Int32.mod(x, 2) == 0
 def double(x: Int32): Int32 \ {} = x * 2
 
 
