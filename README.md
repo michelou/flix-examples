@@ -20,7 +20,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Flix 0.41][flix_downloads] ([*release notes*][flix_relnotes])
 - [Git 2.42][git_downloads] ([*release notes*][git_relnotes])
-- [Temurin OpenJDK 11 LTS][temurin_openjdk11] ([*release notes*][temurin_openjdk11_relnotes], [*bug fixes*][temurin_openjdk11_bugfixes])
+- [Temurin OpenJDK 11 LTS][temurin_openjdk11] ([*release notes*][temurin_openjdk11_relnotes], [*Shipilev's notes*][temurin_openjdk11_shipilev], [*bug fixes*][temurin_openjdk11_bugfixes])
 
 Optionally one may also install the following software:
 
@@ -32,8 +32,8 @@ Optionally one may also install the following software:
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 - [Temurin JDK Mission Control 8.3][jmc_download] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][jmc_relnotes])
 - [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes])
-- [Temurin OpenJDK 21 LTS][temurin_openjdk21] ([*release notes*][temurin_openjdk21_relnotes], [*Java 21 API*][oracle_openjdk21_api])
-- [Visual Studio Code 1.83][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Temurin OpenJDK 21 LTS][temurin_openjdk21] ([*release notes*][temurin_openjdk21_relnotes], [*Shipilev's notes*][temurin_openjdk21_shipilev], [*Java 21 API*][oracle_openjdk21_api])
+- [Visual Studio Code 1.84][vscode_downloads] ([*release notes*][vscode_relnotes])
 
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
@@ -183,7 +183,7 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2023-11-01.jar" to directory "C:\opt\flix-0.41.0"
+Download file "flix-2023-11-08.jar" to directory "C:\opt\flix-0.41.0"
 
 Tool versions:
    java 11.0.21, javac 11.0.21, scalac 2.13.12, flix v0.41.0,
@@ -226,7 +226,7 @@ Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on S
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.41.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix-0.41.0
-    flix-2023-11-01.jar
+    flix-2023-11-08.jar
     flix.jar
 </pre>
 Command <a href="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -260,7 +260,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.14-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.5-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2023-11-01.jar</a>                                <i>( 39 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2023-11-08.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.4-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.35-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20230718.exe</a>                          <i>( 94 MB)</i>
@@ -332,7 +332,13 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [spark_examples]: https://github.com/michelou/spark-examples
 [spring_examples]: https://github.com/michelou/spring-examples
+[temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 <!--
+11.0.17 -> https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
+11.0.19 -> https://www.oracle.com/java/technologies/javase/11-0-19-relnotes.html
+-->
+[temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
+<!-- #### https://mail.openjdk.org/pipermail/jdk-updates-dev/
 11.0.3  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-April/000951.html
 11.0.4  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-July/001423.html
 11.0.5  -> https://mail.openjdk.java.net/pipermail/jdk-updates-dev/2019-October/002025.html
@@ -353,34 +359,34 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
 11.0.21 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
 -->
-[temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
-[temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
-[temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
-<!--
-11.0.9  -> https://www.oracle.com/java/technologies/javase/11-0-9-bugfixes.html
-11.0.16 -> https://www.oracle.com/java/technologies/javase/11-0-16-bugfixes.html
-11.0.17 -> https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
-11.0.18 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-January/020111.html
-11.0.19 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
-11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
-11.0.21 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
--->
 [temurin_openjdk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
+<!-- #### https://builds.shipilev.net/backports-monitor/
+11.0.21  -> https://builds.shipilev.net/backports-monitor/release-notes-11.0.21.html
+11.0.22  -> https://builds.shipilev.net/backports-monitor/release-notes-11.0.22.html
+-->
+[temurin_openjdk11_shipilev]: https://builds.shipilev.net/backports-monitor/release-notes-11.0.22.html
+[temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
+<!--
+17.0.2  -> https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
+-->
+[temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
 <!--
 17.0.7  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021899.html
 17.0.8  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
 17.0.9  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
 -->
-[temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
-[temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
 [temurin_openjdk17_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
+[temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
+[temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
 <!--
 21_35   -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
 21.0.1  -> https://
 -->
-[temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
-[temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
 [temurin_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
+<!-- #### https://builds.shipilev.net/backports-monitor/
+21.0.2  -> https://builds.shipilev.net/backports-monitor/release-notes-21.0.2.html
+-->
+[temurin_openjdk21_shipilev]: https://builds.shipilev.net/backports-monitor/release-notes-21.0.2.html
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [vscode_downloads]: https://code.visualstudio.com/#alt-downloads

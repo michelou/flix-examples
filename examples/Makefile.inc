@@ -58,17 +58,11 @@ endif
 
 NIGHTLY ?=
 ifeq ($(NIGHTLY),)
-JAR_FILE = $(shell $(FIND) "$(FLIX_HOME)" -type f -name "flix.jar")
+FLIX_JAR = $(shell $(FIND) "$(subst \,/,$(FLIX_HOME))" -type f -name "flix.jar")
 else
-JAR_FILE = $(shell $(FIND) "$(FLIX_HOME)" -type f -name "flix-*.jar" | tail -n 1)
+FLIX_JAR = $(shell $(FIND) "$(subst \,/,$(FLIX_HOME)))" -type f -name "flix-*.jar" | tail -n 1)
 endif
 
-ifeq (,$(wildcard $(JAR_FILE)))
-$(error Variable JAR_FILE is not set)
-endif
-
-ifeq ($(CYGPATH),)
-FLIX_LIB_JAR = $(JAR_FILE)
-else
-FLIX_LIB_JAR = $(shell $(CYGPATH) -am $(JAR_FILE))
+ifeq (,$(wildcard $(FLIX_JAR)))
+$(error Variable FLIX_JAR is not set)
 endif
