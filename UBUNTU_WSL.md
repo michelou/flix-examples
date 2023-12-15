@@ -23,13 +23,13 @@ Then we execute our Bash script [**`setenv.sh`**](./setenv.sh) to set up our Uni
 <b>$ . <a href="./examples/setenv.sh">./setenv.sh</a></b>
 <b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/which.1.html" rel="external">which</a> bash gradle make</b>
 /bin/bash
-/opt/gradle-7.6/bin/gradle
+/opt/gradle/bin/gradle
 /usr/bin/make
 <b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/env.1.html" rel="external">env</a> | <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/grep.1.html" rel="external">grep</a> _HOME</b>
-FLIX_HOME=/opt/flix-0.34.0
+FLIX_HOME=/opt/flix-0.42.0
 JAVA_HOME=/opt/jdk-temurin-11
-SCALA_HOME=/opt/scala-2.13.10
-GRADLE_HOME=/opt/gradle-7.6
+SCALA_HOME=/opt/scala-2.13.12
+GRADLE_HOME=/opt/gradle
 </pre>
 
 <!-- https://mirrors.edge.kernel.org/pub/software/scm/git/ -->
@@ -37,18 +37,18 @@ GRADLE_HOME=/opt/gradle-7.6
 > **:mag_right:** We install additional software tools such as [Flix] <sup id="anchor_01">[1](#footnote_01)</sup>, [Gradle][gradle_cli] or [Scala][scala_getting_started] into root directory **`/opt/`**:
 > <pre style="font-size:80%;">
 > <b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/find.1.html" rel="external">find</a> /opt -maxdepth 1 -type d -print | <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/sort.1.html" rel="external">sort</a> | <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/xargs.1.html" rel="external">xargs</a> -i sh -c 'du -sh {}'</b>
-> 44M     /opt/apache-ant-1.10.13
-> 9.9M    /opt/apache-maven-3.8.7
+> 44M     /opt/apache-ant
+> 9.9M    /opt/apache-maven
 > 2.4G    /opt/archives
-> 2.2M    /opt/cfr-0.151
-> 36M     /opt/flix-0.34.0
-> 51M     /opt/git-2.39.1
-> 129M    /opt/gradle-7.6
-> 308M    /opt/jdk-11.0.17+8
-> 61M     /opt/mill-0.10.11
-> 81M     /opt/sbt-1.8.2
-> 25M     /opt/scala-2.13.10
-> 36M     /opt/scala3-3.2.2
+> 2.2M    /opt/cfr
+> 36M     /opt/flix-0.42.0
+> 51M     /opt/git
+> 129M    /opt/gradle
+> 308M    /opt/jdk-11.0.20+8
+> 61M     /opt/mill
+> 81M     /opt/sbt
+> 25M     /opt/scala-2.13.12
+> 36M     /opt/scala3-3.3.1
 > 15M     /opt/wabt-1.0.23
 > </pre>
 
@@ -75,11 +75,11 @@ Execute the JAR file "target/areas/areas.jar"
 "rm" -rf "target"
 [ -d "target/areas" ] || "mkdir" -p "target/areas"
 cd "target/areas"; \
-[ -d "build" ] || "/opt/jdk-temurin-11/bin/java" -jar "/opt/flix-0.34.0/flix.jar" init && \
+[ -d "build" ] || "/opt/jdk-temurin-11/bin/java" -jar "/opt/flix-0.42.0/flix.jar" init && \
 "rm" -f "src/Main.flix" && \
 "cp" -r "/mnt/c/Users/michelou/workspace-perso/flix-examples/examples/areas/src/main/." src && \
-"/opt/jdk-temurin-11/bin/java" -jar "/opt/flix-0.34.0/flix.jar" build && \
-"/opt/jdk-temurin-11/bin/java" -jar "/opt/flix-0.34.0/flix.jar" build-jar
+"/opt/jdk-temurin-11/bin/java" -jar "/opt/flix-0.42.0/flix.jar" build && \
+"/opt/jdk-temurin-11/bin/java" -jar "/opt/flix-0.42.0/flix.jar" build-jar
 "/opt/jdk-temurin-11/bin/java"  -jar "target/areas/areas.jar"
 2 :: 6 :: Nil
 2 :: 6 :: Nil
@@ -93,9 +93,9 @@ cd "target/areas"; \
 
 <dl><dd>
 <pre style="font-size:80%;">
-<b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man8/sudo.8.html" rel="external">sudo</a> <a href="https://manpages.ubuntu.com/manpages/bionic/man2/mkdir.2.html">mkdir</a> flix-0.34.0</b>
-<b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/cd.1posix.html" rel="external">cd</a> /opt/flix-0.34.0</b>
-<b>$ <a href="" rel="external">sudo</a> wget -L <a href="https://github.com/flix/flix/releases" rel="external">https://github.com/flix/flix/releases/download/v0.34.0/flix.jar</a> -O flix.jar</b>
+<b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man8/sudo.8.html" rel="external">sudo</a> <a href="https://manpages.ubuntu.com/manpages/bionic/man2/mkdir.2.html">mkdir</a> flix-0.42.0</b>
+<b>$ <a href="https://manpages.ubuntu.com/manpages/bionic/en/man1/cd.1posix.html" rel="external">cd</a> /opt/flix-0.42.0</b>
+<b>$ <a href="" rel="external">sudo</a> wget -L <a href="https://github.com/flix/flix/releases" rel="external">https://github.com/flix/flix/releases/download/v0.42.0/flix.jar</a> -O flix.jar</b>
 Resolving github.com (github.com)... 140.82.114.4
 Connecting to github.com (github.com)|140.82.114.4|:443... connected.
 HTTP request sent, awaiting response... 302 Found
@@ -181,7 +181,7 @@ done.ing certificates in /etc/ssl/certs.../cloud/cloud.cfg ...
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/June 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

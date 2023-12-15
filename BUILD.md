@@ -17,7 +17,7 @@ Currently we can build/run/test the [Flix library][flix_releases] in three diffe
 
 | Build&nbsp;tool     | Build&nbsp;file     | Environment(s) |
 |---------------------|---------------------|----------------|
-| [**`cmd.exe`**][cmd_cli] | [`build.bat`*](bin/flix/build.bat) | MS Windows |
+| [**`cmd.exe`**][cmd_cli] | [`build.bat`](bin/flix/build.bat) | MS Windows |
 | [**`sh.exe`**][sh_cli] | [`build.sh`](bin/flix/build.sh) | Any <sup><b>a)</b></sup> |
 | [**`gradle.exe`**][gradle_cli] | [`build.gradle`](flix/build.gradle) | Any |
 <div style="margin:0 15% 0 8px;font-size:90%;">
@@ -275,7 +275,7 @@ BUILD SUCCESSFUL in 2s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/December 2023* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->
