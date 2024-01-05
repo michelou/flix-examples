@@ -10,7 +10,7 @@
 
 getHome() {
     local source="${BASH_SOURCE[0]}"
-    while [ -h "$source" ] ; do
+    while [[ -h "$source" ]]; do
         local linked="$(readlink "$source")"
         local dir="$( cd -P $(dirname "$source") && cd -P $(dirname "$linked") && pwd )"
         source="$dir/$(basename "$linked")"
@@ -87,14 +87,14 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       show commands executed by this script
-    -timer       display total elapsed time
-    -verbose     display progress messages
+    -debug       print commands executed by this script
+    -timer       print total execution time
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile Java/Scala source files
-    help         display this help message
+    help         print this help message
     jar          create JAR archive "${JAR_FILE/$ROOT_DIR//}"
     run          execute main class "$MAIN_CLASS"
     test         execute unit tests with Scalatest
@@ -102,7 +102,7 @@ EOS
 }
 
 clean() {
-    if [ -d "$BUILD_DIR" ]; then
+    if [[ -d "$BUILD_DIR" ]]; then
         if $DEBUG; then
             debug "Delete directory \"$BUILD_DIR\""
         elif $VERBOSE; then
@@ -204,10 +204,10 @@ action_required() {
     for f in $(find "$search_path" -type f -name "$search_pattern"); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
-    if [ -z "$source_file" ]; then
+    if [[ -z "$source_file" ]]; then
         ## Do not compile if no source file
         echo 0
-    elif [ ! -f "$target_file" ]; then
+    elif [[ ! -f "$target_file" ]]; then
         ## Do compile if target file doesn't exist
         echo 1
     else
@@ -217,7 +217,7 @@ action_required() {
 }
 
 mixed_path() {
-    if [ -x "$CYGPATH_CMD" ]; then
+    if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
     elif $mingw || $msys; then
         echo $1 | sed 's|/|\\\\|g'
@@ -483,10 +483,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+   CYGWIN*) cygwin=true ;;
+   MINGW*)  mingw=true ;;
+   MSYS*)   msys=true ;;
+   Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -497,7 +497,7 @@ if $cygwin || $mingw || $msys; then
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA_HOME" ]] && SCALA_HOME="$(mixed_path $SCALA_HOME)"
 fi
-if [ ! -x "$JAVA_HOME/bin/javac" ]; then
+if [[ ! -x "$JAVA_HOME/bin/javac" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
@@ -505,7 +505,7 @@ JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 JAVAC_CMD="$JAVA_HOME/bin/javac"
 
-if [ ! -x "$SCALA_HOME/bin/scalac" ]; then
+if [[ ! -x "$SCALA_HOME/bin/scalac" ]]; then
     error "Scala 2 installation not found"
     cleanup 1
 fi

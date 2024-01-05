@@ -107,6 +107,7 @@ This section presents some of our unpublished works to improve the [Flix] softwa
    | 2.13.9                | 7:23 | 7:23 |
    | 2.13.10               | 7:31 | 7:31 |
    | 2.13.11 <span style="color:red;">(*0.38.0+*)</span> | 2:16, 2:04, 2:02, 2:12 | 2:11 |
+   | 2.13.12 <span style="color:red;">(*0.43.0+*)</span> | 2:03, 2:05, 2:05, 2:02 | 2:04 |
 
    **Workaround 1 (*provisory*)** Disable pattern matching analysis by writing `"-Xno-patmat-analysis"` instead of `"-Ypatmat-exhaust-depth", "400"` in build file [`build.gradle`](https://github.com/flix/flix/blob/master/build.gradle).
 
@@ -144,7 +145,7 @@ This section presents some of our unpublished works to improve the [Flix] softwa
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/November 2023* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/January 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->

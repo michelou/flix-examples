@@ -120,15 +120,14 @@ EOS
 }
 
 clean() {
-    if [[ -d "$TARGET_DIR" ]]; then
-        if $DEBUG; then
-            debug "Delete directory \"$TARGET_DIR\""
-        elif $VERBOSE; then
-            echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
-        fi
-        rm -rf "$TARGET_DIR"
-        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+    [[ -d "$TARGET_DIR" ]] || return 1
+    if $DEBUG; then
+        debug "Delete directory \"$TARGET_DIR\""
+    elif $VERBOSE; then
+        echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
+    rm -rf "$TARGET_DIR"
+    [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
 }
 
 compile() {
