@@ -38,8 +38,8 @@ if not %_EXITCODE%==0 goto end
 
 @rem %1=vendor, %2=version
 @rem eg. bellsoft, corretto, bellsoft, openj9, redhat, sapmachine, temurin, zulu
-@rem call :java "temurin" 17
-@rem if not %_EXITCODE%==0 goto end
+call :java "temurin" 17
+if not %_EXITCODE%==0 goto end
 
 @rem last call to :java defines variable JAVA_HOME
 @rem Flix up to 0.42 requires Java 11 or newer
@@ -823,6 +823,7 @@ if %__VERBOSE%==1 if defined __WHERE_ARGS (
     for /f "tokens=*" %%p in ('where %__WHERE_ARGS%') do echo    %%p 1>&2
     echo Environment variables: 1>&2
     if defined ANT_HOME echo    "ANT_HOME=%ANT_HOME%" 1>&2
+    if defined CFR_HOME echo    "CFR_HOME=%CFR_HOME%" 1>&2
     if defined FLIX_HOME echo    "FLIX_HOME=%FLIX_HOME%" 1>&2
     if defined GIT_HOME echo    "GIT_HOME=%GIT_HOME%" 1>&2
     if defined GRADLE_HOME echo    "GRADLE_HOME=%GRADLE_HOME%" 1>&2
@@ -850,6 +851,7 @@ goto :eof
 endlocal & (
     if %_EXITCODE%==0 (
         if not defined ANT_HOME set "ANT_HOME=%_ANT_HOME%"
+        if not defined CFR_HOME set "CFR_HOME=%_CFR_HOME%"
         if not defined FLIX_HOME set "FLIX_HOME=%_FLIX_HOME%"
         if not defined GIT_HOME set "GIT_HOME=%_GIT_HOME%"
         if not defined GRADLE_HOME set "GRADLE_HOME=%_GRADLE_HOME%"
