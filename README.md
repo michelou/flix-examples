@@ -185,12 +185,12 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2023-11-22.jar" to directory "C:\opt\flix-0.43.0"
+Download file "flix-2024-01-15.jar" to directory "C:\opt\flix-0.43.0"
 
 Tool versions:
    java 21.0.1, javac 21.0.1, scalac 2.13.12, flix v0.43.0,
    gradle 8.5, make 3.81, mdbook v0.4.36, mvn 3.9.6,
-   git 2.43.0.windows.1, diff 3.10, bash 5.2.15(1)-release
+   git 2.43.0.windows.1, diff 3.10, bash 5.2.21(1)-release
 Tool paths:
    C:\opt\jdk-temurin-21.0.1_12\bin\java.exe
    C:\opt\jdk-temurin-21.0.1_12\bin\javac.exe
