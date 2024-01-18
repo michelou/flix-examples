@@ -164,7 +164,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 Tool versions:
    java 21.0.1, javac 21.0.1, scalac 2.13.12, flix v0.43.0,
    gradle 8.5, make 3.81, mdbook v0.4.36, mvn 3.9.6,
-   git 2.43.0.windows.1, diff 3.10, bash 5.2.15(1)-release
+   git 2.43.0.windows.1, diff 3.10, bash 5.2.21(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git\bin\git.exe
@@ -222,11 +222,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on January 5, 2024 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on January 18, 2024 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.43.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix-0.43.0
-    flix-2023-12-06.jar
+    flix-2024-01-17.jar
     flix.jar
 </pre>
 Command <a href="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -260,7 +260,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.14-bin.zip</a>                         <i>(  9 MB)</i>
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.6-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2024-01-05.jar</a>                                <i>( 39 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2024-01-17.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.5-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.36-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20230718.exe</a>                          <i>( 94 MB)</i>
@@ -319,6 +319,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [kafka_examples]: https://github.com/michelou/kafka-examples
 [kotlin_examples]: https://github.com/michelou/kotlin-examples
 [llvm_examples]: https://github.com/michelou/llvm-examples
+[m2_examples]: https://github.com/michelou/m2-examples
 [make_cli]: https://www.gnu.org/software/make/manual/make.html
 [mdbook_changelog]: https://github.com/rust-lang/mdBook/blob/master/CHANGELOG.md
 [mdbook_download]: https://github.com/rust-lang/mdBook/releases
