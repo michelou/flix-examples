@@ -24,7 +24,7 @@ TARGET  = $(BUILD_DIR)/artifact/$(PROJECT_NAME).jar
 
 all: build
 
-build: $(TARGET)
+build: deps $(TARGET)
 	[ -d "$(TARGET_DIR)/flix" ] || "$(MKDIR)" -p "$(TARGET_DIR)/flix"
 	cd "$(TARGET_DIR)/flix"; \
 	"$(UNZIP)" -o -q "$(FLIX_JAR)" "ca/uwaterloo/flix/runtime/**" && \
@@ -85,7 +85,7 @@ test: $(TEST_TARGET)
 ##############################################################################
 ## phony
 
-.PHONY: all build clean doc help run test
+.PHONY: all build clean deps doc help run test
 
 .SUFFIXES:
 .SUFFIXES: .class .flix .jar .java

@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2023 Stéphane Micheloud
+## Copyright (c) 2018-2024 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -19,7 +19,7 @@ BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
 ## main rules
 
 SCALA_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.scala")
-SCALA_TARGET  = $(BUILD_DIR)/lib/lib_$(PROJECT_NAME).jar
+SCALA_TARGET  = lib/lib_$(PROJECT_NAME).jar
 
 SOURCES       = $(shell $(FIND) "$(SOURCE_DIR)/main" -type f -name "*.flix")
 ## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
@@ -36,7 +36,7 @@ $(TARGET): $(SOURCES)
 	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \
 	"$(CP)" -r "$(realpath $(SOURCE_DIR)/main)/." src && \
 	"$(SCALAC)" -cp "$(FLIX_JAR)" -d lib $(realpath $(SCALA_SOURCES)) && \
-	"$(JAR)" cf "$(realpath $(SCALA_TARGET))" -C lib . && \
+	"$(JAR)" cf "$(SCALA_TARGET)" -C lib . && \
 	"$(JAVA)" -jar "$(FLIX_JAR)" build && \
 	"$(JAVA)" -jar "$(FLIX_JAR)" build-jar
 

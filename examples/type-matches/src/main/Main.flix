@@ -5,7 +5,7 @@ enum Tree[a] {
 
 def f1(t0: Tree[a]): Bool = typematch t0 {
     case t: Tree[Int32] =>
-        match t { case Leaf(x) => x == 1 case _ => false }  
+        match t { case Tree.Leaf(x) => x == 1 case _ => false }  
     case _: _ =>
         false
 }
@@ -17,14 +17,14 @@ enum Bottle[a] {
 
 def f(b0: Bottle[a]): Bool = typematch b0 {
     case b: Bottle[Int32] =>
-        match b { case Opened(x) => x == 1 case _ => false }
+        match b { case Bottle.Opened(x) => x == 1 case _ => false }
     case _: _ =>
         false
 }
 
 def main(): Unit \ IO =
-    f1(Leaf(1)) |> println; // true
-    f1(Node(Leaf(1), Leaf(2))) |> println; // false
+    f1(Tree.Leaf(1)) |> println; // true
+    f1(Tree.Node(Tree.Leaf(1), Tree.Leaf(2))) |> println; // false
     "" |> println;
     f(Bottle.Unopened) |> println;    // false
     f(Bottle.Opened(1)) |> println;   // true

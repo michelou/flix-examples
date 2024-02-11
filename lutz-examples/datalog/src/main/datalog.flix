@@ -1,12 +1,12 @@
-// 1. The relationships we're interested in.
-rel Father(child: String, father: String)
-rel Mother(child: String, mother: String)
-rel ParentOf(child: String, parent: String)
-rel Child(parent: String, child: String)
-rel AncestorOf(person: String, ancestor: String)
+// OLD: 1. The relationships we're interested in.
+//rel Father(child: String, father: String)
+//rel Mother(child: String, mother: String)
+//rel ParentOf(child: String, parent: String)
+//rel Child(parent: String, child: String)
+//rel AncestorOf(person: String, ancestor: String)
 
 // 2. The direct relationships as facts
-def getFacts(): #{ Father, Mother, ParentOf, Child, AncestorOf } = #{
+def getFacts(): #{ Father(String, String), Mother(String, String), ParentOf(String, String), Child(String, String), AncestorOf(String, String) } = #{
     Father("Zeus", "Kronos").
     Mother("Zeus", "Rhea").
     Father("Ares", "Zeus").
@@ -16,7 +16,7 @@ def getFacts(): #{ Father, Mother, ParentOf, Child, AncestorOf } = #{
 }
 
 // 3. relationships that can be deduced
-def getRules(): #{ Father, Mother, ParentOf, Child, AncestorOf } = #{
+def getRules(): #{ Father(String, String), Mother(String, String), ParentOf(String, String), Child(String, String), AncestorOf(String, String) } = #{
     ParentOf(x, y) :- Father(x, y). 
     ParentOf(x, y) :- Mother(x, y).
     Child(x, y) :- ParentOf(y, x). 

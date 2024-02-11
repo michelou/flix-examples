@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -105,15 +105,15 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       show commands executed by this script
+    -debug       print commands executed by this script
     -nightly     select latest Flix nightly build if locally available
-    -verbose     display progress messages
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile Scala/Flix source files
     decompile    decompile generated code with CFR
-    help         display this help message
+    help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
 EOS
@@ -458,10 +458,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -474,22 +474,22 @@ if $cygwin || $mingw || $msys; then
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA_HOME" ]] && SCALA_HOME="$(mixed_path $SCALA_HOME)"
 fi
-if [ ! -x "$JAVA_HOME/bin/java" ]; then
+if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
 JAVA_CMD="$JAVA_HOME/bin/java"
 
-if [ ! -x "$SCALA_HOME/bin/scalac" ]; then
+if [[ ! -x "$SCALA_HOME/bin/scalac" ]]; then
     error "Scala 2 installation not found"
     cleanup 1
 fi
 SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
-if [ ! -f "$FLIX_HOME/flix.jar" ]; then
+if [[ ! -f "$FLIX_HOME/flix.jar" ]]; then
     error "Flix installation not found $FLIX_HOME"
     cleanup 1
 fi

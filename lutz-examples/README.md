@@ -33,7 +33,7 @@ Currently we provide four ways to build, run and test the [Flix] code examples :
 
 ## <span id="channels">`channels` Example</span> [**&#x25B4;**](#top)
 
-Command [**`build -verbose run`**](./channels/build.bat) generates the target file `target\channels\channels.jar` from the [Flix] source file [`src\main\channels.flix`](./channels/src/main/channels.flix) and executes the target file :
+Command [**`build -verbose run`**](./channels/build.bat) generates the target file `channels.jar` from the [Flix] source file [`src\main\channels.flix`](./channels/src/main/channels.flix) and executes the target file :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="./channels/build.bat">build</a> -verbose run</b>

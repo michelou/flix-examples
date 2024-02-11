@@ -106,7 +106,7 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
     -debug       print commands executed by this script
-    -nightly     select latest Flix nightly build if locally available
+    -nightly     use latest Flix nightly build if locally available
     -verbose     print progress messages
 
   Subcommands:

@@ -18,7 +18,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Flix 0.43][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
+- [Flix 0.44][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
 - [Git 2.43][git_downloads] ([*release notes*][git_relnotes])
 - [Gradle 8.6][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] ([*release notes*][temurin_openjdk21_relnotes], [*Shipilev's notes*][temurin_openjdk21_shipilev], [*Java 21 API*][oracle_openjdk21_api])
@@ -47,7 +47,7 @@ For instance our development environment looks as follows (*February 2024*) <sup
 <pre style="font-size:80%;">
 C:\opt\apache-ant\              <i>( 43 MB)</i>
 C:\opt\apache-maven\            <i>( 10 MB)</i>
-C:\opt\flix-0.43.0\             <i>( 37 MB)</i>
+C:\opt\flix-0.44.0\             <i>( 37 MB)</i>
 C:\opt\Git\                     <i>(367 MB)</i>
 C:\opt\gradle\                  <i>(138 MB)</i>
 C:\opt\jdk-temurin-21.0.2_13\   <i>(326 MB)</i>
@@ -304,9 +304,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
-[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.43.0
+[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.44.0
 [flix_downloads]: https://github.com/flix/flix/releases/
-[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.43.0
+[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.44.0
 [github_flix_flix]: https://github.com/flix/flix
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
@@ -361,10 +361,6 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
 [temurin_openjdk11_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-April/021900.html
-<!-- #### https://builds.shipilev.net/backports-monitor/
-11.0.21  -> https://builds.shipilev.net/backports-monitor/release-notes-11.0.21.html
-11.0.22  -> https://builds.shipilev.net/backports-monitor/release-notes-11.0.22.html
--->
 [temurin_openjdk11_shipilev]: https://builds.shipilev.net/backports-monitor/release-notes-11.0.22.html
 <!--
 17.0.2  -> https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
