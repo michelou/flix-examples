@@ -1,5 +1,5 @@
 ##
-## Copyright (c) 2018-2023 Stéphane Micheloud
+## Copyright (c) 2018-2024 Stéphane Micheloud
 ##
 ## Licensed under the MIT License.
 ##
@@ -54,6 +54,12 @@ help:
 	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    run    execute main program \"$(PROJECT_NAME)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
+
+##############################################################################
+## doc rules
+
+doc:
+	@$(ECHO) "NYI"
 
 ##############################################################################
 ## test rules

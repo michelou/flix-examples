@@ -141,6 +141,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
     ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
+    ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! doc
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
     ) else if "%__ARG%"=="test" ( set _COMMANDS=!_COMMANDS! test_compile test
@@ -206,13 +207,13 @@ echo Usage: %__BEG_O%%_BASENAME% { ^<option^> ^| ^<subcommand^> }%__END%
 echo.
 echo   %__BEG_P%Options:%__END%
 echo     %__BEG_O%-debug%__END%      print commands executed by this script
-echo     %__BEG_O%-doc%__END%        generate API documentation
 echo     %__BEG_O%-nightly%__END%    use latest Flix nightly build if locally available
 echo     %__BEG_O%-verbose%__END%    print progress messages
 echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate class files
+echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%run%__END%         execute the generated program "%__BEG_N%!_MAIN_JAR_FILE:%_BUILD_DIR%\=!%__END%"
 echo     %__BEG_O%test%__END%        execute unit tests
@@ -285,8 +286,6 @@ set __BUILD_OPTS=
 if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
 ) else if %_VERBOSE%==1 ( set __BUILD_OPTS=--explain
 )
-if %_DOC%==1 set __BUILD_OPTS=--doc %__BUILD_OPTS%
-
 if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
@@ -365,10 +364,14 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
+:doc
+echo %_WARNING_LABEL% NYI
+goto :eof
+
 :run
 set "__BOOT_CPATH=%SCALA_HOME%\lib\scala-library.jar"
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
-    set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
+    set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
 )
 set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%"
 
@@ -475,7 +478,7 @@ echo >"%_MAIN_JAR_TEST_FILE%"
 goto :eof
 
 :test
-set __BOOT_CPATH
+set __BOOT_CPATH=
 for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
     set "__BOOT_CPATH=%__BOOT_CPATH%%%f;"
 )

@@ -59,6 +59,7 @@ args() {
         clean)     CLEAN=true ;;
         compile)   COMPILE=true ;;
         decompile) COMPILE=true && DECOMPILE=true ;;
+        doc)       DOC=true ;;
         help)      HELP=true ;;
         run)       COMPILE=true && RUN=true ;;
         test)      COMPILE=true && TEST=true ;;
@@ -91,7 +92,7 @@ args() {
         DECOMPILE=false
     fi
     debug "Options    : DEBUG=$DEBUG NIGHTLY=$NIGHTLY VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE DOC=$DOC HELP=$HELP RUN=$RUN"
     [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : FLIX_HOME=$FLIX_HOME"
     debug "Variables  : GRADLE_HOME=$GRADLE_HOME"
@@ -113,6 +114,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     clean        delete generated files
     compile      compile Scala/Flix source files
     decompile    decompile generated code with CFR
+    doc          generate HTML documentation
     help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
@@ -379,6 +381,10 @@ version_string() {
     fi
     local arr=($version $suffix)
     echo "${arr[@]}"
+}
+
+doc() {
+    warning "NYI"
 }
 
 run() {

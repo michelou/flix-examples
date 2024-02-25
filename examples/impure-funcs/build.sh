@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -59,6 +59,7 @@ args() {
         clean)     CLEAN=true ;;
         compile)   COMPILE=true ;;
         decompile) COMPILE=true && DECOMPILE=true ;;
+        doc)       DOC=true ;;
         help)      HELP=true ;;
         run)       COMPILE=true && RUN=true ;;
         test)      COMPILE=true && TEST=true ;;
@@ -91,7 +92,7 @@ args() {
         DECOMPILE=false
     fi
     debug "Options    : DEBUG=$DEBUG NIGHTLY=$NIGHTLY VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE DOC=$DOC HELP=$HELP RUN=$RUN"
     [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : FLIX_HOME=$FLIX_HOME"
     debug "Variables  : GRADLE_HOME=$GRADLE_HOME"
@@ -105,15 +106,16 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       display commands executed by this script
+    -debug       print commands executed by this script
     -nightly     select latest Flix nightly build if locally available
-    -verbose     display progress messages
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile Scala/Flix source files
     decompile    decompile generated code with CFR
-    help         display this help message
+    doc          generate HTML documentation
+    help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
 EOS
@@ -127,7 +129,10 @@ clean() {
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
-        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+        if [[ $? -ne 0 ]]; then
+            error "Failed to delete directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+            EXITCODE=1 && return 0
+        fi
     fi
 }
 
@@ -336,7 +341,7 @@ decompile() {
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
-            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+            echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
@@ -344,6 +349,10 @@ decompile() {
             cleanup 1
         fi
     fi
+}
+
+doc() {
+    warning "NYI"
 }
 
 run() {
@@ -402,12 +411,14 @@ TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
 TARGET_BUILD_DIR=$TARGET_APP_DIR/build
 TARGET_LIB_DIR=$TARGET_APP_DIR/lib
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false
 DEBUG=false
 DECOMPILE=false
+DOC=false
 HELP=false
 NIGHTLY=false
 RUN=false
@@ -422,10 +433,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -454,7 +465,7 @@ fi
 SCALAC_CMD="$SCALA_HOME/bin/scalac"
 
 unset CFR_CMD
-[ -x "$CFR_HOME/bin/cfr" ] && CFR_CMD="$CFR_HOME/bin/cfr"
+[[ -x "$CFR_HOME/bin/cfr" ]] && CFR_CMD="$CFR_HOME/bin/cfr"
 
 if [[ ! -f "$FLIX_HOME/flix.jar" ]]; then
     error "Flix installation not found $FLIX_HOME"
@@ -478,6 +489,9 @@ if $COMPILE; then
 fi
 if $DECOMPILE; then
     decompile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

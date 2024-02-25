@@ -11,9 +11,9 @@ include ../Makefile.inc
 
 PROJECT_NAME = $(shell basename $(ROOT_DIR))
 
-SOURCE_DIR  = src
-TARGET_DIR  = target
-BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
+SOURCE_DIR = src
+TARGET_DIR = target
+BUILD_DIR  = $(TARGET_DIR)/$(PROJECT_NAME)
 
 ##############################################################################
 ## main rules
@@ -54,6 +54,12 @@ help:
 	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    run    execute main program \"$(PROJECT_NAME)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
+
+##############################################################################
+## doc rules
+
+doc:
+	@$(ECHO) "NYI"
 
 ##############################################################################
 ## test rules

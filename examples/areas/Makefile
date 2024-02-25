@@ -14,6 +14,7 @@ PROJECT_NAME = $(shell basename $(ROOT_DIR))
 SOURCE_DIR  = src
 TARGET_DIR  = target
 BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
+BUILD_DOCS_DIR = $(BUILD_DIR)/docs
 
 ##############################################################################
 ## main rules
@@ -54,6 +55,14 @@ help:
 	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    run    execute main program \"$(PROJECT_NAME)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
+
+
+##############################################################################
+## doc rules
+
+doc:
+	[ -d "$(BUILD_DOCS_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DOCS_DIR)"
+	"$(JAVA)" -jar "$(FLIX_JAR)" doc
 
 ##############################################################################
 ## test rules

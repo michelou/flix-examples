@@ -91,7 +91,7 @@ args() {
         DECOMPILE=false
     fi
     debug "Options    : DEBUG=$DEBUG NIGHTLY=$NIGHTLY VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE DOC=$DOC HELP=$HELP RUN=$RUN"
     [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : FLIX_HOME=$FLIX_HOME"
     debug "Variables  : GRADLE_HOME=$GRADLE_HOME"
@@ -111,8 +111,9 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Subcommands:
     clean        delete generated files
-    compile      compile Scala/Flix source files
+    compile      compile Flix source files
     decompile    decompile generated code with CFR
+	doc          generate HTML documentation
     help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
@@ -284,31 +285,34 @@ decompile() {
     local output_dir="$TARGET_DIR/cfr-sources"
     [[ -d "$output_dir" ]] || mkdir -p "$output_dir"
 
-    local cfr_opts="--extraclasspath "$(extra_cpath)" --outputdir "$(mixed_path $output_dir)""
+    ## --extraclasspath "$(extra_cpath)"
+    local cfr_opts="--outputdir "$(mixed_path $output_dir)""
 
-    local n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
+    local n="$(ls -n $TARGET_BUILD_DIR/*.class | wc -l)"
     local class_dirs=
-    [[ $n -gt 0 ]] && class_dirs="$CLASSES_DIR"
-    for f in $(ls -d $CLASSES_DIR 2>/dev/null); do
-        n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
+    [[ $n -gt 0 ]] && class_dirs="$TARGET_BUILD_DIR"
+    for f in $(ls -d $TARGET_BUILD_DIR 2>/dev/null); do
+        n="$(ls -n $f/*.class | wc -l)"
         [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
     done
     $VERBOSE && echo "Decompile Java bytecode to directory \"${output_dir/$ROOT_DIR\//}\"" 1>&2
     for f in $class_dirs; do
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
-        eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
+        if $DEBUG; then
+            eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class"
+        else
+            eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" 2>/dev/null
+        fi
         if [[ $? -ne 0 ]]; then
             error "Failed to decompile generated code in directory \"$f\""
             cleanup 1
         fi
     done
-    local version_list=($(version_string))
-    local version_string="${version_list[0]}"
-    local version_suffix="${version_list[1]}"
+    local version="$($JAVA_CMD -jar $FLIX_JAR --version | cut -d " " -f 5)"
 
     ## output file contains Scala and CFR headers
-    local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
-    echo "// Compiled with $version_string" > "$output_file"
+    local output_file="$TARGET_DIR/cfr-sources_$version.java"
+    echo "// Compiled with Flix $version" > "$output_file"
 
     if $DEBUG; then
         debug "cat $output_dir/*.java >> $output_file"
@@ -331,7 +335,7 @@ decompile() {
     fi
     local diff_opts=--strip-trailing-cr
 
-    local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
+    local check_file="$SOURCE_DIR/build/cfr-source_$version.java"
     if [[ -f "$check_file" ]]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
@@ -346,42 +350,8 @@ decompile() {
     fi
 }
 
-## output parameter: _EXTRA_CPATH
-extra_cpath() {
-    if [[ $SCALA_VERSION==3 ]]; then
-        lib_path="$SCALA3_HOME/lib"
-    else
-        lib_path="$SCALA_HOME/lib"
-    fi
-    local extra_cpath=
-    for f in $(find "$lib_path/" -type f -name "*.jar"); do
-        extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
-    done
-    echo $extra_cpath
-}
-
-## output parameter: ($version $suffix)
-version_string() {
-    local tool_version="$($SCALAC_CMD -version 2>&1 | cut -d " " -f 4)"
-    local version=
-    [[ $SCALA_VERSION -eq 3 ]] && version="scala3_$tool_version" || version="scala2_$tool_version"
-
-    ## keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
-    local str="${version/NIGHTLY*/NIGHTLY}"
-    local suffix=
-    if [[ ! "$version" == "$str" ]]; then
-        suffix="_$str"
-    else
-        ## same for "-SNAPSHOT"
-        str="${version/SNAPSHOT*/SNAPSHOT}"
-        if [[ ! "$version" == "$str" ]]; then
-            suffix="_$str"
-        else
-            suffix=_3.0.0
-        fi
-    fi
-    local arr=($version $suffix)
-    echo "${arr[@]}"
+doc() {
+    echo $WARNING_LABEL NYI 1>&2
 }
 
 run() {
@@ -390,7 +360,7 @@ run() {
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
-    [ -n "$boot_cpath" ] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
+    [[ -n "$boot_cpath" ]] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
     if $DEBUG; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
     elif $VERBOSE; then
@@ -447,6 +417,7 @@ CLEAN=false
 COMPILE=false
 DEBUG=false
 DECOMPILE=false
+DOC=false
 HELP=false
 NIGHTLY=false
 RUN=false
@@ -476,6 +447,9 @@ if $cygwin || $mingw || $msys; then
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA_HOME" ]] && SCALA_HOME="$(mixed_path $SCALA_HOME)"
+    DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
+else
+    DIFF_CMD="$(which diff)"
 fi
 if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"
@@ -514,6 +488,9 @@ if $COMPILE; then
 fi
 if $DECOMPILE; then
     decompile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

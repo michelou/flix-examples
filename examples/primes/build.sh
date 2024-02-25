@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -105,15 +105,16 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       display commands executed by this script
+    -debug       print commands executed by this script
     -nightly     select latest Flix nightly build if locally available
-    -verbose     display progress messages
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
     compile      compile Flix source files
     decompile    decompile generated code with CFR
-    help         display this help message
+	doc          generate HTML documentation
+    help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
 EOS
@@ -127,7 +128,10 @@ clean() {
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
-        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+        if [[ $? -ne 0 ]]; then
+            error "Failed to delete directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+            EXITCODE=1 && return 0
+        fi
     fi
 }
 
@@ -191,7 +195,7 @@ action_required() {
     local search_path=$2
     local search_pattern=$3
     local source_file=
-    for f in $(find "$search_path" -type f -name $search_pattern 2>/dev/null); do
+    for f in $(find "$search_path" -type f -name "$search_pattern" 2>/dev/null); do
         [[ $f -nt $source_file ]] && source_file=$f
     done
     if [[ -z "$source_file" ]]; then
@@ -217,8 +221,12 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
-    local n_files="$n Scala source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
@@ -239,8 +247,12 @@ compile_flix() {
     for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    local n_files="$n Flix source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Flix source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Flix source file$s"
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
     elif $VERBOSE; then
@@ -346,6 +358,10 @@ decompile() {
     fi
 }
 
+doc() {
+    echo $WARNING_LABEL NYI 1>&2
+}
+
 run() {
     local boot_cpath=
     for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
@@ -409,6 +425,7 @@ CLEAN=false
 COMPILE=false
 DEBUG=false
 DECOMPILE=false
+DOC=false
 HELP=false
 NIGHTLY=false
 RUN=false
@@ -423,10 +440,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -446,6 +463,7 @@ if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"
     cleanup 1
 fi
+JAR_CMD="$JAVA_HOME/bin/jar"
 JAVA_CMD="$JAVA_HOME/bin/java"
 
 if [[ ! -x "$SCALA_HOME/bin/scalac" ]]; then
@@ -479,6 +497,9 @@ if $COMPILE; then
 fi
 if $DECOMPILE; then
     decompile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

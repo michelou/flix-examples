@@ -278,8 +278,6 @@ set __BUILD_OPTS=
 if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
 ) else if %_VERBOSE%==1 ( set __BUILD_OPTS=--explain
 )
-if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
-
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% into directory "!_BUILD_DIR:%_ROOT_DIR%=!\build\" 1>&2
 )
@@ -354,6 +352,10 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 ) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
 ) else ( set _NEWER=0
 )
+goto :eof
+
+:doc
+echo %_WARNING_LABEL% NYI
 goto :eof
 
 :run

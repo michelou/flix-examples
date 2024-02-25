@@ -32,7 +32,7 @@ goto end
 @rem ## Subroutine
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _JAVA_CMD, _FLIX_JAR
+@rem                    _JAR_CMD, _JAVA_CMD, _FLIX_JAR
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
@@ -52,6 +52,7 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
     set _EXITCODE=1
     goto :eof
 )
+set "_JAR_CMD=%JAVA_HOME%\bin\jar.exe"
 set "_JAVA_CMD=%JAVA_HOME%\bin\java.exe"
 
 set _CFR_CMD=
@@ -68,15 +69,6 @@ if not exist "%FLIX_HOME%\flix.jar" (
     goto :eof
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
-
-set _CFR_CMD=
-if defined CFR_HOME if exist "%CFR_HOME%\bin\cfr.bat" (
-    set "_CFR_CMD=%CFR_HOME%\bin\cfr.bat"
-)
-set _DIFF_CMD=
-if exist "%GIT_HOME%\usr\bin\diff.exe" (
-    set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
-)
 goto :eof
 
 :env_colors
@@ -259,11 +251,8 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
-:compile
+:init
 if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
-
-call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
-if %_ACTION_REQUIRED%==0 goto :eof
 
 set __N=0
 for /f "delims=" %%f in ('dir /s /b "%_SOURCE_MAIN_DIR%\*.flix" 2^>NUL') do (
@@ -302,13 +291,20 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+goto :eof
+
+:compile
+call :init
+if not %_EXITCODE%==0 goto :eof
+
+call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
+if %_ACTION_REQUIRED%==0 goto :eof
+
 set __JAVA_OPTS=
 set __BUILD_OPTS=
 if %_DEBUG%==1 ( set __BUILD_OPTS=--explain
 ) else if %_VERBOSE%==1 ( set __BUILD_OPTS=--explain
 )
-if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
-
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% into directory "!_BUILD_DIR:%_ROOT_DIR%=!\build\" 1>&2
 )
@@ -466,6 +462,25 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+goto :eof
+
+:doc
+call :init
+if not %_EXITCODE%==0 goto :eof
+
+pushd "%_BUILD_DIR%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" doc 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation in directory "!__BUILD_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" doc "src\Main.flix"
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to generate the HTML documentation in directory "!__BUILD_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+popd
 goto :eof
 
 :test_compile

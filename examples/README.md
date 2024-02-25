@@ -20,68 +20,33 @@ We currently support five ways to build/run/test our [Flix] code examples:
 | [**`ant.bat`**][apache_ant_cli] | [`build.xml`](./areas/build.xml) | &nbsp; | Any |
 | [**`gradle.exe`**][gradle_cli] | [`build.gradle`](areas/build.gradle) | [`common.gradle`](common.gradle) | Any  |
 | [**`make.exe`**][make_cli] <sup><b>b)</b></sup> | [`Makefile`](areas/Makefile) | [`Makefile.inc`](./Makefile.inc)  | Any |
-<div style="margin:0 15% 0 8px;font-size:90%;">
+<div style="margin:0 15% 0 10px;font-size:80%;">
 <sup><b>a)</b></sup> Here "Any" means "tested on MS Windows / Cygwin / MSYS2 / Unix"<br/>
 <sup><b>b)</b></sup> Default shell is <code><b>/bin/sh</b></code> as described in the online document <a href="https://www.gnu.org/software/make/manual/html_node/Choosing-the-Shell.html">Choosing the Shell</a>.<br/>
 &nbsp;
 </div>
 
-The [Flix] projects presented below share the same directory layout as project `areas`, namely :
-1. Project directory `areas\` initially looks as follows :
-   <pre style="font-size:80%;">
-   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /b /b [A-Z]</b>
-   |   <a href="./areas/build.bat">build.bat</a>
-   |   <a href="./areas/build.gradle">build.gradle</a>  <i>(<a href="./common.gradle">..\common.gradle</a>)</i>
-   |   <a href="./areas/build.sh">build.sh</a>
-   |   <a href="./areas/build.xml">build.xml</a>
-   |   <a href="./areas/gradle.properties">gradle.properties</a>
-   |   <a href="./areas/Makefile">Makefile</a>      <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
-   |   <a href="./areas/pom.xml">pom.xml</a>
-   \---<b>src</b>
-        +---<b>main</b>
-        |       <a href="./areas/src/main/Main.flix">Main.flix</a>
-        \---<b>test</b>
-                <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
-   </pre>
-
-3. Before compilation we run the [Flix] command `init` <sup id="anchor_01">[1](#footnote_01)</sup> to create a Flix-managed <sup id="anchor_02">[2](#footnote_02)</sup> subdirectory `target\areas\` and we populate it with the [Flix] source files from the `src\main\` and `src\test\` directories :
-   <pre style="font-size:80%;">
-   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f target | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
-   \---areas
-       |   .gitignore
-       |   flix.toml
-       |   LICENSE.md
-       |   README.md
-       +---src
-       |       Main.flix
-       \---test
-               TestMain.flix
-   </pre>
-
-2. During compilation we run the two [Flix] commands `build` <sup id="anchor_01">[1](#footnote_01)</sup> and `build-jar` to successively generate the Java class files in subdirectory `target\areas\build\` and the target file `target\areas\artifact\areas.jar` :
-   <pre style="font-size:80%;">
-   <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">findstr</a> /v /b [A-Z]</b>
-   \---areas
-       |   .gitignore
-       |   areas.jar-test.txt
-       |   flix.toml
-       |   LICENSE.md
-       |   README.md
-       +---artifact
-       |       areas.jar
-       +---build
-       |   \---class  (<i>*.class</i>)
-       +---lib
-       |   \---cache
-       +---src
-       |       Main.flix
-       \---test
-               TestMain.flix
-   </pre>
-
 > **:mag_right:** Command [**`examples\build.bat`**](./build.bat) allows us to clean, build and run all projects in directory **`examples\`**, for instance before updating our Github repository [`flix-examples`](https://github.com/michelou/flix-examples) with local changes.
 
 ### <span id="areas">`areas` Example</span> [**&#x25B4;**](#top)
+
+Project directory `areas\` initially looks as follows :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./areas/build.bat">build.bat</a>
+|   <a href="./areas/build.gradle">build.gradle</a>  <i>(<a href="./common.gradle">..\common.gradle</a>)</i>
+|   <a href="./areas/build.sh">build.sh</a>
+|   <a href="./areas/build.xml">build.xml</a>
+|   <a href="./areas/gradle.properties">gradle.properties</a>
+|   <a href="./areas/Makefile">Makefile</a>      <i>(<a href="./Makefile.inc">..\Makefile.inc</a>)</i>
+|   <a href="./areas/pom.xml">pom.xml</a>
+\---<b>src</b>
+    +---<b>main</b>
+    |       <a href="./areas/src/main/Main.flix">Main.flix</a>
+    \---<b>test</b>
+            <a href="./areas/src/test/TestMain.flix">TestMain.flix</a>
+</pre>
 
 Command [**`build.bat -verbose run`**](./areas/build.bat) <sup id="anchor_03">[3](#footnote_03)</sup> generates the target file `areas.jar` from the [Flix] source file [`src\main\Main.flix`](./areas/src/main/Main.flix) and executes the target file :
 
@@ -93,6 +58,28 @@ Create archive file "target\areas\artifact\areas.jar"
 Execute Flix program "target\areas\artifact\areas.jar"
 2 :: 6 :: Nil
 2 :: 6 :: Nil
+</pre>
+
+During compilation we run the two [Flix] commands `build` <sup id="anchor_01">[1](#footnote_01)</sup> and `build-jar` to successively generate the Java class files in subdirectory `target\areas\build\` and the target file `target\areas\artifact\areas.jar` :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">findstr</a> /v /b [A-Z]</b>
+\---areas
+   |   .gitignore
+   |   areas.jar-test.txt
+   |   flix.toml
+   |   LICENSE.md
+   |   README.md
+   +---artifact
+   |       areas.jar
+   +---build
+   |   \---class  (<i>*.class</i>)
+   +---lib
+   |   \---cache
+   +---src
+   |       Main.flix
+   \---test
+           TestMain.flix
 </pre>
 
 Command [**`build.bat -verbose test`**](./areas/build.bat) generates the target file `target\areas\areas.jar` from the [Flix] source files [`src\main\Main.flix`](./areas/src/main/Main.flix) and [`src\test\TestMain.flix`](./areas/src/test/TestMain.flix) and runs the tests:
@@ -148,9 +135,9 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 >    BUILD SUCCESSFUL in 15s
 >    7 actionable tasks: 7 executed
 >    </pre>
-> 3. Command [**`bash.exe`**][bash_cli] targets a Unix-like environment in the same way as <code><b>build.bat</b></code> targets the Windows environment:
+> 3. Command [**`sh.exe`**][bash_cli] targets a Unix-like environment in the same way as <code><b>build.bat</b></code> targets the Windows environment:
 >    <pre style="font-size:80%;">
->    <b>&gt; <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">bash</a> <a href="./areas/build.sh">build.sh</a> -verbose run</b>
+>    <b>&gt; <a href="https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html" rel="external">sh</a> <a href="./areas/build.sh">./build.sh</a> -verbose run</b>
 >    Initialize directory "target/areas"
 >    Copy Flix source files to directory "target/areas/src"
 >    Copy Flix test source files to directory "target/areas/test"
@@ -162,6 +149,25 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 >    </pre>
 
 ### <span id="channels">`channels` Example</span> [**&#x25B4;**](#top)
+
+Project directory `channels\` initally looks as follows :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="">tree</a> /a /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./channels/build.bat">build.bat</a>
+|   <a href="./channels/build.gradle">build.gradle</a>
+|   <a href="./channels/build.sh">build.sh</a>
+|   <a href="./channels/build.xml">build.xml</a>
+|   <a href="./channels/gradle.properties">gradle.properties</a>
+|   <a href="./channels/Makefile">Makefile</a>
+|
+\---src
+    +---main
+    |       <a href="./channels/src/main/Main.flix">Main.flix</a>
+    |
+    \---test
+            <a href="./channels/src/test/TestMain.flix">TestMain.flix</a>
+</pre>
 
 Command [**`build.bat -verbose run`**](./channels/build.bat) generates the target file `target\channels\artifact\channels.jar` from the [Flix] source file [`src\main\Main.flix`](./channels/src/main/Main.flix) and executes the target file :
 
@@ -279,8 +285,7 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 5,8ms.
 This example is slightly more complex than the other examples because it contains several source files, including the [Scala] source file [`Counter.scala`](./lambda-calculus/src/main/Counter.scala).
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
-F:\EXAMPLES\LAMBDA-CALCULUS
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
 |   <a href="./lambda-calculus/build.bat">build.bat</a>
 |   <a href="./lambda-calculus/build.sh">build.sh</a>
 |   <a href="./lambda-calculus/build.gradle">build.gradle</a>   <i>(<a href="./common.gradle">..\common.gradle</a>)</i>
@@ -440,58 +445,61 @@ We give option <code><b>--help</b></code> to display the Flix commands :
 The Flix Programming Language v0.44.0
 Usage: flix [init|check|build|build-jar|build-pkg|run <b>↲</b><br/>&emsp;|benchmark|test|repl|install|lsp] [options] &lt;args&gt;...
 &nbsp;
-Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L76"><b>init</b></a>
+Command: <a href=""><b>init</b></a>
   creates a new project in the current directory.
-Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L155"><b>check</b></a>
+Command: <a href=""><b>check</b></a>
   checks the current project for errors.
-Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L174"><b>build</b></a>
+Command: <a href=""><b>build</b></a>
   builds (i.e. compiles) the current project.
-Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L237"><b>build-jar</b></a>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Bootstrap.scala#L515"><b>build-jar</b></a>
   builds a jar-file from the current project.
-Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L275"><b>build-pkg</b></a>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Bootstrap.scala#L630"><b>build-pkg</b></a>
   builds a fpkg-file from the current project.
-Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L316"><b>run</b></a>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Bootstrap.scala#L707"><b>run</b></a>
   runs main for the current project.
-Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L330"><b>benchmark</b></a>
+Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/api/Bootstrap.scala#L684"><b>doc</b></a>
+  generates API documentation.
+Command: <a href=""><b>benchmark</b></a>
   runs the benchmarks for the current project.
-Command: <a href="https://github.com/flix/flix/blob/master/main/src/ca/uwaterloo/flix/tools/Packager.scala#L340"><b>test</b></a>
+Command: <a href=""><b>test</b></a>
   runs the tests for the current project.
 Command: <b>repl</b>
   starts a repl for the current project, or provided Flix source files.
-Command: <b>install project</b>
-  installs the Flix package from the given GitHub <owner>/<repo>
-  project
 Command: <b>lsp port</b>
   starts the LSP server and listens on the given port.
   port
 &nbsp;
   --args &lt;a1, a2, ...>     arguments passed to main. Must be a single quoted string.
-  --benchmark              runs benchmarks.
-  --doc                    generates HTML documentation.
   --entrypoint &lt;value>     specifies the main entry point.
-  --explain                provides suggestions on how to solve a problem
+  --explain                provides suggestions on how to solve a problem.
+  --github-token &lt;value>   API key to use for GitHub dependency resolution.
   --help                   prints this usage information.
   --json                   enables json output.
   --listen &lt;port>          starts the socket server and listens on the given port.
-  --lsp &lt;port>             starts the LSP server and listens on the given port.
-  --output &lt;value>         specifies the output directory for JVM bytecode.
-  --test                   runs unit tests.
+  --no-install             disables automatic installation of dependencies.
   --threads &lt;value>        number of threads to use for compilation.
+  --yes                    automatically answer yes to all prompts.
   --version                prints the version number.
 &nbsp;
 The following options are experimental:
   --Xbenchmark-code-size   [exp.] benchmarks the size of the generated JVM files.
   --Xbenchmark-incremental
                            [exp.] benchmarks the performance of each compiler phase in incremental mode.
-  --Xbenchmark-phases      [exp.] benchmarks the performance of each compiler phase.
+  --Xbenchmark-phases      [exp.] benchmarks the performance of each compiler phase..
+  --Xbenchmark-frontend    [exp.] benchmarks the performance of the frontend.
   --Xbenchmark-throughput  [exp.] benchmarks the performance of the entire compiler.
-  --Xdebug                 [exp.] enables compiler debugging output.
-  --Xlib &lt;value>           [exp.] controls the amount of std. lib. to include (nix, min, all).
+  --Xlib &lt;value&gt;           [exp.] controls the amount of std. lib. to include (nix, min, all).
+  --Xno-optimizer          [exp.] disables compiler optimizations.
+  --Xprint-phase &lt;value>   [exp.] prints the AST(s) after the given phase(s). 'all' prints all ASTs.
+  --Xbdd-threshold &lt;value>
+                           [exp.] sets the threshold for when to use BDDs.
+  --Xno-bool-cache         [exp.] disables Boolean caches.
+  --Xno-bool-specialcases  [exp.] disables hardcoded Boolean unification special cases.
   --Xno-bool-table         [exp.] disables Boolean minimization via tabling.
-  --Xstatistics            [exp.] prints compilation statistics.
-  --Xstrictmono            [exp.] enable strict monomorphization.
-  --Xno-set-effects        [exp.] disable set effects
-  --Xno-bool-effects       [exp.] disable bool effects
+  --Xno-bool-unif          [exp.] disables Boolean unification. (DO NOT USE).
+  --Xno-qmc                [exp.] disables Quine McCluskey when using BDDs.
+  --Xsummary               [exp.] prints a summary of the compiled modules.
+  --Xparser                [exp.] disables new experimental lexer and parser.
 &nbsp;
   &lt;file&gt;...                input Flix source code files, Flix packages, and Java archives.
 </pre>
@@ -526,7 +534,7 @@ We can select the latest nightly build of the <a href="https://flix.dev/" rel="e
 Here is how it works with the <code>areas</code> example :
 <pre style="font-size:80%;">
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose -nightly clean run</b>
-Nightly build "flix-2024-02-10.jar" was selected
+Nightly build "flix-2024-02-24.jar" was selected
 Delete directory "target"
 Initialize Flix project directory "target\areas"
 Copy 1 Flix source file to directory "target\areas\src\"
@@ -544,8 +552,8 @@ cd "target/areas"; \
         [ -d "build" ] || "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.44.0/flix-2023-12-14.jar" init && \
         "C:/opt/Git/usr/bin/rm.exe" -f "src/Main.flix" && \
         "C:/opt/Git/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
-        "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.44.0/flix-2023-12-14.jar" build && \
-        "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.44.0/flix-2023-12-14.jar" build-jar
+        "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.44.0/flix-2024-02-24.jar" build && \
+        "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.44.0/flix-2024-02-24.jar" build-jar
 "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe"  -jar "target/areas/areas.jar"
 2 :: 6 :: Nil
 2 :: 6 :: Nil
@@ -554,7 +562,7 @@ cd "target/areas"; \
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -Dnightly run</b>
 &nbsp;
 &gt; Configure project :
-Nightly build 'flix-2024-02-10.jar' was selected
+Nightly build 'flix-2024-02-24.jar' was selected
 &nbsp;
 &g; Task :compileFlix
 &nbsp;

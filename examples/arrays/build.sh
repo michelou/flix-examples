@@ -59,6 +59,7 @@ args() {
         clean)     CLEAN=true ;;
         compile)   COMPILE=true ;;
         decompile) COMPILE=true && DECOMPILE=true ;;
+        doc)       DOC=true ;;
         help)      HELP=true ;;
         run)       COMPILE=true && RUN=true ;;
         test)      COMPILE=true && TEST=true ;;
@@ -113,6 +114,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     clean        delete generated files
     compile      compile Flix source files
     decompile    decompile generated code with CFR
+    doc          generate HTML documentation
     help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
@@ -127,7 +129,10 @@ clean() {
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
-        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+        if [[ $? -ne 0 ]]; then
+            error "Failed to delete directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+            EXITCODE=1 && return 0
+        fi
     fi
 }
 
@@ -346,6 +351,10 @@ decompile() {
     fi
 }
 
+doc() {
+    echo $WARNING_LABEL NYI 1>&2
+}
+
 run() {
     local boot_cpath=
     for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
@@ -409,6 +418,7 @@ CLEAN=false
 COMPILE=false
 DEBUG=false
 DECOMPILE=false
+DOC=false
 HELP=false
 NIGHTLY=false
 RUN=false
@@ -479,6 +489,9 @@ if $COMPILE; then
 fi
 if $DECOMPILE; then
     decompile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

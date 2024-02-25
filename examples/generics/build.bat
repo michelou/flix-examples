@@ -114,6 +114,7 @@ goto :eof
 @rem output parameters: _COMMANDS, _HELP, _NIGHTLY, _VERBOSE
 :args
 set _COMMANDS=
+set _DOC=0
 set _HELP=0
 set _NIGHTLY=0
 set _VERBOSE=0
@@ -127,6 +128,7 @@ if not defined __ARG (
 if "%__ARG:~0,1%"=="-" (
     @rem option
     if "%__ARG%"=="-debug" ( set _DEBUG=1
+    ) else if "%__ARG%"=="-doc" ( set _DOC=1
     ) else if "%__ARG%"=="-help" ( set _HELP=1
     ) else if "%__ARG%"=="-nightly" ( set _NIGHTLY=1
     ) else if "%__ARG%"=="-verbose" ( set _VERBOSE=1
@@ -165,7 +167,7 @@ if %_DEBUG%==1 set _STDERR_REDIRECT=
 
 if %_NIGHTLY%==1 (
     set __NIGHTLY_JAR=
-    for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
+    for /f "delims=" %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
         set "__NIGHTLY_JAR=%%i"
     )
     if defined __NIGHTLY_JAR (
@@ -181,7 +183,7 @@ if %_NIGHTLY%==1 (
 )
 if %_DEBUG%==1 (
     echo %_DEBUG_LABEL% Properties : _PROJECT_NAME=%_PROJECT_NAME% 1>&2
-    echo %_DEBUG_LABEL% Options    : _NIGHTLY=%_NIGHTLY% _VERBOSE=%_VERBOSE% 1>&2
+    echo %_DEBUG_LABEL% Options    : _DOC=%_DOC% _NIGHTLY=%_NIGHTLY% _VERBOSE=%_VERBOSE% 1>&2
     echo %_DEBUG_LABEL% Subcommands: _COMMANDS=%_COMMANDS% 1>&2
     echo %_DEBUG_LABEL% Variables  : "FLIX_HOME=%FLIX_HOME%" 1>&2
     echo %_DEBUG_LABEL% Variables  : "JAVA_HOME=%JAVA_HOME%" 1>&2
@@ -360,6 +362,10 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 ) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
 ) else ( set _NEWER=0
 )
+goto :eof
+
+:doc
+echo %_WARNING_LABEL% NYI
 goto :eof
 
 :run

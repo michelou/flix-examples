@@ -76,15 +76,6 @@ if not exist "%FLIX_HOME%\flix.jar" (
     goto :eof
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
-
-set _CFR_CMD=
-if defined CFR_HOME if exist "%CFR_HOME%\bin\cfr.bat" (
-    set "_CFR_CMD=%CFR_HOME%\bin\cfr.bat"
-)
-set _DIFF_CMD=
-if exist "%GIT_HOME%\usr\bin\diff.exe" (
-    set "_DIFF_CMD=%GIT_HOME%\usr\bin\diff.exe" 
-)
 goto :eof
 
 :env_colors
@@ -189,7 +180,7 @@ set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
-if not "%_COMMANDS:decompile=%"=="%_COMMANDS%" if not defined _CFR_CMD (
+if not "!_COMMANDS:decompile=!"=="%_COMMANDS%" if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
     set _COMMANDS=%_COMMANDS:decompile=%
 )

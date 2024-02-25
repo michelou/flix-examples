@@ -59,6 +59,7 @@ args() {
         clean)     CLEAN=true ;;
         compile)   COMPILE=true ;;
         decompile) COMPILE=true && DECOMPILE=true ;;
+        doc)       DOC=true ;;
         help)      HELP=true ;;
         run)       COMPILE=true && RUN=true ;;
         test)      COMPILE=true && TEST=true ;;
@@ -91,7 +92,7 @@ args() {
         DECOMPILE=false
     fi
     debug "Options    : DEBUG=$DEBUG NIGHTLY=$NIGHTLY VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE DOC=$DOC HELP=$HELP RUN=$RUN"
     [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : FLIX_HOME=$FLIX_HOME"
     debug "Variables  : GRADLE_HOME=$GRADLE_HOME"
@@ -113,6 +114,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     clean        delete generated files
     compile      compile Scala/Flix source files
     decompile    decompile generated code with CFR
+    doc          generate HTML documentation
     help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
@@ -349,6 +351,10 @@ decompile() {
     fi
 }
 
+doc() {
+    warning "NYI"
+}
+
 run() {
     local boot_cpath=
     for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
@@ -412,6 +418,7 @@ CLEAN=false
 COMPILE=false
 DEBUG=false
 DECOMPILE=false
+DOC=false
 HELP=false
 NIGHTLY=false
 RUN=false
@@ -482,6 +489,9 @@ if $COMPILE; then
 fi
 if $DECOMPILE; then
     decompile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

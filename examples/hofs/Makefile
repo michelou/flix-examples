@@ -48,12 +48,18 @@ help:
 	@$(ECHO) ""
 	@$(ECHO) "  Subcommands:"
 	@$(ECHO) "    all    alias for build"
-	@$(ECHO) "    build  compile Java/Scala source files"
+	@$(ECHO) "    build  compile Flix source files"
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    run    execute main program \"$(PROJECT_NAME)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
+
+##############################################################################
+## doc rules
+
+doc:
+	@$(ECHO) "NYI"
 
 ##############################################################################
 ## test rules

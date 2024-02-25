@@ -59,6 +59,7 @@ args() {
         clean)     CLEAN=true ;;
         compile)   COMPILE=true ;;
         decompile) COMPILE=true && DECOMPILE=true ;;
+        doc)       DOC=true ;;
         help)      HELP=true ;;
         run)       COMPILE=true && RUN=true ;;
         test)      COMPILE=true && TEST=true ;;
@@ -73,7 +74,7 @@ args() {
         for f in $(find "$FLIX_HOME/" -type f -name "flix-*.jar" 2>/dev/null); do
             nightly_jar="$f"
         done
-        if [ -f "$nightly_jar" ]; then
+        if [[ -f "$nightly_jar" ]]; then
             if $DEBUG; then
                 debug "Nightly build \"$nightly_jar\" was selected"
             elif $VERBOSE; then
@@ -91,7 +92,7 @@ args() {
         DECOMPILE=false
     fi
     debug "Options    : DEBUG=$DEBUG NIGHTLY=$NIGHTLY VERBOSE=$VERBOSE"
-    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP RUN=$RUN"
+    debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE DOC=$DOC HELP=$HELP RUN=$RUN"
     [[ -n "$CFR_HOME" ]] && debug "Variables  : CFR_HOME=$CFR_HOME"
     debug "Variables  : FLIX_HOME=$FLIX_HOME"
     debug "Variables  : GRADLE_HOME=$GRADLE_HOME"
@@ -113,6 +114,7 @@ Usage: $BASENAME { <option> | <subcommand> }
     clean        delete generated files
     compile      compile Scala/Flix source files
     decompile    decompile generated code with CFR
+	doc          generate HTML documentation
     help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
@@ -127,7 +129,10 @@ clean() {
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
-        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+        if [[ $? -ne 0 ]]; then
+            error "Failed to delete directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+            EXITCODE=1 && return 0
+        fi
     fi
 }
 
@@ -343,42 +348,8 @@ decompile() {
     fi
 }
 
-## output parameter: _EXTRA_CPATH
-extra_cpath() {
-    if [[ $SCALA_VERSION==3 ]]; then
-        lib_path="$SCALA3_HOME/lib"
-    else
-        lib_path="$SCALA_HOME/lib"
-    fi
-    local extra_cpath=
-    for f in $(find "$lib_path/" -type f -name "*.jar"); do
-        extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
-    done
-    echo $extra_cpath
-}
-
-## output parameter: ($version $suffix)
-version_string() {
-    local tool_version="$($SCALAC_CMD -version 2>&1 | cut -d " " -f 4)"
-    local version=
-    [[ $SCALA_VERSION -eq 3 ]] && version="scala3_$tool_version" || version="scala2_$tool_version"
-
-    ## keep only "-NIGHTLY" in version suffix when compiling with a nightly build 
-    local str="${version/NIGHTLY*/NIGHTLY}"
-    local suffix=
-    if [[ ! "$version" == "$str" ]]; then
-        suffix="_$str"
-    else
-        ## same for "-SNAPSHOT"
-        str="${version/SNAPSHOT*/SNAPSHOT}"
-        if [[ ! "$version" == "$str" ]]; then
-            suffix="_$str"
-        else
-            suffix=_3.0.0
-        fi
-    fi
-    local arr=($version $suffix)
-    echo "${arr[@]}"
+doc() {
+    echo $WARNING_LABEL NYI 1>&2
 }
 
 run() {
@@ -444,6 +415,7 @@ CLEAN=false
 COMPILE=false
 DEBUG=false
 DECOMPILE=false
+DOC=false
 HELP=false
 NIGHTLY=false
 RUN=false
@@ -473,6 +445,9 @@ if $cygwin || $mingw || $msys; then
     [[ -n "$GIT_HOME" ]] && GIT_HOME="$(mixed_path $GIT_HOME)"
     [[ -n "$JAVA_HOME" ]] && JAVA_HOME="$(mixed_path $JAVA_HOME)"
     [[ -n "$SCALA_HOME" ]] && SCALA_HOME="$(mixed_path $SCALA_HOME)"
+    DIFF_CMD="$GIT_HOME/usr/bin/diff.exe"
+else
+    DIFF_CMD="$(which diff)"
 fi
 if [[ ! -x "$JAVA_HOME/bin/java" ]]; then
     error "Java SDK installation not found"
@@ -511,6 +486,9 @@ if $COMPILE; then
 fi
 if $DECOMPILE; then
     decompile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

@@ -32,7 +32,7 @@ goto end
 @rem ## Subroutine
 
 @rem output parameters: _DEBUG_LABEL, _ERROR_LABEL, _WARNING_LABEL
-@rem                    _JAVA_CMD, _FLIX_JAR
+@rem                    _JAR_CMD, _JAVA_CMD, _FLIX_JAR
 :env
 set _BASENAME=%~n0
 set "_ROOT_DIR=%~dp0"
@@ -148,6 +148,7 @@ if "%__ARG:~0,1%"=="-" (
     @rem subcommand
     if "%__ARG%"=="clean" ( set _COMMANDS=!_COMMANDS! clean
     ) else if "%__ARG%"=="compile" ( set _COMMANDS=!_COMMANDS! compile
+    ) else if "%__ARG%"=="decompile" ( set _COMMANDS=!_COMMANDS! compile decompile
     ) else if "%__ARG%"=="doc" ( set _COMMANDS=!_COMMANDS! doc
     ) else if "%__ARG%"=="help" ( set _HELP=1
     ) else if "%__ARG%"=="run" ( set _COMMANDS=!_COMMANDS! compile run
@@ -172,7 +173,7 @@ set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
-if not "%_COMMANDS:decompile=%"=="%_COMMANDS%" if not defined _CFR_CMD (
+if not "!_COMMANDS:decompile=!"=="%_COMMANDS%" if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
     set _COMMANDS=%_COMMANDS:decompile=%
 )
@@ -224,6 +225,7 @@ echo.
 echo   %__BEG_P%Subcommands:%__END%
 echo     %__BEG_O%clean%__END%       delete generated files
 echo     %__BEG_O%compile%__END%     generate class files
+echo     %__BEG_O%decompile%__END%   decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        print this help message
 echo     %__BEG_O%run%__END%         execute the generated program "%__BEG_N%!_MAIN_JAR_FILE:%_BUILD_DIR%\=!%__END%"
@@ -271,6 +273,12 @@ if not exist "%_BUILD_DIR%\build" (
     ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
     call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
+    if not !ERRORLEVEL!==0 (
+        popd
+        echo %_ERROR_LABEL% Failed to initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 if exist "%_BUILD_DIR%\src\*.flix" del /q "%_BUILD_DIR%\src\*.flix"
 if exist "%_BUILD_DIR%\test\*.flix" del /q "%_BUILD_DIR%\test\*.flix"
@@ -351,6 +359,69 @@ if %_DEBUG%==1 (
 )
 goto :eof
 
+:decompile
+set "__OUTPUT_DIR=%_TARGET_DIR%\cfr-sources"
+if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
+
+@rem --extraclasspath "%_EXTRA_CPATH%"
+set __CFR_OPTS=--outputdir "%__OUTPUT_DIR%"
+
+if exist "%_CLASSES_DIR%\*.class" ( set "__CLASS_DIRS=%_CLASSES_DIR%"
+) else ( set __CLASS_DIRS=
+)
+for /f "delims=" %%f in ('dir /b /s /ad "%_CLASSES_DIR%" 2^>NUL') do (
+    if exist "%%f\*.class" set __CLASS_DIRS=!__CLASS_DIRS! "%%f"
+)
+if %_VERBOSE%==1 echo Decompile Java bytecode to directory "!__OUTPUT_DIR:%_ROOT_DIR%=!" 1>&2
+for %%i in (%__CLASS_DIRS%) do (
+    if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_CFR_CMD%" %__CFR_OPTS% %%i\*.class 1>&2
+    call "%_CFR_CMD%" %__CFR_OPTS% %%i\*.class %_STDERR_REDIRECT%
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Failed to decompile generated code in directory "%%i" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+for /f "tokens=1-4,*" %%i in ('call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" --version') do set __VERSION=%%m
+set __VERSION_STRING=Flix %__VERSION%
+set __VERSION_SUFFIX=_%__VERSION%
+
+@rem output file contains Scala and CFR headers
+set "__OUTPUT_FILE=%_TARGET_DIR%\cfr-sources%__VERSION_SUFFIX%.java"
+echo // Compiled with %__VERSION_STRING% > "%__OUTPUT_FILE%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% type "%__OUTPUT_DIR%\*.java" ^>^> "%__OUTPUT_FILE%" 1>&2
+) else if %_VERBOSE%==1 ( echo Save generated Java source files to file "!__OUTPUT_FILE:%_ROOT_DIR%=!" 1>&2
+)
+set __JAVA_FILES=
+for /f "delims=" %%f in ('dir /b /s "%__OUTPUT_DIR%\*.java" 2^>NUL') do (
+    set __JAVA_FILES=!__JAVA_FILES! "%%f"
+)
+if defined __JAVA_FILES type %__JAVA_FILES% >> "%__OUTPUT_FILE%" 2>NUL
+
+if not defined _DIFF_CMD (
+    if %_DEBUG%==1 ( echo %_WARNING_LABEL% diff command not found 1>&2
+    ) else if %_VERBOSE%==1 ( echo diff command not found 1>&2
+    )
+    goto :eof
+)
+set __DIFF_OPTS=--strip-trailing-cr
+
+set "__CHECK_FILE=%_SOURCE_DIR%\build\cfr-sources%__VERSION_SUFFIX%.java"
+if exist "%__CHECK_FILE%" (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Compare output file with check file "!__CHECK_FILE:%_ROOT_DIR%=!" 1>&2
+    )
+    call "%_DIFF_CMD%" %__DIFF_OPTS% "%__OUTPUT_FILE%" "%__CHECK_FILE%"
+    if not !ERRORLEVEL!==0 (
+        echo %_ERROR_LABEL% Output file and check file differ 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
+)
+goto :eof
+
+@rem input parameters: %1=source timestamp, %2=target timestamp
 @rem output parameter: _NEWER
 :newer
 set __TIMESTAMP1=%~1
@@ -428,7 +499,16 @@ if not exist "%_BUILD_DIR%\build" (
     ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
     call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
+    if not !ERRORLEVEL!==0 (
+        popd
+        echo %_ERROR_LABEL% Failed to initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
+if exist "%_BUILD_DIR%\src\*.flix" del /q "%_BUILD_DIR%\src\*.flix"
+if exist "%_BUILD_DIR%\test\*.flix" del /q "%_BUILD_DIR%\test\*.flix"
+
 @rem xcopy must be called AFTER flix init
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2

@@ -48,12 +48,18 @@ help:
 	@$(ECHO) ""
 	@$(ECHO) "  Subcommands:"
 	@$(ECHO) "    all    alias for build"
-	@$(ECHO) "    build  compile Java/Scala source files"
+	@$(ECHO) "    build  compile Flix source files"
 	@$(ECHO) "    clean  delete generated files"
 	@$(ECHO) "    doc    generate HTML documentation"
 	@$(ECHO) "    help   print this help message"
 	@$(ECHO) "    run    execute main program \"$(PROJECT_NAME)\""
 	@$(ECHO) "    test   execute unit tests with JUnit"
+
+##############################################################################
+## doc rules
+
+doc:
+	@$(ECHO) "NYI"
 
 ##############################################################################
 ## test rules
@@ -64,7 +70,7 @@ TEST_TARGET  = $(BUILD_DIR)/$(PROJECT_NAME).jar.txt
 $(TEST_TARGET): $(SOURCES) $(TEST_SOURCES)
 	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
 	cd "$(BUILD_DIR)"; \
-	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_JAR)" init; \
+	[ -d "build" ] || "$(JAVA)" -jar "$(FLIX_JAR)" init && \
 	"$(RM)" -f "src/Main.flix" "test/TestMain.flix" && \
 	"$(CP)" -r "$(realpath $(SOURCE_DIR)/main)/." src && \
 	"$(CP)" -r "$(realpath $(SOURCE_DIR)/test)/." test && \
@@ -84,4 +90,4 @@ test: $(TEST_TARGET)
 .PHONY: all build clean doc help run test
 
 .SUFFIXES:
-.SUFFIXES: .class .flix .jar .java .scala
+.SUFFIXES: .class .flix .jar .java

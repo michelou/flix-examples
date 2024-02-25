@@ -56,6 +56,12 @@ help:
 	@$(ECHO) "    test   execute unit tests with JUnit"
 
 ##############################################################################
+## doc rules
+
+doc:
+	@$(ECHO) "NYI"
+
+##############################################################################
 ## test rules
 
 TEST_SOURCES = $(shell $(FIND) "$(SOURCE_DIR)/test" -type f -name "*.flix" 2>/dev/null)

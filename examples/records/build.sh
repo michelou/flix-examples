@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -105,15 +105,16 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       display commands executed by this script
+    -debug       print commands executed by this script
     -nightly     select latest Flix nightly build if locally available
-    -verbose     display progress messages
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
-    compile      compile Scala/Flix source files
+    compile      compile Flix source files
     decompile    decompile generated code with CFR
-    help         display this help message
+	doc          generate HTML documentation
+    help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
 EOS
@@ -349,6 +350,10 @@ decompile() {
     fi
 }
 
+doc() {
+    echo $WARNING_LABEL NYI 1>&2
+}
+
 run() {
     local boot_cpath=
     for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
@@ -412,6 +417,7 @@ CLEAN=false
 COMPILE=false
 DEBUG=false
 DECOMPILE=false
+DOC=false
 HELP=false
 NIGHTLY=false
 RUN=false
@@ -426,10 +432,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -482,6 +488,9 @@ if $COMPILE; then
 fi
 if $DECOMPILE; then
     decompile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1
