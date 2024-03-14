@@ -10,14 +10,15 @@ set _DEBUG=0
 set _EXITCODE=0
 
 @rem files README.md, RESOURCES.md, etc.
-set _LAST_MODIFIED_OLD=michelou/)/January 2024
-set _LAST_MODIFIED_NEW=michelou/)/February 2024
+set _LAST_MODIFIED_OLD=michelou/)/February 2024
+set _LAST_MODIFIED_NEW=michelou/)/March 2024
 
-set _LAST_DOWNLOAD_OLD=(\*January 2024\*)
-set _LAST_DOWNLOAD_NEW=(*February 2024*)
+set _LAST_DOWNLOAD_OLD=(\*February 2024\*)
+set _LAST_DOWNLOAD_NEW=(*March 2024*)
 
 @rem to be transformed into -not -path "./<dirname>/*"
-set _EXCLUDE_DIRS=bin docs docs_LOCAL flix flix-book
+set _EXCLUDE_TOPDIRS=bin docs flix flix-book
+set _EXCLUDE_SUBDIRS=_LOCAL target
 
 call :env
 if not %_EXITCODE%==0 goto end
@@ -58,6 +59,7 @@ if not exist "%GIT_HOME%\usr\bin\grep.exe" (
     set _EXITCODE=1
     goto :eof
 )
+set "_CYGPATH_CMD=%GIT_HOME%\usr\bin\cygpath.exe"
 set "_FIND_CMD=%GIT_HOME%\usr\bin\find.exe"
 set "_GREP_CMD=%GIT_HOME%\usr\bin\grep.exe"
 set "_SED_CMD=%GIT_HOME%\usr\bin\sed.exe"
@@ -107,8 +109,8 @@ set _STRONG_BG_BLUE=[104m
 
 @rem we define _RESET in last position to avoid crazy console output with type command
 set _BOLD=[1m
-set _INVERSE=[7m
 set _UNDERSCORE=[4m
+set _INVERSE=[7m
 set _RESET=[0m
 goto :eof
 
@@ -176,16 +178,20 @@ echo     %__BEG_O%run%__END%          replace old patterns with new ones
 goto :eof
 
 :run
+for /f "delims=" %%f in ('"%_CYGPATH_CMD%" %_ROOT_DIR%\') do set "__ROOT_DIR=%%~f"
+
 set __FIND_EXCLUDES=
-for %%i in (%_EXCLUDE_DIRS%) do (
-    set __FIND_EXCLUDES=!__FIND_EXCLUDES! -not -path "./%%i/*"
+for %%i in (%_EXCLUDE_TOPDIRS%) do (
+    set __FIND_EXCLUDES=!__FIND_EXCLUDES! -not -path "%__ROOT_DIR%%%i/*"
 )
-set __N=0
-if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_FIND_CMD%" . -type f -name "*.md" %__FIND_EXCLUDES% 1>&2
-for /f "delims=" %%f in ('%_FIND_CMD% . -type f -name "*.md" %__FIND_EXCLUDES%') do (
-    set __OLD_N=!__N!
+for %%i in (%_EXCLUDE_SUBDIRS%) do (
+    set __FIND_EXCLUDES=!__FIND_EXCLUDES! -not -path "*/*%%i/*"
+)
+set __N_MD=0
+if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_FIND_CMD%" "%__ROOT_DIR%" -type f -name "*.md" %__FIND_EXCLUDES% 1>&2
+for /f "delims=" %%f in ('%_FIND_CMD% "%__ROOT_DIR%" -type f -name "*.md" %__FIND_EXCLUDES%') do (
     set "__INPUT_FILE=%%f"
-    if %_DEBUG%==1 (echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_LAST_MODIFIED_OLD%" "!__INPUT_FILE!" 1>&2
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_LAST_MODIFIED_OLD%" "!__INPUT_FILE!" 1>&2
     ) else if %_VERBOSE%==1 ( echo Check file "!__INPUT_FILE!" 1>&2
     )
     call "%_GREP_CMD%" -q "%_LAST_MODIFIED_OLD%" "!__INPUT_FILE!"
@@ -195,7 +201,7 @@ for /f "delims=" %%f in ('%_FIND_CMD% . -type f -name "*.md" %__FIND_EXCLUDES%')
         )
         call "%_SED_CMD%" -i "s@%_LAST_MODIFIED_OLD%@%_LAST_MODIFIED_NEW%@g" "!__INPUT_FILE!"
         call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
-        set /a __N+=1
+        set /a __N_MD+=1
     )
     if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_GREP_CMD%" -q "%_LAST_DOWNLOAD_OLD%" "!__INPUT_FILE!" 1>&2
     call "%_GREP_CMD%" -q "%_LAST_DOWNLOAD_OLD%" "!__INPUT_FILE!"
@@ -203,10 +209,10 @@ for /f "delims=" %%f in ('%_FIND_CMD% . -type f -name "*.md" %__FIND_EXCLUDES%')
         if %_DEBUG%==1 echo %_DEBUG_LABEL% "%_SED_CMD%" -i "s@%_LAST_DOWNLOAD_OLD%@%_LAST_DOWNLOAD_NEW%@g" "!__INPUT_FILE!" 1>&2
         call "%_SED_CMD%" -i "s@%_LAST_DOWNLOAD_OLD%@%_LAST_DOWNLOAD_NEW%@g" "!__INPUT_FILE!"
         call "%_UNIX2DOS_CMD%" -q "!__INPUT_FILE!"
-        if !__N!==!__OLD_N! set /a __N+=1
+        if !__N_MD!==0 set /a __N_MD+=1
     )
 )
-call :message %__N% "Markdown"
+call :message %__N_MD% "Markdown"
 goto :eof
 
 @rem input parameters: %1=nr of updates, %2=file name
