@@ -18,7 +18,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Flix 0.45][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
+- [Flix 0.46][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
 - [Git 2.44][git_downloads] ([*release notes*][git_relnotes])
 - [Gradle 8.7][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] ([*release notes*][temurin_openjdk21_relnotes], [*Shipilev's notes*][temurin_openjdk21_shipilev], [*Java 21 API*][oracle_openjdk21_api])
@@ -34,7 +34,7 @@ Optionally one may also install the following software:
 - [MSYS2 2024][msys2_releases] ([*change log*][msys2_changelog])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 - [Temurin JDK Mission Control 8.3][jmc_download] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][jmc_relnotes])
-- [Visual Studio Code 1.87][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.88][vscode_downloads] ([*release notes*][vscode_relnotes])
 <!--
 - [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes])
 -->
@@ -42,12 +42,12 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*April 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*May 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\              <i>( 43 MB)</i>
 C:\opt\apache-maven\            <i>( 10 MB)</i>
-C:\opt\flix-0.45.0\             <i>( 37 MB)</i>
+C:\opt\flix-0.46.0\             <i>( 37 MB)</i>
 C:\opt\Git\                     <i>(367 MB)</i>
 C:\opt\gradle\                  <i>(138 MB)</i>
 C:\opt\jdk-temurin-21.0.2_13\   <i>(326 MB)</i>
@@ -162,7 +162,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 21.0.2, javac 21.0.2, scalac 2.13.13, flix v0.45.0,
+   java 21.0.2, javac 21.0.2, scalac 2.13.13, flix v0.46.0,
    gradle 8.7, make 3.81, mdbook v0.4.37, mvn 3.9.6,
    git 2.44.0.windows.1, diff 3.10, bash 5.2.26(1)-release
 
@@ -185,10 +185,10 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2024-03-14.jar" to directory "C:\opt\flix-0.45.0"
+Download file "flix-2024-03-14.jar" to directory "C:\opt\flix-0.46.0"
 
 Tool versions:
-   java 21.0.2, javac 21.0.2, scalac 2.13.13, flix v0.45.0,
+   java 21.0.2, javac 21.0.2, scalac 2.13.13, flix v0.46.0,
    gradle 8.7, make 3.81, mdbook v0.4.37, mvn 3.9.6,
    git 2.44.0.windows.1, diff 3.10, bash 5.2.21(1)-release
 Tool paths:
@@ -203,7 +203,7 @@ Tool paths:
    C:\opt\Git\usr\bin\diff.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant"
-   "FLIX_HOME=C:\opt\flix-0.45.0"
+   "FLIX_HOME=C:\opt\flix-0.46.0"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
    "JAVA_HOME=C:\opt\jdk-temurin-21.0.2_13"
@@ -224,9 +224,9 @@ Path associations:
 <dl><dd>
 Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on March 14, 2024 : 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.45.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
-C:\opt\flix-0.45.0
-    flix-2024-02-14.jar
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.46.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+C:\opt\flix-0.46.0
+    flix-2024-04-28.jar
     flix.jar
 </pre>
 Command <a href="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -277,7 +277,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/April 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -305,9 +305,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
-[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.45.0
+[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.46.0
 [flix_downloads]: https://github.com/flix/flix/releases/
-[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.45.0
+[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.46.0
 [github_flix_flix]: https://github.com/flix/flix
 [golang_examples]: https://github.com/michelou/golang-examples
 [graalvm_examples]: https://github.com/michelou/graalvm-examples
