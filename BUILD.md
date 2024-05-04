@@ -1,4 +1,4 @@
-# <span id="top">Building Flix on Windows</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Building Flix on Windows</span> <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
