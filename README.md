@@ -146,7 +146,7 @@ We distinguish different sets of batch commands:
    &nbsp;
    Subcommands:
      clean        delete generated files
-     compile      compile Scala/Flix source files
+     compile      compile Flix source files
      decompile    decompile generated code with CFR
      help         print this help message
      run          execute Flix program "areas"
@@ -164,7 +164,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 Tool versions:
    java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.46.0,
    gradle 8.7, make 3.81, mdbook v0.4.37, mvn 3.9.6,
-   git 2.45.0.windows.1, diff 3.10, bash 5.2.26(1)-release
+   git 2.45.0, diff 3.10, bash 5.2.26(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git\bin\git.exe
@@ -190,7 +190,7 @@ Download file "flix-2024-03-14.jar" to directory "C:\opt\flix-0.46.0"
 Tool versions:
    java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.46.0,
    gradle 8.7, make 3.81, mdbook v0.4.37, mvn 3.9.6,
-   git 2.45.0.windows.1, diff 3.10, bash 5.2.21(1)-release
+   git 2.45.0, diff 3.10, bash 5.2.26(1)-release
 Tool paths:
    C:\opt\jdk-temurin-21.0.3_9\bin\java.exe
    C:\opt\jdk-temurin-21.0.3_9\bin\javac.exe
@@ -226,7 +226,7 @@ Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on M
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.46.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix-0.46.0
-    flix-2024-04-28.jar
+    flix-2024-05-09.jar
     flix.jar
 </pre>
 Command <a href="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -264,7 +264,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://gradle.org/install/">gradle-8.7-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.37-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                          <i>( 94 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.3_9.zip</a>   <i>(191 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.3_9.zip</a>    <i>(191 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.45.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.14.zip</a>                                  <i>( 22 MB)</i>
