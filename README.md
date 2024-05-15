@@ -18,7 +18,7 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Flix 0.46][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
+- [Flix 0.47][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
 - [Git 2.45][git_downloads] ([*release notes*][git_relnotes])
 - [Gradle 8.7][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] ([*release notes*][temurin_openjdk21_relnotes], [*Shipilev's notes*][temurin_openjdk21_shipilev], [*Java 21 API*][oracle_openjdk21_api])
@@ -49,7 +49,7 @@ For instance our development environment looks as follows (*May 2024*) <sup id="
 C:\opt\apache-ant\              <i>( 43 MB)</i>
 C:\opt\apache-maven\            <i>( 10 MB)</i>
 C:\opt\ConEmu\                  <i>( 26 MB)</i>
-C:\opt\flix-0.46.0\             <i>( 37 MB)</i>
+C:\opt\flix-0.47.0\             <i>( 37 MB)</i>
 C:\opt\Git\                     <i>(387 MB)</i>
 C:\opt\gradle\                  <i>(138 MB)</i>
 C:\opt\jdk-temurin-21.0.3_9\    <i>(326 MB)</i>
@@ -164,7 +164,7 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.46.0,
+   java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.47.0,
    gradle 8.7, make 3.81, mdbook v0.4.37, mvn 3.9.6,
    git 2.45.0, diff 3.10, bash 5.2.26(1)-release
 
@@ -187,10 +187,10 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2024-05-14.jar" to directory "C:\opt\flix-0.46.0"
+Download file "flix-2024-05-14.jar" to directory "C:\opt\flix-0.47.0"
 
 Tool versions:
-   java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.46.0,
+   java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.47.0,
    gradle 8.7, make 3.81, mdbook v0.4.37, mvn 3.9.6,
    git 2.45.0, diff 3.10, bash 5.2.26(1)-release
 Tool paths:
@@ -205,7 +205,7 @@ Tool paths:
    C:\opt\Git\usr\bin\diff.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant"
-   "FLIX_HOME=C:\opt\flix-0.46.0"
+   "FLIX_HOME=C:\opt\flix-0.47.0"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
    "JAVA_HOME=C:\opt\jdk-temurin-21.0.3_9"
@@ -226,8 +226,8 @@ Path associations:
 <dl><dd>
 Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on May 12, 2024 : 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.46.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
-C:\opt\flix-0.46.0
+<b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix-0.47.0 | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
+C:\opt\flix-0.47.0
     flix-2024-05-14.jar
     flix.jar
 </pre>
@@ -313,9 +313,9 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
-[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.46.0
+[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.47.0
 [flix_downloads]: https://github.com/flix/flix/releases/
-[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.46.0
+[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.47.0
 [github_flix_flix]: https://github.com/flix/flix
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
