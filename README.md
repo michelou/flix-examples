@@ -20,7 +20,7 @@ This project depends on the following external software for the **Microsoft Wind
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Flix 0.47][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
 - [Git 2.45][git_downloads] ([*release notes*][git_relnotes])
-- [Gradle 8.7][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Gradle 8.8][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] ([*release notes*][temurin_openjdk21_relnotes], [*Shipilev's notes*][temurin_openjdk21_shipilev], [*Java 21 API*][oracle_openjdk21_api])
 <!--
 - [Temurin OpenJDK 11 LTS][temurin_openjdk11] ([*release notes*][temurin_openjdk11_relnotes], [*Shipilev's notes*][temurin_openjdk11_shipilev], [*bug fixes*][temurin_openjdk11_bugfixes])
@@ -43,7 +43,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*May 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*June 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\              <i>( 43 MB)</i>
@@ -165,8 +165,8 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
    java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.47.0,
-   gradle 8.7, make 3.81, mdbook v0.4.40, mvn 3.9.6,
-   git 2.45.1, diff 3.10, bash 5.2.26(1)-release
+   gradle 8.8, make 3.81, mdbook v0.4.40, mvn 3.9.7,
+   git 2.45.2, diff 3.10, bash 5.2.26(1)-release
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git\bin\git.exe
@@ -191,8 +191,8 @@ Download file "flix-2024-05-23.jar" to directory "C:\opt\flix-0.47.0"
 
 Tool versions:
    java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.47.0,
-   gradle 8.7, make 3.81, mdbook v0.4.40, mvn 3.9.6,
-   git 2.45.1, diff 3.10, bash 5.2.26(1)-release
+   gradle 8.8, make 3.81, mdbook v0.4.40, mvn 3.9.7,
+   git 2.45.2, diff 3.10, bash 5.2.26(1)-release
 Tool paths:
    C:\opt\jdk-temurin-21.0.3_9\bin\java.exe
    C:\opt\jdk-temurin-21.0.3_9\bin\javac.exe
@@ -260,16 +260,16 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <dd>
 <pre style="font-size:80%;">
 <a href="https://ant.apache.org/bindownload.cgi" rel="external">apache-ant-1.10.14-bin.zip</a>                         <i>(  9 MB)</i>
-<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.6-bin.zip</a>                         <i>( 10 MB)</i>
+<a href="https://maven.apache.org/download.cgi">apache-maven-3.9.7-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                               <i>(  5 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
 <a href="https://flix.dev/nightly/" rel="external">flix-2024-05-23.jar</a>                                <i>( 39 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.7-bin.zip</a>                                 <i>(103 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.8-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.40-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                          <i>( 94 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.3_9.zip</a>    <i>(191 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.45.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.45.2-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.14.zip</a>                                  <i>( 22 MB)</i>
 <a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.89.1.zip</a>                        <i>(131 MB)</i>
 </pre>
@@ -281,7 +281,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/May 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/June 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -294,7 +294,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.6/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.7/release-notes.html
 [bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [cobol_examples]: https://github.com/michelou/cobol-examples#top
 [conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
@@ -309,7 +309,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.1.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.2.txt
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
