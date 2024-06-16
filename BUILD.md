@@ -2,8 +2,11 @@
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
-  <td style="border:0;padding:0 10px 0 0;;min-width:120px;"><a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="120" alt="Flix project"/></a></td>
-  <td style="border:0;padding:0;vertical-align:text-top;">Source code of the <a href="https://flix.dev/" rel="external">Flix project</a> is hosted on <a href="https://github.com/flix/flix" rel="external">Github</a>.<br/>Continuous integration relies on <a href="https://gradle.org/" rel="external">Gradle</a> and runs on the runner image <a href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources" rel="external"><code>ubuntu-latest</code></a>.
+  <td style="border:0;padding:0 10px 0 0;;min-width:120px;">
+    <a href="https://flix.dev/" rel="external"><img src="./docs/images/flix-logo.png" width="120" alt="Flix project"/></a>
+  </td>
+  <td style="border:0;padding:0;vertical-align:text-top;">
+    Source code of the <a href="https://flix.dev/" rel="external">Flix project</a> is hosted on <a href="https://github.com/flix/flix" rel="external">Github</a>.<br/>Continuous integration relies on <a href="https://gradle.org/" rel="external">Gradle</a> and runs on the runner image <a href="https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources" rel="external"><code>ubuntu-latest</code></a>.
   </td>
   </tr>
 </table>
