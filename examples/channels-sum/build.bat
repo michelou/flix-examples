@@ -68,6 +68,12 @@ if not exist "%FLIX_HOME%\flix.jar" (
     goto :eof
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
+
+@rem use newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
+)
 goto :eof
 
 :env_colors
@@ -361,11 +367,11 @@ goto action_path
 
 :action_next
 set __TARGET_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%

@@ -22,8 +22,8 @@ This project depends on the following external software for the **Microsoft Wind
 
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
 - [Flix 0.48][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
-- [Git 2.45][git_downloads] ([*release notes*][git_relnotes])
-- [Gradle 8.8][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Git 2.46][git_downloads] ([*release notes*][git_relnotes])
+- [Gradle 8.9][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] ([*release notes*][temurin_openjdk21_relnotes], [*Shipilev's notes*][temurin_openjdk21_shipilev], [*Java 21 API*][oracle_openjdk21_api])
 <!--
 - [Temurin OpenJDK 11 LTS][temurin_openjdk11] ([*release notes*][temurin_openjdk11_relnotes], [*Shipilev's notes*][temurin_openjdk11_shipilev], [*bug fixes*][temurin_openjdk11_bugfixes])
@@ -46,7 +46,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*July 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*August 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\              <i>( 43 MB)</i>
@@ -55,7 +55,7 @@ C:\opt\ConEmu\                  <i>( 26 MB)</i>
 C:\opt\flix-0.48.0\             <i>( 37 MB)</i>
 C:\opt\Git\                     <i>(387 MB)</i>
 C:\opt\gradle\                  <i>(138 MB)</i>
-C:\opt\jdk-temurin-21.0.3_9\    <i>(326 MB)</i>
+C:\opt\jdk-temurin-21.0.4_7\    <i>(326 MB)</i>
 C:\opt\jmc\                     <i>( 99 MB)</i>
 C:\opt\mdBook\                  <i>( 10 MB)</i>
 C:\opt\msys64\                  <i>(5.5 GB)</i>
@@ -167,9 +167,9 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.48.0,
-   gradle 8.8, make 3.81, mdbook v0.4.40, mvn 3.9.8,
-   git 2.45.2, diff 3.10, bash 5.2.26(1)-release
+   java 21.0.4, javac 21.0.4, scalac 2.13.14, flix v0.48.0,
+   gradle 8.9, make 3.81, mdbook v0.4.40, mvn 3.9.8,
+   git 2.46.0, diff 3.10, bash 5.2.26(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git\bin\git.exe
@@ -193,12 +193,12 @@ Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
 Download file "flix-2024-06-16.jar" to directory "C:\opt\flix-0.48.0"
 
 Tool versions:
-   java 21.0.3, javac 21.0.3, scalac 2.13.14, flix v0.48.0,
-   gradle 8.8, make 3.81, mdbook v0.4.40, mvn 3.9.8,
-   git 2.45.2, diff 3.10, bash 5.2.26(1)
+   java 21.0.4, javac 21.0.4, scalac 2.13.14, flix v0.48.0,
+   gradle 8.9, make 3.81, mdbook v0.4.40, mvn 3.9.8,
+   git 2.46.0, diff 3.10, bash 5.2.26(1)
 Tool paths:
-   C:\opt\jdk-temurin-21.0.3_9\bin\java.exe
-   C:\opt\jdk-temurin-21.0.3_9\bin\javac.exe
+   C:\opt\jdk-temurin-21.0.4_7\bin\java.exe
+   C:\opt\jdk-temurin-21.0.4_7\bin\javac.exe
    C:\opt\scala-2.13.14\bin\scalac.bat
    C:\opt\gradle\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
@@ -211,7 +211,7 @@ Environment variables:
    "FLIX_HOME=C:\opt\flix-0.48.0"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
-   "JAVA_HOME=C:\opt\jdk-temurin-21.0.3_9"
+   "JAVA_HOME=C:\opt\jdk-temurin-21.0.4_7"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven"
    "MDBOOK_HOME=C:\opt\mdBook"
@@ -266,15 +266,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.8-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                               <i>(  5 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2024-06-16.jar</a>                                <i>( 39 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.8-bin.zip</a>                                 <i>(103 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2024-08-02.jar</a>                                <i>( 39 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.9-bin.zip</a>                                 <i>(103 MB)</i>
 <a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.40-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
-<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240113.exe</a>                          <i>( 94 MB)</i>
+<a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                          <i>( 94 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-8.3.0-win32.win32.x86_64.zip</a>       <i>( 87 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.3_9.zip</a>    <i>(191 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.45.2-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.4_7.zip</a>    <i>(191 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.46.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.14.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.91.0.zip</a>                        <i>(131 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.91.1.zip</a>                        <i>(131 MB)</i>
 </pre>
 <!--
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.21_9.zip</a>   <i>(188 MB)</i>
@@ -284,7 +284,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -312,7 +312,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.45.2.txt
+[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.46.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
@@ -369,6 +369,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 11.0.20 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024064.html
 11.0.21 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
 11.0.22 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029215.html
+11.0.24 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035797.html
 -->
 [temurin_openjdk11]: https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot
 [temurin_openjdk11_bugfixes]: https://www.oracle.com/java/technologies/javase/11-0-17-bugfixes.html
@@ -380,6 +381,8 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 17.0.8  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-July/024063.html
 17.0.9  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026352.html
 17.0.10 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029089.html
+17.0.11 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032197.html
+17.0.12 -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035798.html
 -->
 [temurin_openjdk17]: https://adoptium.net/releases.html?variant=openjdk17&jvmVariant=hotspot
 [temurin_openjdk17_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
@@ -389,6 +392,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 21.0.1  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2023-October/026351.html
 21.0.2  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029090.html
 21.0.3  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032196.html
+21.0.4  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035862.html
 -->
 [temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
 [temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html

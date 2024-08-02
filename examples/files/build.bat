@@ -68,15 +68,17 @@ if not exist "%FLIX_HOME%\flix.jar" (
     goto :eof
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
+
+@rem use newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
+)
 goto :eof
 
 :env_colors
 @rem ANSI colors in standard Windows 10 shell
 @rem see https://gist.github.com/mlocati/#file-win10colors-cmd
-set _RESET=[0m
-set _BOLD=[1m
-set _UNDERSCORE=[4m
-set _INVERSE=[7m
 
 @rem normal foreground colors
 set _NORMAL_FG_BLACK=[30m
@@ -114,6 +116,12 @@ set _STRONG_BG_RED=[101m
 set _STRONG_BG_GREEN=[102m
 set _STRONG_BG_YELLOW=[103m
 set _STRONG_BG_BLUE=[104m
+
+@rem we define _RESET in last position to avoid crazy console output with type command
+set _BOLD=[1m
+set _UNDERSCORE=[4m
+set _INVERSE=[7m
+set _RESET=[0m
 goto :eof
 
 @rem input parameter: %*
@@ -340,11 +348,11 @@ goto action_path
 
 :action_next
 set __TARGET_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -path '%__TARGET_FILE%' -ea Stop | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
      set __TARGET_TIMESTAMP=%%i
 )
 set __SOURCE_TIMESTAMP=00000000000000
-for /f "usebackq" %%i in (`powershell -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
+for /f "usebackq" %%i in (`call "%_PWSH_CMD%" -c "gci -recurse -path %__PATH_ARRAY:~1% -ea Stop | sort LastWriteTime | select -last 1 -expandProperty LastWriteTime | Get-Date -uformat %%Y%%m%%d%%H%%M%%S" 2^>NUL`) do (
     set __SOURCE_TIMESTAMP=%%i
 )
 call :newer %__SOURCE_TIMESTAMP% %__TARGET_TIMESTAMP%

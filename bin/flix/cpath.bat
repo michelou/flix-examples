@@ -8,10 +8,15 @@ if not defined _DEBUG set _DEBUG=0
 set _VERBOSE=0
 
 if not defined _MVN_CMD set "_MVN_CMD=%MAVEN_HOME%\bin\mvn.cmd"
-if %_DEBUG%==1 echo [%~n0] "_MVN_CMD=%_MVN_CMD%"
+if %_DEBUG%==1 echo [%~n0] "_MVN_CMD=%_MVN_CMD%" 1>&2
 
 if %_DEBUG%==1 ( set _MVN_OPTS=
 ) else ( set _MVN_OPTS=--quiet
+)
+@rem use newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
 )
 set _CENTRAL_REPO=https://repo1.maven.org/maven2
 set _TYPESAFE_REPO=https://scala-ci.typesafe.com/ui/native/scala-pr-validation-snapshots/
@@ -19,7 +24,7 @@ set "_LOCAL_REPO=%USERPROFILE%\.m2\repository"
 
 set "_TEMP_DIR=%TEMP%\lib"
 if not exist "%_TEMP_DIR%" mkdir "%_TEMP_DIR%"
-if %_DEBUG%==1 echo [%~n0] "_TEMP_DIR=%_TEMP_DIR%"
+if %_DEBUG%==1 echo [%~n0] "_TEMP_DIR=%_TEMP_DIR%" 1>&2
 
 set _LIBS_CPATH=
 
@@ -35,14 +40,14 @@ call :add_jar "org.scala-lang" "scala-reflect" "%__SCALA_VERSION%"
 
 @rem https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket
 @rem version 1.3.9 in build.gradle
-call :add_jar "org.java-websocket" "Java-WebSocket" "1.5.3"
+call :add_jar "org.java-websocket" "Java-WebSocket" "1.5.7"
 
 @rem https://mvnrepository.com/artifact/org.jline/jline
 @rem version 3.5.1 in build.gradle
-call :add_jar "org.jline" "jline" "3.22.0"
+call :add_jar "org.jline" "jline" "3.26.3"
 
 @rem version 3.6.12 in build.gradle
-set __JSON4S_VERSION=4.0.6
+set __JSON4S_VERSION=4.0.7
 
 @rem https://mvnrepository.com/artifact/org.json4s/json4s-ast
 call :add_jar "org.json4s" "json4s-ast_%__SCALA_BINARY_VERSION%" "%__JSON4S_VERSION%"
@@ -58,13 +63,13 @@ call :add_jar "org.json4s" "json4s-native-core_%__SCALA_BINARY_VERSION%" "%__JSO
 
 @rem https://mvnrepository.com/artifact/org.ow2.asm/asm
 @rem build.gradle -> 9.2
-call :add_jar "org.ow2.asm" "asm" "9.5"
+call :add_jar "org.ow2.asm" "asm" "9.7"
 
 @rem https://mvnrepository.com/artifact/com.chuusai/shapeless
 @rem call :add_jar "com.chuusai" "shapeless_%__SCALA_BINARY_VERSION%" "2.3.10"
 
 @rem https://mvnrepository.com/artifact/org.parboiled/parboiled
-call :add_jar "org.parboiled" "parboiled_%__SCALA_BINARY_VERSION%" "2.4.1"
+call :add_jar "org.parboiled" "parboiled_%__SCALA_BINARY_VERSION%" "2.5.1"
 
 @rem https://mvnrepository.com/artifact/org.scalactic/scalactic
 @rem version 3.2.15 in build.gradle
@@ -79,13 +84,13 @@ call :add_jar "org.scala-lang.modules" "scala-parallel-collections_%__SCALA_BINA
 call :add_jar "com.github.scopt" "scopt_%__SCALA_BINARY_VERSION%" "4.1.0"
 
 @rem https://mvnrepository.com/artifact/com.google.guava/guava
-call :add_jar "com.google.guava" "guava" "31.1-jre"
+call :add_jar "com.google.guava" "guava" "33.2.1-jre"
 
 @rem https://mvnrepository.com/artifact/io.github.p-org.solvers/pjbdd
 @rem version 1.0.10-9-67-gf113b5a in build.gradle
 call :add_jar "io.github.p-org.solvers" "pjbdd" "1.0.10-10"
 
-set __SCALATEST_VERSION=3.2.16
+set __SCALATEST_VERSION=3.2.19
 
 @rem https://mvnrepository.com/artifact/org.scalatest/scalatest
 @rem version 3.2.15 in build.gradle
@@ -114,10 +119,10 @@ if not exist "%__JAR_FILE%" (
     set __JAR_URL=%_CENTRAL_REPO%/%__GROUP_ID:.=/%/%__ARTIFACT_ID%/%__VERSION%/%__JAR_NAME%
     set "__JAR_FILE=%_TEMP_DIR%\%__JAR_NAME%"
     if not exist "!__JAR_FILE!" (
-        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'" 1>&2
+        if %_DEBUG%==1 ( echo %_DEBUG_LABEL% call "%_PWSH_CMD%" -c "Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'" 1>&2
         ) else if %_VERBOSE%==1 ( echo Download file %__JAR_NAME% to directory "!_TEMP_DIR:%USERPROFILE%=%%USERPROFILE%%!" 1>&2
         )
-        powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'"
+        call "%_PWSH_CMD%" -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '!__JAR_URL!' -Outfile '!__JAR_FILE!'"
         if not !ERRORLEVEL!==0 (
             echo %_ERROR_LABEL% Failed to download file "%__JAR_NAME%" 1>&2
             set _EXITCODE=1

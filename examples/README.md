@@ -612,7 +612,7 @@ BUILD SUCCESSFUL in 15s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

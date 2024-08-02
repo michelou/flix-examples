@@ -97,6 +97,12 @@ call :env_colors
 set _DEBUG_LABEL=%_NORMAL_BG_CYAN%[%_BASENAME%]%_RESET%
 set _ERROR_LABEL=%_STRONG_FG_RED%Error%_RESET%:
 set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
+
+@rem use newer PowerShell version if available
+where /q pwsh.exe
+if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
+) else ( set _PWSH_CMD=powershell.exe
+)
 goto :eof
 
 :env_colors
@@ -215,7 +221,8 @@ for /f "tokens=1,2,*" %%f in ('subst') do (
     set "__SUBST_DRIVE=%%f"
     set "__SUBST_DRIVE=!__SUBST_DRIVE:~0,2!"
     set "__SUBST_PATH=%%h"
-    if "!__SUBST_DRIVE!"=="!__GIVEN_PATH:~0,2!" (
+    @rem Windows local file systems are not case sensitive (by default)
+    if /i "!__SUBST_DRIVE!"=="!__GIVEN_PATH:~0,2!" (
         set _DRIVE_NAME=!__SUBST_DRIVE:~0,2!
         if %_DEBUG%==1 ( echo %_DEBUG_LABEL% Select drive !_DRIVE_NAME! for which a substitution already exists 1>&2
         ) else if %_VERBOSE%==1 ( echo Select drive !_DRIVE_NAME! for which a substitution already exists 1>&2
@@ -476,7 +483,7 @@ goto :eof
 :flix_nightly
 if not exist "%_FLIX_HOME%" goto :eof
 
-for /f %%i in ('powershell -C "(Get-Date).addHours(-18).ToString('yyyy-MM-dd')"') do (
+for /f %%i in ('call "%_PWSH_CMD%" -C "(Get-Date).addHours(-18).ToString('yyyy-MM-dd')"') do (
     set "__JAR_NAME=flix-%%i.jar"
 )
 set "__JAR_FILE=%_FLIX_HOME%\%__JAR_NAME%"
@@ -484,10 +491,10 @@ if exist "%__JAR_FILE%" goto :eof
 
 set "__JAR_URL=https://flix.dev/nightly/%__JAR_NAME%"
 
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% powershell -c "Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% call "%_PWSH_CMD%" -c "Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" 1>&2
 ) else if %_VERBOSE%==1 ( echo Download file "%__JAR_NAME%" to directory "%_FLIX_HOME%" 1>&2
 )
-powershell -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" %_STDERR_REDIRECT%
+call "%_PWSH_CMD%" -c "$progressPreference='silentlyContinue';Invoke-WebRequest -Uri '%__JAR_URL%' -Outfile '%__JAR_FILE%'" %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     @rem installation is optional
     echo %_WARNING_LABEL% Failed to download file "%__JAR_URL%" to directory "%_FLIX_HOME%" 1>&2

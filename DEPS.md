@@ -1,4 +1,4 @@
-# <span id="top">Flix Build Dependencies</span> <span style="size:25%;"><a href="README.md">↩</a></span>
+# <span id="top">Flix Build Dependencies</span> <span style="font-size:90%;">[↩](README.md#top)</span>
 
 <table style="font-family:Helvetica,Arial;line-height:1.6;">
   <tr>
@@ -38,10 +38,12 @@ The [Flix] 0.4 software distributions depend on the following external libraries
   <th><a href="https://github.com/flix/flix/releases/tag/v0.43.0">0.43.0</a><br/><span style="color:red;"></span></th>
   <th><a href="https://github.com/flix/flix/releases/tag/v0.44.0">0.44.0</a><br/><span style="color:red;"></span></th>
   <th><a href="https://github.com/flix/flix/releases/tag/v0.45.0">0.45.0</a><br/><span style="color:red;"></span></th>
+  <th><a href="https://github.com/flix/flix/releases/tag/v0.48.0">0.48.0</a><br/><span style="color:red;"></span></th>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://github.com/antlr/antlr4"><code>antlr4-runtime </code></a><br/>(<a href="https://github.com/antlr/antlr4/releases">relnotes</a>)</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4-runtime/4.13.1"><b>4.13.1</b></a><br/><span style="color:gray;font-size:80%;">(Sep&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4-runtime/4.11.1">4.11.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4-runtime/4.11.1">4.11.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4-runtime/4.11.1">4.11.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.antlr/antlr4-runtime/4.11.1">4.11.1</a><br/>&nbsp;</td>
@@ -58,10 +60,12 @@ The [Flix] 0.4 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/io.get-coursier/coursier_2.13/2.1.4">2.1.4</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/io.get-coursier/coursier_2.13/2.1.4">2.1.4</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/io.get-coursier/coursier_2.13/2.1.4">2.1.4</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/io.get-coursier/coursier_2.13/2.1.4">2.1.4</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://github.com/google/guava/releases"><code>guava</code></a><br/>(<a href="https://github.com/google/guava/releases">relnotes</a>)</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.guava/guava/33.0.0-jre"><b>33.0.0-jre</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.guava/guava/31.1-jre">31.1-jre</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.guava/guava/31.1-jre">31.1-jre</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.guava/guava/31.1-jre">31.1-jre</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/com.google.guava/guava/31.1-jre">31.1-jre</a><br/>&nbsp;</td>
@@ -78,6 +82,7 @@ The [Flix] 0.4 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.3">1.5.3</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.3">1.5.3</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.3">1.5.3</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://github.com/TooTallNate/Java-WebSocket/releases/tag/v1.5.3">1.5.3</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline"><code>jline</code></a></td>
@@ -88,10 +93,12 @@ The [Flix] 0.4 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.22.0">3.22.0</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.22.0">3.22.0</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.25.0">3.25.0</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.jline/jline/3.25.0">3.25.0</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core"><code>json4s-*</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/4.1.0-M4"><b>4.1.0</b></a><br/><span style="color:gray;font-size:80%;">(Nov&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.6.12">3.6.12</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.6.12">3.6.12</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.6.12">3.6.12</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.json4s/json4s-core_2.13/3.6.12">3.6.12</a><br/>&nbsp;</td>
@@ -108,10 +115,12 @@ The [Flix] 0.4 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.6">9.6</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.6">9.6</a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.6">9.6</a></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.ow2.asm/asm/9.6">9.6</a></td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled"><code>parboiled</code></a></td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.5.1"><b>2.5.1</b></a><br/><span style="color:gray;font-size:80%;">(Oct&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.4.1">2.4.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.4.1">2.4.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.4.1">2.4.1</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.parboiled/parboiled_2.13/2.4.1">2.4.1</a><br/>&nbsp;</td>
@@ -128,6 +137,7 @@ The [Flix] 0.4 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang.modules/scala-parallel-collections_2.13/0.2.0">0.2.0</a><br/>&nbsp;</td>
   <td style="padding:4px;">-</td>
   <td style="padding:4px;">-</td>
+  <td style="padding:4px;">-</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library"><code>scala-library</code></a></td>
@@ -138,10 +148,12 @@ The [Flix] 0.4 software distributions depend on the following external libraries
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.12">2.13.12</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.12">2.13.12</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.12">2.13.12</a><br/>&nbsp;</td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.scala-lang/scala-library/2.13.12">2.13.12</a><br/>&nbsp;</td>
 </tr>
 <tr>
   <td style="padding:4px;"><a href="https://github.com/tomlj/tomlj"><code>tomj</code></a><br/>(<a href="https://github.com/tomlj/tomlj/releases/tag/1.1.0">relnotes</a>)</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.tomlj/tomlj/1.1.1"><b>1.1.1</b></a><br/><span style="color:gray;font-size:80%;">(Dec&nbsp;2023)</span></td>
+  <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.tomlj/tomlj/1.1.0">1.1.0</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.tomlj/tomlj/1.1.0">1.1.0</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.tomlj/tomlj/1.1.0">1.1.0</a><br/>&nbsp;</td>
   <td style="padding:4px;"><a href="https://mvnrepository.com/artifact/org.tomlj/tomlj/1.1.0">1.1.0</a><br/>&nbsp;</td>
@@ -518,7 +530,7 @@ The [Flix] 0.2 software distributions depend on the following external libraries
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/July 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/August 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
