@@ -1,3 +1,6 @@
+///
+/// The `Tree` type.
+///
 enum Tree[a] {
     case Leaf(a),
     case Node(Tree[a], Tree[a])
@@ -22,6 +25,9 @@ def f(b0: Bottle[a]): Bool = typematch b0 {
         false
 }
 
+///
+/// The main entry point of this Flix program.
+///
 def main(): Unit \ IO =
     f1(Tree.Leaf(1)) |> println; // true
     f1(Tree.Node(Tree.Leaf(1), Tree.Leaf(2))) |> println; // false

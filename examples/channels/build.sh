@@ -59,6 +59,7 @@ args() {
         clean)     CLEAN=true ;;
         compile)   COMPILE=true ;;
         decompile) COMPILE=true && DECOMPILE=true ;;
+        doc)       DOC=true ;;
         help)      HELP=true ;;
         run)       COMPILE=true && RUN=true ;;
         test)      COMPILE=true && TEST=true ;;
@@ -106,13 +107,14 @@ Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
     -debug       print commands executed by this script
-    -nightly     select latest Flix nightly build if locally available
+    -nightly     use latest Flix nightly build if locally available
     -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
-    compile      compile Scala/Flix source files
+    compile      compile Flix source files
     decompile    decompile generated code with CFR
+    doc          generate HTML documentation
     help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
@@ -127,7 +129,10 @@ clean() {
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
-        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+        if [[ $? -ne 0 ]]; then
+            error "Failed to delete directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+            EXITCODE=1 && return 0
+        fi
     fi
 }
 
@@ -384,6 +389,34 @@ decompile() {
     fi
 }
 
+doc() {
+    [[ -d "$TARGET_DIR" ]] || mkdir -p "$TARGET_DIR"
+    compile_init
+
+    local toml_file="$ROOT_DIR/flix.toml"
+    if [[ -f "$toml_file" ]]; then
+        if $DEBUG; then
+            debug "cp -r \"$toml_file\" \"$TARGET_DIR\""
+        elif $VERBOSE; then
+           echo "Copy Flix TOML files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
+        fi
+        cp -r "$toml_file" "$TARGET_DIR/"
+    fi
+    if $DEBUG; then
+        debug "\"$JAVA_CMD\" -jar \"$(mixed_path $FLIX_JAR)\" doc"
+    elif $VERBOSE; then
+        echo "Generate documentation" 1>&2
+    fi
+    pushd "$TARGET_DIR" 1>/dev/null
+    eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" doc
+    if [[ $? -ne 0 ]]; then
+        popd 1>/dev/null
+        error "Failed to generate documentation"
+        cleanup 1
+    fi
+    popd 1>/dev/null
+}
+
 run() {
     local boot_cpath=
     for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
@@ -432,13 +465,13 @@ PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/flix-examples"
 PROJECT_VERSION="1.0-SNAPSHOT"
 
-SOURCE_DIR=$ROOT_DIR/src
-SOURCE_MAIN_DIR=$SOURCE_DIR/main
-SOURCE_TEST_DIR=$SOURCE_DIR/test
-TARGET_DIR=$ROOT_DIR/target
-TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
-TARGET_BUILD_DIR=$TARGET_APP_DIR/build
-TARGET_LIB_DIR=$TARGET_APP_DIR/lib
+SOURCE_DIR="$ROOT_DIR/src"
+SOURCE_MAIN_DIR="$SOURCE_DIR/main"
+SOURCE_TEST_DIR="$SOURCE_DIR/test"
+TARGET_DIR="$ROOT_DIR/target"
+TARGET_APP_DIR="$TARGET_DIR/$PROJECT_NAME"
+TARGET_BUILD_DIR="$TARGET_APP_DIR/build"
+TARGET_LIB_DIR="$TARGET_APP_DIR/lib"
 
 ## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
 APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
@@ -447,6 +480,7 @@ CLEAN=false
 COMPILE=false
 DEBUG=false
 DECOMPILE=false
+DOC=false
 HELP=false
 NIGHTLY=false
 RUN=false
@@ -524,6 +558,9 @@ if $COMPILE; then
 fi
 if $DECOMPILE; then
     decompile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

@@ -69,7 +69,7 @@ if not exist "%FLIX_HOME%\flix.jar" (
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
 
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe
@@ -400,6 +400,20 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 ) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
 ) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
 ) else ( set _NEWER=0
+)
+goto :eof
+
+:doc
+set __BUILD_OPTS=
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" doc %__BUILD_OPTS% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate documentation 1>&2
+)
+call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" doc %__BUILD_OPTS%
+if not %ERRORLEVEL%==0 (
+    echo %_ERROR_LABEL% Failed to generate documentation 1>&2
+    set _EXITCODE=1
+    goto :eof
 )
 goto :eof
 

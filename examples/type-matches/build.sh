@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -52,18 +52,19 @@ args() {
         -nightly)  NIGHTLY=true ;;
         -verbose)  VERBOSE=true ;;
         -*)
-            error "Unknown option $arg"
+            error "Unknown option \"$arg\""
             EXITCODE=1 && return 0
             ;;
         ## subcommands
         clean)     CLEAN=true ;;
         compile)   COMPILE=true ;;
         decompile) COMPILE=true && DECOMPILE=true ;;
+        doc)       DOC=true ;;
         help)      HELP=true ;;
         run)       COMPILE=true && RUN=true ;;
         test)      COMPILE=true && TEST=true ;;
         *)
-            error "Unknown subcommand $arg"
+            error "Unknown subcommand \"$arg\""
             EXITCODE=1 && return 0
             ;;
         esac
@@ -105,15 +106,16 @@ help() {
 Usage: $BASENAME { <option> | <subcommand> }
 
   Options:
-    -debug       display commands executed by this script
+    -debug       print commands executed by this script
     -nightly     select latest Flix nightly build if locally available
-    -verbose     display progress messages
+    -verbose     print progress messages
 
   Subcommands:
     clean        delete generated files
-    compile      compile Scala/Flix source files
+    compile      compile Flix source files
     decompile    decompile generated code with CFR
-    help         display this help message
+    doc          generate HTML documentation
+    help         print this help message
     run          execute Flix program "$PROJECT_NAME"
     test         run the unit tests
 EOS
@@ -127,7 +129,10 @@ clean() {
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
-        [[ $? -eq 0 ]] || ( EXITCODE=1 && return 0 )
+        if [[ $? -ne 0 ]]; then
+            error "Failed to delete directory \"${TARGET_DIR/$ROOT_DIR\//}\""
+            EXITCODE=1 && return 0
+        fi
     fi
 }
 
@@ -316,7 +321,7 @@ decompile() {
         echo "Save generated Java source files to file \"${output_file/$ROOT_DIR\//}\"" 1>&2
     fi
     local java_files=
-    for f in $(find "$output_dir/" -type f -name *.java 2>/dev/null); do
+    for f in $(find "$output_dir/" -type f -name "*.java" 2>/dev/null); do
         java_files="$java_files $(mixed_path $f)"
     done
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
@@ -336,7 +341,7 @@ decompile() {
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
         elif $VERBOSE; then
-            echo "Compare output file with check file ${check_file/$ROOT_DIR\//}" 1>&2
+            echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"
         if [[ $? -ne 0 ]]; then
@@ -344,6 +349,33 @@ decompile() {
             cleanup 1
         fi
     fi
+}
+
+doc() {
+    [[ -d "$TARGET_DIR" ]] || mkdir -p "$TARGET_DIR"
+
+    local toml_file="$ROOT_DIR/flix.toml"
+    if [[ -f "$toml_file" ]]; then
+        if $DEBUG; then
+            debug "cp -r \"$toml_file\" \"TARGET_DIR\""
+        elif $VERBOSE; then
+           echo "Copy Flix TOML files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
+        fi
+        cp -r "$toml_file" "$TARGET_DIR/"
+    fi
+    if $DEBUG; then
+        debug "\"$JAVA_CMD\" -jar \"$(mixed_path $FLIX_JAR)\" doc"
+    elif $VERBOSE; then
+        echo "Generate documentation" 1>&2
+    fi
+    pushd "$TARGET_DIR" 1>/dev/null
+    eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" doc
+    if [[ $? -ne 0 ]]; then
+        popd 1>/dev/null
+        error "Failed to generate documentation"
+        cleanup 1
+    fi
+    popd 1>/dev/null
 }
 
 run() {
@@ -394,20 +426,22 @@ PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/flix-examples"
 PROJECT_VERSION="1.0-SNAPSHOT"
 
-SOURCE_DIR=$ROOT_DIR/src
-SOURCE_MAIN_DIR=$SOURCE_DIR/main
-SOURCE_TEST_DIR=$SOURCE_DIR/test
-TARGET_DIR=$ROOT_DIR/target
-TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
-TARGET_BUILD_DIR=$TARGET_APP_DIR/build
-TARGET_LIB_DIR=$TARGET_APP_DIR/lib
+SOURCE_DIR="$ROOT_DIR/src"
+SOURCE_MAIN_DIR="$SOURCE_DIR/main"
+SOURCE_TEST_DIR="$SOURCE_DIR/test"
+TARGET_DIR="$ROOT_DIR/target"
+TARGET_APP_DIR="$TARGET_DIR/$PROJECT_NAME"
+TARGET_BUILD_DIR="$TARGET_APP_DIR/build"
+TARGET_LIB_DIR="$TARGET_APP_DIR/lib"
 
-APP_JAR="$TARGET_APP_DIR/$PROJECT_NAME.jar"
+## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
+APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
 CLEAN=false
 COMPILE=false
 DEBUG=false
 DECOMPILE=false
+DOC=false
 HELP=false
 NIGHTLY=false
 RUN=false
@@ -422,10 +456,10 @@ mingw=false
 msys=false
 darwin=false
 case "$(uname -s)" in
-  CYGWIN*) cygwin=true ;;
-  MINGW*)  mingw=true ;;
-  MSYS*)   msys=true ;;
-  Darwin*) darwin=true
+    CYGWIN*) cygwin=true ;;
+    MINGW*)  mingw=true ;;
+    MSYS*)   msys=true ;;
+    Darwin*) darwin=true
 esac
 unset CYGPATH_CMD
 PSEP=":"
@@ -478,6 +512,9 @@ if $COMPILE; then
 fi
 if $DECOMPILE; then
     decompile || cleanup 1
+fi
+if $DOC; then
+    doc || cleanup 1
 fi
 if $RUN; then
     run || cleanup 1

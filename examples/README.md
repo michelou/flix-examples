@@ -63,7 +63,7 @@ Execute Flix program "target\areas\artifact\areas.jar"
 During compilation we run the two [Flix] commands `build` <sup id="anchor_01">[1](#footnote_01)</sup> and `build-jar` to successively generate the Java class files in subdirectory `target\areas\build\` and the target file `target\areas\artifact\areas.jar` :
 
 <pre style="font-size:80%;">
-<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas |<a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">findstr</a> /v /b [A-Z]</b>
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f areas | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">findstr</a> /v /b [A-Z]</b>
 \---areas
    |   .gitignore
    |   areas.jar-test.txt
@@ -105,12 +105,12 @@ Passed: 2, Failed: 0. Skipped: 0. Elapsed: 4,0ms.
 >     <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html">make</a> run</b>
 >    [ -d "target/areas" ] || "C:/opt/Git/usr/bin/mkdir.exe" -p "target/areas"
 >    cd "target/areas"; \
->         [ -d "build" ] || "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.48.0/flix.jar" init && \
+>         [ -d "build" ] || "C:/opt/jdk-temurin-21.0.4_7/bin/java.exe" -jar "C:\opt\flix\flix.jar" init && \
 >         "C:/opt/Git/usr/bin/rm.exe" -f "src/Main.flix" && \
 >         "C:/opt/Git/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
->         "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.48.0/flix.jar" build && \
->         "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.48.0/flix.jar" build-jar
->    "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe"  -jar "target/areas/artifact/areas.jar"
+>         "C:/opt/jdk-temurin-21.0.4_7/bin/java.exe" -jar "C:\opt\flix\flix.jar" build && \
+>         "C:/opt/jdk-temurin-21.0.4_7/bin/java.exe" -jar "C:\opt\flix\flix.jar" build-jar
+>    "C:/opt/jdk-temurin-21.0.4_7/bin/java.exe"  -jar "target/areas/artifact/areas.jar"
 >    2 :: 6 :: Nil
 >    2 :: 6 :: Nil
 >    &nbsp;
@@ -160,12 +160,10 @@ This project has the following directory structure :
 |   <a href="./channels/build.xml">build.xml</a>
 |   <a href="./channels/gradle.properties">gradle.properties</a>
 |   <a href="./channels/Makefile">Makefile</a>
-|
-\---src
-    +---main
+\---<b>src</b>
+    +---<b>main</b>
     |       <a href="./channels/src/main/Main.flix">Main.flix</a>
-    |
-    \---test
+    \---<b>test</b>
             <a href="./channels/src/test/TestMain.flix">TestMain.flix</a>
 </pre>
 
@@ -176,7 +174,7 @@ Command [**`build.bat -verbose run`**](./channels/build.bat) generates the targe
 Copy 1 Flix source file to directory "target\channels\src\"
 Compile 1 Flix source file to directory "target\channels\build\"
 Create archive file "target\channels\artifact\channels.jar"
-Extract Flix runtime from archive file "C:\opt\flix-0.48.0\flix.jar"
+Extract Flix runtime from archive file "C:\opt\flix\flix.jar"
 Add Flix runtime to archive file "target\channels\artifact\channels.jar"
 Execute Flix program "target\channels\artifact\channels.jar"
 1 :: 2 :: 3 :: Nil
@@ -270,6 +268,24 @@ Execute Flix program "target\datalog-constraints\datalog-constraints.jar"
 -->
 ### <span id="fibonacci">`fibonacci` Example</span> [**&#x25B4;**](#top)
 
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
+|   <a href="./fibonacci/build.bat">build.bat</a>
+|   <a href="./fibonacci/build.gradle">build.gradle</a>
+|   <a href="./fibonacci/build.sh">build.sh</a>
+|   <a href="./fibonacci/build.xml">build.xml</a>
+|   <a href="./fibonacci/gradle.properties">gradle.properties</a>
+|   <a href="./fibonacci/Makefile">Makefile</a>
+|   <a href="./fibonacci/pom.xml">pom.xml</a>
+\---<b>src</b>
+    +---<b>main</b>
+    |       <a href="./fibonacci/src/main/Main.flix">Main.flix</a>
+    \---<b>test</b>
+            <a href="./fibonacci/src/test/TestMain.flix">TestMain.flix</a>
+</pre>
+
 Command [**`build.bat -verbose run`**](./fibonacci/build.bat) generates the target file `target\fibonacci\fibonacci.jar` from the [Flix] source file [`src\main\Main.flix`](./fibonacci/src/main/Main.flix) and executes the target file :
 
 <pre style="font-size:80%;">
@@ -299,7 +315,7 @@ Passed: 1, Failed: 0. Skipped: 0. Elapsed: 5,8ms.
 
 ### <span id="lambda_calculus">`lambda-calculus` Example</span>
 
-This example is slightly more complex than the other examples because it contains several source files, including the [Scala] source file [`Counter.scala`](./lambda-calculus/src/main/Counter.scala).
+This example is slightly more complex than the others because it contains several source files, including the [Scala] source file [`Counter.scala`](./lambda-calculus/src/main/Counter.scala).
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr">findstr</a> /v /b [A-Z]</b>
@@ -333,25 +349,42 @@ Concretely we perform two additional steps before calling the [Flix] commands **
 [build] Properties : _PROJECT_NAME=lambda-calculus
 [build] Options    : _NIGHTLY=0 _VERBOSE=0
 [build] Subcommands: _COMMANDS= clean compile run
-[build] Variables  : "FLIX_HOME=C:\opt\flix-0.48.0"
-[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-21.0.2_13"
+[build] Variables  : "FLIX_HOME=C:\opt\flix"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-21.0.4_7"
 [build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.12"
 [build] rmdir /s /q "F:\examples\lambda-calculus\target"
 [build] 00000000000000 Target : 'F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar'
 [build] 20220924220123 Sources: 'F:\examples\lambda-calculus\src\main\*.flix'
 [build] _ACTION_REQUIRED=1
-[build] "C:\opt\jdk-temurin-21.0.2_13\bin\java.exe" -jar "C:\opt\flix-0.48.0\flix.jar" init
+[build] "C:\opt\jdk-temurin-21.0.4_7\bin\java.exe" -jar "C:\opt\flix\flix.jar" init
 [build] xcopy /s /y "F:\examples\lambda-calculus\src\main" "F:\examples\lambda-calculus\target\lambda-calculus\src\" 1>NUL
-[build] "C:\opt\scala-2.13.12\bin\scalac.bat" -cp "C:\opt\flix-0.48.0\flix.jar" -d "F:\examples\lambda-calculus\target\lambda-calculus\lib"  "F:\examples\lambda-calculus\target\lambda-calculus\src\Counter.scala"
-[build] "C:\opt\jdk-temurin-21.0.2_13\bin\jar.exe" cf "F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -C "F:\examples\lambda-calculus\target\lambda-calculus\lib" .
-[build] "C:\opt\jdk-temurin-21.0.2_13\bin\java.exe" -cp "F:\examples\lambda-calculus\target\lambda-calculus\build" -jar "C:\opt\flix-0.48.0\flix.jar" build --explain
-[build] "C:\opt\jdk-temurin-21.0.2_13\bin\java.exe" -jar "C:\opt\flix-0.48.0\flix.jar" build-jar
-[build] "C:\opt\jdk-temurin-21.0.2_13\bin\java.exe" "-Xbootclasspath/a:F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -jar "F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar"
+[build] "C:\opt\scala-2.13.12\bin\scalac.bat" -cp "C:\opt\flix\flix.jar" -d "F:\examples\lambda-calculus\target\lambda-calculus\lib"  "F:\examples\lambda-calculus\target\lambda-calculus\src\Counter.scala"
+[build] "C:\opt\jdk-temurin-21.0.4_7\bin\jar.exe" cf "F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -C "F:\examples\lambda-calculus\target\lambda-calculus\lib" .
+[build] "C:\opt\jdk-temurin-21.0.4_7\bin\java.exe" -cp "F:\examples\lambda-calculus\target\lambda-calculus\build" -jar "C:\opt\flix\flix.jar" build --explain
+[build] "C:\opt\jdk-temurin-21.0.4_7\bin\java.exe" -jar "C:\opt\flix\flix.jar" build-jar
+[build] "C:\opt\jdk-temurin-21.0.4_7\bin\java.exe" "-Xbootclasspath/a:F:\examples\lambda-calculus\target\lambda-calculus\lib\lib-lambda-calculus.jar" -jar "F:\examples\lambda-calculus\target\lambda-calculus\lambda-calculus.jar"
 Abs(1, Abs(0, Var(0)))
 [build] _EXITCODE=0
 </pre>
 
 ### <span id="mutability">`mutability` Example</span> [**&#x25B4;**](#top)
+
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./mutability/build.bat">build.bat</a>
+|   <a href="./mutability/build.gradle">build.gradle</a>
+|   <a href="./mutability/build.sh">build.sh</a>
+|   <a href="./mutability/build.xml">build.xml</a>
+|   <a href="./mutability/gradle.properties">gradle.properties</a>
+|   <a href="./mutability/Makefile">Makefile</a>
+\---<b>src</b>
+    +---<b>main</b>
+    |       <a href="./mutability/src/main/Main.flix">Main.flix</a>
+    \---<b>test</b>
+            <a href="./mutability/src/test/TestMain.flix">TestMain.flix</a>
+</pre>
 
 Command [`build.bat`](./mutability/build.bat)` -debug run` generates the target file `target\mutability\mutability.jar` from the [Flix] source file [`src\Main.flix`](./mutability/src/Main.flix) and runs the target file :
 
@@ -360,17 +393,17 @@ Command [`build.bat`](./mutability/build.bat)` -debug run` generates the target 
 [build] Properties : _PROJECT_NAME=mutability
 [build] Options    : _NIGHTLY=0 _VERBOSE=0
 [build] Subcommands: _COMMANDS= compile run
-[build] Variables  : "FLIX_HOME=C:\opt\flix-0.48.0"
-[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-21.0.2_13"
-[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.12"
+[build] Variables  : "FLIX_HOME=C:\opt\flix"
+[build] Variables  : "JAVA_HOME=C:\opt\jdk-temurin-21.0.4_7"
+[build] Variables  : "SCALA_HOME=C:\opt\scala-2.13.14"
 [build] 00000000000000 Target : 'F:\examples\mutability\target\mutability\mutability.jar'
 [build] 20220908185859 Sources: 'F:\examples\mutability\src\*.flix'
 [build] _ACTION_REQUIRED=1
-[build] "C:\opt\jdk-temurin-21.0.2_13\bin\java.exe" -jar "C:\opt\flix-0.48.0\flix.jar" init
+[build] "C:\opt\jdk-temurin-21.0.4_7\bin\java.exe" -jar "C:\opt\flix\flix.jar" init
 [build] xcopy /s /y "F:\examples\mutability\src" "F:\examples\mutability\target\mutability\src\" 1>NUL
-[build] "C:\opt\jdk-temurin-21.0.2_13\bin\java.exe" -jar "C:\opt\flix-0.48.0\flix.jar" build
-[build] "C:\opt\jdk-temurin-21.0.2_13\bin\java.exe" -jar "C:\opt\flix-0.48.0\flix.jar" build-jar
-[build] "C:\opt\jdk-temurin-21.0.2_13\bin\java.exe"  -jar "F:\examples\mutability\target\mutability\mutability.jar"
+[build] "C:\opt\jdk-temurin-21.0.4_7\bin\java.exe" -jar "C:\opt\flix\flix.jar" build
+[build] "C:\opt\jdk-temurin-21.0.4_7\bin\java.exe" -jar "C:\opt\flix\flix.jar" build-jar
+[build] "C:\opt\jdk-temurin-21.0.4_7\bin\java.exe"  -jar "F:\examples\mutability\target\mutability\mutability.jar"
 1 :: 2 :: 3 :: Nil
 [build] _EXITCODE=0
 </pre>
@@ -396,7 +429,7 @@ BUILD SUCCESSFUL in 18s
 
 ### <span id="primes">`primes` Example</span>
 
-This project has the following directory structure :
+This example has the following directory structure :
 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
@@ -435,7 +468,27 @@ Running 2 tests...
 Passed: 2, Failed: 0. Skipped: 0. Elapsed: 5,7ms.
 </pre>
 
+<!--=======================================================================-->
+
 ### <span id="records">`records` Example</span> [**&#x25B4;**](#top)
+
+This example has the following directory structure :
+
+<pre style="font-size:80%;">
+<b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tree" rel="external">tree</a> /f /a . | <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/findstr" rel="external">findstr</a> /v /b [A-Z]</b>
+|   <a href="./records/build.bat">build.bat</a>
+|   <a href="./records/build.gradle">build.gradle</a>
+|   <a href="./records/build.sh">build.sh</a>
+|   <a href="./records/build.xml">build.xml</a>
+|   <a href="./records/gradle.properties">gradle.properties</a>
+|   <a href="./records/Makefile">Makefile</a>
+|   <a href="./records/pom.xml">pom.xml</a>
+\---<b>src</b>
+    +---<b>main</b>
+    |       <a href="./records/src/main/Main.flix">Main.flix</a>
+    \---<b>test</b>
+            <a href="./records/src/test/TestMain.flix">TestMain.flix</a>
+</pre>
 
 Command [**`build.bat run`**](./records/build.bat) generates the target file `target\records\artifact\records.jar` from the [Flix] source file [`src\main\Main.flix`](./records/src/main/Main.flix) and executes the target file :
 
@@ -476,7 +529,7 @@ Map#{1 => Ok(123), 2 => Err(Hello)}
 We give option <code><b>--help</b></code> to display the Flix commands :
 <pre style="font-size:80%;">
 <b>&gt; "%JAVA_HOME%\bin\java.exe" -jar "%FLIX_HOME%\flix.jar" --help</b>
-The Flix Programming Language v0.48.0
+The Flix Programming Language v0.49.0
 Usage: flix [init|check|build|build-jar|build-pkg|run <b>↲</b><br/>&emsp;|benchmark|test|repl|install|lsp] [options] &lt;args&gt;...
 &nbsp;
 Command: <a href=""><b>init</b></a>
@@ -568,7 +621,7 @@ We can select the latest nightly build of the <a href="https://flix.dev/" rel="e
 Here is how it works with the <code>areas</code> example :
 <pre style="font-size:80%;">
 <b>&gt; <a href="./areas/build.bat">build</a> -verbose -nightly clean run</b>
-Nightly build "flix-2024-02-24.jar" was selected
+Nightly build "flix-2024-08-16.jar" was selected
 Delete directory "target"
 Initialize Flix project directory "target\areas"
 Copy 1 Flix source file to directory "target\areas\src\"
@@ -583,12 +636,12 @@ Execute Flix program "target\areas\artifact\areas.jar"
 <b>&gt; <a href="https://www.gnu.org/software/make/manual/make.html" rel="external">make</a> NIGHTLY=1 run</b>
 [ -d "target/areas" ] || "C:/opt/Git/usr/bin/mkdir.exe" -p "target/areas"
 cd "target/areas"; \
-        [ -d "build" ] || "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.48.0/flix-2023-12-14.jar" init && \
+        [ -d "build" ] || "C:/opt/jdk-temurin-21.0.4_7/bin/java.exe" -jar "C:\opt\flix\flix-2024-08-16.jar" init && \
         "C:/opt/Git/usr/bin/rm.exe" -f "src/Main.flix" && \
         "C:/opt/Git/usr/bin/cp.exe" -r "F:/examples/areas/src/main/." src && \
-        "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.48.0/flix-2024-02-24.jar" build && \
-        "C:/opt/jdk-temurin-21.0.2_13/bin/java.exe" -jar "C:\opt\flix-0.48.0/flix-2024-02-24.jar" build-jar
-"C:/opt/jdk-temurin-21.0.2_13/bin/java.exe"  -jar "target/areas/areas.jar"
+        "C:/opt/jdk-temurin-21.0.4_7/bin/java.exe" -jar "C:\opt\flix\flix-2024-08-16.jar" build && \
+        "C:/opt/jdk-temurin-21.0.4_7/bin/java.exe" -jar "C:\opt\flix\flix-2024-08-16.jar" build-jar
+"C:/opt/jdk-temurin-21.0.4_7/bin/java.exe"  -jar "target/areas/areas.jar"
 2 :: 6 :: Nil
 2 :: 6 :: Nil
 </pre>
@@ -596,7 +649,7 @@ cd "target/areas"; \
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> -Dnightly run</b>
 &nbsp;
 &gt; Configure project :
-Nightly build 'flix-2024-02-24.jar' was selected
+Nightly build 'flix-2024-08-16.jar' was selected
 &nbsp;
 &g; Task :compileFlix
 &nbsp;

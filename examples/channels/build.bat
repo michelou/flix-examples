@@ -186,13 +186,13 @@ set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
 
-if not "%_COMMANDS:decompile=%"=="%_COMMANDS%" if not defined _CFR_CMD (
+if not "!_COMMANDS:decompile=!"=="%_COMMANDS%" if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
     set _COMMANDS=%_COMMANDS:decompile=%
 )
 if %_NIGHTLY%==1 (
     set __NIGHTLY_JAR=
-    for /f %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
+    for /f "delims=" %%i in ('dir /b /a-d "%FLIX_HOME%\flix-*.jar" 2^>NUL') do (
         set "__NIGHTLY_JAR=%%i"
     )
     if defined __NIGHTLY_JAR (
@@ -241,7 +241,7 @@ echo     %__BEG_O%compile%__END%     generate class files
 echo     %__BEG_O%decompile%__END%   decompile generated code with %__BEG_N%CFR%__END%
 echo     %__BEG_O%doc%__END%         generate API documentation
 echo     %__BEG_O%help%__END%        print this help message
-echo     %__BEG_O%run%__END%         execute the generated program "%__BEG_N%!_MAIN_JAR_FILE:%_BUILD_DIR%=!%__END%"
+echo     %__BEG_O%run%__END%         execute the generated program "%__BEG_N%!_MAIN_JAR_FILE:%_BUILD_DIR%\=!%__END%"
 echo     %__BEG_O%test%__END%        execute unit tests
 goto :eof
 
@@ -501,6 +501,25 @@ if not %ERRORLEVEL%==0 (
 )
 goto :eof
 
+:doc
+call :init
+if not %_EXITCODE%==0 goto :eof
+
+pushd "%_BUILD_DIR%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" doc 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation in directory "!__BUILD_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" doc "src\Main.flix"
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to generate the HTML documentation in directory "!__BUILD_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+popd
+goto :eof
+
 :test_compile
 if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
 
@@ -539,6 +558,12 @@ if not exist "%_BUILD_DIR%\build" (
     ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
     call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
+    if not !ERRORLEVEL!==0 (
+        popd
+        echo %_ERROR_LABEL% Failed to initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
+        set _EXITCODE=1
+        goto :eof
+    )
 )
 if exist "%_BUILD_DIR%\src\*.flix" del /q "%_BUILD_DIR%\src\*.flix"
 if exist "%_BUILD_DIR%\test\*.flix" del /q "%_BUILD_DIR%\test\*.flix"

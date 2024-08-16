@@ -11,9 +11,9 @@ include ../Makefile.inc
 
 PROJECT_NAME = $(shell basename $(ROOT_DIR))
 
-SOURCE_DIR  = src
-TARGET_DIR  = target
-BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
+SOURCE_DIR = src
+TARGET_DIR = target
+BUILD_DIR  = $(TARGET_DIR)/$(PROJECT_NAME)
 
 ##############################################################################
 ## main rules
@@ -59,7 +59,11 @@ help:
 ## doc rules
 
 doc:
-	@$(ECHO) "NYI"
+	[ -d "$(BUILD_DIR)" ] || "$(MKDIR)" -p "$(BUILD_DIR)"
+	test -f flix.toml && "$(CP)" flix.toml "$(BUILD_DIR)/"
+	cd "$(BUILD_DIR)"; \
+	"$(CP)" -r "$(realpath $(SOURCE_DIR)/main)/." src && \
+	"$(JAVA)" -jar "$(FLIX_JAR)" doc
 
 ##############################################################################
 ## test rules

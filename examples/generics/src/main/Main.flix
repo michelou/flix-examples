@@ -1,4 +1,4 @@
-// An algebraic data type for binary trees where each leaf carries a value of type a.
+/// An algebraic data type for binary trees where each leaf carries a value of type a.
 enum Tree[a] {
     case Leaf(a),
     case Node(Tree[a], Tree[a])
@@ -31,6 +31,9 @@ def map(f: a -> b, t: Tree[a]): Tree[b] = match t {
 /// Returns a simple tree with two leafs.
 def tree(): Tree[Int32] = Tree.Node(Tree.Leaf(1), Tree.Leaf(2))
 
+//
+/// The main entry point of this Flix program.
+///
 /// Squares all elements in the simple tree.
 def main(): Unit \ IO =
     map(x -> x * x, tree()) |> println

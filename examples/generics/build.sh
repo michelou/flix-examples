@@ -222,8 +222,12 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
-    local n_files="$n Scala source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     if $DEBUG; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif $VERBOSE; then
@@ -244,8 +248,12 @@ compile_flix() {
     for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    local n_files="$n Flix source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Flix source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Flix source file$s"
     if $DEBUG; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
     elif $VERBOSE; then
@@ -352,7 +360,31 @@ decompile() {
 }
 
 doc() {
-    echo $WARNING_LABEL NYI 1>&2
+    [[ -d "$TARGET_DIR" ]] || mkdir -p "$TARGET_DIR"
+    compile_init
+
+    local toml_file="$ROOT_DIR/flix.toml"
+    if [[ -f "$toml_file" ]]; then
+        if $DEBUG; then
+            debug "cp -r \"$toml_file\" \"$TARGET_DIR\""
+        elif $VERBOSE; then
+           echo "Copy Flix TOML files to directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
+        fi
+        cp -r "$toml_file" "$TARGET_DIR/"
+    fi
+    if $DEBUG; then
+        debug "\"$JAVA_CMD\" -jar \"$(mixed_path $FLIX_JAR)\" doc"
+    elif $VERBOSE; then
+        echo "Generate documentation" 1>&2
+    fi
+    pushd "$TARGET_DIR" 1>/dev/null
+    eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" doc
+    if [[ $? -ne 0 ]]; then
+        popd 1>/dev/null
+        error "Failed to generate documentation"
+        cleanup 1
+    fi
+    popd 1>/dev/null
 }
 
 run() {
@@ -403,13 +435,13 @@ PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/flix-examples"
 PROJECT_VERSION="1.0-SNAPSHOT"
 
-SOURCE_DIR=$ROOT_DIR/src
-SOURCE_MAIN_DIR=$SOURCE_DIR/main
-SOURCE_TEST_DIR=$SOURCE_DIR/test
-TARGET_DIR=$ROOT_DIR/target
-TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
-TARGET_BUILD_DIR=$TARGET_APP_DIR/build
-TARGET_LIB_DIR=$TARGET_APP_DIR/lib
+SOURCE_DIR="$ROOT_DIR/src"
+SOURCE_MAIN_DIR="$SOURCE_DIR/main"
+SOURCE_TEST_DIR="$SOURCE_DIR/test"
+TARGET_DIR="$ROOT_DIR/target"
+TARGET_APP_DIR="$TARGET_DIR/$PROJECT_NAME"
+TARGET_BUILD_DIR="$TARGET_APP_DIR/build"
+TARGET_LIB_DIR="$TARGET_APP_DIR/lib"
 
 ## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
 APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"

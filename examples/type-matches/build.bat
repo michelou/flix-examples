@@ -69,7 +69,7 @@ if not exist "%FLIX_HOME%\flix.jar" (
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
 
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe
@@ -169,9 +169,10 @@ goto args_loop
 :args_done
 for %%i in ("%~dp0\.") do set "_PROJECT_NAME=%%~ni"
 
-set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
-set "_MAIN_JAR_FILE=%_BUILD_DIR%\artifact\%_PROJECT_NAME%.jar"
-set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
+set "_TARGET_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
+set "_TARGET_DOC_DIR=%_TARGET_BUILD_DIR%\build\doc"
+set "_MAIN_JAR_FILE=%_TARGET_BUILD_DIR%\artifact\%_PROJECT_NAME%.jar"
+set "_MAIN_JAR_TEST_FILE=%_TARGET_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL
 if %_DEBUG%==1 set _STDERR_REDIRECT=
@@ -250,7 +251,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :compile
-if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
+if not exist "%_TARGET_BUILD_DIR%\" mkdir "%_TARGET_BUILD_DIR%"
 
 call :action_required "%_MAIN_JAR_FILE%" "%_SOURCE_MAIN_DIR%\*.flix"
 if %_ACTION_REQUIRED%==0 goto :eof
@@ -265,21 +266,21 @@ if %__N%==0 (
 ) else if %__N%==1 ( set __N_FILES=%__N% Flix source file
 ) else ( set __N_FILES=%__N% Flix source files
 )
-pushd "%_BUILD_DIR%"
-if not exist "%_BUILD_DIR%\build" (
+pushd "%_TARGET_BUILD_DIR%"
+if not exist "%_TARGET_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
     ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
     call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )
-if exist "%_BUILD_DIR%\src\*.flix" del /q "%_BUILD_DIR%\src\*.flix"
-if exist "%_BUILD_DIR%\test\*.flix" del /q "%_BUILD_DIR%\test\*.flix"
+if exist "%_TARGET_BUILD_DIR%\src\*.flix" del /q "%_TARGET_BUILD_DIR%\src\*.flix"
+if exist "%_TARGET_BUILD_DIR%\test\*.flix" del /q "%_TARGET_BUILD_DIR%\test\*.flix"
 
 @rem xcopy must be called AFTER flix init
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_TARGET_BUILD_DIR%\src\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
 )
-xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1>NUL
+xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_TARGET_BUILD_DIR%\src\" 1>NUL
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
@@ -396,9 +397,39 @@ if %__DATE1% gtr %__DATE2% ( set _NEWER=1
 )
 goto :eof
 
+:doc
+if not exist "%_TARGET_BUILD_DIR%\" mkdir "%_TARGET_BUILD_DIR%"
+
+set "__TOML_FILE=%_ROOT_DIR%flix.toml"
+if exist "%__TOML_FILE%" (
+    if %_DEBUG%==1 ( echo %_DEBUG_LABEL% copy "%__TOML_FILE%" "%_TARGET_BUILD_DIR%\" 1>&2
+    ) else if %_VERBOSE%==1 ( echo Copy TOML file to directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
+    )
+    copy "%__TOML_FILE%" "%_TARGET_BUILD_DIR%\" %_STDERR_REDIRECT%
+)
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_TARGET_BUILD_DIR%\src\" 1^>NUL 1>&2
+) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
+)
+xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_TARGET_BUILD_DIR%\src\" 1>NUL
+
+pushd "%_TARGET_BUILD_DIR%"
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" doc %__BUILD_OPTS% 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation into directory "!_TARGET_DOC_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" doc
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to generate HTML documentation into directory "!_TARGET_DOC_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+popd
+@rem index file of generated documentation is "%_TARGET_DOC_DIR%\index.html"
+goto :eof
+
 :run
 set __BOOT_CPATH=
-for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_TARGET_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
     set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
 )
 set __JAVA_OPTS=
@@ -418,7 +449,7 @@ if not %ERRORLEVEL%==0 (
 goto :eof
 
 :test_compile
-if not exist "%_BUILD_DIR%\" mkdir "%_BUILD_DIR%"
+if not exist "%_TARGET_BUILD_DIR%\" mkdir "%_TARGET_BUILD_DIR%"
 
 if not exist "%_MAIN_JAR_TEST_FILE%" goto test_next
 
@@ -449,28 +480,28 @@ if %__N_TEST%==0 (
 ) else if %__N_TEST%==1 ( set __N_TEST_FILES=%__N_TEST% Flix test source file
 ) else ( set __N_TEST_FILES=%__N_TEST% Flix test source files
 )
-pushd "%_BUILD_DIR%"
-if not exist "%_BUILD_DIR%\build" (
+pushd "%_TARGET_BUILD_DIR%"
+if not exist "%_TARGET_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
     ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
     call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
 )
 @rem xcopy must be called AFTER flix init
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1^>NUL 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_TARGET_BUILD_DIR%\src\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
 )
-xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_BUILD_DIR%\src\" 1>NUL
+xcopy /s /y "%_SOURCE_MAIN_DIR%" "%_TARGET_BUILD_DIR%\src\" 1>NUL
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to copy %__N_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\src\" 1>&2
     set _EXITCODE=1
     goto :eof
 )
-if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_TEST_DIR%" "%_BUILD_DIR%\test\" 1^>NUL 1>&2
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% xcopy /s /y "%_SOURCE_TEST_DIR%" "%_TARGET_BUILD_DIR%\test\" 1^>NUL 1>&2
 ) else if %_VERBOSE%==1 ( echo Copy %__N_TEST_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\test\" 1>&2
 )
-xcopy /s /y "%_SOURCE_TEST_DIR%" "%_BUILD_DIR%\test\" 1>NUL
+xcopy /s /y "%_SOURCE_TEST_DIR%" "%_TARGET_BUILD_DIR%\test\" 1>NUL
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to copy %__N_TEST_FILES% to directory "!_BUILD_DIR:%_ROOT_DIR%=!\test\" 1>&2
@@ -509,7 +540,7 @@ goto :eof
 
 :test
 set __BOOT_CPATH=
-for /f "delims=" %%f in ('dir /s /b "%_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
+for /f "delims=" %%f in ('dir /s /b "%_TARGET_BUILD_DIR%\lib\*.jar" 2^>NUL') do (
     set "__BOOT_CPATH=%__BOOT_CPATH%;%%f"
 )
 set __JAVA_OPTS=
@@ -518,7 +549,7 @@ if defined __BOOT_CPATH set __JAVA_OPTS="-Xbootclasspath/a:%__BOOT_CPATH%" %__JA
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test 1>&2
 ) else if %_VERBOSE%==1 ( echo Execute tests for Flix program "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
-pushd "%_BUILD_DIR%"
+pushd "%_TARGET_BUILD_DIR%"
 call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" test
 if not %ERRORLEVEL%==0 (
     popd

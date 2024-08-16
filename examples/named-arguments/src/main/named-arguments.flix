@@ -8,12 +8,12 @@
 /// Returns true if the `sublist` is contained within the list `l`.
 ///
 pub def contains(sublist: {sublist = List[a]}, l: List[a]): Bool with Eq[a] =
-    match (sublist.sublist, l) {
+    match (sublist#sublist, l) {
         case (Nil, _) => true
         case (_ :: _, Nil) => false
         case (h1 :: t1, h2 :: t2) if h1 == h2 =>
             contains(sublist = t1, t2) or
-            contains(sublist = sublist.sublist, t2)
+            contains(sublist = sublist#sublist, t2)  // before 0.49: sublist.sublist
         case (sub, _ :: t2) => contains(sublist = sub, t2)
     }
 
@@ -36,7 +36,7 @@ pub enum Player({id = Int32}, {score = Int32})
 /// A ToString instance for Player.
 instance ToString[Player] {
     pub def toString(p: Player): String = match p {
-        case Player.Player(r1, r2) => "Player(${r1.id}, ${r2.score})"
+        case Player.Player(r1, r2) => "Player(${r1#id}, ${r2#score})"
     }
 }
 
