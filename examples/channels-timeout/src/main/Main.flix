@@ -1,6 +1,6 @@
 /// Sends the value `x` on the channel `c` after a delay.
 def slow(x: Int32, tx: Sender[Int32, Static]): Unit \ IO =
-    use Time/Duration.fromSeconds;
+    use Time.Duration.fromSeconds;
     Thread.sleep(fromSeconds(10));
     Channel.send(x, tx)
 
@@ -15,7 +15,7 @@ def recvWithDefault(rx: Receiver[Int32, Static]): Int32 \ IO =
 /// Reads a value from the channel `c`.
 /// Returns the default value `2` if after a timeout.
 def recvWithTimeout(rx: Receiver[Int32, Static]): Int32 \ IO =
-    use Time/Duration.fromSeconds;
+    use Time.Duration.fromSeconds;
     let t = Channel.timeout(fromSeconds(1));
     select {
         case x <- Channel.recv(rx) => x

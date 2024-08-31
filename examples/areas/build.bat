@@ -70,7 +70,7 @@ if not exist "%FLIX_HOME%\flix.jar" (
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
 
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe

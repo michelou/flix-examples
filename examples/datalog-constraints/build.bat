@@ -159,7 +159,7 @@ if "%__ARG:~0,1%"=="-" (
 shift
 goto args_loop
 :args_done
-for %%i in ("%_ROOT_DIR:~0,-1%") do set "_PROJECT_NAME=%%~ni"
+for /f "delims=" %%i in ("%_ROOT_DIR:~0,-1%") do set "_PROJECT_NAME=%%~ni"
 
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
 @rem Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.

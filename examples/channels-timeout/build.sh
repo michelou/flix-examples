@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (c) 2018-2023 Stéphane Micheloud
+# Copyright (c) 2018-2024 Stéphane Micheloud
 #
 # Licensed under the MIT License.
 #
@@ -20,7 +20,7 @@ getHome() {
 
 debug() {
     local DEBUG_LABEL="[46m[DEBUG][0m"
-    $DEBUG && echo "$DEBUG_LABEL $1" 1>&2
+    [[ $DEBUG -eq 1 ]] && echo "$DEBUG_LABEL $1" 1>&2
 }
 
 warning() {
@@ -42,53 +42,53 @@ cleanup() {
 }
 
 args() {
-    [[ $# -eq 0 ]] && HELP=true && return 1
+    [[ $# -eq 0 ]] && HELP=1 && return 1
 
     for arg in "$@"; do
         case "$arg" in
         ## options
-        -debug)    DEBUG=true ;;
-        -help)     HELP=true ;;
-        -nightly)  NIGHTLY=true ;;
-        -verbose)  VERBOSE=true ;;
+        -debug)    DEBUG=1 ;;
+        -help)     HELP=1 ;;
+        -nightly)  NIGHTLY=1 ;;
+        -verbose)  VERBOSE=1 ;;
         -*)
-            error "Unknown option $arg"
+            error "Unknown option \"$arg\""
             EXITCODE=1 && return 0
             ;;
         ## subcommands
-        clean)     CLEAN=true ;;
-        compile)   COMPILE=true ;;
-        decompile) COMPILE=true && DECOMPILE=true ;;
-        help)      HELP=true ;;
-        run)       COMPILE=true && RUN=true ;;
-        test)      COMPILE=true && TEST=true ;;
+        clean)     CLEAN=1 ;;
+        compile)   COMPILE=1 ;;
+        decompile) COMPILE=1 && DECOMPILE=1 ;;
+        help)      HELP=1 ;;
+        run)       COMPILE=1 && RUN=1 ;;
+        test)      COMPILE=1 && TEST=1 ;;
         *)
-            error "Unknown subcommand $arg"
+            error "Unknown subcommand \"$arg\""
             EXITCODE=1 && return 0
             ;;
         esac
     done
-    if $NIGHTLY; then
+    if [[ $NIGHTLY -eq 1 ]]; then
         local nightly_jar=
         for f in $(find "$FLIX_HOME/" -type f -name "flix-*.jar" 2>/dev/null); do
             nightly_jar="$f"
         done
         if [[ -f "$nightly_jar" ]]; then
-            if $DEBUG; then
+            if [[ $DEBUG -eq 1 ]]; then
                 debug "Nightly build \"$nightly_jar\" was selected"
-            elif $VERBOSE; then
+            elif [[ $VERBOSE -eq 1 ]]; then
                 echo "Nightly build \"$nightly_jar\" was selected" 1>&2
             fi
             set FLIX_JAR="$nightly_jar"
         else
-            set NIGHTLY=false
+            set NIGHTLY=0
             warning "Nightly build of Flix not found (use release version instead)"
             warning "         It can be downloaded from https://flix.dev/nightly/."
         fi
     fi
-    if $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
+    if [[ $DECOMPILE -eq 1 ]] && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
-        DECOMPILE=false
+        DECOMPILE=0
     fi
     debug "Options    : DEBUG=$DEBUG NIGHTLY=$NIGHTLY VERBOSE=$VERBOSE"
     debug "Subcommands: CLEAN=$CLEAN COMPILE=$COMPILE DECOMPILE=$DECOMPILE HELP=$HELP RUN=$RUN"
@@ -121,9 +121,9 @@ EOS
 
 clean() {
     if [[ -d "$TARGET_DIR" ]]; then
-        if $DEBUG; then
+        if [[ $DEBUG -eq 1 ]]; then
             debug "Delete directory \"$TARGET_DIR\""
-        elif $VERBOSE; then
+        elif [[ $VERBOSE -eq 1 ]]; then
             echo "Delete directory \"${TARGET_DIR/$ROOT_DIR\//}\"" 1>&2
         fi
         rm -rf "$TARGET_DIR"
@@ -151,9 +151,9 @@ compile() {
 compile_init() {
     [[ -d "$TARGET_APP_DIR/build" ]] && return 1
 
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" init"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Initialize directory \"${TARGET_APP_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     pushd "$TARGET_APP_DIR" 1>/dev/null
@@ -169,18 +169,18 @@ compile_init() {
     rm -rf "$TARGET_APP_DIR/test/"*.flix
 
     local target_src_dir="$TARGET_APP_DIR/src"
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "cp -r \"$SOURCE_MAIN_DIR/\"*.flix \"$target_src_dir/\""
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Copy Flix source files to directory \"${target_src_dir/$ROOT_DIR\//}\"" 1>&2
     fi
     cp -r "$SOURCE_MAIN_DIR/"*.flix "$target_src_dir/"
 
     [[ -z "$(ls -R $SOURCE_TEST_DIR/*.flix 2>/dev/null)" ]] && return 1
     local target_test_dir="$TARGET_APP_DIR/test"
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "cp -r \"$SOURCE_TEST_DIR/\"*.flix \"$target_test_dir/\""
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Copy Flix test source files to directory \"${target_test_dir/$ROOT_DIR\//}\"" 1>&2
     fi
     cp -r "$SOURCE_TEST_DIR/"*.flix "$target_test_dir/"
@@ -219,9 +219,9 @@ compile_scala() {
     done
     local n_files="$n Scala source file"
     [[ $n -gt 1 ]] && n_files="${n_files}s"
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Compile $n_files to directory \"${TARGET_LIB_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$SCALAC_CMD" "@$(mixed_path $opts_file)" "@$(mixed_path $sources_file)"
@@ -241,9 +241,9 @@ compile_flix() {
     done
     local n_files="$n Flix source file"
     [[ $n -gt 1 ]] && n_files="${n_files}s"
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\"" 1>&2
     fi
     pushd "$TARGET_APP_DIR" 1>/dev/null
@@ -253,9 +253,9 @@ compile_flix() {
         error "Failed to compile $n_files to directory \"${TARGET_BUILD_DIR/$ROOT_DIR\//}\""
         cleanup 1
     fi
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build-jar"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Create JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" build-jar
@@ -272,9 +272,9 @@ compile_flix() {
 
 flix_runtime() {
     local unzip_opts=-q
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$UNZIP_CMD $unzip_opts \"$(mixed_path $FLIX_JAR)\" \"ca/uwaterloo/flix/runtime/**\" -d \"$(mixed_path $TARGET_DIR/flix)\""
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Extract class files from JAR file \"$FLIX_JAR\"" 1>&2
     fi
     eval "$UNZIP_CMD" $unzip_opts "$(mixed_path $FLIX_JAR)" "ca/uwaterloo/flix/runtime/**" -d "$(mixed_path $TARGET_DIR/flix)"
@@ -283,9 +283,9 @@ flix_runtime() {
         cleanup 1
     fi
     pushd "$TARGET_DIR/flix" 1>/dev/null
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$JAR_CMD -uf \"$(mixed_path $APP_JAR)\" -C . *"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Update JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAR_CMD" -uf "$(mixed_path $APP_JAR)" -C . *
@@ -300,7 +300,7 @@ flix_runtime() {
 mixed_path() {
     if [[ -x "$CYGPATH_CMD" ]]; then
         $CYGPATH_CMD -am $1
-    elif $mingw || $msys; then
+    elif [[ $(($mingw + $msys)) -gt 0 ]]; then
         echo $1 | sed 's|/|\\\\|g'
     else
         echo $1
@@ -311,7 +311,7 @@ decompile() {
     local output_dir="$TARGET_DIR/cfr-sources"
     [[ -d "$output_dir" ]] || mkdir -p "$output_dir"
 
-    local cfr_opts="--extraclasspath "$(extra_cpath)" --outputdir "$(mixed_path $output_dir)""
+    local cfr_opts="--extraclasspath \"$(extra_cpath)\" --outputdir \"$(mixed_path $output_dir)\""
 
     local n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
     local class_dirs=
@@ -320,7 +320,7 @@ decompile() {
         n="$(ls -n $CLASSES_DIR/*.class | wc -l)"
         [[ $n -gt 0 ]] && class_dirs="$class_dirs $f"
     done
-    $VERBOSE && echo "Decompile Java bytecode to directory \"${output_dir/$ROOT_DIR\//}\"" 1>&2
+    [[ $VERBOSE -eq 1 ]] && echo "Decompile Java bytecode to directory \"${output_dir/$ROOT_DIR\//}\"" 1>&2
     for f in $class_dirs; do
         debug "$CFR_CMD $cfr_opts $(mixed_path $f)/*.class"
         eval "$CFR_CMD" $cfr_opts "$(mixed_path $f)/*.class" $STDERR_REDIRECT
@@ -337,9 +337,9 @@ decompile() {
     local output_file="$TARGET_DIR/cfr-sources$version_suffix.java"
     echo "// Compiled with $version_string" > "$output_file"
 
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "cat $output_dir/*.java >> $output_file"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Save generated Java source files to file \"${output_file/$ROOT_DIR\//}\"" 1>&2
     fi
     local java_files=
@@ -349,16 +349,16 @@ decompile() {
     [[ -n "$java_files" ]] && cat $java_files >> "$output_file"
 
     if [[ ! -x "$DIFF_CMD" ]]; then
-        if $DEBUG; then
+        if [[ $DEBUG -eq 1 ]]; then
             warning "diff command not found"
-        elif $VERBOSE; then
+        elif [[ $VERBOSE -eq 1 ]]; then
             echo "diff command not found" 1>&2
         fi
         return 0
     fi
     local diff_opts=--strip-trailing-cr
 
-    local check_file="$SOURCE_DIR/build/cfr-source$VERSION_SUFFIX.java"
+    local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
     if [[ -f "$check_file" ]]; then
         if $DEBUG; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
@@ -375,13 +375,13 @@ decompile() {
 
 ## output parameter: _EXTRA_CPATH
 extra_cpath() {
-    if [[ $SCALA_VERSION==3 ]]; then
+    if [[ $SCALA_VERSION -eq 3 ]]; then
         lib_path="$SCALA3_HOME/lib"
     else
         lib_path="$SCALA_HOME/lib"
     fi
     local extra_cpath=
-    for f in $(find "$lib_path/" -type f -name *.jar); do
+    for f in $(find "$lib_path/" -type f -name "*.jar"); do
         extra_cpath="$extra_cpath$(mixed_path $f)$PSEP"
     done
     echo $extra_cpath
@@ -413,14 +413,14 @@ version_string() {
 
 run() {
     local boot_cpath=
-    for f in $(find "$TARGET_LIB_DIR/" -type f -name *.jar 2>/dev/null); do
+    for f in $(find "$TARGET_LIB_DIR/" -type f -name "*.jar" 2>/dev/null); do
         boot_cpath="$boot_cpath$PSEP$(mixed_path $f)"
     done
     local java_opts=
     [[ -n "$boot_cpath" ]] && java_opts="-Xbootclasspath/a:\"$boot_cpath\"" $java_opts
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$JAVA_CMD $java_opts -jar \"$(mixed_path $APP_JAR)\""
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Execute JAR file \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVA_CMD" $java_opts -jar "$(mixed_path $APP_JAR)"
@@ -432,9 +432,9 @@ run() {
 
 run_tests() {
     pushd "$TARGET_APP_DIR" 1>/dev/null
-    if $DEBUG; then
+    if [[ $DEBUG -eq 1 ]]; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" test"
-    elif $VERBOSE; then
+    elif [[ $VERBOSE -eq 1 ]]; then
         echo "Run the unit tests for \"${APP_JAR/$ROOT_DIR\//}\"" 1>&2
     fi
     eval "$JAVA_CMD" -jar "$(mixed_path $FLIX_JAR)" test
@@ -459,43 +459,45 @@ PROJECT_NAME="$(basename $ROOT_DIR)"
 PROJECT_URL="github.com/$USER/flix-examples"
 PROJECT_VERSION="1.0-SNAPSHOT"
 
-SOURCE_DIR=$ROOT_DIR/src
-SOURCE_MAIN_DIR=$SOURCE_DIR/main
-SOURCE_TEST_DIR=$SOURCE_DIR/test
-TARGET_DIR=$ROOT_DIR/target
-TARGET_APP_DIR=$TARGET_DIR/$PROJECT_NAME
-TARGET_BUILD_DIR=$TARGET_APP_DIR/build
-TARGET_LIB_DIR=$TARGET_APP_DIR/lib
+SOURCE_DIR="$ROOT_DIR/src"
+SOURCE_MAIN_DIR="$SOURCE_DIR/main"
+SOURCE_TEST_DIR="$SOURCE_DIR/test"
+TARGET_DIR="$ROOT_DIR/target"
+TARGET_APP_DIR="$TARGET_DIR/$PROJECT_NAME"
+TARGET_BUILD_DIR="$TARGET_APP_DIR/build"
+TARGET_LIB_DIR="$TARGET_APP_DIR/lib"
 
 ## Starting with version 0.35.0 Flix generates the jar file into directory 'artifact'.
 APP_JAR="$TARGET_APP_DIR/artifact/$PROJECT_NAME.jar"
 
-CLEAN=false
-COMPILE=false
-DEBUG=false
-DECOMPILE=false
-HELP=false
-NIGHTLY=false
-RUN=false
-TEST=false
-VERBOSE=false
+## We refrain from using `true` and `false` which are Bash commands
+## (see https://man7.org/linux/man-pages/man1/false.1.html)
+CLEAN=0
+COMPILE=0
+DEBUG=0
+DECOMPILE=0
+HELP=0
+NIGHTLY=0
+RUN=0
+TEST=0
+VERBOSE=0
 
 COLOR_START="[32m"
 COLOR_END="[0m"
 
-cygwin=false
-mingw=false
-msys=false
-darwin=false
+cygwin=0
+mingw=0
+msys=0
+darwin=0
 case "$(uname -s)" in
-    CYGWIN*) cygwin=true ;;
-    MINGW*)  mingw=true ;;
-    MSYS*)   msys=true ;;
-    Darwin*) darwin=true
+    CYGWIN*) cygwin=1 ;;
+    MINGW*)  mingw=1 ;;
+    MSYS*)   msys=1 ;;
+    Darwin*) darwin=1
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if $cygwin || $mingw || $msys; then
+if [[ $(($cygwin + $mingw + $msys)) -gt 0 ]]; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"
@@ -538,21 +540,21 @@ args "$@"
 ##############################################################################
 ## Main
 
-$HELP && help && cleanup
+[[ $HELP -eq 1 ]] && help && cleanup
 
-if $CLEAN; then
+if [[ $CLEAN -eq 1 ]]; then
     clean || cleanup 1
 fi
-if $COMPILE; then
+if [[ $COMPILE -eq 1 ]]; then
     compile || cleanup 1
 fi
-if $DECOMPILE; then
+if [[ $DECOMPILE -eq 1 ]]; then
     decompile || cleanup 1
 fi
-if $RUN; then
+if [[ $RUN -eq 1 ]]; then
     run || cleanup 1
 fi
-if $TEST; then
+if [[ $TEST -eq 1 ]]; then
     run_tests || cleanup 1
 fi
 cleanup

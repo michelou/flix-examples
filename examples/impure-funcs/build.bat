@@ -113,7 +113,7 @@ set _STRONG_BG_BLUE=[104m
 set _BOLD=[1m
 set _UNDERSCORE=[4m
 set _INVERSE=[7m
-sset _RESET=[0m
+set _RESET=[0m
 goto :eof
 
 @rem input parameter: %*

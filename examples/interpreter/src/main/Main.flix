@@ -1,5 +1,5 @@
 def main(): Unit \ IO =
     let r = evalAExp(
-        IfThenElse(Neq(Cst(1), Cst(2)), Cst(42), Cst(21))
+        AExp.IfThenElse(BExp.Neq(AExp.Cst(1), AExp.Cst(2)), AExp.Cst(42), AExp.Cst(21))
     );
     r |> println
