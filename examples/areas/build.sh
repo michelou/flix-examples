@@ -69,15 +69,15 @@ args() {
             ;;
         esac
     done
-    if $NIGHTLY; then
+    if [[ $NIGHTLY -eq 1 ]]; then
         local nightly_jar=
         for f in $(find "$FLIX_HOME/" -type f -name "flix-*.jar" 2>/dev/null); do
             nightly_jar="$f"
         done
         if [[ -f "$nightly_jar" ]]; then
-            if $DEBUG; then
+            if [[ $DEBUG -eq 1 ]]; then
                 debug "Nightly build \"$nightly_jar\" was selected"
-            elif $VERBOSE; then
+            elif [[ $VERBOSE -eq 1 ]]; then
                 echo "Nightly build \"$nightly_jar\" was selected" 1>&2
             fi
             set FLIX_JAR="$nightly_jar"
@@ -87,7 +87,7 @@ args() {
             warning "         It can be downloaded from https://flix.dev/nightly/."
         fi
     fi
-    if $DECOMPILE && [[ ! -x "$CFR_CMD" ]]; then
+    if [[ $DECOMPILE -eq 1 ]] && [[ ! -x "$CFR_CMD" ]]; then
         warning "cfr installation not found"
         DECOMPILE=0
     fi

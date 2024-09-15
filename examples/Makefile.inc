@@ -58,8 +58,8 @@ TOUCH      = touch
 UNZIP      = unzip
 endif
 
-FLIX_VERSION  = 0.46.0
-SCALA_VERSION = 2.13.12
+FLIX_VERSION  = 0.50.0
+SCALA_VERSION = 2.13.14
 
 SCALA_LIB_JAR  = $(shell $(FIND) "$(LOCAL_REPO)/org/scala-lang" -name scala-library-$(SCALA_VERSION).jar)
 

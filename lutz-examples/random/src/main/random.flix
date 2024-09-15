@@ -7,6 +7,6 @@ def printRandom(gen: Random): Unit \ IO =
 def main(): Int32 \ IO =
     // let args = Environment.getArgs();
     let l = List.range(0, 100);
-    let gen = Random.new();
+    let gen = Random.fresh();
     List.forEach(_ -> printRandom(gen), l);
     0
