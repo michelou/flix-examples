@@ -45,7 +45,9 @@ set _WARNING_LABEL=%_STRONG_FG_YELLOW%Warning%_RESET%:
 set "_SOURCE_DIR=%_ROOT_DIR%src"
 set "_SOURCE_MAIN_DIR=%_SOURCE_DIR%\main"
 set "_SOURCE_TEST_DIR=%_SOURCE_DIR%\test"
+
 set "_TARGET_DIR=%_ROOT_DIR%target"
+set "_TARGET_DOCS_DIR=%_TARGET_DIR%\docs"
 
 set _UNZIP_CMD=
 for /f "delims=" %%i in ('where unzip.exe') do set "_UNZIP_CMD=%%i"
@@ -77,7 +79,7 @@ if not exist "%FLIX_HOME%\flix.jar" (
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
 
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe
@@ -508,12 +510,12 @@ if not %_EXITCODE%==0 goto :eof
 pushd "%_BUILD_DIR%"
 
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" doc 1>&2
-) else if %_VERBOSE%==1 ( echo Generate HTML documentation in directory "!__BUILD_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation in directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
 )
 call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" doc "src\Main.flix"
 if not %ERRORLEVEL%==0 (
     popd
-    echo %_ERROR_LABEL% Failed to generate the HTML documentation in directory "!__BUILD_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+    echo %_ERROR_LABEL% Failed to generate the HTML documentation in directory "!_TARGET_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
     set _EXITCODE=1
     goto :eof
 )

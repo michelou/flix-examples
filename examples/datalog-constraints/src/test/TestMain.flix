@@ -12,4 +12,4 @@ def test01(): Bool =
             Interpreter(lang2).
     };
     query facts, rules
-        select (src, dst) from Compiler(src, _, dst) == ("C++", "x86") :: Nil
+        select (src, dst) from Compiler(src, _, dst) == List.toVector(("C++", "x86") :: Nil)

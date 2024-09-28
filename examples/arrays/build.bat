@@ -77,7 +77,7 @@ if not exist "%FLIX_HOME%\flix.jar" (
 )
 set "_FLIX_JAR=%FLIX_HOME%\flix.jar"
 
-@rem use newer PowerShell version if available
+@rem we use the newer PowerShell version if available
 where /q pwsh.exe
 if %ERRORLEVEL%==0 ( set _PWSH_CMD=pwsh.exe
 ) else ( set _PWSH_CMD=powershell.exe
@@ -127,8 +127,8 @@ set _STRONG_BG_BLUE=[104m
 
 @rem we define _RESET in last position to avoid crazy console output with type command
 set _BOLD=[1m
-set _INVERSE=[7m
 set _UNDERSCORE=[4m
+set _INVERSE=[7m
 set _RESET=[0m
 goto :eof
 
@@ -499,6 +499,25 @@ if not %ERRORLEVEL%==0 (
     set _EXITCODE=1
     goto :eof
 )
+goto :eof
+
+:doc
+call :init
+if not %_EXITCODE%==0 goto :eof
+
+pushd "%_BUILD_DIR%"
+
+if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" doc 1>&2
+) else if %_VERBOSE%==1 ( echo Generate HTML documentation in directory "!__BUILD_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+)
+call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" doc "src\Main.flix"
+if not %ERRORLEVEL%==0 (
+    popd
+    echo %_ERROR_LABEL% Failed to generate the HTML documentation in directory "!__BUILD_DOCS_DIR:%_ROOT_DIR%=!" 1>&2
+    set _EXITCODE=1
+    goto :eof
+)
+popd
 goto :eof
 
 :test_compile
