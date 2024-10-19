@@ -59,8 +59,10 @@
 
 ## <span id="talks">Talks</span>
 
- - [The Principles of the Flix Programming Language](https://www.youtube.com/watch?v=RNZeAmp1EaA) (ACM SIGPLAN) by Magnus Madsen, June 2023.
+- [Associated Effects: Flexible Abstractions for Effectful Programming][video_lutze_2024] by Matthew Lutze, PLDI 2024.
+- [With or Without You: Programming with Effect Exclusion][video_lutze_2023] by Matthew Lutze, ICFP 2023.
 - [An Introduction to Functional Imperative Programming in Flix](https://gotoaarhus.com/2023/sessions/2497/an-introduction-to-functional-imperative-programming-in-flix) by Magnus Madsen, May 2023.
+ - [The Principles of the Flix Programming Language][video_madsen_2022] (ACM SIGPLAN) by Magnus Madsen, June 2022.
 
 ## <span id="tools">Tools</span>
 
@@ -89,4 +91,8 @@
 [paper_madsen_2016]: https://cs.au.dk/~magnusm/papers/pldi16/paper.pdf
 [paper_pacak_2022]: https://drops.dagstuhl.de/opus/volltexte/2022/16235/
 [paper_yee_sep_2016]: https://uwspace.uwaterloo.ca/recent-submissions?offset=8316
+[video_lutze_2023]: https://www.youtube.com/watch?v=IyLNJh4Eq0c
+[video_lutze_2024]: https://www.youtube.com/watch?v=HoJaLJEPXW8
+[video_madsen_2023]: https://www.youtube.com/watch?v=2LSOqikNqxM
+[video_madsen_2022]: https://www.youtube.com/watch?v=RNZeAmp1EaA
 [vscode-flix]: https://github.com/flix/vscode-flix

@@ -222,8 +222,12 @@ compile_scala() {
         echo $(mixed_path $f) >> "$sources_file"
         n=$((n + 1))
     done
-    local n_files="$n Scala source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Scala source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Scala source file$s"
     if [[ $DEBUG -eq 1 ]]; then
         debug "$SCALAC_CMD @$(mixed_path $opts_file) @$(mixed_path $sources_file)"
     elif [[ $VERBOSE -eq 1 ]]; then
@@ -244,8 +248,12 @@ compile_flix() {
     for f in $(find "$TARGET_APP_DIR/test/" -type f -name "*.flix" 2>/dev/null); do
         n=$((n + 1))
     done
-    local n_files="$n Flix source file"
-    [[ $n -gt 1 ]] && n_files="${n_files}s"
+    if [[ $n -eq 0 ]]; then
+        warning "No Flix source file found"
+        return 1
+    fi
+    local s=; [[ $n -gt 1 ]] && s="s"
+    local n_files="$n Flix source file$s"
     if [[ $DEBUG -eq 1 ]]; then
         debug "$JAVA_CMD -jar \"$(mixed_path $FLIX_JAR)\" build"
     elif [[ $VERBOSE -eq 1 ]]; then
@@ -465,7 +473,7 @@ case "$(uname -s)" in
 esac
 unset CYGPATH_CMD
 PSEP=":"
-if $cygwin || $mingw || $msys; then
+if [[ $(($cygwin + $mingw + $msys)) -gt 0 ]]; then
     CYGPATH_CMD="$(which cygpath 2>/dev/null)"
     PSEP=";"
     [[ -n "$CFR_HOME" ]] && CFR_HOME="$(mixed_path $CFR_HOME)"

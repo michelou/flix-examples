@@ -184,8 +184,9 @@ set "_MAIN_JAR_FILE=%_BUILD_DIR%\artifact\%_PROJECT_NAME%.jar"
 set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL
-if %_DEBUG%==1 set _STDERR_REDIRECT=
-
+if %_DEBUG%==1 ( set _STDERR_REDIRECT=
+) else if %_VERBOSE%==1 ( set _STDERR_REDIRECT=
+)
 if not "!_COMMANDS:decompile=!"=="%_COMMANDS%" if not defined _CFR_CMD (
     echo %_WARNING_LABEL% cfr installation not found 1>&2
     set _COMMANDS=%_COMMANDS:decompile=%
@@ -285,7 +286,7 @@ if not exist "%_BUILD_DIR%\build" (
     if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init 1>&2
     ) else if %_VERBOSE%==1 ( echo Initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
     )
-    call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init
+    call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" init %_STDERR_REDIRECT%
     if not !ERRORLEVEL!==0 (
         popd
         echo %_ERROR_LABEL% Failed to initialize Flix project directory "!_BUILD_DIR:%_ROOT_DIR%=!" 1>&2
@@ -317,7 +318,7 @@ if not "!_COMMANDS:doc=!"=="%_COMMANDS%" set __BUILD_OPTS=%__BUILD_OPTS% --doc
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% 1>&2
 ) else if %_VERBOSE%==1 ( echo Compile %__N_FILES% into directory "!_BUILD_DIR:%_ROOT_DIR%=!\build\" 1>&2
 )
-call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS%
+call "%_JAVA_CMD%" %__JAVA_OPTS% -jar "%_FLIX_JAR%" build %__BUILD_OPTS% %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to compile %__N_FILES% into directory "!_BUILD_DIR:%_ROOT_DIR%=!\build\" 1>&2
@@ -327,7 +328,7 @@ if not %ERRORLEVEL%==0 (
 if %_DEBUG%==1 ( echo %_DEBUG_LABEL% "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar 1>&2
 ) else if %_VERBOSE%==1 ( echo Create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
 )
-call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar
+call "%_JAVA_CMD%" -jar "%_FLIX_JAR%" build-jar %_STDERR_REDIRECT%
 if not %ERRORLEVEL%==0 (
     popd
     echo %_ERROR_LABEL% Failed to create archive file "!_MAIN_JAR_FILE:%_ROOT_DIR%=!" 1>&2
