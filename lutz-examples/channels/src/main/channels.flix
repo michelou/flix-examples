@@ -2,7 +2,7 @@ use Time.Duration.fromSeconds;
 
 // Eine Funktion, die  Arbeit (z.B. einen Aufruf an ein externes System) "simuliert"
 def doSomething(c: Sender[Int32, c], x: Int32, gen: Random): Unit \ c + IO =
-    let delay = Int64.mod(abs(Random.nextInt64(gen)), 2000i64);
+    let delay = Int64.modulo(abs(Random.nextInt64(gen)), 2000i64);  // old: Int64.mod (< version 0.50)
     let d = Option.getWithDefault(1000, Int64.tryToInt32(delay));
     Thread.sleep(fromSeconds(d)); // <- Channel/Timer.milliseconds(delay);
     Channel.send(x, c)  // OLD: c <- x; ()
@@ -20,7 +20,7 @@ def abs(i: Int64): Int64 \ {} = if (i < 0i64) Neg.neg(i) else i
 
 /// Spawn a process for send and wait, and print the result.
 def main(): Unit \ IO = region rc {
-    let gen = Random.new();
+    let gen = Random.fresh();  // old: Random.new (< version 0.50)
     let (tx, rx) = Channel.buffered(rc, 100);  // chan Int32 100;
     let l = List.range(0, 100);
     spawn printResults(rc, rx) @ rc;
