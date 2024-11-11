@@ -46,7 +46,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*October 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*November 2024*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\              <i>( 43 MB)</i>
@@ -55,7 +55,7 @@ C:\opt\ConEmu\                  <i>( 26 MB)</i>
 C:\opt\flix\                    <i>( 37 MB)</i>
 C:\opt\Git\                     <i>(387 MB)</i>
 C:\opt\gradle\                  <i>(138 MB)</i>
-C:\opt\jdk-temurin-21.0.4_7\    <i>(326 MB)</i>
+C:\opt\jdk-temurin-21.0.5_11\    <i>(326 MB)</i>
 C:\opt\jmc\                     <i>( 99 MB)</i>
 C:\opt\mdBook\                  <i>( 10 MB)</i>
 C:\opt\msys64\                  <i>(5.5 GB)</i>
@@ -167,8 +167,8 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 21.0.4, javac 21.0.4, scalac 2.13.15, flix v0.52.0,
-   gradle 8.10.2, make 3.81, mdbook v0.4.40, mvn 3.9.9,
+   java 21.0.5, javac 21.0.5, scalac 2.13.15, flix v0.52.0,
+   gradle 8.10.2, make 3.81, mdbook v0.4.42, mvn 3.9.9,
    git 2.47.0, diff 3.10, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
@@ -190,15 +190,15 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2024-09-14.jar" to directory "C:\opt\flix"
+Download file "flix-2024-11-11.jar" to directory "C:\opt\flix"
 
 Tool versions:
-   java 21.0.4, javac 21.0.4, scalac 2.13.15, flix v0.52.0,
-   gradle 8.10.2, make 3.81, mdbook v0.4.40, mvn 3.9.9,
+   java 21.0.5, javac 21.0.5, scalac 2.13.15, flix v0.52.0,
+   gradle 8.10.2, make 3.81, mdbook v0.4.42, mvn 3.9.9,
    git 2.47.0, diff 3.10, bash 5.2.37(1)
 Tool paths:
-   C:\opt\jdk-temurin-21.0.4_7\bin\java.exe
-   C:\opt\jdk-temurin-21.0.4_7\bin\javac.exe
+   C:\opt\jdk-temurin-21.0.5_11\bin\java.exe
+   C:\opt\jdk-temurin-21.0.5_11\bin\javac.exe
    C:\opt\scala-2.13.15\bin\scalac.bat
    C:\opt\gradle\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
@@ -211,7 +211,7 @@ Environment variables:
    "FLIX_HOME=C:\opt\flix"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
-   "JAVA_HOME=C:\opt\jdk-temurin-21.0.4_7"
+   "JAVA_HOME=C:\opt\jdk-temurin-21.0.5_11"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven"
    "MDBOOK_HOME=C:\opt\mdBook"
@@ -227,11 +227,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on October 18, 2024 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on November 11, 2024 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix
-    flix-2024-10-18.jar
+    flix-2024-11-11.jar
     flix.jar
 </pre>
 Command <a href="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -266,15 +266,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.9-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                               <i>(  5 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2024-10-18.jar</a>                                <i>( 39 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2024-11-11.jar</a>                                <i>( 39 MB)</i>
 <a href="https://gradle.org/install/">gradle-8.10.2-bin.zip</a>                              <i>(103 MB)</i>
-<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.40-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.42-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                          <i>( 94 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-9.0.0-win32.win32.x86_64.zip</a>       <i>( 90 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.4_7.zip</a>    <i>(191 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.5_11.zip</a>   <i>(191 MB)</i>
 <a href="https://git-scm.com/download/win" rel="external">PortableGit-2.47.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
 <a href="https://www.scala-lang.org/files/archive/">scala-2.13.15.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.94.2.zip</a>                        <i>(131 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.95.2.zip</a>                        <i>(131 MB)</i>
 </pre>
 <!--
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.21_9.zip</a>   <i>(188 MB)</i>
@@ -284,7 +284,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2024* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2024* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -395,6 +395,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 21.0.2  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-January/029090.html
 21.0.3  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-April/032196.html
 21.0.4  -> https://mail.openjdk.org/pipermail/jdk-updates-dev/2024-July/035862.html
+21.0.5  -> 
 -->
 [temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
 [temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
