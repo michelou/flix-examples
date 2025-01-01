@@ -400,6 +400,25 @@ if %_DEBUG%==1 (
 )
 goto :eof
 
+@rem input parameters: %1=source timestamp, %2=target timestamp
+@rem output parameter: _NEWER
+:newer
+set __TIMESTAMP1=%~1
+set __TIMESTAMP2=%~2
+
+set __DATE1=%__TIMESTAMP1:~0,8%
+set __TIME1=%__TIMESTAMP1:~-6%
+
+set __DATE2=%__TIMESTAMP2:~0,8%
+set __TIME2=%__TIMESTAMP2:~-6%
+
+if %__DATE1% gtr %__DATE2% ( set _NEWER=1
+) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
+) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
+) else ( set _NEWER=0
+)
+goto :eof
+
 :decompile
 set "__OUTPUT_DIR=%_TARGET_DIR%\cfr-sources"
 if not exist "%__OUTPUT_DIR%" mkdir "%__OUTPUT_DIR%"
@@ -459,25 +478,6 @@ if exist "%__CHECK_FILE%" (
         set _EXITCODE=1
         goto :eof
     )
-)
-goto :eof
-
-@rem input parameters: %1=source timestamp, %2=target timestamp
-@rem output parameter: _NEWER
-:newer
-set __TIMESTAMP1=%~1
-set __TIMESTAMP2=%~2
-
-set __DATE1=%__TIMESTAMP1:~0,8%
-set __TIME1=%__TIMESTAMP1:~-6%
-
-set __DATE2=%__TIMESTAMP2:~0,8%
-set __TIME2=%__TIMESTAMP2:~-6%
-
-if %__DATE1% gtr %__DATE2% ( set _NEWER=1
-) else if %__DATE1% lss %__DATE2% ( set _NEWER=0
-) else if %__TIME1% gtr %__TIME2% ( set _NEWER=1
-) else ( set _NEWER=0
 )
 goto :eof
 
