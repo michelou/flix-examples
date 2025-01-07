@@ -401,7 +401,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [temurin_openjdk21]: https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot
 [temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
 [temurin_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
-[temurin_openjdk21_shipilev]: https://builds.shipilev.net/backports-monitor/release-notes-21.0.3.html
+[temurin_openjdk21_shipilev]: https://builds.shipilev.net/backports-monitor/release-notes-21.0.5.html
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples#top
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html
 [vscode_downloads]: https://code.visualstudio.com/#alt-downloads
