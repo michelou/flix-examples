@@ -182,5 +182,5 @@ def _testOmega(): Expression = eval(
 /// (Relies on an unsafe and impure built-in Flix function!).
 ///
 def freshVar(): Int32 = // ??? // TODO
-    import static Counter.getNext(): Int32 \ {};
+    import /*static*/ Counter.getNext(): Int32 \ {};
     getNext()

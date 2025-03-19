@@ -3,7 +3,7 @@ name        = "areas"
 description = "A simple program"
 version     = "0.1.0"
 repository  = "github:michelou/flix-examples"
-flix        = "0.50.0"
+flix        = "0.58.1"
 license     = "Apache-2.0"
 authors     = []
 

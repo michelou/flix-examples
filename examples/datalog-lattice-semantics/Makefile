@@ -11,9 +11,9 @@ include ../Makefile.inc
 
 PROJECT_NAME = $(shell basename $(ROOT_DIR))
 
-SOURCE_DIR  = src
-TARGET_DIR  = target
-BUILD_DIR=$(TARGET_DIR)/$(PROJECT_NAME)
+SOURCE_DIR = src
+TARGET_DIR = target
+BUILD_DIR  = $(TARGET_DIR)/$(PROJECT_NAME)
 
 ##############################################################################
 ## main rules

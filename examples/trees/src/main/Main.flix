@@ -8,7 +8,7 @@ enum Tree[a] {
 instance Eq[Tree[a]] with Eq[a] {
     pub def eq(x: Tree[a], y: Tree[a]): Bool = match (x, y) {
         case (Tree.Leaf(x1), Tree.Leaf(x2)) => Eq.eq(x1, x2)
-        case (Tree.Node(t1), Tree.Node(t2)) => Eq.eq(t1, t2)
+        case (Tree.Node(t1, _), Tree.Node(t2, _)) => Eq.eq(t1, t2)
         case _ => false
     }
 }

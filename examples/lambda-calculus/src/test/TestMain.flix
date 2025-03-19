@@ -1,5 +1,5 @@
 @test
 def test01(): Bool =
-    let e = eval(Abs(0, Abs(1, Var(0))));
-    e == Abs(0, Abs(1, Var(0)))
+    let e = eval(Expression.Abs(0, Expression.Abs(1, Expression.Var(0))));
+    e == Expression.Abs(0, Expression.Abs(1, Expression.Var(0)))
 

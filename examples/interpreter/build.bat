@@ -162,7 +162,7 @@ goto args_loop
 for %%i in ("%_ROOT_DIR:~0,-1%") do set "_PROJECT_NAME=%%~ni"
 
 set "_BUILD_DIR=%_TARGET_DIR%\%_PROJECT_NAME%"
-set "_MAIN_JAR_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar"
+set "_MAIN_JAR_FILE=%_BUILD_DIR%\artifact\%_PROJECT_NAME%.jar"
 set "_MAIN_JAR_TEST_FILE=%_BUILD_DIR%\%_PROJECT_NAME%.jar-test.txt"
 
 set _STDERR_REDIRECT=2^>NUL

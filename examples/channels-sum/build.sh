@@ -566,7 +566,7 @@ fi
 if [[ $DECOMPILE -eq 1 ]]; then
     decompile || cleanup 1
 fi
-if [[$RUN -eq 1 ]]; then
+if [[ $RUN -eq 1 ]]; then
     run || cleanup 1
 fi
 if [[ $TEST -eq 1 ]]; then

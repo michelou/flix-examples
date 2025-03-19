@@ -3,7 +3,7 @@ name        = "generics"
 description = "A simple program"
 version     = "0.1.0"
 repository  = "github:michelou/flix-examples"
-flix        = "0.52.0"
+flix        = "0.56.0"
 license     = "Apache-2.0"
 authors     = []
 

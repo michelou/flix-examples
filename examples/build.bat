@@ -165,9 +165,9 @@ set __COMMAND=%~1
 
 set __BATCH_OPTS=
 if %_NIGHTLY%==1 set __BATCH_OPTS=-nightly %__BATCH_OPTS%
-if %_DEBUG%==1 ( set __BATCH_OPTS=-debug %__BATCH_OPTS%
-) else if %_VERBOSE%==1 set __BATCH_OPTS=-verbose %__BATCH_OPTS%
-)   
+if %_DEBUG%==1 set __BATCH_OPTS=-debug %__BATCH_OPTS%
+if %_VERBOSE%==1 set __BATCH_OPTS=-verbose %__BATCH_OPTS%
+
 for /f "delims=" %%i in ('dir /b /ad "%_ROOT_DIR%\*"') do (
     set "__BATCH_FILE=%_ROOT_DIR%%%i\build.bat"
     if exist "!__BATCH_FILE!" (

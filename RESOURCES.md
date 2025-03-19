@@ -25,7 +25,9 @@
   - [An introduction to Datalog in Flix: Part 3](https://paulbutcher.com/blog/2022/datalog3/), October 2022.
   - [An introduction to Datalog in Flix: Part 2](https://paulbutcher.com/blog/2022/datalog2/), October 2022.
   - [An introduction to Datalog in Flix: Part 1](https://paulbutcher.com/blog/2022/datalog1/), October 2022.
-- [Flix Series Part 1: Higher-order functions & infix combinators][blog_potter] by Susan Potter, July 2022.
+- [Susan's Blog](https://www.susanpotter.net/tags/flix/)
+  - [Flix Series Part 1: Higher-order functions & infix combinators][blog_potter] by Susan Potter, July 2022.
+  - [Flix Series Part 0: Getting Started &amp; Setup](https://www.susanpotter.net/software/getting-started-with-flix-part-0/), June 2022.
 - [Flix for Java Programmers][blog_huehnken] by Lutz Hühnken, June 2022.
 
 ## <span id="community">Community</span> [**&#x25B4;**](#top)
@@ -63,6 +65,7 @@
 - [With or Without You: Programming with Effect Exclusion][video_lutze_2023] by Matthew Lutze, ICFP 2023.
 - [An Introduction to Functional Imperative Programming in Flix](https://gotoaarhus.com/2023/sessions/2497/an-introduction-to-functional-imperative-programming-in-flix) by Magnus Madsen, May 2023.
  - [The Principles of the Flix Programming Language][video_madsen_2022] (ACM SIGPLAN) by Magnus Madsen, June 2022.
+- [Flix: Designing a principle...](https://creators.spotify.com/pod/show/happypathprogramming/episodes/54-Flix-Designing-a-principled-programming-language-with-Magnus-Madsen-e1dueb2), February 2022 (duration: 1h16).
 
 ## <span id="tools">Tools</span>
 
@@ -71,7 +74,7 @@
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

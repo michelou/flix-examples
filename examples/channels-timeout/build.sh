@@ -360,9 +360,9 @@ decompile() {
 
     local check_file="$SOURCE_DIR/build/cfr-source$version_suffix.java"
     if [[ -f "$check_file" ]]; then
-        if $DEBUG; then
+        if [[ $DEBUG -eq 1 ]]; then
             debug "$DIFF_CMD $diff_opts $(mixed_path $output_file) $(mixed_path $check_file)"
-        elif $VERBOSE; then
+        elif [[ $VERBOSE -eq 1 ]]; then
             echo "Compare output file with check file \"${check_file/$ROOT_DIR\//}\"" 1>&2
         fi
         eval "$DIFF_CMD" $diff_opts "$(mixed_path $output_file)" "$(mixed_path $check_file)"

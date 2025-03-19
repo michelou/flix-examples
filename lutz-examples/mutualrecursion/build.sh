@@ -74,9 +74,9 @@ args() {
             nightly_jar="$f"
         done
         if [[ -f "$nightly_jar" ]]; then
-            if $DEBUG; then
+            if [[ $DEBUG -eq 1 ]]; then
                 debug "Nightly build \"$nightly_jar\" was selected"
-            elif $VERBOSE; then
+            elif [[ $VERBOSE -eq 1 ]]; then
                 echo "Nightly build \"$nightly_jar\" was selected" 1>&2
             fi
             set FLIX_JAR="$nightly_jar"

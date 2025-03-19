@@ -21,9 +21,9 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Flix 0.55][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
-- [Git 2.47][git_downloads] ([*release notes*][git_relnotes])
-- [Gradle 8.12][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Flix 0.58][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
+- [Git 2.49][git_downloads] ([*release notes*][git_relnotes])
+- [Gradle 8.13][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] ([*release notes*][temurin_openjdk21_relnotes], [*Shipilev's notes*][temurin_openjdk21_shipilev], [*Java 21 API*][oracle_openjdk21_api])
 <!--
 - [Temurin OpenJDK 11 LTS][temurin_openjdk11] ([*release notes*][temurin_openjdk11_relnotes], [*Shipilev's notes*][temurin_openjdk11_shipilev], [*bug fixes*][temurin_openjdk11_bugfixes])
@@ -38,7 +38,7 @@ Optionally one may also install the following software:
 - [MSYS2 2024][msys2_releases] ([*change log*][msys2_changelog])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
 - [Temurin JDK Mission Control 9.0][jmc_download] <sup id="anchor_03">[3](#footnote_03)</sup> ([*release notes*][jmc_relnotes])
-- [Visual Studio Code 1.96][vscode_downloads] ([*release notes*][vscode_relnotes])
+- [Visual Studio Code 1.98][vscode_downloads] ([*release notes*][vscode_relnotes])
 <!--
 - [Temurin OpenJDK 17 LTS][temurin_openjdk17] <sup id="anchor_01">[1](#footnote_01)</sup> ([*release notes*][temurin_openjdk17_relnotes], [*bug fixes*][temurin_openjdk17_bugfixes])
 -->
@@ -46,7 +46,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*January 2025*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*March 2025*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\              <i>( 43 MB)</i>
@@ -55,11 +55,11 @@ C:\opt\ConEmu\                  <i>( 26 MB)</i>
 C:\opt\flix\                    <i>( 37 MB)</i>
 C:\opt\Git\                     <i>(393 MB)</i>
 C:\opt\gradle\                  <i>(144 MB)</i>
-C:\opt\jdk-temurin-21.0.5_11\   <i>(326 MB)</i>
+C:\opt\jdk-temurin-21.0.6_7\   <i>(326 MB)</i>
 C:\opt\jmc\                     <i>( 99 MB)</i>
 C:\opt\mdBook\                  <i>( 10 MB)</i>
 C:\opt\msys64\                  <i>(5.5 GB)</i>
-C:\opt\scala-2.13.15\           <i>( 25 MB)</i>
+C:\opt\scala-2.13.16\           <i>( 25 MB)</i>
 C:\opt\VSCode\                  <i>(381 MB)</i>
 </pre>
 
@@ -167,9 +167,9 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 21.0.5, javac 21.0.5, scalac 2.13.15, flix 0.55.0,
-   gradle 8.12, make 3.81, mdbook v0.4.43, mvn 3.9.9,
-   git 2.47.1, diff 3.10, bash 5.2.37(1)
+   java 21.0.6, javac 21.0.6, scalac 2.13.16, flix 0.58.1,
+   gradle 8.13, make 3.81, mdbook v0.4.47, mvn 3.9.9,
+   git 2.49.0, diff 3.11, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git\bin\git.exe
@@ -190,16 +190,16 @@ Command [**`setenv.bat`**](setenv.bat) with option **`-verbose`** displays addit
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a> -verbose</b>
 Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
-Download file "flix-2025-01-01.jar" to directory "C:\opt\flix"
+Download file "flix-2025-03-19.jar" to directory "C:\opt\flix"
 
 Tool versions:
-   java 21.0.5, javac 21.0.5, scalac 2.13.15, flix 0.55.0,
-   gradle 8.12, make 3.81, mdbook v0.4.43, mvn 3.9.9,
-   git 2.47.1, diff 3.10, bash 5.2.37(1)
+   java 21.0.6, javac 21.0.6, scalac 2.13.16, flix 0.58.1,
+   gradle 8.13, make 3.81, mdbook v0.4.47, mvn 3.9.9,
+   git 2.49.0, diff 3.11, bash 5.2.37(1)
 Tool paths:
-   C:\opt\jdk-temurin-21.0.5_11\bin\java.exe
-   C:\opt\jdk-temurin-21.0.5_11\bin\javac.exe
-   C:\opt\scala-2.13.15\bin\scalac.bat
+   C:\opt\jdk-temurin-21.0.6_7\bin\java.exe
+   C:\opt\jdk-temurin-21.0.6_7\bin\javac.exe
+   C:\opt\scala-2.13.16\bin\scalac.bat
    C:\opt\gradle\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook\mdbook.exe
@@ -211,11 +211,11 @@ Environment variables:
    "FLIX_HOME=C:\opt\flix"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
-   "JAVA_HOME=C:\opt\jdk-temurin-21.0.5_11"
+   "JAVA_HOME=C:\opt\jdk-temurin-21.0.6_7"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven"
    "MDBOOK_HOME=C:\opt\mdBook"
-   "SCALA_HOME=C:\opt\scala-2.13.15"
+   "SCALA_HOME=C:\opt\scala-2.13.16"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
 </pre>
@@ -227,11 +227,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on January 1, 2025 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on March 19, 2025 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix
-    flix-2025-01-01.jar
+    flix-2025-03-19.jar
     flix.jar
 </pre>
 Command <a href="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -266,15 +266,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.9-bin.zip</a>                         <i>( 10 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                               <i>(  5 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2025-01-01.jar</a>                                <i>( 39 MB)</i>
-<a href="https://gradle.org/install/">gradle-8.12.bin.zip</a>                                <i>(103 MB)</i>
-<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.43-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2025-03-19.jar</a>                                <i>( 39 MB)</i>
+<a href="https://gradle.org/install/">gradle-8.13.bin.zip</a>                                <i>(103 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.47-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                          <i>( 94 MB)</i>
 <a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-9.0.0-win32.win32.x86_64.zip</a>       <i>( 90 MB)</i>
-<a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.5_11.zip</a>   <i>(191 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.47.1-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/">scala-2.13.15.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.96.2.zip</a>                        <i>(131 MB)</i>
+<a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.6_7.zip</a>    <i>(191 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.49.0-64-bit.7z.exe</a>                   <i>( 46 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.16.zip</a>                                  <i>( 22 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.98.2.zip</a>                        <i>(131 MB)</i>
 </pre>
 <!--
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.21_9.zip</a>   <i>(188 MB)</i>
@@ -284,7 +284,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/January 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/March 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -313,20 +313,20 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://raw.githubusercontent.com/git/git/master/Documentation/RelNotes/2.47.1.txt
+[git_relnotes]: https://github.com/git/git/blob/v2.49.0/Documentation/RelNotes/2.49.0.txt
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
-[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.55.0
+[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.58.1
 [flix_downloads]: https://github.com/flix/flix/releases/
-[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.55.0
+[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.58.1
 [github_flix_flix]: https://github.com/flix/flix
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/8.12/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/8.13/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples#top
 [jmc_download]: https://adoptium.net/jmc/
 [jmc_relnotes]: https://www.oracle.com/java/technologies/javase/jmc8-release-notes.html
@@ -345,7 +345,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [oracle_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
 [rust_examples]: https://github.com/michelou/rust-examples#top
 [scala_download]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.15
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.16
 [scala3_examples]: https://github.com/michelou/dotty-examples#top
 [sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [sml_examples]: https://github.com/michelou/sml-examples#top

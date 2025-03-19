@@ -31,7 +31,8 @@ mod Core.Math {
 }
 
 mod A {
-    sealed class Primitive[a]
+    //sealed class Primitive[a]
+    class Primitive[a]
 }
 
 mod A {

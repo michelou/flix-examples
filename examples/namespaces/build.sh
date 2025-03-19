@@ -420,10 +420,10 @@ VERBOSE=0
 COLOR_START="[32m"
 COLOR_END="[0m"
 
-cygwin=false
-mingw=false
-msys=false
-darwin=false
+cygwin=0
+mingw=0
+msys=0
+darwin=0
 case "$(uname -s)" in
     CYGWIN*) cygwin=1 ;;
     MINGW*)  mingw=1 ;;
