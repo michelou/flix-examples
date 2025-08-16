@@ -24,7 +24,7 @@
             <Keywords name="Folders in comment, open"></Keywords>
             <Keywords name="Folders in comment, middle"></Keywords>
             <Keywords name="Folders in comment, close"></Keywords>
-            <Keywords name="Keywords1">alias and as case catch chan choose class def deref discard do eff else enum false for forall force foreach from get if import inject inline instance into lat law lawful lazy let match mod new not null opaque or override par project pub query ref region reify reifyBool reifyEff reifyType rel resume sealed select set solve spawn static true try type upcast use where with without yield</Keywords>
+            <Keywords name="Keywords1">alias and as case catch chan choose class def deref discard do eff else enum false for forall force foreach from get if import inject inline instance into lat law lawful lazy let match mod new not null opaque or override par project pub query ref region reify reifyBool reifyEff reifyType rel resume sealed select set solve spawn static trait true try type upcast use where with without yield</Keywords>
             <Keywords name="Keywords2">Absent Bool Eff Float32 Float64 Impure Int16 Int32 IO List Nil Predicate Pure Read RecordNow Region SchemaNow Static String Type Unit Write</Keywords>
             <Keywords name="Keywords3">abs println</Keywords>
             <Keywords name="Keywords4">@Experimental @Internal @Space @Time</Keywords>

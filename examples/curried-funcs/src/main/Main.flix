@@ -1,7 +1,7 @@
 def f(x: Int32, y: Int32): Int32 = x + y
 def g(x: Int32): Int32 -> Int32 = y -> x + y
 
-class Addable[a] {
+trait Addable[a] {
     pub def myadd(x1: a, x2: a): a
 }
 

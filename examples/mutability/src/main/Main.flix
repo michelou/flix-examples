@@ -6,7 +6,7 @@
 /// 
 def sort(l: List[a]): List[a] with Order[a] = 
     region r {
-        List.toArray(r, l) !> Array.sort! |> Array.toList
+        List.toArray(r, l) !> Array.sort |> Array.toList
     }
 
 ///
@@ -15,12 +15,12 @@ def sort(l: List[a]): List[a] with Order[a] =
 ///
 def toString(l: List[a]): String with ToString[a] = 
     region r {
-        let sb = StringBuilder.new(r);  // up to 0.35 : new StringBuilder(r);
+        let sb = StringBuilder.StringBuilder();  // up to 0.35 : new StringBuilder(r);
         //for (x <- List.iterator(r, l)) yield {
         //    StringBuilder.appendString!("${x} :: ", sb)
         //};
-        List.forEach(x -> StringBuilder.appendString!("${x} :: ", sb), l);
-        StringBuilder.appendString!("Nil", sb);
+        List.forEach(x -> StringBuilder.appendString("${x} :: ", sb), l);
+        StringBuilder.appendString("Nil", sb);
         StringBuilder.toString(sb)
     }
 
@@ -33,18 +33,18 @@ def deduplicate(l: List[a]): List[a] with Order[a] =
     /// Declare a new region `r`.
     region r {
 
-        /// Create a new `MutSet` at region `r`.
-        /// This will be used to keep track of
-        /// unique elements in `l`.
-        let s = MutSet.new(r);  // up to 0.35 : new MutSet(r);
+        // Create a new `MutSet` at region `r`.
+        // This will be used to keep track of
+        // unique elements in `l`.
+        let s = MutSet.MutSet(r);  // up to 0.35 : new MutSet(r);
 
-        /// The lambda used in the call to `filter`
-        /// would be impure without a region.
+        // The lambda used in the call to `filter`
+        // would be impure without a region.
         List.filter(x -> {
             if (MutSet.memberOf(x, s))
                 false // `x` has already been seen.
             else {
-                MutSet.add!(x, s);
+                MutSet.add(x, s);
                 true
             }
         }, l)
