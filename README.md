@@ -12,7 +12,7 @@
   </tr>
 </table>
 
-[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Go][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [Standard ML][sml_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously monitoring.
+[Ada][ada_examples], [Akka][akka_examples], [C++][cpp_examples], [COBOL][cobol_examples], [Component Pascal][component_pascal_examples], [Dafny][dafny_examples], [Dart][dart_examples], [Deno][deno_examples], [Docker][docker_examples], [Erlang][erlang_examples], [Go][golang_examples], [GraalVM][graalvm_examples], [Haskell][haskell_examples], [Kafka][kafka_examples], [Kotlin][kotlin_examples], [LLVM][llvm_examples], [Modula-2][m2_examples], [Node.js][nodejs_examples], [Rust][rust_examples], [Scala 3][scala3_examples], [Spark][spark_examples], [Spring][spring_examples], [Standard ML][sml_examples], [TruffleSqueak][trufflesqueak_examples], [WiX Toolset][wix_examples] and [Zig][zig_examples] are other topics we are continuously monitoring.
 
 > **&#9755;** Read the document <a href="https://github.com/flix/flix/blob/master/docs/DIDYOUKNOW.md">"Did You Know?"</a> from the <a href="https://flix.dev/" rel="external">Flix</a> documentation to know more about the <a href="https://flix.dev/" rel="external">Flix</a> ecosystem.
 
@@ -21,9 +21,9 @@
 This project depends on the following external software for the **Microsoft Windows** platform:
 
 - [Apache Maven 3.9][apache_maven] ([requires Java 8+][apache_maven_history])  ([*release notes*][apache_maven_relnotes])
-- [Flix 0.60][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
-- [Git 2.50][git_downloads] ([*release notes*][git_relnotes])
-- [Gradle 9.0][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
+- [Flix 0.65][flix_downloads] ([requires Java 21+][flix_compatibility])  ([*release notes*][flix_relnotes])
+- [Git 2.51][git_downloads] ([*release notes*][git_relnotes])
+- [Gradle 9.1][gradle_install] ([requires Java 8+][gradle_compatibility]) ([*release notes*][gradle_relnotes])
 - [Temurin OpenJDK 21 LTS][temurin_openjdk21] ([*release notes*][temurin_openjdk21_relnotes], [*Shipilev's notes*][temurin_openjdk21_shipilev], [*Java 21 API*][oracle_openjdk21_api])
 <!--
 - [Temurin OpenJDK 11 LTS][temurin_openjdk11] ([*release notes*][temurin_openjdk11_relnotes], [*Shipilev's notes*][temurin_openjdk11_shipilev], [*bug fixes*][temurin_openjdk11_bugfixes])
@@ -34,6 +34,7 @@ Optionally one may also install the following software:
 - [Apache Ant 1.10][apache_ant] (requires Java 8) ([*release notes*][apache_ant_relnotes])
 - [ConEmu 2023][conemu_downloads] ([*release notes*][conemu_relnotes])
 - [Flix nightly builds](https://flix.dev/nightly/) <sup id="anchor_01">[1](#footnote_01)</sup>
+- [JDK Mission Control][jmc_download] ([*release notes*][jmc_relnotes])
 - [mdBook 0.4][mdbook_download] <sup id="anchor_02">[2](#footnote_02)</sup> ([*changelog*][mdbook_changelog])
 - [MSYS2 2024][msys2_releases] ([*change log*][msys2_changelog])
 - [Scala 2.13][scala_download] ([*release notes*][scala_relnotes])
@@ -46,7 +47,7 @@ Optionally one may also install the following software:
 > **&#9755;** ***Installation policy***<br/>
 > When possible we install software from a [Zip archive][zip_archive] rather than via a [Windows installer][windows_installer]. In our case we defined **`C:\opt\`** as the installation directory for optional software tools (*in reference to* the [**`/opt/`**][unix_opt] directory on Unix).
 
-For instance our development environment looks as follows (*August 2025*) <sup id="anchor_04">[4](#footnote_04)</sup>:
+For instance our development environment looks as follows (*October 2025*) <sup id="anchor_04">[4](#footnote_04)</sup>:
 
 <pre style="font-size:80%;">
 C:\opt\apache-ant\              <i>( 43 MB)</i>
@@ -59,7 +60,7 @@ C:\opt\jdk-temurin-21.0.8_9\    <i>(326 MB)</i>
 C:\opt\jmc\                     <i>( 99 MB)</i>
 C:\opt\mdBook\                  <i>( 10 MB)</i>
 C:\opt\msys64\                  <i>(5.5 GB)</i>
-C:\opt\scala-2.13.16\           <i>( 25 MB)</i>
+C:\opt\scala-2.13.17\           <i>( 25 MB)</i>
 C:\opt\VSCode\                  <i>(381 MB)</i>
 </pre>
 
@@ -167,9 +168,9 @@ We execute command [**`setenv.bat`**](setenv.bat) once to setup our development 
 <pre style="font-size:80%;">
 <b>&gt; <a href="setenv.bat">setenv</a></b>
 Tool versions:
-   java 21.0.8, javac 21.0.8, scalac 2.13.16, flix 0.60.0,
-   gradle 9.0.0, make 4.4.1, mdbook v0.4.47, mvn 3.9.11,
-   git 2.50.1, diff 3.12, bash 5.2.37(1)
+   java 21.0.8, javac 21.0.8, scalac 2.13.17, flix 0.65.0,
+   gradle 9.1.0, make 4.4.1, mdbook v0.4.52, mvn 3.9.11,
+   git 2.51.1, diff 3.12, bash 5.2.37(1)
 
 <b>&gt; <a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/where_1">where</a> git gradle make sh</b>
 C:\opt\Git\bin\git.exe
@@ -193,13 +194,13 @@ Assign path C:\Users\michelou\workspace-perso\flix-examples to drive F:
 Download file "flix-2025-08-15.jar" to directory "C:\opt\flix"
 
 Tool versions:
-   java 21.0.8, javac 21.0.8, scalac 2.13.16, flix 0.60.0,
-   gradle 9.0.0, make 4.4.1, mdbook v0.4.47, mvn 3.9.11,
-   git 2.50.1, diff 3.12, bash 5.2.37(1)
+   java 21.0.8, javac 21.0.8, scalac 2.13.17, flix 0.65.0,
+   gradle 9.1.0, make 4.4.1, mdbook v0.4.52, mvn 3.9.11,
+   git 2.51.1, diff 3.12, bash 5.2.37(1)
 Tool paths:
    C:\opt\jdk-temurin-21.0.8_9\bin\java.exe
    C:\opt\jdk-temurin-21.0.8_9\bin\javac.exe
-   C:\opt\scala-2.13.16\bin\scalac.bat
+   C:\opt\scala-2.13.17\bin\scalac.bat
    C:\opt\gradle\bin\gradle.bat
    C:\opt\make-3.81\bin\make.exe
    C:\opt\mdBook\mdbook.exe
@@ -208,14 +209,18 @@ Tool paths:
    C:\opt\Git\usr\bin\diff.exe
 Environment variables:
    "ANT_HOME=C:\opt\apache-ant"
+   "CFR_HOME=C:\opt\cfr-0.152"
    "FLIX_HOME=C:\opt\flix"
    "GIT_HOME=C:\opt\Git"
    "GRADLE_HOME=C:\opt\gradle"
    "JAVA_HOME=C:\opt\jdk-temurin-21.0.8_9"
+   "JAVA17_HOME=C:\opt\jdk-temurin-17.0.16_8"
+   "JMC_HOME=C:\opt\jmc"
    "MAKE_HOME=C:\opt\make-3.81"
    "MAVEN_HOME=C:\opt\apache-maven"
    "MDBOOK_HOME=C:\opt\mdBook"
-   "SCALA_HOME=C:\opt\scala-2.13.16"
+   "MSYS_HOME=C:\opt\msys64"
+   "SCALA_HOME=C:\opt\scala-2.13.17"
 Path associations:
    F:\: => %USERPROFILE%\workspace-perso\flix-examples
 </pre>
@@ -227,11 +232,11 @@ Path associations:
 <span id="footnote_01">[1]</span> ***Flix nightly builds*** [↩](#anchor_01)
 
 <dl><dd>
-Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on March 19, 2025 : 
+Our installation directory <code><b>%FLIX_HOME%</b></code> looks as follows on October 27, 2025 : 
 <pre style="font-size:80%;">
 <b>&gt; <a href="https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/tree">tree</a> /a /f c:\opt\flix | <a href="https://man7.org/linux/man-pages/man1/tail.1.html">tail</a> -n +3</b>
 C:\opt\flix
-    flix-2025-08-15.jar
+    flix-2025-10-27.jar
     flix.jar
 </pre>
 Command <a href="./examples/areas/build.bat"><code><b>build.bat</b></code></a> in our Flix projects features the <code><b>-nightly</b></code> option to choose the latest <a href="https://flix.dev/">Flix</a> nightly build archive file locally available instead of the release version (archive file <code><b>flix.jar</b></code> above).
@@ -266,15 +271,15 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 <a href="https://maven.apache.org/download.cgi">apache-maven-3.9.11-bin.zip</a>                        <i>(  9 MB)</i>
 <a href="https://github.com/Maximus5/ConEmu/releases/tag/v23.07.24" rel="external">ConEmuPack.230724.7z</a>                               <i>(  5 MB)</i>
 <a href="https://github.com/flix/flix/releases/" rel="external">flix.jar</a>                                           <i>( 39 MB)</i>
-<a href="https://flix.dev/nightly/" rel="external">flix-2025-08-15.jar</a>                                <i>( 39 MB)</i>
-<a href="https://gradle.org/install/">gradle-9.0.0-bin.zip</a>                               <i>(128 MB)</i>
-<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.47-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
+<a href="https://flix.dev/nightly/" rel="external">flix-2025-10-27.jar</a>                                <i>( 39 MB)</i>
+<a href="https://gradle.org/install/">gradle-9.1.0-bin.zip</a>                               <i>(128 MB)</i>
+<a href="https://github.com/rust-lang/mdBook/releases">mdbook-v0.4.52-x86_64-pc-windows-msvc.zip</a>          <i>(  4 MB)</i>
 <a href="http://repo.msys2.org/distrib/x86_64/">msys2-x86_64-20240727.exe</a>                          <i>( 94 MB)</i>
-<a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-9.0.0-win32.win32.x86_64.zip</a>       <i>( 90 MB)</i>
+<a href="https://adoptium.net/jmc/" rel="external">org.openjdk.jmc-9.1.1-win32.win32.x86_64.zip</a>       <i>( 90 MB)</i>
 <a href="https://adoptium.net/releases.html?variant=openjdk21&jvmVariant=hotspot">OpenJDK21U-jdk_x64_windows_hotspot_21.0.8_9.zip</a>    <i>(195 MB)</i>
-<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.50.1-64-bit.7z.exe</a>                   <i>( 61 MB)</i>
-<a href="https://www.scala-lang.org/files/archive/">scala-2.13.16.zip</a>                                  <i>( 22 MB)</i>
-<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.102.1.zip</a>                       <i>(148 MB)</i>
+<a href="https://git-scm.com/download/win" rel="external">PortableGit-2.51.1-64-bit.7z.exe</a>                   <i>( 61 MB)</i>
+<a href="https://www.scala-lang.org/files/archive/">scala-2.13.17.zip</a>                                  <i>( 22 MB)</i>
+<a href="https://code.visualstudio.com/Download#" rel="external">VSCode-win32-x64-1.105.1.zip</a>                       <i>(148 MB)</i>
 </pre>
 <!--
 <a href="https://adoptium.net/releases.html?variant=openjdk11&jvmVariant=hotspot">OpenJDK11U-jdk_x64_windows_hotspot_11.0.21_9.zip</a>   <i>(188 MB)</i>
@@ -284,7 +289,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/August 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/October 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- link refs -->
@@ -297,9 +302,10 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [apache_maven]: https://maven.apache.org/download.cgi
 [apache_maven_cli]: https://maven.apache.org/ref/current/maven-embedder/cli.html
 [apache_maven_history]: https://maven.apache.org/docs/history.html
-[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.9/release-notes.html
+[apache_maven_relnotes]: https://maven.apache.org/docs/3.9.11/release-notes.html
 [bash_cli]: https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_01.html
 [cobol_examples]: https://github.com/michelou/cobol-examples#top
+[component_pascal_examples]: https://github.com/michelou/cobol-examples#top
 [conemu_downloads]: https://github.com/Maximus5/ConEmu/releases
 [conemu_relnotes]: https://conemu.github.io/blog/2023/07/24/Build-230724.html
 [cpp_examples]: https://github.com/michelou/cpp-examples#top
@@ -313,23 +319,23 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [git_cli]: https://git-scm.com/docs/git
 [git_downloads]: https://git-scm.com/download/win
 [git_exe]: https://git-scm.com/docs/git
-[git_relnotes]: https://github.com/git/git/blob/v2.49.0/Documentation/RelNotes/2.49.0.txt
+[git_relnotes]: https://github.com/git/git/blob/v2.49.0/Documentation/RelNotes/2.51.1.adoc
 [github_markdown]: https://github.github.com/gfm/
 [git_userguide]: https://git-scm.com/docs/git
 [flix]: https://flix.dev/
-[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.60.0
+[flix_compatibility]: https://github.com/flix/flix/releases/tag/v0.65.0
 [flix_downloads]: https://github.com/flix/flix/releases/
-[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.60.0
+[flix_relnotes]: https://github.com/flix/flix/releases/tag/v0.65.0
 [github_flix_flix]: https://github.com/flix/flix
 [golang_examples]: https://github.com/michelou/golang-examples#top
 [graalvm_examples]: https://github.com/michelou/graalvm-examples#top
 [gradle_cli]: https://docs.gradle.org/current/userguide/command_line_interface.html
 [gradle_compatibility]: https://docs.gradle.org/current/release-notes.html#upgrade-instructions
 [gradle_install]: https://gradle.org/install/
-[gradle_relnotes]: https://docs.gradle.org/8.13/release-notes.html
+[gradle_relnotes]: https://docs.gradle.org/9.1.0/release-notes.html
 [haskell_examples]: https://github.com/michelou/haskell-examples#top
 [jmc_download]: https://adoptium.net/jmc/
-[jmc_relnotes]: https://www.oracle.com/java/technologies/javase/jmc8-release-notes.html
+[jmc_relnotes]: https://www.oracle.com/java/technologies/javase/jmc9-release-notes.html
 [kafka_examples]: https://github.com/michelou/kafka-examples#top
 [kotlin_examples]: https://github.com/michelou/kotlin-examples#top
 [llvm_examples]: https://github.com/michelou/llvm-examples#top
@@ -345,7 +351,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 [oracle_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
 [rust_examples]: https://github.com/michelou/rust-examples#top
 [scala_download]: https://www.scala-lang.org/files/archive/
-[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.16
+[scala_relnotes]: https://github.com/scala/scala/releases/tag/v2.13.17
 [scala3_examples]: https://github.com/michelou/dotty-examples#top
 [sh_cli]: https://man7.org/linux/man-pages/man1/sh.1p.html
 [sml_examples]: https://github.com/michelou/sml-examples#top
@@ -409,7 +415,7 @@ In our case we downloaded the following installation files (see <a href="#proj_d
 -->
 [temurin_openjdk21]: https://adoptium.net/temurin/releases?version=21&os=windows&arch=x64
 [temurin_openjdk21_bugfixes]: https://www.oracle.com/java/technologies/javase/17-0-2-bugfixes.html
-[temurin_openjdk21_relnotes]: https://jdk.java.net/21/release-notes
+[temurin_openjdk21_relnotes]: https://mail.openjdk.org/pipermail/jdk-updates-dev/2025-July/045617.html
 [temurin_openjdk21_shipilev]: https://builds.shipilev.net/backports-monitor/release-notes-21.0.5.html
 [trufflesqueak_examples]: https://github.com/michelou/trufflesqueak-examples#top
 [unix_opt]: https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/opt.html

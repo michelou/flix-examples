@@ -1,3 +1,4 @@
+import java.lang.{Math => JMath}
 
 mod Core { // namespace Core {  // up to version 0.34.0
     mod Math {
@@ -10,15 +11,16 @@ mod Core { // namespace Core {  // up to version 0.34.0
         }
 
         def rieman(a: Float64, b: Float64, steps: Int32): Float64 = region r {
-            import static java.lang.Math.pow(Float64, Float64): Float64 \ {};
-            let h = ref 0.0f64 @ r;
+            //import static java.lang.Math.pow(Float64, Float64): Float64 \ {};
+            let h = Ref.fresh(r, 0.0f64);  // was "ref 0.0f64 @ r" before version 0.60.0
             let dX = (b - a) / toFloat64(steps);
             let fn = { i ->
                  let x = a + toFloat64(i-1) * dX;
-                 h := (deref h) + (x - pow(x, 2.0f64))
+                 // h := (deref h) + (x - Math.pow(x, 2.0f64))  // before 0.60.0
+                 Ref.put(Ref.get(h) + (x - JMath.pow(x, 2.0f64)), h)
             };
             Array.forEach(fn, Array.range(r, 1, steps));
-            (deref h) * dX
+            Ref.get(h) * dX  // (deref h) * dX
         }
 
         pub def integral(a: Int32, b: Int32): Float64 =
@@ -32,7 +34,7 @@ mod Core.Math {
 
 mod A {
     //sealed class Primitive[a]
-    class Primitive[a]
+    trait Primitive[a]  // was "class" before version 0.60.0
 }
 
 mod A {
