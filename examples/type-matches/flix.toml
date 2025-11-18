@@ -3,7 +3,7 @@ name        = "type-matches"
 description = "A simple program"
 version     = "0.1.0"
 repository  = "github:michelou/flix-examples"
-flix        = "0.56.0"
+flix        = "0.66.2"
 license     = "Apache-2.0"
 authors     = []
 

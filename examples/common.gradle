@@ -1,5 +1,5 @@
 // overrides default "build"
-buildDir file("target")
+buildDir = file("target")
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -66,8 +66,8 @@ clean.doLast {
 
 tasks.withType(JavaCompile) {
     // https://docs.gradle.org/current/dsl/org.gradle.api.tasks.compile.CompileOptions.html
-    options.deprecation true
-    options.encoding "UTF8"
+    options.deprecation = true
+    options.encoding = "UTF8"
 }
 
 task initFlix(type: JavaExec) {
@@ -76,7 +76,7 @@ task initFlix(type: JavaExec) {
     mainClass = "-jar"
     args = [ flixJar, "init" ]
 
-    workingDir buildAppDir
+    workingDir = buildAppDir
 }
 
 initFlix.doFirst {
@@ -111,7 +111,7 @@ task copyFlix(type: Copy) {
 task compileScala(type: JavaExec) {
     dependsOn copyScala, compileJava
 
-    description "Compile Scala source files"
+    description = "Compile Scala source files"
 
     classpath = scalaClasspath
 
@@ -139,14 +139,14 @@ task jarScala(type: Jar) {
 task compileFlix(type: JavaExec) {
     dependsOn copyFlix, compileJava, jarScala
 
-    description "Compile Flix source files"
+    description = "Compile Flix source files"
 
     jvmArgs "-Dfile.encoding=UTF-8"
 
     mainClass = "-jar"
     args = [ flixJar, "build" ]
 
-    workingDir buildAppDir
+    workingDir = buildAppDir
 }
 
 compileFlix.onlyIf {
@@ -156,7 +156,7 @@ compileFlix.onlyIf {
 task jarFlix(type: JavaExec) {
     dependsOn compileFlix
 
-    description "Create Flix program \"${appName}/${appName}.jar\""
+    description = "Create Flix program \"${appName}/${appName}.jar\""
 
     jvmArgs "-Dfile.encoding=UTF-8"
 
@@ -173,7 +173,7 @@ build {
 task run(type: JavaExec) {
     dependsOn build
 
-    description "Execute Flix program \"${appName}/${appName}.jar\""
+    description = "Execute Flix program \"${appName}/${appName}.jar\""
 
     jvmArgs "-Dfile.encoding=UTF-8"
 
@@ -184,5 +184,5 @@ task run(type: JavaExec) {
     mainClass = "-Xbootclasspath/a:${bootClasspath}"
     args = [ "-jar", "${appJar}" ]
 
-    workingDir buildAppDir
+    workingDir = buildAppDir
 }

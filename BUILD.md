@@ -42,8 +42,8 @@ Compile 1 Java source file to directory "build\classes"
 Compile 253 Scala source files to directory "build\classes"
 Create Java archive "build\libs\flix.jar"
 Update archive "build\libs\flix.jar" (Flix sources)
-Update archive "build\libs\flix.jar" ("C:\opt\scala-2.13.5\lib\scala-library.jar")
-Update archive "build\libs\flix.jar" ("C:\opt\scala-2.13.5\lib\scala-reflect.jar")
+Update archive "build\libs\flix.jar" ("C:\opt\scala-2.13.7\lib\scala-library.jar")
+Update archive "build\libs\flix.jar" ("C:\opt\scala-2.13.7\lib\scala-reflect.jar")
 Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket/1.3.9" rel="external">org.java_websocket-1.3.9.jar</a>")
 Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.jline/jline/3.5.1" rel="external">org.jline-3.5.1.jar</a>")
 Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/org.json4s/json4s-ast_2.13/3.5.5" rel="external">org.json4s-ast-3.5.5.jar</a>")
@@ -59,7 +59,7 @@ Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/ar
 Update archive "build\libs\flix.jar" ("lib\<a href="https://mvnrepository.com/artifact/com.chuusai/shapeless_2.13/2.3.3" rel="external">shapeless-2.3.3.jar</a>")
 Add manifest to archive "build\libs\flix.jar"
 Execute program file "build\libs\flix.jar" with arguments --version
-The Flix Programming Language v0.38.0
+The Flix Programming Language v0.66.2
 </pre>
 
 ### <span id="gradle">Gradle</span>
@@ -270,7 +270,7 @@ We can add a <a href="https://docs.gradle.org/current/dsl/org.gradle.api.Task.ht
 <b>&gt; <a href="https://docs.gradle.org/current/userguide/command_line_interface.html" rel="external">gradle</a> debug</b>
 &nbsp;
 > Configure project :
-[F:\flix\lib\org.java_websocket-1.3.9.jar, F:\flix\lib\org.jline-3.5.1.jar, F:\flix\lib\org.json4s-ast-3.5.5.jar, F:\flix\lib\org.json4s-core-3.5.5.jar, F:\flix\lib\org.json4s-native-3.5.5.jar, F:\flix\lib\org.objectweb.asm-9.2.jar, F:\flix\lib\org.parboiled-2.2.1.jar, F:\flix\lib\org.scalactic-3.0.8.jar, F:\flix\lib\org.scalatest-3.0.8.jar, F:\flix\lib\scala.collection.parallel-0.2.0.jar, F:\flix\lib\scala.xml-1.2.0.jar, F:\flix\lib\scopt_2.13-4.0.1.jar, F:\flix\lib\shapeless-2.3.3.jar, %USERPROFILE%\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-reflect\2.13.5\8dee4d8c5374920f2db2f5f55d9dd6ecd4194cc\scala-reflect-2.13.5.jar, %USERPROFILE%\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.13.5\d0df6e78b6ccb0102cb0395bfa8cb806e9e81b61\scala-library-2.13.5.jar]
+[F:\flix\lib\org.java_websocket-1.3.9.jar, F:\flix\lib\org.jline-3.5.1.jar, F:\flix\lib\org.json4s-ast-3.5.5.jar, F:\flix\lib\org.json4s-core-3.5.5.jar, F:\flix\lib\org.json4s-native-3.5.5.jar, F:\flix\lib\org.objectweb.asm-9.2.jar, F:\flix\lib\org.parboiled-2.2.1.jar, F:\flix\lib\org.scalactic-3.0.8.jar, F:\flix\lib\org.scalatest-3.0.8.jar, F:\flix\lib\scala.collection.parallel-0.2.0.jar, F:\flix\lib\scala.xml-1.2.0.jar, F:\flix\lib\scopt_2.13-4.0.1.jar, F:\flix\lib\shapeless-2.3.3.jar, %USERPROFILE%\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-reflect\2.13.7\8dee4d8c5374920f2db2f5f55d9dd6ecd4194cc\scala-reflect-2.13.7.jar, %USERPROFILE%\.gradle\caches\modules-2\files-2.1\org.scala-lang\scala-library\2.13.7\d0df6e78b6ccb0102cb0395bfa8cb806e9e81b61\scala-library-2.13.7.jar]
 &nbsp;
 BUILD SUCCESSFUL in 2s
 </pre>
@@ -278,7 +278,7 @@ BUILD SUCCESSFUL in 2s
 
 ***
 
-*[mics](https://lampwww.epfl.ch/~michelou/)/October 2025* [**&#9650;**](#top)
+*[mics](https://lampwww.epfl.ch/~michelou/)/November 2025* [**&#9650;**](#top)
 <span id="bottom">&nbsp;</span>
 
 <!-- href links -->

@@ -1,5 +1,5 @@
 // overrides default "build"
-buildDir file("target")
+buildDir = file("target")
 
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -101,14 +101,14 @@ task copyFlix(type: Copy) {
 task compileFlix(type: JavaExec) {
     dependsOn copyFlix, compileJava
 
-    description "Compile Flix source files"
+    description = "Compile Flix source files"
 
     jvmArgs "-Dfile.encoding=UTF-8"
 
     mainClass = "-jar"
     args = [ flixJar, "build" ]
 
-    workingDir buildAppDir
+    workingDir = buildAppDir
 }
 
 compileFlix.onlyIf {
@@ -118,14 +118,14 @@ compileFlix.onlyIf {
 task jarFlix(type: JavaExec) {
     dependsOn compileFlix
 
-    description "Create Flix program \"${appName}/${appName}.jar\""
+    description = "Create Flix program \"${appName}/${appName}.jar\""
 
     jvmArgs "-Dfile.encoding=UTF-8"
 
     mainClass = "-jar"
     args = [ flixJar, "build-jar" ]
 
-    workingDir buildAppDir
+    workingDir = buildAppDir
 }
 
 build {
@@ -135,7 +135,7 @@ build {
 task run(type: JavaExec) {
     dependsOn build
 
-    description "Execute Flix program \"${appName}/${appName}.jar\""
+    description = "Execute Flix program \"${appName}/${appName}.jar\""
 
     jvmArgs "-Dfile.encoding=UTF-8"
 
@@ -146,5 +146,5 @@ task run(type: JavaExec) {
     mainClass = "-Xbootclasspath/a:${bootClasspath}"
     args = [ "-jar", "${appJar}" ]
 
-    workingDir buildAppDir
+    workingDir = buildAppDir
 }
